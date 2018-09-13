@@ -1,0 +1,13 @@
+[user]
+	email = courser4848@gmail.com
+	name = xecua
+[core]
+    editor = vim -f
+[color]
+    ui = auto
+[alias]
+    master = checkout master
+    ss = status -sb
+    s = status
+    graph = log --graph --date=short --decorate=short --oneline
+    
