@@ -20,8 +20,9 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 " 全角文字をちゃんと表示する
 set ambiwidth=double
-" バックアップファイルとかスワップファイルを作らない
-set nobackup
+" バックアップファイルを作らない(デフォルトで設定されているので不要)
+" set nobackup 
+" スワップファイルを作らない
 set noswapfile
 " バッファを隠す(?)
 set hidden
