@@ -1,8 +1,8 @@
-" viとの互換性を解除(?)
-if &compatible
-    set nocompatible
-endif
-" これなに
+:" viとの互換性を解除(デフォルトで設定されているため不要)
+" if &compatible
+"     set nocompatible
+" endif
+" ftpluginを利用する際は必要(init.vimはfiletypeに関係なく行う設定を記述しているため)
 filetype plugin indent off
 "マウス有効化
 set mouse=a
@@ -13,42 +13,44 @@ syntax enable
 colorscheme molokai
 " set background=dark
 " colorscheme solarized
-" これなに
-" set t_Co=256
+" 端末での色数を256色に
+set t_Co=256
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" UTF-8で保存するようにする
-set fileencoding=utf-8
+" 書き込み時のエンコーディング(省略するとutf-8になるので不要)
+" set fileencoding=utf-8
+" 読み込み時に試みるエンコーディング(左から順に試す)
 set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 " 全角文字をちゃんと表示する
 set ambiwidth=double
 " バックアップファイルとかスワップファイルを作らない
 set nobackup
 set noswapfile
-" 他エディタによる変更を自動的に読み込む
-set autoread
+" 他エディタによる変更を自動的に読み込む(デフォルトで設定されているため不要)
+" set autoread
 " バッファを隠す(?)
 set hidden
-" コマンドの可視化
-set showcmd
+" コマンドの可視化(デフォルトで設定されているため不要)
+" set showcmd
 " クリップボードとNeoVimの無名レジスタを一体化
 set clipboard+=unnamedplus
-" バックスペースで任意の文字を消せるようになる
-set backspace=indent,eol,start
-" これなに
-set wildmenu
+" バックスペースで任意の文字を消せるようになる(デフォルトで設定されているため不要)
+" コマンドライン補完(下の:wとか打つとこの補完)を拡張モードで行う(デフォルトで設定されているため不要)
+" set wildmenu
 " 行番号
 set number
-" これなに
+" 空白文字等、不可視な文字の可視化
 set list
-set listchars=tab:>-
+" listの設定(デフォルトのが良さげだったので削除)
+" set listchars=tab:>-,
 " インデントとか 見ての通り
 set smartindent
-set autoindent
 set visualbell
+" デフォルトで設定されているため不要
+" set autoindent
 
 " 見た目の行間移動
 nnoremap j gj
@@ -62,9 +64,9 @@ set shiftwidth=4
 " 検索関連
 set ignorecase " 大文字と小文字を区別しない
 set smartcase " 混在しているときに限り区別
-set incsearch " nで次々検索結果を表示
+" set incsearch " nで次々検索結果を表示(デフォルトで設定されているため不要)
 set wrapscan " 下まで行ったら上に戻る
-set hlsearch " ハイライト
+" set hlsearch " ハイライト(デフォルトで設定されているため不要)
 nmap <Esc><Esc> :nohlsearch<CR><Esc> " Esc連打でハイライト解除
 
 " 行頭行末間移動(カーソルキー限定)
@@ -97,7 +99,7 @@ let g:python3_host_prog = expand('~/.pyenv/versions/neovim/bin/python3')
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
 
-" <-- dein関連(WSL用)
+" <-- dein.vim
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
@@ -132,7 +134,7 @@ endif
 " 起動時にdeopleteを有効化
 let g:deoplete#enable_at_startup = 1
 
-" lightline関連
+" lightline.vim
 set showtabline=2  " 常にタブラインを表示
 set noshowmode  " 現在のモードを表示しない(lightlineで表示するため)
 
@@ -418,5 +420,6 @@ nnoremap <silent><F5> :QuickRun<CR>
 autocmd BufWritePost,FileWritePost *.tex QuickRun tex
 autocmd BufNewFile *.tex 0r ~/.vim/template/tex.txt
 
+" 最初にfiletype plugin indent offをしていた場合はこれで読み込みを行う
 filetype plugin indent on
 
