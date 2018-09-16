@@ -30,8 +30,6 @@ set clipboard+=unnamedplus
 set number
 " 空白文字等、不可視な文字の可視化
 set list
-" listの設定(デフォルトのが良さげだったので削除)
-" set listchars=tab:>-,
 " インデントとか 見ての通り
 set smartindent
 set visualbell
