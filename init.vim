@@ -1,7 +1,3 @@
-:" viとの互換性を解除(デフォルトで設定されているため不要)
-" if &compatible
-"     set nocompatible
-" endif
 " ftpluginを利用する際は必要(init.vimはfiletypeに関係なく行う設定を記述しているため)
 filetype plugin indent off
 "マウス有効化
@@ -20,8 +16,6 @@ set fileformats=unix,dos,mac
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-" 書き込み時のエンコーディング(省略するとutf-8になるので不要)
-" set fileencoding=utf-8
 " 読み込み時に試みるエンコーディング(左から順に試す)
 set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 " 全角文字をちゃんと表示する
@@ -29,17 +23,10 @@ set ambiwidth=double
 " バックアップファイルとかスワップファイルを作らない
 set nobackup
 set noswapfile
-" 他エディタによる変更を自動的に読み込む(デフォルトで設定されているため不要)
-" set autoread
 " バッファを隠す(?)
 set hidden
-" コマンドの可視化(デフォルトで設定されているため不要)
-" set showcmd
 " クリップボードとNeoVimの無名レジスタを一体化
 set clipboard+=unnamedplus
-" バックスペースで任意の文字を消せるようになる(デフォルトで設定されているため不要)
-" コマンドライン補完(下の:wとか打つとこの補完)を拡張モードで行う(デフォルトで設定されているため不要)
-" set wildmenu
 " 行番号
 set number
 " 空白文字等、不可視な文字の可視化
@@ -49,8 +36,6 @@ set list
 " インデントとか 見ての通り
 set smartindent
 set visualbell
-" デフォルトで設定されているため不要
-" set autoindent
 
 " 見た目の行間移動
 nnoremap j gj
@@ -64,9 +49,7 @@ set shiftwidth=4
 " 検索関連
 set ignorecase " 大文字と小文字を区別しない
 set smartcase " 混在しているときに限り区別
-" set incsearch " nで次々検索結果を表示(デフォルトで設定されているため不要)
 set wrapscan " 下まで行ったら上に戻る
-" set hlsearch " ハイライト(デフォルトで設定されているため不要)
 nmap <Esc><Esc> :nohlsearch<CR><Esc> " Esc連打でハイライト解除
 
 " 行頭行末間移動(カーソルキー限定)
