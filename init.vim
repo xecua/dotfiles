@@ -27,6 +27,7 @@ set clipboard+=unnamedplus
 set number
 " 空白文字等、不可視な文字の可視化
 set list
+set listchars=tab:>-,trail:*
 " インデントとか 見ての通り
 set smartindent
 set visualbell
