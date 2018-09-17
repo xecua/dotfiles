@@ -3,8 +3,6 @@ filetype plugin indent off
 "マウス有効化
 set mouse=a
 
-" シンタックスハイライト
-syntax enable
 " カラーテーマ
 colorscheme molokai
 " set background=dark
