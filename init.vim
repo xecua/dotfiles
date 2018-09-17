@@ -9,8 +9,7 @@ syntax enable
 colorscheme molokai
 " set background=dark
 " colorscheme solarized
-" 端末での色数を256色に
-set t_Co=256
+" 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
 set termguicolors
