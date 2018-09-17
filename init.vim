@@ -56,7 +56,7 @@ imap <C-S-CR> <Up><End><CR>
 nnoremap <S-CR> mzo<ESC>`z
 nnoremap <C-S-CR> mzO<ESC>`z
 
-" ペースト時のインデントのズレを防ぐ(https://qiita.com/kqt0k0/items/bcfa84c5f85276315954)
+" INSERTモードでのペースト時のインデントのズレを防ぐ(http://vimwiki.net/?tips%2F115)
 if &term =~ "xterm"
     let &t_SI .= "\e[?2004h"
     let &t_EI .= "\e[?2004l"
@@ -66,10 +66,8 @@ if &term =~ "xterm"
         set paste
         return a:ret
     endfunction
-    noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-    cnoremap <special> <Esc>[200~ <nop>
-    cnoremap <special> <Esc>[201~ <nop>
 endif
 
 " pythonのpath
