@@ -111,8 +111,10 @@ endif
 let g:deoplete#enable_at_startup = 1
 
 " lightline.vim
-set showtabline=2  " 常にタブラインを表示
-set noshowmode  " 現在のモードを表示しない(lightlineで表示するため)
+" 常にタブラインを表示
+set showtabline=2 
+" 現在のモードを表示しない(lightlineで表示するため)
+set noshowmode 
 
 
 let g:lightline = {
@@ -145,9 +147,6 @@ let g:lightline.component_function = {
             \   'time': 'LightLineTime',
             \ }
 
-" temporarily unuse
-" 'ale': 'LightLineAle',
-" 'battery': 'LightLineBattery',
 
 let g:lightline.separator = {
             \   'left': "\ue0b0", 'right': "\ue0b2"
