@@ -85,7 +85,6 @@ if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
-  " execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
   set runtimepath^=~/.cache/dein/repos/github.com/Shougo/dein.vim/
 endif
 if dein#load_state(s:dein_dir)
@@ -97,7 +96,6 @@ if dein#load_state(s:dein_dir)
 
   call dein#load_toml(s:toml,      {'lazy': 0})
   call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  call dein#load_toml('~/.vim/rc/python.toml',{'lazy':1})
 
   call dein#end()
   call dein#save_state()
