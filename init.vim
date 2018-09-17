@@ -77,6 +77,12 @@ let g:python3_host_prog = expand('~/.pyenv/versions/neovim/bin/python3')
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
 
+" WSLのクリップボードと連動
+nnoremap <silent> <Space>y :.w !win32yank.exe -i<CR><CR>
+vnoremap <silent> <Space>y :w !win32yank.exe -i<CR><CR>
+nnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
+vnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
+
 " <-- dein.vim
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -240,12 +246,6 @@ let g:lightline.component_type = {
             \ }
 
 
-" WSLのクリップボードと連動
-nnoremap <silent> <Space>y :.w !win32yank.exe -i<CR><CR>
-vnoremap <silent> <Space>y :w !win32yank.exe -i<CR><CR>
-nnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
-vnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
-
 " NERTreeの常駐/隠しファイルの常駐
 let NERDTreeShowHidden = 1
 autocmd StdinReadPre * let s:std_in = 1
@@ -265,15 +265,7 @@ let g:quickrun_config = {
     \ }
 \}
 
-" 実行時に前回の表示内容をクローズ&保存してから実行
-" let g:quickrun_no_default_key_mappings = 1
-" nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-
-
 " ALE:https://qiita.com/lighttiger2505/items/e0ada17634516c081ee7#ale
-" エラー行に表示するマーク
-" let g:ale_sign_error = '⨉'
-" let g:ale_sign_warning = '⚠'
 " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " エラー表示の列を常時表示
@@ -348,7 +340,7 @@ call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 
 " VimTeX
 let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 
-" " Quickrun option for TeX
+" Quickrun option for TeX
  let g:quickrun_config['tex'] = {
  \   'command' : 'latexmk',
  \   'outputter' : 'error',
@@ -365,28 +357,7 @@ let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
  \                        '%a/tmptex.dvi'
  \                        ],
  \}
-"  not in use?
-"  \   'hook/eval/template' : '\documentclass{jsarticle}'
-"  \                         .'\usepackage[dvipdfmx]{graphicx, hyperref}'
-"  \                         .'\usepackage{comment}'
-"  \                         .'\usepackage{float}'
-"  \                         .'\usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs}'
-"  \                         .'\allowdisplaybreaks[1]'
-"  \                         .'\theoremstyle{definition}'
-"  \                         .'\renewcommand{\thesection}{\arabic{section}}'
-"  \                         .'\renewcommand{\thesubsection}{\alph{subsection}}'
-"  \                         .'\newtheorem{theorem}{定理}'
-"  \                         .'\newtheorem*{theorem*}{定理}'
-"  \                         .'\newtheorem{definition}[theorem]{定義}'
-"  \                         .'\newtheorem*{definition*}{定義}'
-"  \                         .'\renewcommand\vector[1]{\mbox{\boldmath{\$#1\$}}}'
-"  \                         .'\begin{document}'
-"  \                         .'%s'
-"  \                         .'\begin{thebibliography}{9}'
-"  \                         .'\end{thebibliography}'
-"  \                         .'\end{document}',
-"  \
-" 
+ 
 vnoremap <silent><buffer> <F5> :QuickRun -mode v -type tmptex<CR>
 
 " QuickRun and view compile result quickly (but don't preview pdf file)
