@@ -66,7 +66,10 @@ if &term =~ "xterm"
         set paste
         return a:ret
     endfunction
-    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")]
+    noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+    cnoremap <special> <Esc>[200~ <nop>
+    cnoremap <special> <Esc>[201~ <nop>
 endif
 
 " pythonのpath
