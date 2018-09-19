@@ -93,7 +93,6 @@ set showtabline=2
 set noshowmode
 
 " Vim markdown(tpope) ぷらぎんでもないのでココに。
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = [
 \ 'html',
 \ 'python',
