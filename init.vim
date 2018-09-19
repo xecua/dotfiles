@@ -3,13 +3,11 @@ filetype plugin indent off
 "マウス有効化
 set mouse=a
 
-" シンタックスハイライト
-syntax enable
 " カラーテーマ
 colorscheme molokai
 " set background=dark
 " colorscheme solarized
-
+" 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
 set termguicolors
@@ -44,12 +42,16 @@ set tabstop=4
 set shiftwidth=4
 
 " 検索関連
-set ignorecase " 大文字と小文字を区別しない
-set smartcase " 混在しているときに限り区別
-set wrapscan " 下まで行ったら上に戻る
-nmap <Esc><Esc> :nohlsearch<CR><Esc> " Esc連打でハイライト解除
+" 大文字と小文字を区別しない
+set ignorecase
+" 混在しているときに限り区別
+set smartcase
+" 下まで行ったら上に戻る
+set wrapscan
+" Esc連打でハイライト解除
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
-" 行頭行末間移動(カーソルキー限定)
+" 行頭行末間移動(backspace, space, カーソルキー)
 set whichwrap=b,s,<,>,[,]
 
 " Shift+Enterで上に、Shift+Ctrl+Enterで下に空行を追加(GUI用)
@@ -90,14 +92,7 @@ set showtabline=2
 " 現在のモードを表示しない(lightlineで表示するため)
 set noshowmode
 
-let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
-let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
-
-set runtimepath+=$XDG_CONFIG_HOME/nvim
-
-runtime! conf/*.vim
-
-" Vim markdown(tpope)
+" Vim markdown(tpope) ぷらぎんでもないのでココに。
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:markdown_fenced_languages = [
 \ 'html',
@@ -108,6 +103,15 @@ let g:markdown_fenced_languages = [
 \ 'c',
 \ 'vim'
 \]
+
+" 各設定で利用する変数
+let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
+let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
+
+set runtimepath+=$XDG_CONFIG_HOME/nvim
+
+" 各種プラグインの設定ファイルを読み込む
+runtime! conf/*.vim
 
 " 最初にfiletype plugin indent offをしていた場合はこれで読み込みを行う
 filetype plugin indent on
