@@ -84,6 +84,11 @@ vnoremap <silent> <Space>y :w !win32yank.exe -i<CR><CR>
 nnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
 vnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
 
+" 常にタブラインを表示
+set showtabline=2 
+" 現在のモードを表示しない(lightlineで表示するため)
+set noshowmode 
+
 " <-- dein.vim
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -118,11 +123,6 @@ endif
 let g:deoplete#enable_at_startup = 1
 
 " lightline.vim
-" 常にタブラインを表示
-set showtabline=2 
-" 現在のモードを表示しない(lightlineで表示するため)
-set noshowmode 
-
 
 let g:lightline = {
             \ 'colorscheme' : 'jellybeans'
@@ -305,7 +305,14 @@ let g:quickrun_config.cpp = {
 
 " Vim markdown(tpope)
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-let g:markdown_fenced_languages = ['html','python','bash=sh']
+let g:markdown_fenced_languages = [
+\ 'html',
+\ 'python',
+\ 'bash=sh',
+\ 'js=javascript',
+\ 'json=javascript',
+\ 'c',
+\ ]
 
 " TeX Settings
 " https://trap.jp/posts/396
@@ -327,11 +334,6 @@ imap <expr><tab> pumvisible() ? "\<C-n>" :
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-
-" conceal markers
-if has('conceal')
-    set conceallevel=0 concealcursor=niv
-endif
 
 " lexima options for TeX
 call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
