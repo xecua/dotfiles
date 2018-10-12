@@ -13,6 +13,9 @@ call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 
 " VimTeX
 let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 
+" set all file whose extension is '.tex' as LaTeX file
+let g:tex_flavor = 'latex'
+
 " " Quickrun option for TeX
  let g:quickrun_config['tex'] = {
  \   'command' : 'latexmk',
@@ -34,6 +37,5 @@ let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 vnoremap <silent><buffer> <F5> :QuickRun -mode v -type tmptex<CR>
 
 autocmd BufWritePost,FileWritePost *.tex QuickRun tex
-autocmd BufNewFile *.tex 0r ~/.vim/template/tex.txt
-
+autocmd BufNewFile *.tex 0r ~/.config/nvim/template/tex.tex
 

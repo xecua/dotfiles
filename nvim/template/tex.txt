@@ -1,5 +1,6 @@
 \documentclass[uplatex]{jsarticle}
-\usepackage[dvipdfmx]{graphicx, hyperref}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{url}
 \usepackage{comment}
 \usepackage{float}
 \usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs}
@@ -10,6 +11,22 @@
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\alph{subsection}}
 
+\newcommand{\disp}{\displaystyle}
+\makeatletter
+\def\id#1{\def\@id{#1}}
+\def\@maketitle{
+    \begin{center}
+        \vspace*{80mm}
+        {\huge {\bf \@title \par}}
+        \vspace{80mm}
+        {\LARGE {\bf \@id \@author\par}}
+        \vspace{10mm}
+        提出日: \@date\par
+        \newpage
+    \end{center}
+}
+\makeatother
+
 \newtheorem{theorem}{定理}
 \newtheorem*{theorem*}{定理}
 \newtheorem{definition}[theorem]{定義}
@@ -17,8 +34,13 @@
 
 \renewcommand\vector[1]{\mbox{\boldmath{\$#1\$}}}
 
-\begin{document}
+\author{}
+\id{}
+\date{}
+\title{}
 
+\begin{document}
+\maketitle
 
 \begin{thebibliography}{9}
 \end{thebibliography}
