@@ -106,3 +106,8 @@ repo = 'basyura/TweetVim'
 [[plugins]]
 repo = 'lervag/vimtex'
 on_ft = ['tex']
+
+
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = ['fish']
