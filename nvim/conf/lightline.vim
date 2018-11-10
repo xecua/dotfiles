@@ -10,7 +10,7 @@
              \ }
 let g:lightline.tabline = {
             \ 'left': [ [ 'tabs' ] ],
-            \ 'right': [ [ 'time' ] ]
+            \ 'right': [ [ 'battery', 'time' ] ]
             \ }
 let g:lightline.component = {}
 let g:lightline.component_function = {
@@ -23,6 +23,7 @@ let g:lightline.component_function = {
             \   'fileencoding': 'LightLineFileencoding',
             \   'mode': 'LightLineMode',
             \   'time': 'LightLineTime',
+            \   'battery': 'LightLineBattery',
             \ }
 
 let g:lightline.separator = {
@@ -85,4 +86,14 @@ endfunction
 
 function! LightLineTime()
     return system('date +"%H:%M"')[:-2]
+endfunction
+
+function! LightLineBattery()
+    let battery = str2nr(system("cat /sys/class/power_supply/battery/capacity"), 10)
+    let batteryIcon = battery >= 80 ? ' ' :
+                    \ battery >= 60 ? ' ' :
+                    \ battery >= 40 ? ' ' :
+                    \ battery >= 20 ? ' ' :
+                    \ battery >= 0  ? ' ' : ''
+    return printf('%d%% %s', battery, batteryIcon)
 endfunction
