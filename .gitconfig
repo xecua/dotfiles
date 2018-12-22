@@ -2,12 +2,18 @@
 	email = courser4848@gmail.com
 	name = xecua
 [core]
-    editor = vim -f
+    editor = nvim -f
 [color]
     ui = auto
 [alias]
-    master = checkout master
-    ss = status -sb
+    m = checkout master
     s = status
-    graph = log --graph --date=short --decorate=short --oneline
-    
+    ss = status -sb
+    c = commit
+    co = checkout
+    b = branch
+    d = diff
+    l = log
+    g = log --graph --date=short --decorate=short --oneline
+    r = rebase
+    ri = rebase -i

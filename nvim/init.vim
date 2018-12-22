@@ -1,12 +1,11 @@
-" ftpluginを利用する際は必要(init.vimはfiletypeに関係なく行う設定を記述しているため)
 filetype plugin indent off
 "マウス有効化
 set mouse=a
 
 " カラーテーマ
-colorscheme molokai
-" set background=dark
-" colorscheme solarized
+" colorscheme molokai
+set background=dark
+colorscheme solarized
 " 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
@@ -92,6 +91,9 @@ set showtabline=2
 " 現在のモードを表示しない(lightlineで表示するため)
 set noshowmode
 
+" set all file whose extension is '.tex' as LaTeX file
+let g:tex_flavor = 'latex'
+
 " Vim markdown(tpope) ぷらぎんでもないのでココに。
 let g:markdown_fenced_languages = [
 \ 'html',
@@ -112,6 +114,5 @@ set runtimepath+=$XDG_CONFIG_HOME/nvim
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
 
-" 最初にfiletype plugin indent offをしていた場合はこれで読み込みを行う
 filetype plugin indent on
 

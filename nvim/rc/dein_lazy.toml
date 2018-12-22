@@ -115,3 +115,7 @@ on_ft = ['fish']
 [[plugins]]
 repo = 'vim-scripts/nimrod.vim'
 on_ft = ['nim']
+
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html']
