@@ -6,6 +6,7 @@
 [color]
     ui = auto
 [alias]
+    a = add
     m = checkout master
     s = status
     ss = status -sb
@@ -17,3 +18,5 @@
     g = log --graph --date=short --decorate=short --oneline
     r = rebase
     ri = rebase -i
+    p = push
+    po = push origin
