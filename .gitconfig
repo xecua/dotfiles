@@ -7,10 +7,16 @@
     ui = auto
 [alias]
     a = add
+    p = push
+    po = push origin
+    pl = pull
+    plo = pull origin
+    f = fetch -prune
     m = checkout master
     s = status
     ss = status -sb
     c = commit
+    cm = commit -am
     co = checkout
     b = branch
     d = diff
@@ -18,5 +24,3 @@
     g = log --graph --date=short --decorate=short --oneline
     r = rebase
     ri = rebase -i
-    p = push
-    po = push origin
