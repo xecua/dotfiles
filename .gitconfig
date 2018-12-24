@@ -12,11 +12,11 @@
     pl = pull
     plo = pull origin
     f = fetch -prune
-    m = checkout master
+    m = merge
+    mas = checkout master
     s = status
     ss = status -sb
-    c = commit
-    cm = commit -am
+    c = commit -am
     co = checkout
     b = branch
     d = diff
