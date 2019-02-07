@@ -10,6 +10,7 @@ set -x PATH $PYENV_ROOT/bin $PATH
 set -x GOPATH $HOME/.golang
 set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
+set -x PATH /home/xecua/.local/bin $PATH
 set -x MATLAB_USE_USERWORK 1
 set -x PATH /usr/local/MATLAB/R2018b/bin $PATH
 set -x LANG "ja_JP.UTF-8"
@@ -59,6 +60,7 @@ alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
 alias cls clear
+alias exp "explorer.exe ."
 
 # it's dull to type 'n'
 alias vim nvim
@@ -73,3 +75,8 @@ alias mozc_conf '/usr/lib/mozc/mozc_tool --mode=config_dialog'
 # make be able to execute ELF 32-bit Executable on 64bit machine using qemu
 alias bin32 "sudo update-binfmts --install qemu-i386 /usr/bin/qemu-i386-static --magic '\x7f\x45\x4c\x46\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00' --mask '\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'"
 
+# Rust REPL
+alias rust evcxr
+
+# oh-my-fish/theme-bobthefish
+set -g theme_display_date no
