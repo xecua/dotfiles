@@ -30,6 +30,8 @@ set listchars=tab:>-,trail:*,nbsp:+
 " インデントとか 見ての通り
 set smartindent
 set visualbell
+" ヘルプの日本語化
+set helplang=ja,en
 
 " 見た目の行間移動
 nnoremap j gj

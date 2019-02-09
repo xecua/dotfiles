@@ -53,3 +53,6 @@ repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
+
+# helpの日本語化
+repo = 'vim-jp/vimdoc-ja'
