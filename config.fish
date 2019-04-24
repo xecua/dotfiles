@@ -5,14 +5,18 @@ set -x DISPLAY localhost:0.0
 
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
-set -x PYENV_ROOT $HOME/.pyenv
+set -x ANYENV_ROOT $HOME/.anyenv
+set -x PATH $HOME/.anyenv/bin $PATH
+source (anyenv init -|psub)
+set -x PYENV_ROOT $ANYENV_ROOT/envs/pyenv
+set -x WORKON_HOME $HOME/.virtualenvs
 set -x PATH $PYENV_ROOT/bin $PATH
 set -x GOPATH $HOME/.golang
 set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
 set -x PATH /home/xecua/.local/bin $PATH
 set -x MATLAB_USE_USERWORK 1
-set -x PATH /usr/local/MATLAB/R2018b/bin $PATH
+set -x PATH /usr/local/MATLAB/R2019a/bin $PATH
 set -x LANG "ja_JP.UTF-8"
 set -x LC_ALL "$LANG"
 set -x LIBGL_ALWAYS_INDIRECT 1
@@ -80,3 +84,8 @@ alias rust evcxr
 
 # oh-my-fish/theme-bobthefish
 set -g theme_display_date no
+set -g theme_display_cmd_duration no
+
+# atcoder python version 3.4.3
+alias atcoder 'source (pyenv init -|psub); and pyenv shell 3.4.3'
+

@@ -1,0 +1,26 @@
+snippet main
+abbr main function
+options head
+    def main():
+        ${0}
+
+
+    if __name__ == "__main__":
+        main()
+
+snippet compete
+options head
+    from sys import stdin, stderr, setrecursionlimit, exit
+    setrecursionlimit(2147483647)
+    def getint():
+        return int(stdin.readline().rstrip('\r\n'))
+    def getints():
+        return [int(i) for i in stdin.readline().rstrip().split()]
+    def getintlines(n=1):
+        return [int(i) for i in stdin.readlines()]
+    def getintslines():
+        return [[int(i) for i in s.split()] for s in stdin.readlines()]]
+    def debug(*args, **kwargs):
+        print(*args, file=stderr, **kwargs)
+
+    ${0}

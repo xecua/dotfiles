@@ -17,8 +17,8 @@ let g:quickrun_config = {
 
 let g:quickrun_config.cpp = {
             \ 'command' : 'g++',
-            \ 'cmdopt' : '-std=c++11'
             \ }
+"\ 'cmdopt' : '-std=c++17'
 
 " QuickRun and view compile result quickly (but don't preview pdf file)
 nnoremap <silent><F5> :QuickRun<CR>

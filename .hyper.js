@@ -112,6 +112,7 @@ module.exports = {
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
     shell: 'C:\\Windows\\System32\\wsl.exe',
     // shell: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`,
+    // shell: '/usr/bin/fish',
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
@@ -138,7 +139,8 @@ module.exports = {
     // bellSoundURL: 'http://example.com/bell.mp3',
 
     // for advanced config flags please refer to https://hyper.is/#cfg
-    
+    scrollback: '10000',
+
     // hyper-opacity
     // /*
     opacity: {

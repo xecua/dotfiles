@@ -4,7 +4,7 @@ set mouse=a
 
 " カラーテーマ
 " colorscheme molokai
-set background=dark
+" set background=dark
 colorscheme solarized
 " 改行コードを指定
 set fileformats=unix,dos,mac
@@ -20,7 +20,7 @@ set ambiwidth=double
 set noswapfile
 " バッファを隠す(?)
 set hidden
-" クリップボードとNeoVimの無名レジスタを一体化
+" クリップボードとNeovimの無名レジスタを一体化
 set clipboard+=unnamedplus
 " 行番号
 set number
@@ -77,7 +77,7 @@ endif
 
 " pythonのpath
 let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim/bin/python3')
+let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/versions/3.5.5/bin/python3')
 
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>

@@ -1,4 +1,4 @@
-" https://trap.jp/posts/396
+" https://trap.jp/post/396
 
 " reset augroup
 augroup MyAutoCmd
