@@ -24,3 +24,4 @@
     g = log --graph --date=short --decorate=short --oneline
     r = rebase
     ri = rebase -i
+    amend = commit -a --amend
