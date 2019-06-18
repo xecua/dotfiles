@@ -11,7 +11,7 @@
     po = push origin
     pl = pull
     plo = pull origin
-    f = fetch -prune
+    f = fetch --prune
     m = merge
     mas = checkout master
     s = status

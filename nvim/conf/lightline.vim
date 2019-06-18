@@ -89,7 +89,7 @@ function! LightLineTime()
 endfunction
 
 function! LightLineBattery()
-    let battery = str2nr(system("cat /sys/class/power_supply/battery/capacity"), 10)
+    let battery = str2nr(system("cat /sys/class/power_supply/BAT0/capacity"), 10)
     let batteryIcon = battery >= 80 ? ' ' :
                     \ battery >= 60 ? ' ' :
                     \ battery >= 40 ? ' ' :

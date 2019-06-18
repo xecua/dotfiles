@@ -23,11 +23,15 @@ on_source  = ['denite.nvim']
 
 [[plugins]]
 repo = 'zchee/deoplete-clang'
-on_ft = ['cpp']
-hook_add = """
-let g:deoplete#sources#clang#libclang_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
-"""
+on_ft = ['c', 'cpp']
+# hook_add = """
+# let g:deoplete#sources#clang#libclang_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+# let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
+# """
+hook_source = '''
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+'''
 on_source = ['deoplete.nvim']
 
 
@@ -47,6 +51,18 @@ autocmd BufWrite *.{cpp} :CPPCodeCleanup
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['python']
+hook_source = '''
+  let g:jedi#popup_select_first = 0
+  let g:jedi#completions_command = "<C-l>"
+  let g:jedi#popup_on_dot = 0
+  let g:jedi#goto_command = "<leader>d"
+  let g:jedi#goto_assignments_command = "<leader>g"
+  let g:jedi#goto_definitions_command = ""
+  let g:jedi#documentation_command = "K"
+  let g:jedi#usages_command = "<leader>n"
+  let g:jedi#rename_command = "<leader>R" #quick-runと競合しないように大文字Rに変更. READMEだと<leader>r
+  autocmd FileType python setlocal completeopt-=preview #ポップアップを表示しない
+'''
 
 [[plugins]]
 repo = 'zchee/deoplete-jedi'

@@ -77,7 +77,7 @@ endif
 
 " pythonのpath
 let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/versions/3.5.5/bin/python3')
+let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/shims/python3')
 
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
