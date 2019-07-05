@@ -1,8 +1,5 @@
 source ~/.config/fish/conf.d/alias.fish
 
-# X Window
-set -x DISPLAY localhost:0.0
-
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_RUNTIME_DIR /tmp/runtime
@@ -28,21 +25,6 @@ set -x PATH $HOME/.local/bin $PATH
 
 set -x MATLAB_USE_USERWORK 1
 set -x PATH /usr/local/MATLAB/R2019a/bin $PATH
-
-set -x LANG "ja_JP.UTF-8"
-set -x LC_ALL "$LANG"
-set -x LIBGL_ALWAYS_INDIRECT 1
-set -x XIM "fcitx"
-set -x GTK_IM_MODULE "$XIM"
-set -x QT_IM_MODULE "$XIM"
-set -x XMODIFIERS "@im=$XIM"
-set -x DefaultIMModule "$XIM"
-set -x NO_AT_BRIDGE 1
-
-if not pgrep mozc_server > /dev/null
-    xset -r 49
-    fcitx-autostart > /dev/null
-end
 
 # like pbcopy(macOS)
 alias pbcopy 'xsel --clipboard --input'
@@ -78,7 +60,7 @@ alias egrep 'egrep --color=auto'
 alias cls clear
 alias exp "explorer.exe ."
 
-# it's dull to type 'n'
+alias vi nvim
 alias vim nvim
 alias emacs nvim
 alias :q exit
@@ -88,9 +70,6 @@ alias ssh-agent 'ssh-agent -c'
 
 alias mozc_conf '/usr/lib/mozc/mozc_tool --mode=config_dialog'
 
-# make be able to execute ELF 32-bit Executable on 64bit machine using qemu
-alias bin32 "sudo update-binfmts --install qemu-i386 /usr/bin/qemu-i386-static --magic '\x7f\x45\x4c\x46\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00' --mask '\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'"
-
 # Rust REPL
 alias rust evcxr
 
@@ -98,6 +77,5 @@ alias rust evcxr
 set -g theme_display_date no
 set -g theme_display_cmd_duration no
 
-# atcoder python version 3.4.3
-alias atcoder 'source (pyenv init -|psub); and pyenv shell 3.4.3'
+alias latexmk-docker "docker run --rm -it -v (pwd):/workdir -u (id -u):(id -g) arkark/latexmk"
 
