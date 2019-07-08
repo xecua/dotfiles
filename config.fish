@@ -2,12 +2,13 @@ source ~/.config/fish/conf.d/alias.fish
 
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
-set -x XDG_RUNTIME_DIR /tmp/runtime
+set -x XDG_RUNTIME_DIR $HOME/.tmp
 
 set -x ANYENV_ROOT $HOME/.anyenv
 set -x PATH $HOME/.anyenv/bin $PATH
 source (anyenv init -|psub)
 
+set -x PATH $HOME/.poetry/bin $PATH
 set -x PYENV_ROOT $ANYENV_ROOT/envs/pyenv
 set -x WORKON_HOME $HOME/.virtualenvs
 set -x PATH $PYENV_ROOT/bin $PATH
@@ -26,6 +27,8 @@ set -x PATH $HOME/.local/bin $PATH
 set -x MATLAB_USE_USERWORK 1
 set -x PATH /usr/local/MATLAB/R2019a/bin $PATH
 
+set -x LANG "ja_JP.UTF-8"
+set -x LC_ALL "$LANG"
 # like pbcopy(macOS)
 alias pbcopy 'xsel --clipboard --input'
 
@@ -54,6 +57,7 @@ alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
+alias sl 'ls --color=auto'
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
@@ -68,14 +72,8 @@ alias :q exit
 # in fish, we must use like csh
 alias ssh-agent 'ssh-agent -c'
 
-alias mozc_conf '/usr/lib/mozc/mozc_tool --mode=config_dialog'
-
-# Rust REPL
-alias rust evcxr
-
 # oh-my-fish/theme-bobthefish
 set -g theme_display_date no
 set -g theme_display_cmd_duration no
 
 alias latexmk-docker "docker run --rm -it -v (pwd):/workdir -u (id -u):(id -g) arkark/latexmk"
-
