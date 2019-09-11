@@ -25,3 +25,7 @@
     r = rebase
     ri = rebase -i
     amend = commit -a --amend
+    st = stash
+    sl = stash list
+    sp = stash pop
+    sd = stash drop
