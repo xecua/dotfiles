@@ -1,6 +1,7 @@
 [user]
-	email = courser4848@gmail.com
-	name = xecua
+    email = courser4848@gmail.com
+    name = xecua
+    signingkey = 335095B0
 [core]
     editor = nvim -f
 [color]
@@ -9,7 +10,7 @@
     a = add
     p = push
     po = push origin
-    pl = pull
+    pl = pull --prune
     plo = pull origin
     f = fetch --prune
     m = merge
@@ -29,3 +30,7 @@
     sl = stash list
     sp = stash pop
     sd = stash drop
+[gpg]
+    program = /usr/bin/gpg
+[commit]
+    gpgsign = true
