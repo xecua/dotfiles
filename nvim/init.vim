@@ -107,6 +107,11 @@ let g:markdown_fenced_languages = [
 \ 'vim'
 \]
 
+" LSP(https://github.com/autozimu/LanguageClient-neovim)
+let g:LanguageClient_serverCommands = {
+\  'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+\ }
+
 " 各設定で利用する変数
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
 let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'

@@ -56,3 +56,10 @@ repo = 'altercation/vim-colors-solarized'
 
 # helpの日本語化
 repo = 'vim-jp/vimdoc-ja'
+
+# LSP Client
+[[plugins]]
+repo = "autozimu/LanguageClient-neovim"
+rev = "next"
+build = "bash install.sh"
+
