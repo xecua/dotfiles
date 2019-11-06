@@ -28,14 +28,21 @@ alias clang++20 'clang++ -std=c++2a'
 alias clang-format "clang-format -style='{BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup,IndentWidth: 4}'"
 
 # some useful aliases
-alias ls 'ls --color=auto'
 alias ll 'ls -alF'
 alias la 'ls -A'
 alias l 'ls -CF'
-alias sl 'ls --color=auto'
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
+switch (uname)
+    case Linux
+        alias ls 'ls --color=auto'
+        alias sl 'ls --color=auto'
+    case Darwin
+        alias ls 'ls -G'
+        alias sl 'ls -G'
+end
+
 alias cls clear
 
 alias vi nvim
