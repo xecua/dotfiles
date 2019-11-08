@@ -3,9 +3,9 @@ filetype plugin indent off
 set mouse=a
 
 " カラーテーマ
-" colorscheme molokai
+colorscheme molokai
 " set background=dark
-colorscheme solarized
+" colorscheme solarized
 " 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用

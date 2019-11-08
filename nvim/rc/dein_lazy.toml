@@ -13,6 +13,12 @@ on_event = 'InsertEnter'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+# LSP Client
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merge = '0'
+rev = 'release'
+
 [[plugins]]
 repo = 'Robzz/deoplete-omnisharp'
 on_source = ['deoplete.nvim']
@@ -49,56 +55,8 @@ autocmd BufWrite *.{cpp} :CPPCodeCleanup
 """
 
 [[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['python']
-hook_source = '''
-  let g:jedi#popup_select_first = 0
-  let g:jedi#completions_command = "<C-l>"
-  let g:jedi#popup_on_dot = 0
-  let g:jedi#goto_command = "<leader>d"
-  let g:jedi#goto_assignments_command = "<leader>g"
-  let g:jedi#goto_definitions_command = ""
-  let g:jedi#documentation_command = "K"
-  let g:jedi#usages_command = "<leader>n"
-  let g:jedi#rename_command = "<leader>R" #quick-runと競合しないように大文字Rに変更. READMEだと<leader>r
-  autocmd FileType python setlocal completeopt-=preview #ポップアップを表示しない
-'''
-
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-
-[[plugins]]
-repo = 'andviro/flake8-vim'
-on_ft = ['python']
-
-[[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 on_ft = ['python']
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = ['go']
-
-[[plugins]]
-repo = 'othree/yajs.vim'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = "othree/es.next.syntax.vim"
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'mxw/vim-jsx'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'Valloric/YouCompleteMe'
-on_ft = ['javascript']
-
-[[plugins]]
-repo = 'OmniSharp/omnisharp-vim'
-on_ft = ['cs']
-build = 'xbuild server/OmniSharp.sln'
 
 [[plugins]]
 repo = "cespare/vim-toml"
@@ -108,22 +66,6 @@ on_ft = ['toml']
 repo = 'tpope/vim-markdown'
 on_ft = ['markdown','mkd']
 
-# twitter
-[[plugins]]
-repo = 'tyru/open-browser.vim'
-
-[[plugins]]
-repo = 'basyura/twibill.vim'
-
-[[plugins]]
-repo = 'basyura/TweetVim'
-
-# TeX
-[[plugins]]
-repo = 'lervag/vimtex'
-on_ft = ['tex']
-
-
 [[plugins]]
 repo = 'dag/vim-fish'
 on_ft = ['fish']
@@ -132,6 +74,3 @@ on_ft = ['fish']
 repo = 'vim-scripts/nimrod.vim'
 on_ft = ['nim']
 
-[[plugins]]
-repo = 'mattn/emmet-vim'
-on_ft = ['html']

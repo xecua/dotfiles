@@ -23,13 +23,9 @@ repo = 'w0rp/ale'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-# [[plugins]]
-# repo = 'kana/vim-smartinput'
-
-# autocomplete plugin(replaced with smartinput)
+# Automatically complete closing brace
 [[plugins]]
 repo = 'cohama/lexima.vim'
-# on_i = 1 : deprecated. We should use below
 on_event = 'InsertEnter'
 
 [[plugins]]
@@ -48,18 +44,10 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 [[plugins]]
 repo =  'itchyny/lightline.vim'
 
+# comment out
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
-
 # helpの日本語化
 repo = 'vim-jp/vimdoc-ja'
-
-# LSP Client
-[[plugins]]
-repo = "autozimu/LanguageClient-neovim"
-rev = "next"
-build = "bash install.sh"
 
