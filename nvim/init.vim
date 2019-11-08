@@ -1,6 +1,7 @@
 filetype plugin indent off
 "マウス有効化
 set mouse=a
+let OS = system("uname")
 
 " カラーテーマ
 colorscheme molokai
@@ -18,7 +19,7 @@ set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 set ambiwidth=double
 " スワップファイルを作らない
 set noswapfile
-" バッファを隠す(?)
+" バッファを隠す
 set hidden
 " クリップボードとNeovimの無名レジスタを一体化
 set clipboard+=unnamedplus
@@ -32,15 +33,17 @@ set smartindent
 set visualbell
 " ヘルプの日本語化
 set helplang=ja,en
+" アイコン表示用の幅を確保
+set signcolumn=yes
 
 " 見た目の行間移動
 nnoremap j gj
 nnoremap k gk
 
-" タブ関連 見ての通り(?)
-set expandtab
-set tabstop=4
-set shiftwidth=4
+" タブ関連
+set expandtab " スペースを使う
+set tabstop=4 " 幅4
+set shiftwidth=4 " 幅4
 
 " 検索関連
 " 大文字と小文字を区別しない
@@ -79,6 +82,7 @@ endif
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/shims/python3')
 
+
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
 
@@ -95,6 +99,9 @@ set noshowmode
 
 " set all file whose extension is '.tex' as LaTeX file
 let g:tex_flavor = 'latex'
+"
+" 拡張子とfiletypeを関連づける
+autocmd BufNewFile,BufRead *.nvim setfiletype vim
 
 " Vim markdown(tpope) ぷらぎんでもないのでココに。
 let g:markdown_fenced_languages = [
@@ -107,11 +114,6 @@ let g:markdown_fenced_languages = [
 \ 'vim'
 \]
 
-" LSP(https://github.com/autozimu/LanguageClient-neovim)
-let g:LanguageClient_serverCommands = {
-\  'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-\ }
-
 " 各設定で利用する変数
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
 let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
@@ -120,6 +122,7 @@ set runtimepath+=$XDG_CONFIG_HOME/nvim
 
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
+runtime! conf/*.nvim
 
 filetype plugin indent on
 
