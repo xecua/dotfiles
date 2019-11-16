@@ -1,7 +1,6 @@
 filetype plugin indent off
 "マウス有効化
 set mouse=a
-let OS = system("uname")
 
 " カラーテーマ
 colorscheme molokai
@@ -58,13 +57,6 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " 行頭行末間移動(backspace, space, カーソルキー)
 set whichwrap=b,s,<,>,[,]
 
-" Shift+Enterで上に、Shift+Ctrl+Enterで下に空行を追加(GUI用)
-imap <S-CR> <End><CR>
-imap <C-S-CR> <Up><End><CR>
-
-nnoremap <S-CR> mzo<ESC>`z
-nnoremap <C-S-CR> mzO<ESC>`z
-
 " ペースト時のインデントのズレを防ぐ(https://qiita.com/kqt0k0/items/bcfa84c5f85276315954)
 if &term =~ "xterm"
     let &t_SI .= "\e[?2004h"
@@ -79,18 +71,12 @@ if &term =~ "xterm"
 endif
 
 " pythonのpath
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/shims/python3')
+let g:python_host_prog = '/usr/local/bin/python2'
+let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/versions/anaconda3-2019.10/bin/python3')
 
 
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
-
-" WSLのクリップボードと連動
-nnoremap <silent> <Space>y :.w !win32yank.exe -i<CR><CR>
-vnoremap <silent> <Space>y :w !win32yank.exe -i<CR><CR>
-nnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
-vnoremap <silent> <Space>p :r !win32yank.exe -o<CR>
 
 " 常にタブラインを表示
 set showtabline=2
@@ -99,9 +85,6 @@ set noshowmode
 
 " set all file whose extension is '.tex' as LaTeX file
 let g:tex_flavor = 'latex'
-"
-" 拡張子とfiletypeを関連づける
-autocmd BufNewFile,BufRead *.nvim setfiletype vim
 
 " Vim markdown(tpope) ぷらぎんでもないのでココに。
 let g:markdown_fenced_languages = [

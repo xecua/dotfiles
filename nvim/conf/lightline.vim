@@ -1,18 +1,21 @@
- let g:lightline = {
-             \ 'colorscheme' : 'jellybeans'
-             \ }
- let g:lightline.active = {
-             \   'left': [ ['mode', 'paste'],
-             \             ['fugitive', 'readonly', 'filename', 'modified'] ],
-             \   'right': [ [ 'lineinfo' ],
-             \              [ 'percent', 'ale' ],
-             \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-             \ }
+let g:lightline = {
+            \ 'colorscheme' : 'jellybeans'
+            \ }
+let g:lightline.active = {
+            \   'left': [ ['mode', 'paste'],
+            \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+            \   'right': [ [ 'lineinfo' ],
+            \              [ 'percent', 'ale' ],
+            \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+            \ }
 let g:lightline.tabline = {
             \ 'left': [ [ 'tabs' ] ],
             \ 'right': [ [ 'battery', 'time' ] ]
             \ }
-let g:lightline.component = {}
+let g:lightline.component = {
+            \   'readonly': '%{&readonly ? "⭤" : ""}',
+            \ }
+
 let g:lightline.component_function = {
             \   'modified': 'LightLineModified',
             \   'readonly': 'LightLineReadonly',
@@ -22,8 +25,9 @@ let g:lightline.component_function = {
             \   'filetype': 'LightLineFiletype',
             \   'fileencoding': 'LightLineFileencoding',
             \   'mode': 'LightLineMode',
-            \   'time': 'LightLineTime',
+            \   'ale': 'LightLineAle',
             \   'battery': 'LightLineBattery',
+            \   'time': 'LightLineTime',
             \ }
 
 let g:lightline.separator = {
@@ -31,23 +35,23 @@ let g:lightline.separator = {
             \ }
 
 let g:lightline.subseparator = {
-            \ 'left': "\ue0b1", 'right': "\ue0b3"
+            \ 'left': "\ue0b1", 'right': '\ue0b3'
             \ }
 
 function! LightLineModified()
     return &ft =~ 'help\|nerdtree' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
- function! LightLineReadonly()
-     return &ft !~? 'help\|nerdtree' && &readonly ? 'x' : ''
- endfunction
+function! LightLineReadonly()
+    return &ft !~? 'help\|nerdtree' && &readonly ? 'x' : ''
+endfunction
 
- function! LightLineFilename()
-     return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                 \ (&ft == 'denite' ? denite#get_status_sources() :
-                 \ (&ft == 'nerdtree' ? expand('%:~:h') :
-                 \ '' != expand('%:t') ? expand('%:~:.:h') . '/'. expand('%:t') : '[No Name]'))
- endfunction
+function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+                \ (&ft == 'denite' ? denite#get_status_sources() :
+                \ (&ft == 'nerdtree' ? expand('%:~:h') :
+                \ '' != expand('%:t') ? expand('%:~:.:h') . '/'. expand('%:t') : '[No Name]'))
+endfunction
 
 function! LightLineFiletype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol()[0:2] : 'no ft') : ''
@@ -73,27 +77,50 @@ augroup LightLineOnALE
     autocmd User ALELint call lightline#update()
 augroup END
 
+function! ALEStatusLine()
+    let l:count = ale#statusline#Count(bufnr(''))
+    let l:errors = l:count.error + l:count.style_error
+    let l:warnings = l:count.warning + l:count.style_warning
+    return l:count.total == 0 ? '⬥ ok' :
+                \ l:errors != 0 && l:warnings != 0 ? ' ' . l:errors . ' ' . l:warnings :
+                \ l:errors != 0 && l:warnings == 0 ? ' ' . l:errors :
+                \ ' ' . l:warnings
+endfunction
+
+function! LightLineAle()
+    return &ft == 'denite' ? '' :
+                \ &ft == 'nerdtree' ? '':
+                \ ALEStatusLine()
+endfunction
+
+" ALEGetStatusLine()はdeprecatedなので変更
+"function! LightLineAle()
+"    return &ft == 'denite' ? '' :
+"                \ &ft == 'nerdtree' ? '':
+"                \ ALEGetStatusLine()
+"endfunction
+
 function! LightLineFugitive()
     try
         if &ft !~? 'vimfiler\|gundo\|vaffle' && exists('*fugitive#head')
             let _ = fugitive#head()
             return strlen(_) ? '⭠ '._ : ''
-         endif
+        endif
     catch
     endtry
     return ''
 endfunction
 
-function! LightLineTime()
-    return system('date +"%H:%M"')[:-2]
-endfunction
-
 function! LightLineBattery()
-    let battery = str2nr(system("cat /sys/class/power_supply/BAT0/capacity"), 10)
+    let battery = str2nr(system("pmset -g ps | tail -n 1 | awk '{print $3}' | sed 's/;//'")[:-3], 10)
     let batteryIcon = battery >= 80 ? ' ' :
                     \ battery >= 60 ? ' ' :
                     \ battery >= 40 ? ' ' :
                     \ battery >= 20 ? ' ' :
                     \ battery >= 0  ? ' ' : ''
     return printf('%d%% %s', battery, batteryIcon)
+endfunction
+
+function! LightLineTime()
+    return system('date +"%H:%M"')[:-2]
 endfunction
