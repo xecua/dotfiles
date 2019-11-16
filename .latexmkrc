@@ -9,6 +9,6 @@ $makeindex = 'mendex';
 $pdf_mode = 3;
 $pdf_previewer = '/Applications/Skim.app/Contents/MacOS/Skim';
 $max_repeat = 5;
-$out_dir = 'latexmk';
+$out_dir = 'out';
 
 $pvc_view_file_via_temporary = 0;
