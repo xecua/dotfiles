@@ -49,6 +49,7 @@ alias vi nvim
 alias vim nvim
 alias emacs nvim
 alias :q exit
+alias top htop
 
 # in fish, ssh-agent must be used with -c
 alias ssh-agent 'ssh-agent -c'
@@ -56,4 +57,9 @@ alias ssh-agent 'ssh-agent -c'
 # oh-my-fish/theme-bobthefish
 set -g theme_display_date no
 set -g theme_display_cmd_duration no
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /Users/xecua/.anyenv/envs/pyenv/versions/anaconda3-2019.10/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
 

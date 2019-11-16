@@ -1,15 +1,14 @@
 #!/usr/bin/perl
 
-$latex = 'uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1 %S';
-$latex_silent = 'uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1 %S';
-$lualatex = 'lualatex %O -interaction=nonstopmode -synctex=1 %S';
-$dvipdf = 'dvipdfmx %S';
+$latex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
+$latex_silent = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
+$lualatex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; lualatex -interaction=nonstopmode -synctex=1S';
+$dvipdf = 'dvipdfmx -o %D %S';
 $bibtex = 'pbibtex';
-$makeindex = 'mendex %O -o %D %S';
+$makeindex = 'mendex';
 $pdf_mode = 3;
-# $pdf_update_method = 2;
-$pdf_previewer = '"/mnt/c/Program Files/SumatraPDF/SumatraPDF.exe" -reuse-instance %O %S';
-$pdf_update_command = '"/mnt/c/Program Files/SumatraPDF/SumatraPDF.exe" -reuse-instance %O %S';
+$pdf_previewer = '/Applications/Skim.app/Contents/MacOS/Skim';
 $max_repeat = 5;
+$out_dir = 'latexmk';
 
 $pvc_view_file_via_temporary = 0;
