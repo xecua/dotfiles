@@ -2,8 +2,6 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_RUNTIME_DIR $HOME/.tmp
 
-source $XDG_CONFIG_HOME/fish/conf.d/alias.fish
-
 set -x LANG "ja_JP.UTF-8"
 set -x LC_ALL "$LANG"
 
@@ -34,14 +32,8 @@ alias l 'ls -CF'
 alias grep 'grep --color=auto'
 alias fgrep 'fgrep --color=auto'
 alias egrep 'egrep --color=auto'
-switch (uname)
-    case Linux
-        alias ls 'ls --color=auto'
-        alias sl 'ls --color=auto'
-    case Darwin
-        alias ls 'ls -G'
-        alias sl 'ls -G'
-end
+alias ls 'ls -G'
+alias sl 'ls -G'
 
 alias cls clear
 
