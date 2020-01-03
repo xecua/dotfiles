@@ -3,7 +3,7 @@ let g:lightline = {
             \ }
 let g:lightline.active = {
             \   'left': [ ['mode', 'paste'],
-            \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+            \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
             \   'right': [ [ 'lineinfo' ],
             \              [ 'percent', 'ale' ],
             \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -20,6 +20,7 @@ let g:lightline.component_function = {
             \   'modified': 'LightLineModified',
             \   'readonly': 'LightLineReadonly',
             \   'fugitive': 'LightLineFugitive',
+            \   'gitbranch': 'gitbranch#name',
             \   'filename': 'LightLineFilename',
             \   'fileformat': 'LightLineFileformat',
             \   'filetype': 'LightLineFiletype',

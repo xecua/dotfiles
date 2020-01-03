@@ -44,6 +44,10 @@ repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 [[plugins]]
 repo =  'itchyny/lightline.vim'
 
+# display branch in lightline
+[[plugins]]
+repo = 'itchyny/vim-gitbranch'
+
 # comment out
 [[plugins]]
 repo = 'tomtom/tcomment_vim'

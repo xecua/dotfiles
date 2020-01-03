@@ -3,7 +3,7 @@
     name = xecua
     signingkey = 335095B0
 [core]
-    editor = nvim -f
+	editor = nvim
     excludesfile = /Users/xecua/.gitignore_global
 [color]
     ui = auto
@@ -28,9 +28,9 @@
     ri = rebase -i
     amend = commit -a --amend
     st = stash
-    sl = stash list
-    sp = stash pop
-    sd = stash drop
+    stl = stash list
+    stp = stash pop
+    std = stash drop
 [gpg]
     program = /usr/local/bin/gpg
 [commit]
