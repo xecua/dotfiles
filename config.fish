@@ -25,23 +25,51 @@ alias clang++20 'clang++ -std=c++2a'
 # format style
 alias clang-format "clang-format -style='{BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup,IndentWidth: 4}'"
 
-# some useful aliases
-alias ll 'ls -alF'
-alias la 'ls -A'
-alias l 'ls -CF'
-alias grep 'grep --color=auto'
-alias fgrep 'fgrep --color=auto'
-alias egrep 'egrep --color=auto'
-alias ls 'ls -G'
-alias sl 'ls -G'
+# from https://github.com/arkark/dotfiles
+if type -q exa
+  alias ls 'exa --icons'
+  alias ll 'exa -lh --git --icons'
+  alias la 'exa -alh --git --icons'
+  alias l 'exa --icons'
+  alias lt 'exa --tree --icons --git-ignore'
+  alias llt 'exa -lh --git --tree --icons --git-ignore'
+  alias lat 'exa -alh --git --tree --icons --git-ignore'
+else
+  alias ll 'ls -alF'
+  alias la 'ls -A'
+  alias l 'ls -CF'
+end
+alias sl ls
+
+if type -q bat
+  alias less 'bat -p'
+  alias cat 'bat -pp'
+end
+
+if type -q ripgrep
+  alias grep 'rg'
+  alias fgrep 'rg -F'
+else
+  alias grep 'grep --color=auto'
+  alias fgrep 'fgrep --color=auto'
+  alias egrep 'egrep --color=auto'
+end
 
 alias cls clear
 
-alias vi nvim
-alias vim nvim
-alias emacs nvim
+if type -q nvim
+  alias vi nvim
+  alias vim nvim
+  alias emacs nvim
+else
+  alias vi vim
+  alias emacs vim
+end
 alias :q exit
-alias top htop
+
+if type -q htop
+  alias top htop
+end
 
 # in fish, ssh-agent must be used with -c
 alias ssh-agent 'ssh-agent -c'
@@ -50,8 +78,13 @@ alias ssh-agent 'ssh-agent -c'
 set -g theme_display_date no
 set -g theme_display_cmd_duration no
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-eval /Users/xecua/.anyenv/envs/pyenv/versions/anaconda3-2019.10/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+
+function randomstring
+  if [ -z "$argv[1]" ]
+    echo "usage: randomstring width" >&2
+    return 1
+  end
+  cat /dev/urandom | base64 | fold -w $argv[1] | head -1
+end
 
