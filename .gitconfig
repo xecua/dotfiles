@@ -1,39 +1,39 @@
 [user]
-    email = courser4848@gmail.com
-    name = xecua
-    signingkey = 335095B0
+	email = courser4848@gmail.com
+	name = xecua
+	signingkey = 335095B0
 [core]
 	editor = nvim
-    excludesfile = /Users/xecua/.gitignore_global
+	excludesfile = /Users/xecua/.gitignore_global
 [color]
-    ui = auto
+	ui = auto
 [alias]
-    a = add
-    p = push
-    po = push origin
-    pl = pull --prune
-    plo = pull origin
-    f = fetch --prune
-    m = merge
-    mas = checkout master
-    s = status
-    ss = status -sb
-    c = commit -am
-    co = checkout
-    b = branch
-    d = diff
-    l = log
-    g = log --graph --date=short --decorate=short --oneline
-    r = rebase
-    ri = rebase -i
-    amend = commit -a --amend
-    st = stash
-    stl = stash list
-    stp = stash pop
-    std = stash drop
+	a = add
+	p = push
+	po = push origin
+	pl = pull --prune
+	plo = pull origin
+	f = fetch --prune
+	m = merge
+	mas = checkout master
+	s = status
+	ss = status -sb
+	c = commit -am
+	co = checkout
+	b = branch
+	d = diff
+	l = log
+	g = log --graph --date=short --decorate=short --oneline
+	r = rebase
+	ri = rebase -i
+	amend = commit -a --amend
+	st = stash
+	stl = stash list
+	stp = stash pop
+	std = stash drop
 [gpg]
-    program = /usr/local/bin/gpg
+	program = /usr/local/bin/gpg
 [commit]
-    gpgsign = true
+	gpgsign = true
 [rerere]
-	enabled = true
+	enabled = true 
