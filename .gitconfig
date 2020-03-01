@@ -4,7 +4,6 @@
 	signingkey = 335095B0
 [core]
 	editor = nvim
-	excludesfile = /Users/xecua/.gitignore_global
 [color]
 	ui = auto
 [alias]

@@ -5,4 +5,3 @@ function randomstring
   end
   cat /dev/urandom | base64 | fold -w $argv[1] | head -1
 end
-
