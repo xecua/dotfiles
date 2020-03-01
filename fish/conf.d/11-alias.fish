@@ -1,10 +1,3 @@
-set -x XDG_CONFIG_HOME $HOME/.config
-set -x XDG_CACHE_HOME $HOME/.cache
-set -x XDG_RUNTIME_DIR $HOME/.tmp
-
-set -x LANG "ja_JP.UTF-8"
-set -x LC_ALL "$LANG"
-
 # typo
 alias gti git
 alias g git
@@ -73,18 +66,3 @@ end
 
 # in fish, ssh-agent must be used with -c
 alias ssh-agent 'ssh-agent -c'
-
-# oh-my-fish/theme-bobthefish
-set -g theme_display_date no
-set -g theme_display_cmd_duration no
-
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-
-function randomstring
-  if [ -z "$argv[1]" ]
-    echo "usage: randomstring width" >&2
-    return 1
-  end
-  cat /dev/urandom | base64 | fold -w $argv[1] | head -1
-end
-
