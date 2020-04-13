@@ -1,0 +1,11 @@
+add_newline = false
+
+[directory]
+truncation_length = 1
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+
+[time]
+disabled = false
+utc_time_offset = 9
+format = "%H:%M"
