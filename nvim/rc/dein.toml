@@ -3,22 +3,25 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-hook_post_update = '''
-  if dein#util#_is_windows()
-    let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
-    let cmd = 'make -f make_cygwin.mak'
-  elseif executable('gmake')
-    let cmd = 'gmake'
-  else
-    let cmd = 'make
-'''
+build = 'make'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+# LSP Client
 [[plugins]]
-repo = 'w0rp/ale'
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+
+# [[plugins]]
+# repo = 'neoclide/coc.nvim'
+# merged = '0'
+# rev = 'release'
+
+# linter
+# [[plugins]]
+# repo = 'w0rp/ale'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -31,15 +34,18 @@ on_event = 'InsertEnter'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
-[[plugins]]
-repo = 'maximbaz/lightline-ale'
-depends = ['lightline.vim','ale']
+# [[plugins]]
+# repo = 'maximbaz/lightline-ale'
+# depends = ['lightline.vim','ale']
+
+# [[plugins]]
+# repo = 'scrooloose/nerdtree'
+
+# [[plugins]]
+# repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-
-[[plugins]]
-repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
+repo = 'Shougo/defx.nvim'
 
 [[plugins]]
 repo =  'itchyny/lightline.vim'
@@ -53,5 +59,9 @@ repo = 'itchyny/vim-gitbranch'
 repo = 'tomtom/tcomment_vim'
 
 # helpの日本語化
+[[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
+# ペースト時にpasteモードに
+[[plugins]]
+repo = 'ConradIrwin/vim-bracketed-paste'

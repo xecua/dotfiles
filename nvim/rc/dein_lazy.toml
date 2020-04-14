@@ -9,31 +9,18 @@ repo = 'Shougo/neosnippet.vim'
 on_ft = ['snippet']
 depends = ['neosnippet-snippets']
 on_event = 'InsertEnter'
+hook_post_source = 'call NeosnippetHookPostSource()'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-# LSP Client
-[[plugins]]
-repo = 'neoclide/coc.nvim'
-merge = '0'
-rev = 'release'
-
-[[plugins]]
-repo = 'Robzz/deoplete-omnisharp'
-on_source = ['deoplete.nvim']
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source  = ['denite.nvim']
+# [[plugins]]
+# repo = 'Shougo/neomru.vim'
+# on_source  = ['denite.nvim']
 
 [[plugins]]
 repo = 'zchee/deoplete-clang'
 on_ft = ['c', 'cpp']
-# hook_add = """
-# let g:deoplete#sources#clang#libclang_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-# let g:deoplete#sources#clang#clang_header='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang'
-# """
 hook_source = '''
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
@@ -44,7 +31,7 @@ on_source = ['deoplete.nvim']
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
 on_ft = ['cpp']
-hook_add = """
+hook_post_source = """
 function! CPPCodeCleanup()
   let l:lines='all'
   let g:clang_format_fallback_style = 'Google'
@@ -71,6 +58,6 @@ repo = 'dag/vim-fish'
 on_ft = ['fish']
 
 [[plugins]]
-repo = 'vim-scripts/nimrod.vim'
-on_ft = ['nim']
+repo = 'lambdalisue/vim-backslash'
+on_ft = ['vim']
 

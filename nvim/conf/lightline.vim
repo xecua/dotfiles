@@ -1,61 +1,59 @@
 let g:lightline = {
-            \ 'colorscheme' : 'jellybeans'
-            \ }
-let g:lightline.active = {
-            \   'left': [ ['mode', 'paste'],
-            \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
-            \   'right': [ [ 'lineinfo' ],
-            \              [ 'percent', 'ale' ],
-            \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-            \ }
-let g:lightline.tabline = {
-            \ 'left': [ [ 'tabs' ] ],
-            \ 'right': [ [ 'battery', 'time' ] ]
-            \ }
-let g:lightline.component = {
-            \   'readonly': '%{&readonly ? "⭤" : ""}',
-            \ }
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ ['mode', 'paste'],
+    \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
+    \   'right': [ [ 'lineinfo' ],
+    \              [ 'percent' ],
+    \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+    \ },
+    \ 'inactive': {
+    \   'left': [ [ 'filename' ] ],
+    \   'right': [ [ 'lineinfo' ], [ 'percent' ] ]
+    \ },
+    \ 'tabline': {
+    \   'left': [ [ 'tabs' ] ],
+    \   'right': [ [ 'close' ], [ 'battery', 'time' ] ]
+    \ },
+    \ 'component': {
+    \   'readonly': '%{&readonly ? "⭤" : ""}',
+    \ },
+    \ 'component_function': {
+    \   'modified': 'LightLineModified',
+    \   'readonly': 'LightLineReadonly',
+    \   'fugitive': 'LightLineFugitive',
+    \   'gitbranch': 'gitbranch#name',
+    \   'filename': 'LightLineFilename',
+    \   'fileformat': 'LightLineFileformat',
+    \   'filetype': 'LightLineFiletype',
+    \   'fileencoding': 'LightLineFileencoding',
+    \   'mode': 'LightLineMode',
+    \   'battery': 'LightLineBattery',
+    \   'time': 'LightLineTime',
+    \ },
+    \ 'separator': { 'left': "\ue0b0 ", 'right': "\ue0b2 " },
+    \ 'subseparator': { 'left': "\ue0b1 ", 'right': "\ue0b3 " },
+    \ }
 
-let g:lightline.component_function = {
-            \   'modified': 'LightLineModified',
-            \   'readonly': 'LightLineReadonly',
-            \   'fugitive': 'LightLineFugitive',
-            \   'gitbranch': 'gitbranch#name',
-            \   'filename': 'LightLineFilename',
-            \   'fileformat': 'LightLineFileformat',
-            \   'filetype': 'LightLineFiletype',
-            \   'fileencoding': 'LightLineFileencoding',
-            \   'mode': 'LightLineMode',
-            \   'ale': 'LightLineAle',
-            \   'battery': 'LightLineBattery',
-            \   'time': 'LightLineTime',
-            \ }
-
-let g:lightline.separator = {
-            \   'left': "\ue0b0", 'right': "\ue0b2"
-            \ }
-
-let g:lightline.subseparator = {
-            \ 'left': "\ue0b1", 'right': '\ue0b3'
-            \ }
-
+" if the buffer is help/nerdtree, not display(ref> :help /bar)
+" "help\|nerdtree"(double quoted) is 'help|nerdtree', which won't match in expected buffers
 function! LightLineModified()
-    return &ft =~ 'help\|nerdtree' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    return &ft =~ 'help\|defx' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineReadonly()
-    return &ft !~? 'help\|nerdtree' && &readonly ? 'x' : ''
+    return (&ft !~ 'help\|defx' && &readonly) ? '[readonly]' : ''
 endfunction
 
 function! LightLineFilename()
-    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-                \ (&ft == 'denite' ? denite#get_status_sources() :
-                \ (&ft == 'nerdtree' ? expand('%:~:h') :
-                \ '' != expand('%:t') ? expand('%:~:.:h') . '/'. expand('%:t') : '[No Name]'))
+    return (&ft == 'denite' ? denite#get_status_sources() :
+        \  (&ft == 'defx' ? expand('%:~:h') :
+        \  (expand('%') != '' ? expand('%:~'): '[No Name]')))
 endfunction
 
 function! LightLineFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol()[0:2] : 'no ft') : ''
+    return &ft == 'defx' ? '' :
+        \   winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'plain text') : ''
 endfunction
 
 function! LightLineFileformat()
@@ -63,53 +61,21 @@ function! LightLineFileformat()
 endfunction
 
 function! LightLineFileencoding()
-    return  &ft == 'nerdtree' ? '' :
-                \ winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! LightLineMode()
     return  &ft == 'denite' ? 'Denite' :
-                \ &ft == 'nerdtree' ? 'NERDTree' :
-                \ winwidth(0) > 60 ? lightline#mode() : ''
+        \ &ft == 'defx' ? 'Defx' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-augroup LightLineOnALE
-    autocmd!
-    autocmd User ALELint call lightline#update()
-augroup END
-
-function! ALEStatusLine()
-    let l:count = ale#statusline#Count(bufnr(''))
-    let l:errors = l:count.error + l:count.style_error
-    let l:warnings = l:count.warning + l:count.style_warning
-    return l:count.total == 0 ? '⬥ ok' :
-                \ l:errors != 0 && l:warnings != 0 ? ' ' . l:errors . ' ' . l:warnings :
-                \ l:errors != 0 && l:warnings == 0 ? ' ' . l:errors :
-                \ ' ' . l:warnings
-endfunction
-
-function! LightLineAle()
-    return &ft == 'denite' ? '' :
-                \ &ft == 'nerdtree' ? '':
-                \ ALEStatusLine()
-endfunction
-
-" ALEGetStatusLine()はdeprecatedなので変更
-"function! LightLineAle()
-"    return &ft == 'denite' ? '' :
-"                \ &ft == 'nerdtree' ? '':
-"                \ ALEGetStatusLine()
-"endfunction
 
 function! LightLineFugitive()
-    try
-        if &ft !~? 'vimfiler\|gundo\|vaffle' && exists('*fugitive#head')
-            let _ = fugitive#head()
-            return strlen(_) ? '⭠ '._ : ''
-        endif
-    catch
-    endtry
-    return ''
+    if &ft !~? 'defx' && exists('*fugitive#head')
+        return fugitive#head()
+    else
+        return ''
+    endif
 endfunction
 
 function! LightLineBattery()

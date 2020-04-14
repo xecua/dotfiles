@@ -18,7 +18,7 @@ set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 set ambiwidth=double
 " スワップファイルを作らない
 set noswapfile
-" バッファを隠す
+" closeしたバッファを(実際にはcloseせず)hiddenにする
 set hidden
 " クリップボードとNeovimの無名レジスタを一体化
 set clipboard+=unnamedplus
@@ -26,16 +26,16 @@ set clipboard+=unnamedplus
 set number
 " 空白文字等、不可視な文字の可視化
 set list
-set listchars=tab:>-,trail:*,nbsp:+
+set listchars=tab:>-,space:*,nbsp:+
 " インデントとか 見ての通り
 set smartindent
 set visualbell
 " ヘルプの日本語化
 set helplang=ja,en
 " アイコン表示用の幅を確保
-set signcolumn=yes
+" set signcolumn=yes
 
-" 見た目の行間移動
+" 見た目通りの移動
 nnoremap j gj
 nnoremap k gk
 
@@ -57,51 +57,31 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 " 行頭行末間移動(backspace, space, カーソルキー)
 set whichwrap=b,s,<,>,[,]
 
-" ペースト時のインデントのズレを防ぐ(https://qiita.com/kqt0k0/items/bcfa84c5f85276315954)
-if &term =~ "xterm"
-    let &t_SI .= "\e[?2004h"
-    let &t_EI .= "\e[?2004l"
-    let &pastetoggle = "\e[201~"
-
-    function XTermPasteBegin(ret)
-        set paste
-        return a:ret
-    endfunction
-    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")]
-endif
-
 " pythonのpath
 let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/versions/anaconda3-2019.10/bin/python3')
-
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Ctrl+W -> n で新規タブ
 nnoremap <C-w>n <Esc>:enew<Return>
 
 " 常にタブラインを表示
 set showtabline=2
-" 現在のモードを表示しない(lightlineで表示するため)
+" 現在のモードを表示しない
 set noshowmode
 
 " set all file whose extension is '.tex' as LaTeX file
 let g:tex_flavor = 'latex'
-
-" Vim markdown(tpope) ぷらぎんでもないのでココに。
-let g:markdown_fenced_languages = [
-\ 'html',
-\ 'python',
-\ 'bash=sh',
-\ 'js=javascript',
-\ 'json=javascript',
-\ 'c',
-\ 'vim'
-\]
 
 " 各設定で利用する変数
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
 let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
 
 set runtimepath+=$XDG_CONFIG_HOME/nvim
+
+augroup MyFiletypeDetect
+    autocmd!
+    autocmd BufNewFile,BufRead *.nvim set filetype=vim
+augroup END
 
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim

@@ -1,10 +1,5 @@
 " https://trap.jp/post/396
 
-" reset augroup
-augroup MyAutoCmd
-    autocmd!
-augroup END
-
 " lexima options for TeX
 call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
 call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'tex'})
@@ -34,5 +29,5 @@ let g:vimtex_compiler_latexmk_engines = { '_' : '-pdfdvi' }
 vnoremap <silent><buffer> <F5> :QuickRun -mode v -type tmptex<CR>
 
 autocmd BufWritePost,FileWritePost *.tex QuickRun tex
-autocmd BufNewFile *.tex 0r ~/.config/nvim/template/tex.tex
+autocmd BufNewFile *.tex 0r g:vim_home.'/template/tex.tex'
 

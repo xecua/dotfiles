@@ -24,3 +24,6 @@ endif
 if dein#check_install()
   call dein#install()
 endif
+
+" remove cached plugins(run :call dein#recache_runtimepath() to complete)
+" call map(dein#check_clean(), "delete(v:val, 'rf')")
