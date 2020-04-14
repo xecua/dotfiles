@@ -2,7 +2,7 @@ let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
     \   'left': [ ['mode', 'paste'],
-    \             ['gitbranch', 'readonly', 'filename', 'modified'] ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ],
     \   'right': [ [ 'lineinfo' ],
     \              [ 'percent' ],
     \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -22,7 +22,7 @@ let g:lightline = {
     \   'modified': 'LightLineModified',
     \   'readonly': 'LightLineReadonly',
     \   'fugitive': 'LightLineFugitive',
-    \   'gitbranch': 'gitbranch#name',
+    \   'gitbranch': 'FugitiveHead',
     \   'filename': 'LightLineFilename',
     \   'fileformat': 'LightLineFileformat',
     \   'filetype': 'LightLineFiletype',
@@ -31,8 +31,8 @@ let g:lightline = {
     \   'battery': 'LightLineBattery',
     \   'time': 'LightLineTime',
     \ },
-    \ 'separator': { 'left': "\ue0b0 ", 'right': "\ue0b2 " },
-    \ 'subseparator': { 'left': "\ue0b1 ", 'right': "\ue0b3 " },
+    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
     \ }
 
 " if the buffer is help/nerdtree, not display(ref> :help /bar)
@@ -53,7 +53,7 @@ endfunction
 
 function! LightLineFiletype()
     return &ft == 'defx' ? '' :
-        \   winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'plain text') : ''
+        \   winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! LightLineFileformat()
@@ -68,14 +68,6 @@ function! LightLineMode()
     return  &ft == 'denite' ? 'Denite' :
         \ &ft == 'defx' ? 'Defx' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-function! LightLineFugitive()
-    if &ft !~? 'defx' && exists('*fugitive#head')
-        return fugitive#head()
-    else
-        return ''
-    endif
 endfunction
 
 function! LightLineBattery()

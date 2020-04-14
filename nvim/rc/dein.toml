@@ -50,10 +50,6 @@ repo = 'Shougo/defx.nvim'
 [[plugins]]
 repo =  'itchyny/lightline.vim'
 
-# display branch in lightline
-[[plugins]]
-repo = 'itchyny/vim-gitbranch'
-
 # comment out
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
