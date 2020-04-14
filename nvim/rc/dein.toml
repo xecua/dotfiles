@@ -14,15 +14,6 @@ repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
 
-# [[plugins]]
-# repo = 'neoclide/coc.nvim'
-# merged = '0'
-# rev = 'release'
-
-# linter
-# [[plugins]]
-# repo = 'w0rp/ale'
-
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
@@ -34,18 +25,15 @@ on_event = 'InsertEnter'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
-# [[plugins]]
-# repo = 'maximbaz/lightline-ale'
-# depends = ['lightline.vim','ale']
-
-# [[plugins]]
-# repo = 'scrooloose/nerdtree'
-
-# [[plugins]]
-# repo = 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 [[plugins]]
 repo = 'Shougo/defx.nvim'
+depends = ['defx-git', 'defx-icons']
+
+[[plugins]]
+repo ="kristijanhusak/defx-git"
+
+[[plugins]]
+repo ="kristijanhusak/defx-icons"
 
 [[plugins]]
 repo =  'itchyny/lightline.vim'
