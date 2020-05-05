@@ -36,7 +36,7 @@ repo ="kristijanhusak/defx-git"
 repo ="kristijanhusak/defx-icons"
 
 [[plugins]]
-repo =  'itchyny/lightline.vim'
+repo = 'itchyny/lightline.vim'
 
 # comment out
 [[plugins]]
@@ -49,3 +49,15 @@ repo = 'vim-jp/vimdoc-ja'
 # ペースト時にpasteモードに
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
+
+# .gitignore file
+[[plugins]]
+repo = 'benknoble/gitignore-vim'
+
+# swift
+[[plugins]]
+repo = 'apple/swift'
+rtp = 'utils/vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'

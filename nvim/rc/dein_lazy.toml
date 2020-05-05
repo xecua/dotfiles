@@ -3,6 +3,7 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+hook_post_source = 'call DeopleteHookPostSource()'
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
@@ -11,9 +12,6 @@ depends = ['neosnippet-snippets']
 on_event = 'InsertEnter'
 hook_post_source = 'call NeosnippetHookPostSource()'
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
 # [[plugins]]
 # repo = 'Shougo/neomru.vim'
 # on_source  = ['denite.nvim']
@@ -21,25 +19,12 @@ repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'zchee/deoplete-clang'
 on_ft = ['c', 'cpp']
-hook_source = '''
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
-'''
 on_source = ['deoplete.nvim']
-
+hook_source = 'call DeopleteClangHookSource()'
 
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
 on_ft = ['cpp']
-hook_post_source = """
-function! CPPCodeCleanup()
-  let l:lines='all'
-  let g:clang_format_fallback_style = 'Google'
-  :pyf /usr/local/share/clang/clang-format.py
-endfunction
-command! CPPCodeCleanup call CPPCodeCleanup()
-autocmd BufWrite *.{cpp} :CPPCodeCleanup
-"""
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'

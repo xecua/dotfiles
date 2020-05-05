@@ -1,0 +1,7 @@
+" 起動時にdeopleteを有効化
+let g:deoplete#enable_at_startup = 1
+
+function! DeopleteHookPostSource() abort
+  inoremap <expr> <Tab> pumvisible() ? "\<DOWN>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<UP>" : "\<S-Tab>"
+endfunction
