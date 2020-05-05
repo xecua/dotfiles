@@ -1,11 +1,50 @@
 add_newline = false
 
+[line_break]
+disabled = true
+
 [directory]
-truncation_length = 1
-truncate_to_repo = false
 fish_style_pwd_dir_length = 1
 
 [time]
 disabled = false
 utc_time_offset = 9
 format = "%H:%M"
+
+[battery]
+full_symbol = " "
+charging_symbol = "⚡️ "
+discharging_symbol = " "
+
+[[battery.display]]
+threshold = 100
+style = "bold green"
+
+[package]
+prefix = ""
+
+[aws]
+symbol = " "
+[docker]
+symbol = " "
+[dotnet]
+symbol = " "
+[git_branch]
+symbol = " "
+disabled = false
+[golang]
+symbol = " "
+[haskell]
+symbol = " "
+[java]
+symbol = " "
+[nodejs]
+symbol = " "
+[php]
+symbol = " "
+[python]
+symbol = " "
+[ruby]
+symbol = " "
+[rust]
+symbol = " "
