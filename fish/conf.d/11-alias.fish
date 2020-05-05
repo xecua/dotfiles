@@ -39,7 +39,7 @@ if type -q bat
   alias cat 'bat -pp'
 end
 
-if type -q ripgrep
+if type -q rg
   alias grep 'rg'
   alias fgrep 'rg -F'
 else
