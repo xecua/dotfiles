@@ -3,6 +3,7 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertCharPre'
 hook_post_source = 'call DeopleteHookPostSource()'
 
 [[plugins]]
