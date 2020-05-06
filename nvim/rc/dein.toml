@@ -20,7 +20,6 @@ repo = 'tpope/vim-fugitive'
 # Automatically complete closing brace
 [[plugins]]
 repo = 'cohama/lexima.vim'
-on_event = 'InsertEnter'
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'

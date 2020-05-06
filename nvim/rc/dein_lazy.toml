@@ -3,7 +3,7 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertCharPre'
+on_event = 'InsertEnter'
 hook_post_source = 'call DeopleteHookPostSource()'
 
 [[plugins]]
@@ -46,4 +46,3 @@ on_ft = ['fish']
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'
 on_ft = ['vim']
-
