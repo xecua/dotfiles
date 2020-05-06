@@ -71,7 +71,11 @@ function! LightLineMode()
 endfunction
 
 function! LightLineBattery()
-  let battery = str2nr(system("pmset -g ps | tail -n 1 | awk '{print $3}' | sed 's/;//'")[:-3], 10)
+  if g:os == 'Darwin'
+    let battery = str2nr(system("pmset -g ps | tail -n 1 | awk '{print $3}' | sed 's/;//'")[:-3], 10)
+  else
+    let battery = 0
+  endif
   let batteryIcon = battery >= 80 ? ' ' :
                   \ battery >= 60 ? ' ' :
                   \ battery >= 40 ? ' ' :
