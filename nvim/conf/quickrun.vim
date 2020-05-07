@@ -15,6 +15,9 @@ let g:quickrun_config._ = {
   \ 'tex': {
   \   'command': 'latexmk'
   \ },
+  \ 'satysfi': {
+  \   'command': 'satysfi'
+  \ }
 \}
 
 " 実行時に前回の表示内容をクローズ&保存してから実行

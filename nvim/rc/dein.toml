@@ -60,3 +60,7 @@ rtp = 'utils/vim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 'qnighy/satysfi.vim'
+
