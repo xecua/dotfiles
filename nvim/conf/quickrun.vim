@@ -37,7 +37,7 @@ endfunction
 call quickrun#module#register(s:close_quickfix_hook, 1)
 unlet s:close_quickfix_hook
 
-
 " QuickRun and view compile result quickly
 nnoremap <silent> <F5> :QuickRun -mode n<CR>
 vnoremap <silent> <F5> :QuickRun -mode v<CR>
+

@@ -46,3 +46,4 @@ on_ft = ['fish']
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'
 on_ft = ['vim']
+
