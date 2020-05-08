@@ -1,13 +1,12 @@
 " _: default configuration for all filetypes
-let g:quickrun_config._ = {
+let g:quickrun_config = {
   \ '_': {
   \   'runner' : 'vimproc',
   \   'runner/vimproc/updatetime' : 40,
   \   'outputter' : 'error',
-  \   'outputter/error/success' : 'buffer',
+  \   'outputter/error/success' : 'message',
   \   'outputter/error/error'   : 'quickfix',
-  \   'outputter/buffer/split' : ':botright 8sp',
-  \   'outputter/buffer/close_on_empty' : 1,
+  \   'outputter/quickfix/into': 1,
   \ },
   \ 'cpp': {
   \   'command': 'g++-9'
@@ -20,8 +19,24 @@ let g:quickrun_config._ = {
   \ }
 \}
 
-" 実行時に前回の表示内容をクローズ&保存してから実行
+" default keymappings:
+" <Leader>r <Plug>(quickrun)
+" to disable this,uncomment below
 " let g:quickrun_no_default_key_mappings = 1
+
+" close error window on success
+let s:close_quickfix_hook = {
+    \ "name": "close_quickfix_on_success",
+    \ "kind": "hook"
+    \ }
+
+function! s:close_quickfix_hook.on_success(session, context)
+    :cclose
+endfunction
+
+call quickrun#module#register(s:close_quickfix_hook, 1)
+unlet s:close_quickfix_hook
+
 
 " QuickRun and view compile result quickly
 nnoremap <silent> <F5> :QuickRun -mode n<CR>
