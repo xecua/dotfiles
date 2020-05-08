@@ -1,0 +1,24 @@
+snippet     stdjareport
+abbr        stdjareport template
+options     head
+	@require: stdjareport
+
+	document(|
+	title={${1:#:title}};
+	author={${2:#:author}};
+	|) '<
+		${0}
+	>
+
+snippet +p
+abbr    +p
+	+p{
+		${0}
+	}
+
+snippet +math
+abbr math block
+	+math(
+		${${0}}
+	);
+
