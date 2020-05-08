@@ -9,6 +9,8 @@ if !exists("g:os")
   endif
 endif
 
+" <Leader> := <Space>
+let mapleader="\<Space>"
 "マウス有効化
 set mouse=a
 " カラーテーマ
@@ -75,8 +77,8 @@ else
   let g:python3_host_prog = ''
 end
 
-" Ctrl+W -> n で新規タブ
-nnoremap <C-w>n <Esc>:enew<Return>
+" close quickfix
+nnoremap <Leader>c :cclose
 
 " 常にタブラインを表示
 set showtabline=2
