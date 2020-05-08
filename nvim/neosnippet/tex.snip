@@ -1,0 +1,77 @@
+snippet     jsarticle
+abbr        jsarticle template
+options     head
+	\documentclass[a4j,uplatex]{jsarticle}
+	\usepackage{mymacros}
+	% \usepackage[uplatex,deluxe]{otf}
+	\usepackage[top=20truemm,bottom=20truemm,left=15truemm,right=15truemm]{geometry}
+	\renewcommand{\thesection}{\arabic{section}}
+	\renewcommand{\thesubsection}{\alph{subsection}}
+	\renewcommand{\labelenumi}{\alph{enumi}}
+	\renewcommand{\labelenumii}{\arabic{enumii}.}
+
+	\makeatletter
+	\def\id#1{\def\@id{#1}}
+	\def\other#1{\def\@other{#1}}
+
+	\def\@maketitle{
+		\begin{center}
+		\vspace*{10mm}
+		{\huge \textbf{\textgt{\@title}} \par}
+		\vspace{20mm}
+		{\LARGE \textbf{\textgt{\@id \@author}} \par}
+		\vspace{10mm}
+		% 提出日: \@date\par
+		% \@other
+		% \newpage
+		\end{center}
+	}
+
+	\author{${1:author}}
+	\id{${2:id}}
+	% \date{}
+	\title{${3:title}}
+	% \other{}
+	\defrhead{}
+
+	\begin{document}
+	\maketitle
+	${0}
+
+	% \begin{thebibliography}{9}
+
+	% \end{thebibliography}
+	\end{document}\makeatother
+
+snippet     beamer
+abbr        beamer template
+options     head
+	% ref: https://qiita.com/termoshtt/items/756aec542fb4c812a405
+	\documentclass[dvipdfmx,notheorems]{beamer}
+	\usepackage{mymacros}
+	%%%% 和文用 %%%%%
+	\usepackage{bxdpx-beamer}
+	\usepackage{pxjahyper}
+	\usepackage{minijs}%和文用
+	\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
+
+	%%%% スライドの見た目 %%%%%
+	% \usetheme{Madrid}
+	\usetheme{metropolis}
+	\usefonttheme{professionalfonts}
+	\setbeamertemplate{frametitle}[default][center]
+	\setbeamertemplate{navigation symbols}{}
+	%%%%
+
+	\date{\today}
+	\title[snip]{long title}
+	\author{}
+
+	\begin{document}
+
+	\frame{\maketitle}
+
+	\begin{frame}{}
+	\end{frame}
+	\end{document}
+
