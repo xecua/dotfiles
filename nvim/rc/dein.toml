@@ -14,6 +14,10 @@ repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
 
+# for LSP unsupported languages
+[[plugins]]
+repo = 'dense-analysis/ale'
+
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
@@ -63,4 +67,7 @@ repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'qnighy/satysfi.vim'
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
 
