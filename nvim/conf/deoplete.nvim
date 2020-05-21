@@ -6,5 +6,7 @@ function! DeopleteHookPostSource() abort
 
   inoremap <expr> <Tab> pumvisible() ? "\<DOWN>" : "\<Tab>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<UP>" : "\<S-Tab>"
+  " select by <CR>
+  imap <expr> <CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : pumvisible() ? "\<C-y>" : "\<CR>"
 
 endfunction

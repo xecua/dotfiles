@@ -4,7 +4,6 @@ let g:quickrun_config = {
   \   'runner' : 'vimproc',
   \   'runner/vimproc/updatetime' : 40,
   \   'outputter' : 'error',
-  \   'outputter/error/success' : 'message',
   \   'outputter/error/error'   : 'quickfix',
   \   'outputter/quickfix/into': 1,
   \ },
@@ -18,6 +17,7 @@ let g:quickrun_config = {
   \   'command': 'satysfi'
   \ }
 \}
+" \   'outputter/error/success' : 'message',
 
 " default keymappings:
 " <Leader>r <Plug>(quickrun)

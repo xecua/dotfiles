@@ -1,10 +1,12 @@
 nnoremap <silent><C-n> :<C-u>Defx<CR>
 
 augroup DefxMyConf
+  autocmd!
   autocmd FileType defx call s:defx_my_settings()
 augroup END
 
 augroup DefxMyConfSetup
+  autocmd!
   autocmd VimEnter * call s:DefxMyConfSetupFunc()
   autocmd StdinReadPre * let s:std_in = 1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Defx | endif

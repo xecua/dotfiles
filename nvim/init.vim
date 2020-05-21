@@ -54,6 +54,7 @@ nnoremap k gk
 set expandtab " スペースを使う
 set tabstop=4 " 幅4
 set shiftwidth=4 " 幅4
+let g:vim_indent_cont = 4 " 継続行のインデント量を固定
 
 " 検索関連
 " 大文字と小文字を区別しない
@@ -93,6 +94,10 @@ let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
 let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
 
 set runtimepath+=$XDG_CONFIG_HOME/nvim
+
+" undofile
+set undofile
+set undodir=$XDG_CACHE_HOME/nvim/undo
 
 augroup MyFiletypeDetect
   autocmd!

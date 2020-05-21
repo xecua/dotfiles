@@ -1,7 +1,10 @@
 " lexima options for TeX
-call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
-call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'tex'})
-call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'tex'})
+call lexima#add_rule({'char': '(', 'at': '\\\%#', 'input_after': '\)'})
+call lexima#add_rule({'char': '[', 'at':'\\\%#', 'input_after': '\]'})
+call lexima#add_rule({'char': '`', 'at': '`\%#', 'input_after': ''''''})
+call lexima#add_rule({'char': '`', 'at': '`\%#`', 'input': '<right>''''<left><left>'})
+
+
 function! s:normalize_punctuation()
   :%s/,/，/ge
   :%s/\./．/ge
@@ -16,4 +19,6 @@ augroup TeXMyCnf
     au BufWritePost,FileWritePost *.tex QuickRun
 augroup END
 
+" disable conceal
+let g:tex_conceal = ''
 

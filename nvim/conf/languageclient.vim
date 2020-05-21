@@ -4,6 +4,7 @@ let g:LanguageClient_serverCommands = {
     \ 'swift': ['xcrun', 'sourcekit-lsp'],
     \ 'tex': ['texlab'],
     \ 'python': ['pyls'],
+    \ 'haskell': ['hie-wrapper', '--lsp']
     \ }
 
 
@@ -16,7 +17,10 @@ function LC_maps()
   endif
 endfunction
 
-autocmd FileType * call LC_maps()
+augroup LanguageClientMyCnf
+  autocmd!
+  autocmd FileType * call LC_maps()
+augroup END
 
 
 
