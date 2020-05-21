@@ -2,10 +2,18 @@
 call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
 call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'tex'})
 call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'tex'})
+function! s:normalize_punctuation()
+  :%s/,/，/ge
+  :%s/\./．/ge
+  :%s/、/，/ge
+  :%s/。/．/ge
+endfunction
 
 " auto compile on save
-autocmd BufWritePost,FileWritePost *.tex QuickRun
+augroup TeXMyCnf
+    au!
+    au BufWritePre,FileWritePre *.tex :call s:normalize_punctuation()
+    au BufWritePost,FileWritePost *.tex QuickRun
+augroup END
 
-" expand template on new file
-autocmd BufNewFile *.tex 0r g:vim_home.'/template/tex.tex'
 
