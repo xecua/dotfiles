@@ -71,3 +71,13 @@ repo = 'qnighy/satysfi.vim'
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 
+# color scheme
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+

@@ -13,10 +13,6 @@ endif
 let mapleader="\<Space>"
 "マウス有効化
 set mouse=a
-" カラーテーマ
-colorscheme molokai
-" set background=dark
-" colorscheme solarized
 " 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
@@ -99,14 +95,14 @@ set runtimepath+=$XDG_CONFIG_HOME/nvim
 set undofile
 set undodir=$XDG_CACHE_HOME/nvim/undo
 
-augroup MyFiletypeDetect
+augroup AfterLoadPlugins
   autocmd!
-  autocmd BufNewFile,BufRead *.nvim set filetype=vim
+  " dein.nvimによってロードされたあとに実行する必要がある
+  autocmd VimEnter * nested colorscheme molokai
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
-runtime! conf/*.nvim
 
 filetype plugin indent on
 
