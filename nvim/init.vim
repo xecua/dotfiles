@@ -89,8 +89,6 @@ let g:tex_flavor = 'latex'
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
 let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
 
-set runtimepath+=$XDG_CONFIG_HOME/nvim
-
 " undofile
 set undofile
 set undodir=$XDG_CACHE_HOME/nvim/undo

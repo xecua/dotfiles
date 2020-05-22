@@ -1,17 +1,24 @@
 function! NeosnippetHookPostSource() abort
-  " keymapping
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
-
-  " pumvisible = Pop Up Menu is VISIBLE
-  " note: to insert <C-n> literally use "\<C-n\>"
-  imap <expr> <tab> (pumvisible() ? "<C-n>" : neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<tab>")
-  smap <expr> <tab> (neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<tab>")
+  " <tab>で次のプレースホルダにジャンプ
+  imap <expr> <tab>
+      \ pumvisible()
+      \ ? "\<C-n>"
+      \ : neosnippet#jumpable()
+      \   ? "\<Plug>(neosnippet_jump)"
+      \   : "<tab>"
 
   " スニペット設定ディレクトリ
   let g:neosnippet#snippets_directory = g:vim_home . '/neosnippet'
-  if has('conceal')
-    set conceallevel=2 concealcursor=niv
-  endif
 endfunction
+
+augroup NeoSnippetMyCnf
+  au!
+  " <CR>でsnippet展開。leximaが上書きするのでIntertEnterで無理やり
+  au InsertEnter * imap <expr> <CR>
+    \ (pumvisible()
+    \ ? (neosnippet#expandable()
+    \   ? "\<Plug>(neosnippet_expand)"
+    \   : deoplete#close_popup())
+    \ : lexima#expand('<CR>', 'i'))
+augroup END
+

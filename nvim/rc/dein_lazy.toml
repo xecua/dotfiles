@@ -9,7 +9,7 @@ hook_post_source = 'call DeopleteHookPostSource()'
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
 on_ft = ['snippet']
-depends = ['neosnippet-snippets']
+depends = ['deoplete.nvim','neosnippet-snippets']
 on_event = 'InsertEnter'
 hook_post_source = 'call NeosnippetHookPostSource()'
 

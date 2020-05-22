@@ -4,9 +4,5 @@ function! DeopleteHookPostSource() abort
   " disable preview window feature(because it makes completion too slow)
   set completeopt-=preview
 
-  inoremap <expr> <Tab> pumvisible() ? "\<DOWN>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<UP>" : "\<S-Tab>"
-  " select by <CR>
-  imap <expr> <CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : pumvisible() ? "\<C-y>" : "\<CR>"
-
+  inoremap <expr> <S-tab> pumvisible() ? "\<UP>" : "\<S-Tab>"
 endfunction
