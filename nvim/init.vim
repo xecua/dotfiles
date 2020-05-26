@@ -93,14 +93,11 @@ let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
 set undofile
 set undodir=$XDG_CACHE_HOME/nvim/undo
 
-augroup AfterLoadPlugins
-  autocmd!
-  " dein.nvimによってロードされたあとに実行する必要がある
-  autocmd VimEnter * nested colorscheme molokai
-augroup END
-
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
+
+" loaded by dein
+colorscheme molokai
 
 filetype plugin indent on
 
