@@ -6,10 +6,14 @@ call lexima#add_rule({'char': '`', 'at': '`\%#`', 'input': '<right>''''<left><le
 
 
 function! s:normalize_punctuation()
-  :%s/,/，/ge
-  :%s/\./．/ge
-  :%s/、/，/ge
-  :%s/。/．/ge
+  " 英語ドキュメントのときは0にする
+  if get(g:, 'is_japanese_document', 1) == 1
+    :%s/、/，/ge
+    :%s/。/．/ge
+  else
+    :%s/、/,/ge
+    :%s/。/./ge
+  endif
 endfunction
 
 " auto compile on save
