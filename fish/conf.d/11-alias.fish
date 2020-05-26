@@ -64,5 +64,9 @@ if type -q htop
   alias top htop
 end
 
+if type -q batman
+  alias man batman
+end
+
 # in fish, ssh-agent must be used with -c
 alias ssh-agent 'ssh-agent -c'
