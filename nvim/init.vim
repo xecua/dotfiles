@@ -66,9 +66,9 @@ nmap <Esc><Esc> :nohlsearch<CR><Esc>
 set whichwrap=b,s,<,>,[,]
 
 " pythonのpath
-if g:os == 'Darwin' || g:os == 'Linux'
-  let g:python_host_prog = '/usr/local/bin/python2'
-  let g:python3_host_prog = '/usr/local/bin/python3'
+if g:os == 'Darwin'
+  let g:python_host_prog = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3.8'
 else
   let g:python_host_prog = ''
   let g:python3_host_prog = ''
