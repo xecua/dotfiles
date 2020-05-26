@@ -4,7 +4,9 @@ let g:LanguageClient_serverCommands = {
     \ 'swift': ['xcrun', 'sourcekit-lsp'],
     \ 'tex': ['texlab'],
     \ 'python': ['pyls'],
-    \ 'haskell': ['hie-wrapper', '--lsp']
+    \ 'haskell': ['hie-wrapper', '--lsp'],
+    \ 'c': ['clangd'],
+    \ 'cpp': ['clangd'],
     \ }
 
 

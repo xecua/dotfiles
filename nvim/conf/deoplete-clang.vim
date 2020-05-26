@@ -1,7 +1,8 @@
 function! DeopleteClangHookSource() abort
   if g:os == "Darwin"
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang-6.0.so.1'
-    let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+    let s:clang_path = '/usr/local/opt/llvm'
+    let g:deoplete#sources#clang#libclang_path = s:clang_path.'/lib/libclang.dylib'
+    let g:deoplete#sources#clang#clang_header = s:clang_path.'/include/clang'
   else
     let g:deoplete#sources#clang#libclang_path = ''
     let g:deoplete#sources#clang#clang_header = ''

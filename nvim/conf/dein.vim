@@ -5,8 +5,7 @@ if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
     execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
   endif
-  " execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-  set runtimepath^=$XDG_CACHE_HOME/dein/repos/github.com/Shougo/dein.vim/
+  execute 'set runtimepath^='.s:dein_repo_dir
 endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
