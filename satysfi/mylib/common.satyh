@@ -1,0 +1,83 @@
+@require: math
+
+module Mylib : sig
+  direct \break : [] inline-cmd
+  direct \id: [] math-cmd
+  direct \lnot: [] math-cmd
+
+  direct \bbracket : [math] math-cmd
+
+  val bbracket-left : paren
+  val bbracket-right : paren
+
+end = struct
+  let-inline ctx \break = discretionary 0 (inline-skip (get-text-width ctx *' 2.)) inline-fil inline-nil
+
+  let-math \id = math-char MathOp `id`
+  let-math \lnot = math-char MathPrefix `¬`
+
+  let bracket-metrics fontsize halflen =
+    let w0 = fontsize *' 0.1 in
+    let w1 = fontsize *' 0.04 +' halflen *' 0.004 in
+    let w2 = halflen *' 0.15 in
+    let t = fontsize *' 0.04 in
+      (w0, w1, w2, t)
+
+  let bracket-path x0 x1 x2 t ypos hgtaxis halflen =
+    let ytop = ypos +' hgtaxis +' halflen in
+    let ybot = ypos +' hgtaxis -' halflen in
+      start-path (x2, ytop)
+        |> line-to (x0, ytop)
+        |> line-to (x0, ybot)
+        |> line-to (x2, ybot)
+        |> line-to (x2, ybot +' t)
+        |> line-to (x1, ybot +' t)
+        |> line-to (x1, ytop -' t)
+        |> line-to (x2, ytop -' t)
+        |> close-with-line
+
+  let double-bracket-left pathf hgt dpt hgtaxis fontsize color =
+    let halflen = Math.half-length hgt dpt hgtaxis fontsize in
+    let (w0, w1, w2, t) = bracket-metrics fontsize halflen in
+    let widparen =  w0 +' w1 +' w2 in
+    let pathl (xpos, ypos) =
+      let x0 = xpos +' w0 in
+      let x1 = x0 +' w1 in
+      let x2 = x1 +' w2 in
+        pathf x0 x1 x2 t ypos hgtaxis halflen
+    in
+    let pathr (xpos, ypos) =
+      let x0 = xpos +' widparen in
+      let x1 = x0 +' w1 in
+      let x2 = x1 +' w2 in
+        pathf x0 x1 x2 t ypos hgtaxis halflen
+    in
+    let path point = unite-path (pathl point) (pathr point) in
+    let graphics point = [ fill color (path point); ] in
+      (inline-graphics ( widparen *' 1.5 ) (hgtaxis +' halflen) (halflen -' hgtaxis) graphics, (fun _ -> 0pt))
+
+  let double-bracket-right pathf hgt dpt hgtaxis fontsize color =
+    let halflen = Math.half-length hgt dpt hgtaxis fontsize in
+    let (w0, w1, w2, t) = bracket-metrics fontsize halflen in
+    let widparen = w0 +' w1 +' w2 in
+    let pathl (xpos, ypos) =
+      let x0 = xpos +' widparen -' w0 in
+      let x1 = x0 -' w1 in
+      let x2 = x1 -' w2 in
+        pathf x0 x1 x2 t ypos hgtaxis halflen
+    in
+    let pathr (xpos, ypos) =
+      let x0 = xpos +' widparen -' w0 +' w1 +' w2 in
+      let x1 = x0 -' w1 in
+      let x2 = x1 -' w2 in pathf x0 x1 x2 t ypos hgtaxis halflen
+    in
+    let path point = unite-path (pathl point) (pathr point) in
+    let graphics point = [ fill color (path point); ] in
+      (inline-graphics ( widparen *' 1.5 ) (hgtaxis +' halflen) (halflen -' hgtaxis) graphics, (fun _ -> 0pt))
+
+  let bbracket-left = double-bracket-left bracket-path
+  let bbracket-right = double-bracket-right bracket-path
+  let-math \bbracket = math-paren bbracket-left bbracket-right
+
+end
+

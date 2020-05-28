@@ -1,0 +1,44 @@
+% stdjareportに固有の関数などを用いたもの
+@require: stdjareport
+@require: annot
+
+module Stdjareport : sig
+  direct \ref-definition: [string] inline-cmd
+  direct \ref-theorem: [string] inline-cmd
+  direct \ref-lemma: [string] inline-cmd
+  direct \ref-corollary: [string] inline-cmd
+  direct \ref-example: [string] inline-cmd
+
+end = struct
+  % \refを使う手段がなさそうなのでパクる
+  let refer ctx category label =
+    let opt = get-cross-reference (label ^ `:num`) in
+    let it-num =
+      match opt with
+      | None    -> {?}
+      | Some(s) -> embed-string s
+    in
+      inline-frame-breakable (0pt, 0pt, 0pt, 0pt) (Annot.link-to-location-frame label None) (read-inline ctx {#category; #it-num;})
+
+  let-inline ctx \ref-definition key =
+    let label =  (`definition:` ^ key) in
+      refer ctx {Definition} label
+
+  let-inline ctx \ref-theorem key =
+    let label = (`theorem:` ^ key) in
+      refer ctx {Theorem} label
+
+  let-inline ctx \ref-lemma key =
+    let label = (`lemma:` ^ key) in
+      refer ctx {Lemma} label
+
+  let-inline ctx \ref-corollary key =
+    let label = (`corollary:` ^ key) in
+      refer ctx {Corollary} label
+
+  let-inline ctx \ref-example key =
+    let label = (`example:` ^ key) in
+      refer ctx {Example} label
+
+end
+
