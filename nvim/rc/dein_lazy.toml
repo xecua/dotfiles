@@ -13,9 +13,11 @@ depends = ['deoplete.nvim','neosnippet-snippets']
 on_event = 'InsertEnter'
 hook_post_source = 'call NeosnippetHookPostSource()'
 
-# [[plugins]]
-# repo = 'Shougo/neomru.vim'
-# on_source  = ['denite.nvim']
+[[plugins]]
+repo = 'tbodt/deoplete-tabnine'
+depends = ['deoplete.nvim']
+on_event = 'InsertEnter'
+build = './install.sh'
 
 [[plugins]]
 repo = 'zchee/deoplete-clang'
