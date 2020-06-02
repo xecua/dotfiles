@@ -1,0 +1,102 @@
+\usepackage[dvipdfmx]{graphicx,color}
+\usepackage{bxpapersize}
+\usepackage[T1]{fontenc}
+\usepackage{url,textcomp}
+\usepackage{slashbox}
+\usepackage{comment}
+\usepackage{float,here}
+\usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx}
+\usepackage{listings}
+\usepackage{wtref}
+\usepackage{fancyhdr}
+
+\makeatletter
+% 2つのコマンドを交換する
+\newcommand\exchange[2]{\let\@tempa#1\let#1#2\let#2\@tempa}
+\makeatother
+
+\exchange\epsilon\varepsilon
+\exchange\left\mleft
+\exchange\right\mright
+
+% enumのrefに於いて，内側のみ参照する
+\makeatletter
+\renewcommand{\p@enumii}{}
+\makeatother
+
+% ローマ数字
+\newcommand*{\rom}[1]{\romannumeral #1}
+\makeatletter
+\newcommand*{\Rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+% 番号なしfootnote
+\makeatletter
+\def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
+\makeatother
+
+% 数学
+\theoremstyle{definition}
+\newtheorem{definition}{定義}[section]
+\newtheorem*{definition*}{定義}
+\newtheorem{theorem}[definition]{定理}
+\newtheorem*{theorem*}{定理}
+\newtheorem{proposition}[definition]{命題}
+\newtheorem{proposition*}{命題}
+\newtheorem{lemma}[definition]{補題}
+\newtheorem{lemma*}{補題}
+\newtheorem{example}[definition]{例}
+\newtheorem{example*}{例}
+\newtheorem{exercise}[definition]{問}
+\newtheorem{exercise*}{問}
+\newtheorem{remark}[definition]{注意}
+\newtheorem{remark*}{注意}
+\newtheorem{axiom}[definition]{公理}
+\newtheorem{axiom*}{公理}
+\newtheorem{corollary}[definition]{系}
+\newtheorem{corollary*}{系}
+
+% align等の縦揃え数式を自動的にページ送りする
+\allowdisplaybreaks[1]
+
+% 長い
+\newcommand{\disp}{\displaystyle}
+\newcommand{\inv}[1]{#1^{-1}}
+\renewcommand\vector[1]{\mbox{\boldmath{$#1$}}}
+\newcommand{\N}{\mathbb{N}} % 自然数
+\newcommand{\Z}{\mathbb{Z}} % 整数
+\newcommand{\Q}{\mathbb{Q}} % 有理数
+\newcommand{\R}{\mathbb{R}} % 実数
+\newcommand{\C}{\mathbb{C}} % 複素数
+\newcommand{\F}{\mathbb{F}} % 有限体
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % ノルム
+\newcommand{\bracket}[1]{\langle#1\rangle} % 角括弧
+\newcommand{\Bracket}[1]{\left\langle#1\right\rangle} % 角括弧
+\newcommand{\bbracket}[1]{[\![#1]\!]} % 二重角括弧(semantic bracket)
+
+% 演算子
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator*{\ord}{ord}
+
+% WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
+\newref{equat, sec, fig, tab, lst}
+\newref[scope=subsection]{enum}
+\setrefstyle{equat}{refcmd=(\ref{#1}),prefix=式}
+\setrefstyle{sec}{prefix=第,suffix=節}
+\setrefstyle{fig}{prefix=図}
+\setrefstyle{tab}{prefix=表}
+\setrefstyle{lst}{prefix=Listing}
+
+% fancyhdr
+\let\originalmaketitle\maketitle
+\renewcommand{\maketitle}{\originalmaketitle\pagestyle{fancy}} % https://pureodio.hatenadiary.org/entry/20110212/1297475110
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\thepage}
+\lhead{}
+% 表示を奇数ページのみにするならdocumentclassにtwosideオプションを追加
+\newcommand\defrhead[1]{\rhead[]{#1}}
+
