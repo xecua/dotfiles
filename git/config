@@ -4,6 +4,7 @@
 	signingkey = 335095B0
 [core]
 	editor = nvim
+	pager = "delta --plus-color='#012800' --minus-color='#340001' --theme='Monokai Extended'"
 [color]
 	ui = auto
 [alias]
@@ -36,3 +37,7 @@
 	gpgsign = true
 [rerere]
 	enabled = true 
+[pull]
+	rebase = false
+[interactive]
+	diffFilter = delta --color-only
