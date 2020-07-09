@@ -43,8 +43,8 @@ set helplang=ja,en
 " set signcolumn=yes
 
 " 見た目通りの移動
-nnoremap j gj
-nnoremap k gk
+noremap j gj
+noremap k gk
 
 " タブ関連
 set expandtab " スペースを使う
@@ -67,8 +67,8 @@ set whichwrap=b,s,<,>,[,]
 
 " pythonのpath
 if g:os == 'Darwin'
-  let g:python_host_prog = '/usr/local/bin/python'
-  let g:python3_host_prog = '/usr/local/bin/python3.8'
+  let g:python_host_prog = ''
+  let g:python3_host_prog = '/usr/local/bin/python3'
 else
   let g:python_host_prog = ''
   let g:python3_host_prog = ''
@@ -96,8 +96,20 @@ set undodir=$XDG_CACHE_HOME/nvim/undo
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
 
-" loaded by dein
+" plugin dependent configuration
 colorscheme molokai
+
+augroup AfterPluginLoaded
+  au!
+  " <CR>でsnippet展開。leximaが上書きするのでIntertEnterで無理やり
+  au InsertEnter * imap <expr> <CR>
+    \ (pumvisible()
+    \ ? (neosnippet#expandable()
+    \   ? "\<Plug>(neosnippet_expand)"
+    \   : deoplete#close_popup())
+    \ : lexima#expand('<CR>', 'i'))
+
+augroup END
 
 filetype plugin indent on
 

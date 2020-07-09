@@ -7,8 +7,8 @@ let g:LanguageClient_serverCommands = {
     \ 'haskell': ['hie-wrapper', '--lsp'],
     \ 'c': ['clangd'],
     \ 'cpp': ['clangd'],
+    \ 'd': ['serve-d'],
     \ }
-
 
 " make map for only supported filetypes(from help)
 function LC_maps()

@@ -48,7 +48,11 @@ endfunction
 function! LightLineFilename()
   return (&ft == 'denite' ? denite#get_status_sources() :
     \  (&ft == 'defx' ? expand('%:~:h') :
-    \  (expand('%') != '' ? expand('%:~'): '[No Name]')))
+    \  (expand('%') != '' ? (
+    \     winwidth(0) > 60 ? expand('%:~')
+    \                      : expand('%')
+    \  ) :
+    \  '[No Name]')))
 endfunction
 
 function! LightLineFiletype()

@@ -11,14 +11,3 @@ function! NeosnippetHookPostSource() abort
   let g:neosnippet#snippets_directory = g:vim_home . '/neosnippet'
 endfunction
 
-augroup NeoSnippetMyCnf
-  au!
-  " <CR>でsnippet展開。leximaが上書きするのでIntertEnterで無理やり
-  au InsertEnter * imap <expr> <CR>
-    \ (pumvisible()
-    \ ? (neosnippet#expandable()
-    \   ? "\<Plug>(neosnippet_expand)"
-    \   : deoplete#close_popup())
-    \ : lexima#expand('<CR>', 'i'))
-augroup END
-

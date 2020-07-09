@@ -5,21 +5,22 @@ options     head
 	@require: mylib/common
 
 	document(|
-	title={${1:#:title}};
-	author={${2:#:author}};
+		title={${1:#:title}};
+		author={${2:#:author}};
 	|) '<
 		${0}
 	>
 
-snippet +p
-abbr    +p
-	+p{
-		${0}
-	}
+snippet	slydifi
+abbr	slydifi template
+options	head
+	@require: class-slydifi/theme/hakodate-custom
 
-snippet +math
-abbr math block
-	+math(
-		${${0}}
-	);
+	SlydifiHakodate.document(|
+		draft-mode = false;
+	|) '<
+		+frame{${1:#:フレームのタイトル}} <
+			${0}
+		>
+	>
 
