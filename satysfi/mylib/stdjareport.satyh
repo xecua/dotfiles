@@ -46,6 +46,7 @@ module StdJaReport : sig
   direct \ref-page : [string] inline-cmd
   direct \figure : [string?; inline-text; block-text] inline-cmd
   direct +p : [inline-text] block-cmd
+  direct +pn : [inline-text] block-cmd
   direct +chapter : [string?; string?; inline-text; block-text] block-cmd
   direct +section : [string?; string?; inline-text; block-text] block-cmd
   direct +subsection : [string?; string?; inline-text; block-text] block-cmd
@@ -445,6 +446,9 @@ end = struct
     let ib-parag = (quad-indent ctx) ++ ib-inner ++ inline-fil in
       form-paragraph ctx ib-parag
 
+  let-block ctx +pn inner =
+    let ib-inner = read-inline ctx inner in
+      form-paragraph ctx (ib-inner ++ inline-fil)
 
   let chapter-scheme ctx label title outline-title-opt inner =
     let ctx-title = make-chapter-title ctx in
@@ -548,7 +552,8 @@ end = struct
   let theorem-scheme ctx ctxf category wordopt label inner =
     let () = increment num-theorems in
     let s-num =
-      (arabic (!num-chapter)) ^ `.` ^ (arabic (!num-section)) ^ `.` ^ (arabic (!num-theorems))
+      % (arabic (!num-chapter)) ^ `.` ^ (arabic (!num-section)) ^ `.` ^ (arabic (!num-theorems))
+      (arabic (!num-theorems)) % 章節の番号いる?
     in
     let () = register-cross-reference (label ^ `:num`) s-num in
     let it-num = embed-string s-num in
@@ -557,7 +562,7 @@ end = struct
     in
     let ib-word =
       match wordopt with
-      | None       -> inline-nil
+      | None       -> read-inline ctx {.}
       | Some(word) -> read-inline ctx {\ (#word;).}
     in
     let ib-inner = read-inline (ctxf ctx) inner in

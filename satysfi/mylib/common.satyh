@@ -2,6 +2,7 @@
 
 module Mylib : sig
   direct \break : [] inline-cmd
+  direct \mbr : [] math-cmd
   direct \id: [] math-cmd
   direct \lnot: [] math-cmd
 
@@ -12,6 +13,8 @@ module Mylib : sig
 
 end = struct
   let-inline ctx \break = discretionary 0 (inline-skip (get-text-width ctx *' 2.)) inline-fil inline-nil
+  % 先頭のスペースは加味しないので注意(+mathとかだとアレになる)
+  let-math \mbr = text-in-math MathOrd (fun ctx -> discretionary (-100) inline-nil inline-fil inline-nil)
 
   let-math \id = math-char MathOp `id`
   let-math \lnot = math-char MathPrefix `¬`
