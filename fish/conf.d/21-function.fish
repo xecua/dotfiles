@@ -16,3 +16,12 @@ function load_env --on-event fish_preexec
   end
 end
 
+# upgrade all installed packages
+function pip-upgrade
+  pip install -U (pip freeze | awk -F '==' '{print $1}')
+end
+
+function pip3-upgrade
+  pip3 install -U (pip3 freeze | awk -F '==' '{print $1}')
+end
+
