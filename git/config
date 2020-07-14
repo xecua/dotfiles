@@ -1,10 +1,10 @@
+# include this file by include.path
 [user]
-	email = courser4848@gmail.com
 	name = xecua
+	email = courser4848@gmail.com
 	signingkey = 335095B0
 [core]
 	editor = nvim
-	pager = "delta --plus-color='#012800' --minus-color='#340001' --theme='Monokai Extended'"
 [color]
 	ui = auto
 [alias]
@@ -31,13 +31,10 @@
 	stl = stash list
 	stp = stash pop
 	std = stash drop
-[gpg]
-	program = /usr/local/bin/gpg
 [commit]
 	gpgsign = true
 [rerere]
-	enabled = true 
+	enabled = true
 [pull]
 	rebase = false
-[interactive]
-	diffFilter = delta --color-only
+

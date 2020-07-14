@@ -69,6 +69,9 @@ set whichwrap=b,s,<,>,[,]
 if g:os == 'Darwin'
   let g:python_host_prog = ''
   let g:python3_host_prog = '/usr/local/bin/python3'
+elseif g:os == 'Liunx'
+  let g:python_host_prog = ''
+  let g:python3_host_prog = '/usr/bin/python'
 else
   let g:python_host_prog = ''
   let g:python3_host_prog = ''
