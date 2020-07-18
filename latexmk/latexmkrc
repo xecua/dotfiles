@@ -8,6 +8,14 @@ if ($^O eq 'darwin') {
     $bibtex = '/Library/TeX/texbin/pbibtex';
     $makeindex = '/Library/TeX/texbin/mendex';
     $pdf_previewer = '/Applications/Skim.app/Contents/MacOS/Skim';
+} elsif ($^O eq 'linux') {
+    $latex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
+    $latex_silent = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
+    $lualatex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/lualatex -interaction=nonstopmode -synctex=1S';
+    $dvipdf = '/usr/bin/dvipdfmx -o %D %S';
+    $bibtex = '/usr/bin/pbibtex';
+    $makeindex = '/usr/bin/mendex';
+    $pdf_previewer = '/usr/bin/zathura';
 }
 # TODO: add configuration for other OSs
 
