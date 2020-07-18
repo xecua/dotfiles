@@ -1,17 +1,32 @@
 #!/usr/bin/perl
 
+my $fd_replace = 'fd . -t f ".tex$" -0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g";';
+my $find_replace = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g";';
+
 if ($^O eq 'darwin') {
-    $latex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /Library/TeX/texbin/uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
-    $latex_silent = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /Library/TeX/texbin/uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
-    $lualatex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /Library/TeX/texbin/lualatex -interaction=nonstopmode -synctex=1S';
+    if (!system('fd -V >/dev/null')) {
+        $replace = $fd_replace
+    } else {
+        $replace = $find_replace
+    }
+
+    $latex = $replace . '/Library/TeX/texbin/uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
+    $latex_silent = $replace . '/Library/TeX/texbin/uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
+    $lualatex = $replace . '/Library/TeX/texbin/lualatex -interaction=nonstopmode -synctex=1S';
     $dvipdf = '/Library/TeX/texbin/dvipdfmx -o %D %S';
     $bibtex = '/Library/TeX/texbin/pbibtex';
     $makeindex = '/Library/TeX/texbin/mendex';
     $pdf_previewer = '/Applications/Skim.app/Contents/MacOS/Skim';
 } elsif ($^O eq 'linux') {
-    $latex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
-    $latex_silent = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
-    $lualatex = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g"; /usr/bin/lualatex -interaction=nonstopmode -synctex=1S';
+    if (!system('fd -V >/dev/null')) {
+        $replace = $fd_replace
+    } else {
+        $replace = $find_replace
+    }
+
+    $latex = $replace . '/usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
+    $latex_silent = $replace . '/usr/bin/uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
+    $lualatex = $replace . '/usr/bin/lualatex -interaction=nonstopmode -synctex=1S';
     $dvipdf = '/usr/bin/dvipdfmx -o %D %S';
     $bibtex = '/usr/bin/pbibtex';
     $makeindex = '/usr/bin/mendex';
