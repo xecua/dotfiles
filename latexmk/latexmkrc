@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-my $fd_replace = 'fd -t f ".tex$" . -0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g";';
-my $find_replace = 'find . -type f -name "*.tex" -print0 | xargs -0 sed -i "" -e "s/、/，/g" -e "s/。/．/g";';
+my $fd_replace = 'fd -t f \'.tex$\' . -0 | xargs -0 sed -i"" -e "s/、/，/g" -e "s/。/．/g";';
+my $find_replace = 'find . -type f -name \'*.tex\' -print0 | xargs -0 sed -i"" -e "s/、/，/g" -e "s/。/．/g";';
 
 $replace = '';
 
