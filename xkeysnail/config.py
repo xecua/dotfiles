@@ -1,5 +1,6 @@
 # configuration file for xkeysnail(https://github.com/mooz/xkeysnail)
-# to start automatically https://ohmyenter.com/how-to-install-and-autostart-xkeysnail/#%E8%87%AA%E5%8B%95%E8%B5%B7%E5%8B%95
+# daemonize using systemd: https://ohmyenter.com/how-to-install-and-autostart-xkeysnail/#%E8%87%AA%E5%8B%95%E8%B5%B7%E5%8B%95
+# note: arch linux need load uinput kernel module by adding file written 'uinput' to /etc/modules-load.d
 import re
 from xkeysnail.transform import *
 
