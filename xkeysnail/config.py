@@ -1,0 +1,14 @@
+# configuration file for xkeysnail(https://github.com/mooz/xkeysnail)
+# to start automatically https://ohmyenter.com/how-to-install-and-autostart-xkeysnail/#%E8%87%AA%E5%8B%95%E8%B5%B7%E5%8B%95
+import re
+from xkeysnail.transform import *
+
+# mapping Left Super to Muhenkan and Right Super to Henkan
+# by which you can switch IME by simply pushing these keys
+# with input method configuration which maps Muhenkan to "disable IME" and Henkan to "enable IME,"
+define_multipurpose_modmap({
+    Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
+    Key.RIGHT_META: [Key.HENKAN, Key.RIGHT_META]
+})
+
+
