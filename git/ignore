@@ -1,5 +1,17 @@
-.DS_Store
-node_modules/
-.ionide/
-.vscode/
+**/.DS_Store
+
+# Node.js
+**/node_modules/
+
+# F#
+**/.ionide/
+
+# Scala
+**/.metals/
+**/.bloop/
+
+# editor
+**/.vscode/
+**/.idea/
+**/xcuserdata/
 
