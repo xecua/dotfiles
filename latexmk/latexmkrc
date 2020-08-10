@@ -1,23 +1,25 @@
 #!/usr/bin/perl
 
-my $fd_replace = 'fd -t f \'.tex$\' . -0 | xargs -0 sed -i"" -e "s/、/，/g" -e "s/。/．/g";';
-my $find_replace = 'find . -type f -name \'*.tex\' -print0 | xargs -0 sed -i"" -e "s/、/，/g" -e "s/。/．/g";';
+my $fd_source = 'fd -t f \'.tex$\' . -0';
+my $find_source = 'find . -type f -name \'*.tex\' -print0';
+my $replace_linux = 'xargs -0 sed -i"" -e "s/、/，/g" -e "s/。/．/g";';
+my $replace_mac = 'xargs -0 gsed -i"" -e "s/、/，/g" -e "s/。/．/g";';
 
 $replace = '';
 
 if ($^O eq 'darwin') {
     if (!system('fd -V >/dev/null')) {
-        $replace = $fd_replace
+        $replace = $fd_source . '|' . $replace_mac;
     } else {
-        $replace = $find_replace
+        $replace = $find_source . '|' . $replace_mac;
     }
 
     $pdf_previewer = '/Applications/Skim.app/Contents/MacOS/Skim';
 } elsif ($^O eq 'linux') {
     if (!system('fd -V >/dev/null')) {
-        $replace = $fd_replace
+        $replace = $fd_source . '|' . $replace_linux;
     } else {
-        $replace = $find_replace
+        $replace = $find_source . '|' . $replace_linux;
     }
 
     $pdf_previewer = 'zathura';
