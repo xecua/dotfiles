@@ -1,0 +1,40 @@
+# include this file by include.path
+[user]
+	name = xecua
+	email = courser4848@gmail.com
+	signingkey = 335095B0
+[core]
+	editor = nvim
+[color]
+	ui = auto
+[alias]
+	a = add
+	p = push
+	po = push origin
+	pl = pull --prune
+	plo = pull origin
+	f = fetch --prune
+	m = merge
+	mas = checkout master
+	s = status
+	ss = status -sb
+	c = commit -am
+	co = checkout
+	b = branch
+	d = diff
+	l = log
+	g = log --graph --date=short --decorate=short --oneline
+	r = rebase
+	ri = rebase -i
+	amend = commit -a --amend
+	st = stash
+	stl = stash list
+	stp = stash pop
+	std = stash drop
+[commit]
+	gpgsign = true
+[rerere]
+	enabled = true
+[pull]
+	rebase = false
+
