@@ -1,5 +1,5 @@
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rls'],
     \ 'vue': ['vls'],
     \ 'swift': ['xcrun', 'sourcekit-lsp'],
     \ 'tex': ['texlab'],
