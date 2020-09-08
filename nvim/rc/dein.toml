@@ -1,6 +1,8 @@
+# plugin manager
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# task runner
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build = 'make'
@@ -8,26 +10,30 @@ build = 'make'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
-# LSP Client
+# IDE support
+## LSP Client
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
 
-# for LSP unsupported languages
+## if there is no stable LSP Server
 [[plugins]]
 repo = 'dense-analysis/ale'
 
+# git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-# Automatically complete closing brace
+# autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
+# for good appearance
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
+# explorer
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 depends = ['defx-git', 'defx-icons']
@@ -38,6 +44,7 @@ repo ="kristijanhusak/defx-git"
 [[plugins]]
 repo ="kristijanhusak/defx-icons"
 
+# status line
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
@@ -53,23 +60,31 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
 
-# .gitignore file
+# Syntax Highlighting
+## .gitignore file
 [[plugins]]
 repo = 'benknoble/gitignore-vim'
 
-# swift
+## Swift
 [[plugins]]
 repo = 'apple/swift'
 rtp = 'utils/vim'
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
+## SATySFi
 [[plugins]]
 repo = 'qnighy/satysfi.vim'
 
+# Neosnippet
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+# show underscore for matching parenthesis
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
+
+# comment out tool
+[[plugins]]
+repo = 'preservim/nerdcommenter'
 
 # color scheme
 [[plugins]]
