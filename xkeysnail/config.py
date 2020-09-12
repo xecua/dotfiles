@@ -7,6 +7,11 @@ from xkeysnail.transform import *
 # multipurpose timeout
 define_timeout(2)
 
+
+define_modmap({
+    Key.CAPSLOCK: Key.LEFT_CTRL,
+})
+
 # mapping Left Super to Muhenkan and Right Super to Henkan
 # by which you can switch IME by simply pushing these keys
 # with input method configuration which maps Muhenkan to "disable IME" and Henkan to "enable IME,"
