@@ -78,7 +78,7 @@ else
 end
 
 " close quickfix
-nnoremap <Leader>c :cclose<CR>
+nnoremap <Leader>x :cclose<CR>
 
 " 常にタブラインを表示
 set showtabline=2
