@@ -32,3 +32,13 @@ function attach_tmux_session_if_needed
     end
 end
 
+# mkdir and cd
+function mkcd
+  if [ -z "$argv[1]" ]
+    echo "usage: mkcd dirname" >&2
+    return 1
+  end
+  mkdir -p $argv[1]
+  eval "cd" $argv[1]
+end
+
