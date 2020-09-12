@@ -23,7 +23,7 @@ if type -q exa
   alias ls 'exa --icons'
   alias ll 'exa -lh --git --icons'
   alias la 'exa -alh --git --icons'
-  alias l 'exa --icons'
+  alias l 'exa'
   alias lt 'exa --tree --icons --git-ignore'
   alias llt 'exa -lh --git --tree --icons --git-ignore'
   alias lat 'exa -alh --git --tree --icons --git-ignore'
