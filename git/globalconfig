@@ -8,6 +8,7 @@
 [color]
 	ui = auto
 [alias]
+	cl = clone
 	a = add
 	p = push
 	po = push origin

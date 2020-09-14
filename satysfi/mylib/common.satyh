@@ -6,6 +6,8 @@ module Mylib : sig
   direct \id: [] math-cmd
   direct \lnot: [] math-cmd
 
+  val compare-string: string -> string -> int
+
   direct \bbracket : [math] math-cmd
 
   val bbracket-left : paren
@@ -81,6 +83,26 @@ end = struct
   let bbracket-left = double-bracket-left bracket-path
   let bbracket-right = double-bracket-right bracket-path
   let-math \bbracket = math-paren bbracket-left bbracket-right
+
+  let compare-string sl sr =
+    let lstl = string-explode sl in
+    let lstr = string-explode sr in
+    let-rec sub lstl lstr =
+        match (lstl, lstr) with
+        | ([],[]) -> 0
+        | (_, []) -> 1
+        | ([],_) -> -1
+        | (nl::xl,nr::xr) -> (
+            if nl < nr then
+                -1
+            else
+                if nl > nr then
+                    1
+                else
+                    sub xl xr
+        )
+    in
+    sub lstl lstr
 
 end
 
