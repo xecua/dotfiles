@@ -1,6 +1,6 @@
 @require: math
 
-module Mylib : sig
+module MyLib : sig
   direct \break : [] inline-cmd
   direct \mbr : [] math-cmd
   direct \id: [] math-cmd
