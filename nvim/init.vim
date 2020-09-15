@@ -25,6 +25,8 @@ set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 set ambiwidth=double
 " スワップファイルを作らない
 set noswapfile
+" auto reload on edit
+set autoread
 " closeしたバッファを(実際にはcloseせず)hiddenにする
 set hidden
 " クリップボードとNeovimの無名レジスタを一体化
