@@ -71,6 +71,7 @@ module SlydifiAkasaka : sig
       % SLyDIFi の必須パラメータ
       draft-mode: bool;
       % Akasaka theme の独自パラメータ
+      header-text: inline-text option;
       footer-text: inline-text option;
     |)
 
@@ -137,7 +138,7 @@ end = struct
     % Akasaka 独自パラメータ
     emph = cfg-font-emph;
     frame-title = (| cfg-font-emph with size = 28pt; |);
-    header = (| cfg-font-normal with size = 28pt; |);
+    header = (| cfg-font-normal with size = 12pt; |);
     footer = (| cfg-font-normal with size = 12pt; |);
     slide-title = (| cfg-font-emph with size = 36pt; |);
     slide-author = (| cfg-font-emph with size = 24pt; |);
@@ -149,8 +150,10 @@ end = struct
   % cfg-color: スライドの色使いに関する設定を引き渡す際に用いるレコード
 
   % 楽をするために，まず最も基本となる foreground と background の色を設定
-  let color-bg = SlydifiColor.html-color 0xEEEEEE
+  let color-bg = SlydifiColor.html-color 0xFFFFFF
   let color-fg = SlydifiColor.html-color 0x000000
+  let main-color = SlydifiColor.html-color 0x3366CC
+  let accent-color = SlydifiColor.html-color 0x92CC1F
 
   % 様々な色を設定
   let cfg-color = (|
@@ -160,9 +163,10 @@ end = struct
     main-grid = SlydifiColor.inner-color color-bg color-fg 0.7;
     sub-grid  = SlydifiColor.inner-color color-bg color-fg 0.9;
     % Akasaka の独自パラメータ
-    title  = SlydifiColor.html-color 0x555555;
+    title  = main-color;
     emph   = SlydifiColor.html-color 0xFF0027;
-    header = SlydifiColor.inner-color color-bg color-fg 0.5;
+    % header = SlydifiColor.inner-color color-bg color-fg 0.5;
+    header = SlydifiColor.html-color 0xFF0027;
     footer = SlydifiColor.html-color 0xFF0027;
   |)
 
@@ -173,20 +177,21 @@ end = struct
     text-height = cfg-paper#height -' 15pt *' 2.;
     text-horizontal-margin = 30pt;
     text-vertical-margin = 10pt;
-    header-basepos = 18pt;  % header について，上にどれだけ余白を取るか（上基準）
+    header-basepos = 3pt;  % header について，上にどれだけ余白を取るか（上基準）
     footer-basepos = 24pt;  % footer をどの位置から始めるか（上基準）
     main-grid   = 50pt;
     sub-grid    = 10pt;
     bg-gr-start-point = 0pt;  % background graphics の phantom inline-boxes をどこに置くか（paragraph-margin を変にいじらない限り，基本は 0pt で OK）
     % Akasaka の独自パラメータ
     title-padding-lr = 12pt;  % タイトルの左右のパディング（紙面基準）
-    title-padding-upper-line = 5pt;  % タイトルの下線とタイトル文字の間隔
-    title-padding-lower-line = 0pt;  % タイトルの下線と本文の間隔
-    title-line-width = 3pt;  % タイトルの下線とタイトル文字の間隔
+    title-padding-upper-line = 5pt;  % タイトルの下とタイトル文字の間隔(枠側を引き下げるのであって文字は動かないので注意)
+    title-padding-lower-line = 0pt;  % タイトルの下と本文の間隔
+    title-line-width = 3pt;  % タイトルの下線の幅(不使用だがmultiframeの換装が終わっていないため残している)
   |)
 
   let-mutable is-first-page <- true
   let-mutable is-draft-mode <- false
+  let-mutable page-num <- 1
 
 
 % 便利な関数
@@ -204,17 +209,24 @@ end = struct
 
     % header の設定
     let header pbinfo =
-      if (pbinfo#page-number == 1) then block-nil else
-      let ctx = SlydifiScheme.get-standard-context cfg-text cfg-color cfg-paper#width
-        |> SlydifiScheme.set-font-config cfg-text#header
-        |> set-text-color cfg-color#header
-      in
-      let it-pageno = embed-string (arabic pbinfo#page-number) in
-      let it-count = match get-cross-reference `pagecount` with
-        | None -> {??}
-        | Some(i) -> embed-string i
-      in
-      line-break true true ctx (inline-fil ++ (read-inline ctx {#it-pageno;/#it-count;}) ++ inline-skip 20pt)
+      match record#header-text with
+      | None -> block-nil
+      | Some(header-text) ->
+          let ctx = SlydifiScheme.get-standard-context cfg-text cfg-color cfg-paper#width
+            |> SlydifiScheme.set-font-config cfg-text#header
+            |> set-text-color cfg-color#header
+          in
+          let ib-top = read-inline ctx header-text in
+          let (wid-top, ht-top, dp-top) = get-natural-metrics ib-top in
+          let margin = 3pt in
+          let ib = inline-graphics (wid-top +' margin *' 2.0) (ht-top +' margin *' 2.0) (dp-top +' margin *' 2.0) (fun (x, y) -> [
+            (fill Color.white (
+              Gr.rectangle (x -' margin, y -' margin)
+                (x +' wid-top +' margin, y +' ht-top +' margin)));
+                (draw-text (x, y) ib-top)  % x, y に関わらず point の絶対座標で決める
+          ])
+          in
+          line-break true true ctx (inline-fil ++ ib ++ (inline-skip 3pt))
     in
 
     % footer の設定
@@ -362,31 +374,40 @@ end = struct
 
     let deco (x, y) wid hgt dpt =
       let path1 =
-        let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
+        % let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
+        let xL = 0pt in
         let yB = y in
-        let xR = xL +' cfg-paper#width -' cfg-spacing#title-padding-lr *' 2.0 in
-        let yT = yB +' cfg-spacing#title-line-width in
+        % let xR = xL +' cfg-paper#width -' cfg-spacing#title-padding-lr *' 2.0 in
+        let xR = cfg-paper#width in
+        let yT = cfg-paper#height in
         Gr.rectangle (xL, yT) (xR, yB)
       in
       [ (fill cfg-color#title path1); ]
     in
 
+    % side effects!
+    let _ = page-num <- !page-num + 1 in
+
     let bb-title =
       let ctx-title = ctx
         |> SlydifiScheme.set-font-config cfg-text#frame-title
-        |> set-text-color cfg-color#title
-        |> set-paragraph-margin 0pt cfg-spacing#title-padding-lower-line in
+        |> set-text-color cfg-color#bg
+        |> set-paragraph-margin cfg-spacing#title-padding-lr cfg-spacing#title-padding-lower-line in
       let ib-title = read-inline ctx-title title in
+      let page-num = embed-string (arabic !page-num) in
+      let page-count = match get-cross-reference `pagecount` with
+        | None -> {??}
+        | Some(i) -> embed-string i in
       block-frame-breakable ctx-title
-          (
+          ( % このブロックのパディング、 left-right-top-bottom?
             cfg-spacing#title-padding-lr -' cfg-spacing#text-horizontal-margin,
             cfg-spacing#title-padding-lr,
             0pt,
-            cfg-spacing#title-padding-upper-line +' cfg-spacing#title-line-width
+            cfg-spacing#title-padding-upper-line
           )
             (deco, deco, deco, deco)
               (fun ctx ->
-                line-break true true ctx (ib-title ++ inline-fil)
+                line-break true true ctx (ib-title ++ inline-fil ++ read-inline ctx-title {#page-num;/#page-count;})
               )
     in
 
@@ -410,7 +431,8 @@ end = struct
     let frame-f itlst btlst =
       let deco (x, y) wid hgt dpt =
         let path1 =
-          let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
+          % let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
+          let xL = 0pt in
           let yB = y in
           let xR = xL +' cfg-paper#width -' cfg-spacing#title-padding-lr *' 2.0 in
           let yT = yB +' cfg-spacing#title-line-width in
@@ -423,7 +445,7 @@ end = struct
         let ctx-title = ctx
           |> SlydifiScheme.set-font-config cfg-text#frame-title
           |> set-text-color cfg-color#title
-          |> set-paragraph-margin 0pt cfg-spacing#title-padding-lower-line in
+          |> set-paragraph-margin cfg-spacing#title-padding-lr cfg-spacing#title-padding-lower-line in
         let ib-title = read-inline ctx-title (Option.from {} (itlst |> List.nth 0)) in
         block-frame-breakable ctx-title
             (
