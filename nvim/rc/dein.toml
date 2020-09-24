@@ -44,6 +44,9 @@ repo ="kristijanhusak/defx-git"
 [[plugins]]
 repo ="kristijanhusak/defx-icons"
 
+[[plugins]]
+repo = 'mbbill/undotree'
+
 # status line
 [[plugins]]
 repo = 'itchyny/lightline.vim'
