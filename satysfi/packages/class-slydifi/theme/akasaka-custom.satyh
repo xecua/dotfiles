@@ -25,6 +25,7 @@ module SlydifiAkasaka : sig
   val cfg-text: (|
     normal: config-font;
     emph : config-font;
+    accent: config-font;
     frame-title : config-font;
     header : config-font;
     footer : config-font;
@@ -43,6 +44,7 @@ module SlydifiAkasaka : sig
     % Hakodate の独自パラメータ
     title  : color;
     emph   : color;
+    accent: color;
     header : color;
     footer : color;
   |)
@@ -89,11 +91,13 @@ module SlydifiAkasaka : sig
 
   % テキスト修飾
   direct \emph : [(int -> bool)?; inline-text] inline-cmd
+  direct \accent: [(int -> bool)?; inline-text] inline-cmd
   direct \textbf : [(int -> bool)?; inline-text] inline-cmd
 
   % 脚注
   direct \footnote : [inline-text] inline-cmd
-  direct \footnotetext : [string; inline-text] inline-cmd
+  direct \footnotetextonly : [inline-text] inline-cmd
+  direct \footnotetext : [string; inline-text] inline-cmd % 第1引数はfootnotemarkで参照可能なラベル
   direct \footnotemark : [string] inline-cmd
 
 end = struct
@@ -103,14 +107,13 @@ end = struct
   % cfg-paper: 紙面の設定を引き渡す際に用いるレコード
   % 下では PowerPoint の文書サイズ (16:9) に合わせている
   let cfg-paper = (|
-    width = 25.4cm;
-    height = 14.29cm;
+  % 16:9
+  %   width = 25.4cm;
+  %   height = 14.29cm;
+  % 4:3
+    width = 19.2cm;
+    height = 14.4cm;
   |)
-  % もし beamer の 4:3 に合わせたければこっち
-  % let cfg-paper = (|
-  %   width = 12.8cm
-  %   height = 9.6cm
-  % |)
 
 
   % cfg-text: スライド中の書体に関する設定を引き渡す際に用いるレコード
@@ -118,16 +121,20 @@ end = struct
   % 楽をするために，まず通常フォント・見出し用フォントを設定
   let cfg-font-normal = (|
     size = 18pt;
-    font-latin = (`fonts-noto-sans:NotoSans-Regular`, 1.0, 0.0);
-    font-cjk   = (`fonts-noto-sans-cjk-jp:NotoSansCJKjp-Regular`, 1.0, 0.0);
-    par-margin-ratio = (0.6, 0.6);
+    % font-latin = (`fonts-noto-sans:NotoSans-Regular`, 1.0, 0.0);
+    font-latin = (`system:.HiraKakuInterface-W3`, 1., 0.);
+    % font-cjk   = (`fonts-noto-sans-cjk-jp:NotoSansCJKjp-Regular`, 1.0, 0.0);
+    font-cjk = (`system:.HiraKakuInterface-W3`, 1., 0.);
+    par-margin-ratio = (1., 1.);
     leading-ratio = 1.4;
   |)
   let cfg-font-emph = (|
     size = 18pt;
-    font-latin = (`fonts-noto-sans:NotoSans-Bold`, 1.0, 0.0);
-    font-cjk   = (`fonts-noto-sans-cjk-jp:NotoSansCJKjp-Bold`, 1.0, 0.0);
-    par-margin-ratio = (0.6, 0.6);
+    % font-latin = (`fonts-noto-sans:NotoSans-Bold`, 1.0, 0.0);
+    font-latin = (`system:.HiraKakuInterface-W6`, 1., 0.);
+    % font-cjk   = (`fonts-noto-sans-cjk-jp:NotoSansCJKjp-Bold`, 1.0, 0.0);
+    font-cjk = (`system:.HiraKakuInterface-W6`, 1., 0.);
+    par-margin-ratio = (1.5, 1.5);
     leading-ratio = 1.4;
   |)
 
@@ -137,10 +144,11 @@ end = struct
     normal = cfg-font-normal;
     % Akasaka 独自パラメータ
     emph = cfg-font-emph;
+    accent = (| cfg-font-emph with size = 22pt; |);
     frame-title = (| cfg-font-emph with size = 28pt; |);
     header = (| cfg-font-normal with size = 12pt; |);
     footer = (| cfg-font-normal with size = 12pt; |);
-    slide-title = (| cfg-font-emph with size = 36pt; |);
+    slide-title = (| cfg-font-emph with size = 24pt; |);
     slide-author = (| cfg-font-emph with size = 24pt; |);
     slide-date = (| cfg-font-emph with size = 20pt; |);
     section-title = (| cfg-font-emph with size = 28pt; |);
@@ -153,7 +161,8 @@ end = struct
   let color-bg = SlydifiColor.html-color 0xFFFFFF
   let color-fg = SlydifiColor.html-color 0x000000
   let main-color = SlydifiColor.html-color 0x3366CC
-  let accent-color = SlydifiColor.html-color 0x92CC1F
+  % let accent-color = SlydifiColor.html-color 0x92CC1F
+  let accent-color = SlydifiColor.html-color 0xF27100
 
   % 様々な色を設定
   let cfg-color = (|
@@ -164,7 +173,9 @@ end = struct
     sub-grid  = SlydifiColor.inner-color color-bg color-fg 0.9;
     % Akasaka の独自パラメータ
     title  = main-color;
-    emph   = SlydifiColor.html-color 0xFF0027;
+    % emph   = SlydifiColor.html-color 0xFF0027;
+    emph = main-color;
+    accent = accent-color;
     % header = SlydifiColor.inner-color color-bg color-fg 0.5;
     header = SlydifiColor.html-color 0xFF0027;
     footer = SlydifiColor.html-color 0xFF0027;
@@ -184,7 +195,7 @@ end = struct
     bg-gr-start-point = 0pt;  % background graphics の phantom inline-boxes をどこに置くか（paragraph-margin を変にいじらない限り，基本は 0pt で OK）
     % Akasaka の独自パラメータ
     title-padding-lr = 12pt;  % タイトルの左右のパディング（紙面基準）
-    title-padding-upper-line = 5pt;  % タイトルの下とタイトル文字の間隔(枠側を引き下げるのであって文字は動かないので注意)
+    title-padding-upper-line = 12pt;  % タイトルの下とタイトル文字の間隔(枠側を引き下げるのであって文字は動かないので注意)
     title-padding-lower-line = 0pt;  % タイトルの下と本文の間隔
     title-line-width = 3pt;  % タイトルの下線の幅(不使用だがmultiframeの換装が終わっていないため残している)
   |)
@@ -481,6 +492,15 @@ end = struct
     in
     (read-inline ctx2 it)
 
+  let-inline ctx \accent ?:dcf it =
+    let dcf = Option.from (fun _ -> true) dcf in
+    let ctx2 = SlydifiOverlay.select dcf
+      (ctx |> set-text-color cfg-color#accent
+           |> SlydifiScheme.set-fonts cfg-text#accent)
+        ctx
+    in
+    (read-inline ctx2 it)
+
   let-inline ctx \textbf ?:dcf it =
     let dcf = Option.from (fun _ -> true) dcf in
     let ctx2 = SlydifiOverlay.select dcf
@@ -534,6 +554,17 @@ end = struct
 
 
 % \footnote{} command
+  let-inline ctx \footnotetextonly it =
+    let bb =
+      let ctx =
+        ctx |> set-font-size (cfg-text#footnote#size *' 0.9)
+            |> set-leading (cfg-text#footnote#size *' 1.2)
+            |> set-paragraph-margin (cfg-text#footnote#size *' 0.5) (cfg-text#footnote#size *' 0.5)
+          %temporary
+      in
+        line-break false false ctx (read-inline ctx it ++ inline-fil)
+    in
+      FootnoteScheme.text ctx bb
 
   let-inline ctx \footnotetext ref-label it =
     let bbf num =
@@ -544,7 +575,7 @@ end = struct
             |> set-paragraph-margin (cfg-text#footnote#size *' 0.5) (cfg-text#footnote#size *' 0.5)
           %temporary
       in
-        line-break false false ctx (read-inline ctx {#it-num; #it;} ++ inline-fil)
+        line-break false false ctx (read-inline ctx {\*#it-num; #it;} ++ inline-fil)
     in
       FootnoteScheme.main ctx (Some(ref-label)) (fun _ -> inline-nil) bbf
 
@@ -583,7 +614,7 @@ end = struct
             |> set-paragraph-margin (cfg-text#footnote#size *' 0.5) (cfg-text#footnote#size *' 0.5)
           %temporary
       in
-        line-break false false ctx (read-inline ctx {#it-num; #it;} ++ inline-fil)
+        line-break false false ctx (read-inline ctx {\*#it-num; #it;} ++ inline-fil)
     in
       FootnoteScheme.main ctx None ibf bbf
 
