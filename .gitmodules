@@ -1,0 +1,3 @@
+[submodule "satysfi/satysfi-highlight"]
+	path = satysfi/satysfi-highlight
+	url = https://github.com/Amaoto17/satysfi-highlight.git

@@ -191,7 +191,7 @@ end = struct
 
   let-mutable is-first-page <- true
   let-mutable is-draft-mode <- false
-  let-mutable page-num <- 1
+  let-mutable page-num <- 0
 
 
 % 便利な関数
@@ -260,6 +260,9 @@ end = struct
   % 消す予定
   let-block ctx +make-title record =
 
+    % side effects!
+    let _ = page-num <- !page-num + 1 in
+
     % title, author, date の全てを background graphics として描画する．
     % （そうすることで，テキストの位置を絶対座標で配置できる）
     let bg-graphics =
@@ -325,6 +328,9 @@ end = struct
 
   let-block ctx +section its bt =
 
+    % side effects!
+    let _ = page-num <- !page-num + 1 in
+
     % make-title 同様にすべての情報を bg として記述する
     let bg-graphics =
       let gr-section-title =
@@ -372,6 +378,9 @@ end = struct
 
   let-block ctx +frame title inner =
 
+    % side effects!
+    let _ = page-num <- !page-num + 1 in
+
     let deco (x, y) wid hgt dpt =
       let path1 =
         % let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
@@ -384,9 +393,6 @@ end = struct
       in
       [ (fill cfg-color#title path1); ]
     in
-
-    % side effects!
-    let _ = page-num <- !page-num + 1 in
 
     let bb-title =
       let ctx-title = ctx
@@ -419,9 +425,22 @@ end = struct
       ctx (bb-title +++ bb-inner)
 
   let-block ctx +frame-nt inner =
+    % side effects!
+    let _ = page-num <- !page-num + 1 in
+
+    let ctx-title = ctx
+      |> SlydifiScheme.set-font-config cfg-text#frame-title
+      |> set-text-color cfg-color#fg
+      |> set-paragraph-margin cfg-spacing#title-padding-lr cfg-spacing#title-padding-lower-line in
+    let page-num = embed-string (arabic !page-num) in
+    let page-count = match get-cross-reference `pagecount` with
+      | None -> {??}
+      | Some(i) -> embed-string i in
+    let bb-header = line-break true true ctx (inline-fil ++ read-inline ctx-title {#page-num;/#page-count;}) in
+
     let bg-graphics = [] in
     let bb-inner = read-block ctx inner in
-    SlydifiScheme.frame-scheme cfg-paper cfg-color cfg-spacing is-first-page is-draft-mode bg-graphics ctx bb-inner
+    SlydifiScheme.frame-scheme cfg-paper cfg-color cfg-spacing is-first-page is-draft-mode bg-graphics ctx (bb-header +++ bb-inner)
 
   let-block ctx +multiframe n-layer title inner =
 
@@ -429,13 +448,17 @@ end = struct
     let btlst = [inner;] in
 
     let frame-f itlst btlst =
+      % side effects!
+      let _ = page-num <- !page-num + 1 in
+
       let deco (x, y) wid hgt dpt =
         let path1 =
           % let xL = x -' cfg-spacing#text-horizontal-margin +' cfg-spacing#title-padding-lr in
           let xL = 0pt in
           let yB = y in
-          let xR = xL +' cfg-paper#width -' cfg-spacing#title-padding-lr *' 2.0 in
-          let yT = yB +' cfg-spacing#title-line-width in
+          % let xR = xL +' cfg-paper#width -' cfg-spacing#title-padding-lr *' 2.0 in
+          let xR = cfg-paper#width in
+          let yT = cfg-paper#height in
           Gr.rectangle (xL, yT) (xR, yB)
         in
         [ (fill cfg-color#title path1); ]
@@ -444,9 +467,13 @@ end = struct
       let bb-title =
         let ctx-title = ctx
           |> SlydifiScheme.set-font-config cfg-text#frame-title
-          |> set-text-color cfg-color#title
+          |> set-text-color cfg-color#bg
           |> set-paragraph-margin cfg-spacing#title-padding-lr cfg-spacing#title-padding-lower-line in
         let ib-title = read-inline ctx-title (Option.from {} (itlst |> List.nth 0)) in
+        let page-num = embed-string (arabic !page-num) in
+        let page-count = match get-cross-reference `pagecount` with
+          | None -> {??}
+          | Some(i) -> embed-string i in
         block-frame-breakable ctx-title
             (
               cfg-spacing#title-padding-lr -' cfg-spacing#text-horizontal-margin,
@@ -456,7 +483,7 @@ end = struct
             )
               (deco, deco, deco, deco)
                 (fun ctx ->
-                  line-break true true ctx (ib-title ++ inline-fil)
+                  line-break true true ctx (ib-title ++ inline-fil ++ read-inline ctx-title {#page-num;/#page-count;})
                 )
       in
 
