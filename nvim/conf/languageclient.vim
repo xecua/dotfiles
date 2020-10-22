@@ -8,6 +8,7 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd'],
     \ 'cpp': ['clangd'],
     \ 'd': ['serve-d'],
+    \ 'vim': ['vim-language-server']
     \ }
 
 if g:os == 'darwin' || g:os == 'linux'

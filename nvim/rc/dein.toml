@@ -63,6 +63,24 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
 
+# show underscore for matching parenthesis
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
+
+# comment out tool
+[[plugins]]
+repo = 'preservim/nerdcommenter'
+
+# color scheme
+[[plugins]]
+repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
 # Syntax Highlighting
 ## .gitignore file
 [[plugins]]
@@ -81,21 +99,7 @@ repo = 'qnighy/satysfi.vim'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-# show underscore for matching parenthesis
+# Haxe
 [[plugins]]
-repo = 'itchyny/vim-parenmatch'
-
-# comment out tool
-[[plugins]]
-repo = 'preservim/nerdcommenter'
-
-# color scheme
-[[plugins]]
-repo = 'tomasr/molokai'
-
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
-
-[[plugins]]
-repo = 'cocopon/iceberg.vim'
+repo = 'jdonaldson/vaxe'
 

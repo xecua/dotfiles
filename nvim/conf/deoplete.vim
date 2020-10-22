@@ -6,3 +6,4 @@ function! DeopleteHookPostSource() abort
 
   inoremap <expr> <S-tab> pumvisible() ? "\<UP>" : "\<S-Tab>"
 endfunction
+

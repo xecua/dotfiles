@@ -16,7 +16,8 @@ fish_style_pwd_dir_length = 1
 [time]
 disabled = false
 utc_time_offset = 9
-time_format = "%H:%M"
+format = "🕙[$time]($style) "
+time_format = "%R"
 
 [battery]
 full_symbol = " "
