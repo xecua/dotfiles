@@ -49,3 +49,30 @@ on_ft = ['fish']
 repo = 'lambdalisue/vim-backslash'
 on_ft = ['vim']
 
+# Syntax Highlighting
+## .gitignore file
+[[plugins]]
+repo = 'benknoble/gitignore-vim'
+on_ft = ['gitignore']
+
+## Swift
+[[plugins]]
+repo = 'apple/swift'
+rtp = 'utils/vim'
+on_ft = ['swift']
+
+## SATySFi
+[[plugins]]
+repo = 'qnighy/satysfi.vim'
+on_ft = ['satysfi']
+
+## TypeScript
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+on_ft = ['javascript', 'typescript']
+
+## React
+[[plugins]]
+repo = 'peitalin/vim-jsx-typescript'
+on_ft = ['javascriptreact', 'typescriptreact']
+

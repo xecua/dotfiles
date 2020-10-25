@@ -67,10 +67,6 @@ repo = 'ConradIrwin/vim-bracketed-paste'
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 
-# comment out tool
-[[plugins]]
-repo = 'preservim/nerdcommenter'
-
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
@@ -80,20 +76,6 @@ repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
-
-# Syntax Highlighting
-## .gitignore file
-[[plugins]]
-repo = 'benknoble/gitignore-vim'
-
-## Swift
-[[plugins]]
-repo = 'apple/swift'
-rtp = 'utils/vim'
-
-## SATySFi
-[[plugins]]
-repo = 'qnighy/satysfi.vim'
 
 # Neosnippet
 [[plugins]]

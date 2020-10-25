@@ -8,7 +8,9 @@ let g:LanguageClient_serverCommands = {
     \ 'c': ['clangd'],
     \ 'cpp': ['clangd'],
     \ 'd': ['serve-d'],
-    \ 'vim': ['vim-language-server']
+    \ 'vim': ['vim-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'typescriptreact': ['typescript-language-server', '--stdio'],
     \ }
 
 if g:os == 'darwin' || g:os == 'linux'
