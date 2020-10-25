@@ -42,3 +42,20 @@ function mkcd
   eval "cd" $argv[1]
 end
 
+# override
+function fish_title
+    # emacs' "term" is basically the only term that can't handle it.
+    if not set -q INSIDE_EMACS; or string match -vq '*,term:*' -- $INSIDE_EMACS
+      if [ (status current-command) = "fish" ]
+        if [ (git rev-parse --git-dir 2>/dev/null) ]
+          # inside git repository
+          echo (string join '' 'fish: ' (string split '/' (git rev-parse --show-toplevel))[-1] '/' (git rev-parse --show-prefix))
+        else
+          echo (string join '' 'fish: ' (string split '/' (__fish_pwd))[-1])
+        end
+      else
+        echo (status current-command)
+      end
+    end
+end
+
