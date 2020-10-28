@@ -26,6 +26,8 @@ if g:os == 'darwin' || g:os == 'linux'
     let s:jdt_ls_config_dir = s:jdt_ls_data_dir.'/config_linux'
   endif
 
+  let s:equinox_launcher_path = glob(s:jdt_ls_data_dir.'/plugins/org.eclipse.equinox.launcher_*')
+
   let g:LanguageClient_serverCommands['java'] = [
     \ 'java',
     \ '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044',
@@ -37,7 +39,7 @@ if g:os == 'darwin' || g:os == 'linux'
     \ '-noverify',
     \ '-Xmx1G',
     \ '-jar',
-    \ s:jdt_ls_data_dir.'/plugins/org.eclipse.equinox.launcher_1.5.800.v20200727-1323.jar',
+    \ s:equinox_launcher_path,
     \ '-configuration',
     \ s:jdt_ls_config_dir,
     \ '-data',
