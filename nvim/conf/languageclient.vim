@@ -10,6 +10,7 @@ let g:LanguageClient_serverCommands = {
     \ 'd': ['serve-d'],
     \ 'vim': ['vim-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
     \ 'typescriptreact': ['typescript-language-server', '--stdio'],
     \ }
 
