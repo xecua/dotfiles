@@ -18,7 +18,7 @@
 	plo = pull origin
 	f = fetch --prune
 	m = merge
-	mas = checkout master
+	mas = !git show-ref --quiet refs/heads/master && git checkout master || git checkout main
 	s = status
 	ss = status -sb
 	c = commit -am
