@@ -12,6 +12,7 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
     \ 'typescriptreact': ['typescript-language-server', '--stdio'],
+    \ 'scala': ['metals-vim'],
     \ }
 
 if g:os == 'darwin' || g:os == 'linux'

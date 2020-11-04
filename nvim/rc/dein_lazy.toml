@@ -49,6 +49,11 @@ on_ft = ['fish']
 repo = 'lambdalisue/vim-backslash'
 on_ft = ['vim']
 
+# Preview
+[[plugins]]
+repo = 'previm/previm'
+on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
+
 # Syntax Highlighting
 ## .gitignore file
 [[plugins]]
