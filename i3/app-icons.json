@@ -1,0 +1,21 @@
+{
+    "firefox": "firefox",
+    "chromium-browser": "chrome",
+    "chrome": "chrome",
+    "google-chrome": "chrome",
+    "vivaldi-stable": "chrome",
+    "x-terminal-emulator": "terminal",
+    "tilix": "terminal",
+    "slack": "slack",
+    "discord": "discord",
+    "notion": "book",
+    "thunderbird": "envelope",
+    "jetbrains-idea-ce": "edit",
+    "nautilus": "folder-open",
+    "clementine": "music",
+    "vlc": "play",
+    "signal": "comment",
+    "code": "code",
+    "_no_match": "question"
+}
+
