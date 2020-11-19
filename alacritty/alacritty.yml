@@ -1,12 +1,12 @@
 window:
-  startup_mode: Maximized
+  startup_mode: Fullscreen
 font:
   normal:
     family: Cica
-  size: 12
+  size: 16
   use_thin_strokes: true
 shell:
-  program: fish
+  program: /usr/local/bin/fish
   args:
     - '--login'
 colors:
