@@ -1,12 +1,13 @@
 \usepackage{graphicx,color}
-\usepackage{bxpapersize}
-\usepackage[T1]{fontenc}
-\usepackage{url,textcomp}
-\usepackage{slashbox}
+\usepackage{bxpapersize} % https://bit.ly/3mg2SHQ pdfTeXなら不要?
+\usepackage[T1]{fontenc} % https://bit.ly/2KBqSav
+\usepackage{url}
+\usepackage{textcomp} % 特殊文字
+\usepackage{slashbox} % 表の左上のスラッシュ
 \usepackage{comment}
-\usepackage{float,here}
+\usepackage{float,here} % 場所系
 \usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx}
-\usepackage{listings}
+\usepackage{listings} % for upLaTeX, need jlisting
 \usepackage{wtref}
 \usepackage{fancyhdr}
 
@@ -67,7 +68,7 @@
 \newcommand{\Z}{\mathbb{Z}} % 整数
 \newcommand{\Q}{\mathbb{Q}} % 有理数
 \newcommand{\R}{\mathbb{R}} % 実数
-\newcommand{\C}{\mathbb{C}} % 複素数
+% \newcommand{\C}{\mathbb{C}} % 複素数 cannot use with hyperref
 \newcommand{\F}{\mathbb{F}} % 有限体
 
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値
@@ -81,6 +82,38 @@
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator*{\ord}{ord}
+
+% listings
+% ちなみにbeamerで使う時はframeにfragileオプションが必要
+\makeatletter
+\lstset{
+    language={C}, % lstinputlistingとかの引数でも変えられる
+    basicstyle={\ttfamily\lst@ifdisplaystyle\scriptsize\fi},
+    identifierstyle={\ttfamily\scriptsize},
+    commentstyle={\ttfamily\scriptsize\color[rgb]{0,0.5,0.5}},
+    keywordstyle={\bfseries \color[rgb]{0.95,0,0}},
+    ndkeywordstyle={\small\scriptsize},
+    stringstyle={\scriptsize\color[cmyk]{0,0.464,0.934,0.173}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    % if upLaTeX
+    % xrightmargin=0zw,
+    % xleftmargin=3zw,
+    % numbersep=1zw,
+    % if LuaLaTeX(need backslash)
+    xrightmargin=0\zw,
+    xleftmargin=3\zw,
+    numbersep=1\zw,
+    tabsize=4,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    lineskip=-0.5ex,
+    upquote=true,
+    showstringspaces=false
+}
+\makeatother
 
 % WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
 \newref{equat, sec, fig, tab, lst}
