@@ -4,17 +4,21 @@ let g:quickrun_config = {
   \   'runner' : 'vimproc',
   \   'runner/vimproc/updatetime' : 40,
   \   'outputter' : 'error',
-  \   'outputter/error/error'   : 'quickfix',
+  \   'outputter/error/error' : 'quickfix',
   \   'outputter/quickfix/into': 1,
   \ },
   \ 'cpp': {
-  \   'command': 'g++-9'
+  \   'command': 'g++-10'
   \ },
   \ 'tex': {
-  \   'command': 'latexmk'
+  \   'command': 'latexmk',
+  \   'commandopt': '-lualatex'
   \ },
   \ 'satysfi': {
   \   'command': 'satysfi'
+  \ },
+  \ 'rust': {
+  \    'type': 'rust/cargo'
   \ }
 \}
 " \   'outputter/error/success' : 'message',
@@ -38,6 +42,7 @@ call quickrun#module#register(s:close_quickfix_hook, 1)
 unlet s:close_quickfix_hook
 
 " QuickRun and view compile result quickly
+let g:quickrun_no_default_key_mappings = 1
 nnoremap <silent> <F5> :QuickRun -mode n<CR>
 vnoremap <silent> <F5> :QuickRun -mode v<CR>
 

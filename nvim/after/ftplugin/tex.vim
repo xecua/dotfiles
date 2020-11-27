@@ -6,13 +6,9 @@ call lexima#add_rule({'char': '`', 'at': '`\%#`', 'input': '<right>''''<left><le
 
 
 function! s:normalize_punctuation()
-  " 英語ドキュメントのときは0にする
-  if get(g:, 'is_japanese_document', 1) == 1
+  if get(g:, 'convert_punctuation', 0) == 1
     :%s/、/，/ge
     :%s/。/．/ge
-  else
-    :%s/、/,/ge
-    :%s/。/./ge
   endif
 endfunction
 
