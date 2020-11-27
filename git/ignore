@@ -9,6 +9,7 @@
 # Scala
 **/.metals/
 **/.bloop/
+**/.bsp
 
 # python
 **/venv

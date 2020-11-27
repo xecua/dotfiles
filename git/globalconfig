@@ -32,6 +32,7 @@
 	amend = commit -a --amend
 	st = stash
 	stl = stash list
+	sta = stash apply
 	stp = stash pop
 	std = stash drop
 [commit]
