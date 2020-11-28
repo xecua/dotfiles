@@ -4,28 +4,29 @@ alias       documentclass jlreq
 option      head
 	\documentclass{jlreq}
 	\usepackage{mymacros}
-	\renewcommand{\\thesection}{\\arabic{section}}
-	\renewcommand{\\thesubsection}{\\alph{subsection}}
-	\renewcommand{\\labelenumi}{\\alph{enumi}}
-	\renewcommand{\\labelenumii}{\\arabic{enumii}.}
+	\usepackage[haranoaji]{luatexja-preset} % if LuaLaTeX
+	\renewcommand{\thesection}{\arabic{section}}
+	\renewcommand{\thesubsection}{\alph{subsection}}
+	\renewcommand{\labelenumi}{\alph{enumi}}
+	\renewcommand{\labelenumii}{\arabic{enumii}.}
 	
 	\makeatletter
-	\def\\id#1{\\def\\@id{#1}}
-	\def\\other#1{\\def\\@other{#1}}
+	\def\id#1{\def\@id{#1}}
+	\def\other#1{\def\@other{#1}}
 	
-	\def\\@maketitle{
-		\\begin{center}
-		\\vspace*{10mm}
-		{\\huge \\textbf{\\textgt{\\@title}} \\par}
-		\\vspace{20mm}
-		{\\LARGE \\textbf{\\textgt{\\@id \\@author}} \\par}
-		\\vspace{10mm}
-		% 提出日: \\@date\\par
-		% \\@other
-		% \\newpage
-		\\end{center}
+	\def\@maketitle{
+		\begin{center}
+		\vspace*{10mm}
+		{\huge \textbf{\textgt{\@title}} \par}
+		\vspace{20mm}
+		{\LARGE \textbf{\textgt{\@id \@author}} \par}
+		\vspace{10mm}
+		% 提出日: \@date\par
+		% \@other
+		% \newpage
+		\end{center}
 	}
-	\\makeatother
+	\makeatother
 	
 	\author{${1:author}}
 	\id{${2:id}}
@@ -39,8 +40,7 @@ option      head
 	${0}
 	
 	% \begin{thebibliography}{9}
-	
-	% \\end{thebibliography}
+	% \end{thebibliography}
 	\end{document}
 
 snippet     article
@@ -48,18 +48,17 @@ abbr        jsarticle template
 alias       documentclass jsarticle
 options     head
 	% if upLaTeX
-	\documentclass[a4j,uplatex]{jsarticle}
-	\usepackage[uplatex,deluxe]{otf}
-	\usepackage[dvipdfmx]{hyperref}
-	\usepackage{pxjahyper} % 文字化け防止
+	% \documentclass[a4j,uplatex]{jsarticle}
+	% \usepackage[uplatex,deluxe]{otf}
+	% \usepackage[dvipdfmx]{hyperref}
+	% \usepackage{pxjahyper} % 文字化け防止
 	% if LuaLaTeX
 	\documentclass[a4j]{ltjsarticle}
-	\usepackage[yu-win]{luatexja-preset}
+	\usepackage[haranoaji]{luatexja-preset}
 	\usepackage{luatexja-otf}
 	\usepackage[unicode=true]{hyperref}
 	
 	\usepackage{mymacros}
-	% \usepackage[uplatex,deluxe]{otf}
 	\usepackage[top=20truemm,bottom=20truemm,left=15truemm,right=15truemm]{geometry}
 	\renewcommand{\thesection}{\arabic{section}}
 	\renewcommand{\thesubsection}{\alph{subsection}}
@@ -96,7 +95,6 @@ options     head
 	${0}
 
 	% \begin{thebibliography}{9}
-
 	% \end{thebibliography}
 	\end{document}
 
@@ -105,36 +103,83 @@ abbr        beamer template
 alias       documentclass beamer
 options     head
 	% ref: https://qiita.com/termoshtt/items/756aec542fb4c812a405
-	\documentclass[dvipdfmx,notheorems]{beamer} % if upLaTeX
-	"% \documentclass[unicode,notheorems]{beamer} % if LuaLaTeX
-	"% \usepakcage{luatexja} % if LuaLaTeX
+	% \documentclass[dvipdfmx,notheorems]{beamer} % if upLaTeX
+	\documentclass[unicode,notheorems]{beamer} % if LuaLaTeX // unicodeはhyperrefのオプション
+	\usepackage{luatexja} % if LuaLaTeX
+	\usepackage[haranoaji,hiragino-pron,yu-win10]{luatexja-preset} % if LuaLaTeX
 	\usepackage{mymacros}
-	"% \usepackage{bxdpx-beamer} % https://zrbabbler.hatenablog.com/entry/20130221/1361455788 ナビゲーションシンボルが動くようになる",
-	\usepackage{pxjahyper} % if upLaTeX(hyperref is already read by beamer)
-	\usepackage{otf} if upLaTeX",
-	% \usepackage{luatexja-otf} if LuaLaTeX",
+	\usepackage{bxdpx-beamer} % https://zrbabbler.hatenablog.com/entry/20130221/1361455788 ナビゲーションシンボルが動くようになる
+	% \usepackage{pxjahyper} % if upLaTeX(hyperref is already read by beamer)
+	% \usepackage{otf} if upLaTeX
+	\usepackage{luatexja-otf} if LuaLaTeX
 	\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
 
-	%%%% スライドの見た目 %%%%%
 	% \usetheme{Madrid}
 	% \usetheme{metropolis}
-	\usetheme[numbering=nonde]{focus}
+	\usetheme[numbering=none]{focus}
 	\definecolor{main}{RGB}{0,118,186}
-	\definecolor{accent}{RGB}{242,114,0}
+	\definecolor{alert}{RGB}{242,114,0}
 	\usefonttheme{professionalfonts} % 数式がデフォのフォントになる
 	% \setbeamertemplate{frametitle}[default][center] % タイトルが中央揃えに
 	\setbeamertemplate{navigation symbols}{} % ナビゲーションシンボル(右下のやつ)が消える
-	%%%%
+	\setbeamertemplate{section in toc}[circle]
+	\AtBeginSection[]{
+			\begin{frame}{TOC}
+					\tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide/hide/hide]
+			\end{frame}
+	}
+	\AtBeginSubsection[]{}
+	\setbeamerfont*{frametitle}{size=\Large}
 
-	\date{\today}
-	\title[snip]{long title}
-	\author{}
-
+	% biblatex(options are needed for custom citation style(below))
+	\usepackage[style=numeric-comp,citetracker=true]{biblatex}
+	\addbibresource{proposal.bib}
+	% 名前の省略ルール https://tasusu.hatenablog.com/entry/2014/01/30/214338
+	\DeclareSourcemap{
+		\maps[datatype=bibtex, overwrite=true]{
+			\map{
+				 \step[match={International},replace={Intl.}]
+				 \step[match={Conference},replace={Conf.}]
+			}
+		}
+	}
+	% remove fields
+	\DeclareFieldFormat*{isbn}{}
+	\DeclareFieldFormat*{doi}{}
+	\DeclareFieldFormat*{address}{}
+	\DeclareListFormat*{publisher}{}
+	% citation style. https://tex.stackexchange.com/questions/274073/help-with-additional-parameter-for-declarecitecommand
+	\makeatletter
+	\renewbibmacro*{cite:comp}{%
+		\addtocounter{cbx@tempcntb}{1}%
+		\ifciteseen{}{%
+			\renewcommand\@makefntext[1]{\noindent\normalfont##1}%
+			\footnotetext{\tiny{%
+				\printtext[labelnumberwidth]{\printfield{prefixnumber}\printfield{labelnumber}}%
+				\addspace%
+				\bibfootnotewrapper{\fullcite{\thefield{entrykey}}}%
+			}}%
+		}%
+		\iffieldundef{shorthand}{%
+			\ifbool{bbx:subentry}{%
+				\iffieldundef{entrysetcount}{\usebibmacro{cite:comp:comp}}%
+					{\usebibmacro{cite:comp:inset}}%
+				}%
+				{\usebibmacro{cite:comp:comp}}%
+			}%
+		{\usebibmacro{cite:comp:shand}}%
+	}
+	\makeatletter
+	
+	\author{${1:author}}
+	\title{${2:title}}
+	
 	\begin{document}
-
+	
 	\frame{\maketitle}
 
-	\begin{frame}{}
+	
+	\begin{frame}{${3:frametitle}}
+		${0}
 	\end{frame}
 	\end{document}
-
