@@ -39,8 +39,6 @@ option      head
 	\maketitle
 	${0}
 	
-	% \begin{thebibliography}{9}
-	% \end{thebibliography}
 	\end{document}
 
 snippet     article
@@ -64,11 +62,11 @@ options     head
 	\renewcommand{\thesubsection}{\alph{subsection}}
 	\renewcommand{\labelenumi}{\alph{enumi}}
 	\renewcommand{\labelenumii}{\arabic{enumii}.}
-
+	
 	\makeatletter
 	\def\id#1{\def\@id{#1}}
 	\def\other#1{\def\@other{#1}}
-
+	
 	\def\@maketitle{
 		\begin{center}
 		\vspace*{10mm}
@@ -82,20 +80,18 @@ options     head
 		\end{center}
 	}
 	\makeatother
-
+	
 	\author{${1:author}}
 	\id{${2:id}}
 	% \date{}
 	\title{${3:title}}
 	% \other{}
 	\defrhead{}
-
+	
 	\begin{document}
 	\maketitle
 	${0}
-
-	% \begin{thebibliography}{9}
-	% \end{thebibliography}
+	
 	\end{document}
 
 snippet     beamer
@@ -104,16 +100,24 @@ alias       documentclass beamer
 options     head
 	% ref: https://qiita.com/termoshtt/items/756aec542fb4c812a405
 	% \documentclass[dvipdfmx,notheorems]{beamer} % if upLaTeX
-	\documentclass[unicode,notheorems]{beamer} % if LuaLaTeX // unicodeはhyperrefのオプション
+	\documentclass[unicode,notheorems]{beamer} % if LuaLaTeX
+	% \documentclass[a4j,uplatex]{jsarticle} % for Handout(upLaTeX)
+	% \documentclass[a4j]{ltjsarticle} % for Handout(LuaLaTeX)
+	% \usepackage{beamerarticle} % for Handout
 	\usepackage{luatexja} % if LuaLaTeX
-	\usepackage[haranoaji,hiragino-pron,yu-win10]{luatexja-preset} % if LuaLaTeX
+	\usepackage[haranoaji]{luatexja-preset} % if LuaLaTeX
+	% Speaker note. Recommend to use with compatible presentation tool e.g. pympress
+	% \usepackage{pgfpages}
+	% \setbeamertemplate{note page}[default]
+	% \setbeameroption{show notes on second screen=right}
+	
 	\usepackage{mymacros}
 	\usepackage{bxdpx-beamer} % https://zrbabbler.hatenablog.com/entry/20130221/1361455788 ナビゲーションシンボルが動くようになる
 	% \usepackage{pxjahyper} % if upLaTeX(hyperref is already read by beamer)
-	% \usepackage{otf} if upLaTeX
-	\usepackage{luatexja-otf} if LuaLaTeX
+	% \usepackage{otf} % if upLaTeX
+	\usepackage{luatexja-otf} % if LuaLaTeX
 	\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
-
+	
 	% \usetheme{Madrid}
 	% \usetheme{metropolis}
 	\usetheme[numbering=none]{focus}
@@ -124,62 +128,66 @@ options     head
 	\setbeamertemplate{navigation symbols}{} % ナビゲーションシンボル(右下のやつ)が消える
 	\setbeamertemplate{section in toc}[circle]
 	\AtBeginSection[]{
-			\begin{frame}{TOC}
-					\tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide/hide/hide]
-			\end{frame}
+	    \begin{frame}{TOC}
+	        \tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide/hide/hide]
+	    \end{frame}
 	}
 	\AtBeginSubsection[]{}
 	\setbeamerfont*{frametitle}{size=\Large}
-
+	
 	% biblatex(options are needed for custom citation style(below))
-	\usepackage[style=numeric-comp,citetracker=true]{biblatex}
-	\addbibresource{proposal.bib}
+	% \usepackage[style=ieee,citetracker=true,sorting=none]{biblatex}
+	% \addbibresource{}
 	% 名前の省略ルール https://tasusu.hatenablog.com/entry/2014/01/30/214338
-	\DeclareSourcemap{
-		\maps[datatype=bibtex, overwrite=true]{
-			\map{
-				 \step[match={International},replace={Intl.}]
-				 \step[match={Conference},replace={Conf.}]
-			}
-		}
-	}
-	% remove fields
-	\DeclareFieldFormat*{isbn}{}
-	\DeclareFieldFormat*{doi}{}
-	\DeclareFieldFormat*{address}{}
-	\DeclareListFormat*{publisher}{}
-	% citation style. https://tex.stackexchange.com/questions/274073/help-with-additional-parameter-for-declarecitecommand
-	\makeatletter
-	\renewbibmacro*{cite:comp}{%
-		\addtocounter{cbx@tempcntb}{1}%
-		\ifciteseen{}{%
-			\renewcommand\@makefntext[1]{\noindent\normalfont##1}%
-			\footnotetext{\tiny{%
-				\printtext[labelnumberwidth]{\printfield{prefixnumber}\printfield{labelnumber}}%
-				\addspace%
-				\bibfootnotewrapper{\fullcite{\thefield{entrykey}}}%
-			}}%
-		}%
-		\iffieldundef{shorthand}{%
-			\ifbool{bbx:subentry}{%
-				\iffieldundef{entrysetcount}{\usebibmacro{cite:comp:comp}}%
-					{\usebibmacro{cite:comp:inset}}%
-				}%
-				{\usebibmacro{cite:comp:comp}}%
-			}%
-		{\usebibmacro{cite:comp:shand}}%
-	}
-	\makeatletter
+	% \DeclareSourcemap{
+	%     \maps[datatype=bibtex, overwrite=true]{
+	%         \map{
+	%             \step[fieldsource=booktitle,match={Proceedings},replace={Proc.}]
+	%             \step[fieldsource=booktitle,match={International},replace={Intl.}]
+	%             \step[fieldsource=booktitle,match={Conference},replace={Conf.}]
+	%             \step[fieldset=isbn,null]
+	%             \step[fieldset=doi,null]
+	%             \step[fieldset=address,null]
+	%             \step[fieldset=publisher,null]
+	%             \step[fieldset=editor,null]
+	%             \step[fieldset=language,null]
+	%         }
+	%     }
+	% }
+	% https://tex.stackexchange.com/questions/274073/help-with-additional-parameter-for-declarecitecommand
+	% \makeatletter
+	% \renewbibmacro*{cite:comp}{%
+	%     \addtocounter{cbx@tempcntb}{1}%
+	%     \ifciteseen{}{%
+	%         \renewcommand\@makefntext[1]{\noindent\normalfont##1}%
+	%         \footnotetext{\tiny{%
+	%             \printtext[labelnumberwidth]{\printfield{prefixnumber}\printfield{labelnumber}}%
+	%             \addspace%
+	%             \bibfootnotewrapper{\fullcite{\thefield{entrykey}}}%
+	%         }}%
+	%     }%
+	%     \iffieldundef{shorthand}{%
+	%         \ifbool{bbx:subentry}{%
+	%             \iffieldundef{entrysetcount}{\usebibmacro{cite:comp:comp}}%
+	%             {\usebibmacro{cite:comp:inset}}%
+	%         }%
+	%         {\usebibmacro{cite:comp:comp}}%
+	%     }%
+	%     {\usebibmacro{cite:comp:shand}}%
+	% }
+	% \makeatletter
 	
+	\date{\today}
 	\author{${1:author}}
-	\title{${2:title}}
+	\title[snip]{${2:title}}
 	
+	\renewcommand\baselinestretch{1.5}
 	\begin{document}
 	
-	\frame{\maketitle}
-
+	\frame{\titlepage}
 	
 	\begin{frame}{${3:frametitle}}
 		${0}
 	\end{frame}
 	\end{document}
+
