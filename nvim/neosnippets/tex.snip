@@ -1,7 +1,7 @@
 snippet     jlreq
 abbr        jlreq template
 alias       documentclass jlreq
-option      head
+options      head
 	\documentclass{jlreq}
 	\usepackage{mymacros}
 	\usepackage[haranoaji]{luatexja-preset} % if LuaLaTeX
@@ -99,25 +99,30 @@ abbr        beamer template
 alias       documentclass beamer
 options     head
 	% ref: https://qiita.com/termoshtt/items/756aec542fb4c812a405
-	% \documentclass[dvipdfmx,notheorems]{beamer} % if upLaTeX
-	\documentclass[unicode,notheorems]{beamer} % if LuaLaTeX
-	% \documentclass[a4j,uplatex]{jsarticle} % for Handout(upLaTeX)
-	% \documentclass[a4j]{ltjsarticle} % for Handout(LuaLaTeX)
-	% \usepackage{beamerarticle} % for Handout
+	% if upLaTeX
+	% \documentclass[dvipdfmx,notheorems]{beamer}
+	% \documentclass[a4j,uplatex]{jsarticle} % Handout
+	% \usepackage[notheorems]{beamerarticle} % Handout
+	% \usepackage{bxdpx-beamer} % https://zrbabbler.hatenablog.com/entry/20130221/1361455788 ナビゲーションシンボルが動くようになる
+	% \usepackage{pxjahyper} % if upLaTeX(hyperref is already read by beamer)
+	% \usepackage[uplatex,jis2004]{otf} % if upLaTeX
+	
+	% if LuaLaTeX
+	\documentclass[unicode,notheorems]{beamer}
+	% \documentclass[a4j]{ltjsarticle} % Handout
+	% \usepackage[notheorems]{beamerarticle} % Handout
 	\usepackage{luatexja} % if LuaLaTeX
 	\usepackage[haranoaji]{luatexja-preset} % if LuaLaTeX
+	% \usepackage{luatexja-otf} % if LuaLaTeX
+	
+	% common packages
 	% Speaker note. Recommend to use with compatible presentation tool e.g. pympress
 	% \usepackage{pgfpages}
-	% \setbeamertemplate{note page}[default]
 	% \setbeameroption{show notes on second screen=right}
-	
 	\usepackage{mymacros}
-	\usepackage{bxdpx-beamer} % https://zrbabbler.hatenablog.com/entry/20130221/1361455788 ナビゲーションシンボルが動くようになる
-	% \usepackage{pxjahyper} % if upLaTeX(hyperref is already read by beamer)
-	% \usepackage{otf} % if upLaTeX
-	\usepackage{luatexja-otf} % if LuaLaTeX
 	\renewcommand{\kanjifamilydefault}{\gtdefault}%和文用
 	
+	% theme
 	% \usetheme{Madrid}
 	% \usetheme{metropolis}
 	\usetheme[numbering=none]{focus}
@@ -184,7 +189,9 @@ options     head
 	\renewcommand\baselinestretch{1.5}
 	\begin{document}
 	
-	\frame{\titlepage}
+	\begin{frame}
+		\titlepage
+	\end{frame}
 	
 	\begin{frame}{${3:frametitle}}
 		${0}

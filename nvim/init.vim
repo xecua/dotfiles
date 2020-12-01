@@ -88,7 +88,7 @@ set showtabline=2
 set noshowmode
 
 " set all file whose extension is '.tex' as LaTeX file
-let g:tex_flavor = 'latex'
+let g:tex_flavor = "latex"
 
 " 各設定で利用する変数
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'

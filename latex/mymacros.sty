@@ -1,40 +1,37 @@
-\usepackage{graphicx,color}
-\usepackage{bxpapersize} % https://bit.ly/3mg2SHQ pdfTeXなら不要?
-\usepackage[T1]{fontenc} % https://bit.ly/2KBqSav
-\usepackage{url}
-\usepackage{textcomp} % 特殊文字
-\usepackage{slashbox} % 表の左上のスラッシュ
-\usepackage{comment}
-\usepackage{float,here} % 場所系
-\usepackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx}
-\usepackage{listings} % for upLaTeX, need jlisting
-\usepackage{wtref}
-\usepackage{fancyhdr}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mymacros}
 
-\makeatletter
+\RequirePackage{graphicx,color}
+\RequirePackage{bxpapersize} % https://bit.ly/3mg2SHQ pdfTeXなら不要?
+\RequirePackage[T1]{fontenc} % https://bit.ly/2KBqSav
+\RequirePackage{url}
+\RequirePackage{textcomp} % 特殊文字
+\RequirePackage{diagbox} % 表の左上のスラッシュ
+\RequirePackage{comment}
+\RequirePackage{float,here} % 場所系
+\RequirePackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx}
+\RequirePackage{listings} % for upLaTeX, need jlisting
+\RequirePackage{wtref}
+\RequirePackage{fancyhdr}
+
+% preambleではない(usepackageで読み込まれる)場合は\makeatletterとかいらんらしい
+
 % 2つのコマンドを交換する
 \newcommand\exchange[2]{\let\@tempa#1\let#1#2\let#2\@tempa}
-\makeatother
 
 \exchange\epsilon\varepsilon
 \exchange\left\mleft
 \exchange\right\mright
 
 % enumのrefに於いて，内側のみ参照する
-\makeatletter
 \renewcommand{\p@enumii}{}
-\makeatother
 
 % ローマ数字
 \newcommand*{\rom}[1]{\romannumeral #1}
-\makeatletter
 \newcommand*{\Rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
-\makeatother
 
 % 番号なしfootnote
-\makeatletter
 \def\blfootnote{\gdef\@thefnmark{}\@footnotetext}
-\makeatother
 
 % 数学
 \theoremstyle{definition}
@@ -68,7 +65,8 @@
 \newcommand{\Z}{\mathbb{Z}} % 整数
 \newcommand{\Q}{\mathbb{Q}} % 有理数
 \newcommand{\R}{\mathbb{R}} % 実数
-% \newcommand{\C}{\mathbb{C}} % 複素数 cannot use with hyperref
+\providecommand\C{} % define if not defined
+\renewcommand{\C}{\mathbb{C}} % 複素数
 \newcommand{\F}{\mathbb{F}} % 有限体
 
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値
@@ -85,7 +83,6 @@
 
 % listings
 % ちなみにbeamerで使う時はframeにfragileオプションが必要
-\makeatletter
 \lstset{
     language={C}, % lstinputlistingとかの引数でも変えられる
     basicstyle={\ttfamily\lst@ifdisplaystyle\scriptsize\fi},
@@ -113,7 +110,6 @@
     upquote=true,
     showstringspaces=false
 }
-\makeatother
 
 % WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
 \newref{equat, sec, fig, tab, lst}
