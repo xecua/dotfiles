@@ -16,6 +16,8 @@
     "vlc": "play",
     "signal": "comment",
     "code": "code",
+    "Org.gnome.Nautilus": "folder",
+    "Zotero": "newspaper",
     "_no_match": "question"
 }
 
