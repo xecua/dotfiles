@@ -27,17 +27,6 @@ if status --is-interactive
     alias cat 'bat -pp'
   end
 
-  if type -q rg
-    alias grep 'rg'
-    alias fgrep 'rg -F'
-  else
-    alias grep 'grep --color=auto'
-    alias fgrep 'fgrep --color=auto'
-    alias egrep 'egrep --color=auto'
-  end
-
-  alias cls clear
-
   if type -q nvim
     alias vi nvim
     alias vim nvim
