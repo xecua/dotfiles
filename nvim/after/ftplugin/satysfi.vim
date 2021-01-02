@@ -1,5 +1,5 @@
-set shiftwidth=2
-set tabstop=2
+setl shiftwidth=2
+setl tabstop=2
 
 function! s:normalize_punctuation()
   " 英語ドキュメントのときは0にする
