@@ -35,6 +35,7 @@
 	sta = stash apply
 	stp = stash pop
 	std = stash drop
+	cf = cat-file -p
 [commit]
 	gpgsign = true
 [rerere]

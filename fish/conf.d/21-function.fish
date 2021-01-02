@@ -49,12 +49,13 @@ function fish_title
       if [ (status current-command) = "fish" ]
         if [ (git rev-parse --git-dir 2>/dev/null) ]
           # inside git repository
-          echo (string join '' 'fish: ' (string split '/' (git rev-parse --show-toplevel))[-1] '/' (git rev-parse --show-prefix))
+          string join '' 'fish: ' (string split '/' (git rev-parse --show-toplevel))[-1] '/' \
+                                  (string replace -ar '(\.?[^/])[^/]*/' '$1/' (string trim -rc / (git rev-parse --show-prefix)))
         else
-          echo (string join '' 'fish: ' (string split '/' (__fish_pwd))[-1])
+          string join '' 'fish: ' (prompt_pwd)
         end
       else
-        echo (status current-command)
+        status current-command
       end
     end
 end
