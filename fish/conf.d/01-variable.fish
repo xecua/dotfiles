@@ -10,5 +10,3 @@ set -gx LANG "ja_JP.UTF-8"
 
 set -gx NVIM_LISTEN_ADDRESS /tmp/nvim.sock
 
-set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/config
-

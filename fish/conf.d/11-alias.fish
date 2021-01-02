@@ -22,6 +22,10 @@ if status --is-interactive
   end
   alias sl ls
 
+  if type -q rg
+    alias rg 'rg --smart-case'
+  end
+
   if type -q bat
     alias less 'bat -p'
     alias cat 'bat -pp'
