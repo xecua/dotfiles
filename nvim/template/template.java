@@ -3,7 +3,7 @@
 :if s:file_path =~ '.*src/main/java/\?' && s:package_name != '' " in project
 :  %s@PACKAGE_NAME@\=s:package_name@
 :else " otherwise
-:  ,3delete " remove package declaration
+:  ,2delete " remove package declaration
 :endif
 :%s@PUBLIC_CLASS@\=expand('%:t:r')@
 package PACKAGE_NAME;
