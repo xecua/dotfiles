@@ -81,7 +81,7 @@ repo = 'cocopon/iceberg.vim'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
-# Haxe
+# Template
 [[plugins]]
-repo = 'jdonaldson/vaxe'
+repo = 'thinca/vim-template'
 
