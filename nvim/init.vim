@@ -126,5 +126,16 @@ augroup AfterPluginLoaded
 
 augroup END
 
+" https://qiita.com/unosk/items/43989b61eff48e0665f3
+function! s:load_local_vimrc()
+  let files = findfile('.vimrc.local', getcwd().';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
+augroup LoadLocalVimrc
+  au! VimEnter * call s:load_local_vimrc()
+augroup END
+
 filetype plugin indent on
 

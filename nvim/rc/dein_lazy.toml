@@ -1,7 +1,4 @@
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertEnter'
 hook_post_source = 'call DeopleteHookPostSource()'

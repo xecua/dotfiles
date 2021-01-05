@@ -64,5 +64,3 @@ augroup LanguageClientMyCnf
   autocmd FileType * call LC_maps()
 augroup END
 
-
-

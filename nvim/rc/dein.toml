@@ -2,6 +2,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+
 # task runner
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
@@ -84,4 +87,7 @@ repo = 'Shougo/neosnippet-snippets'
 # Template
 [[plugins]]
 repo = 'thinca/vim-template'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
 

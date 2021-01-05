@@ -19,3 +19,6 @@
 **/.idea/
 **/xcuserdata/
 
+# local vimrc. see nvim/init.vim
+.vimrc.local
+
