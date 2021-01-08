@@ -1,7 +1,7 @@
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rls'],
     \ 'vue': ['vls'],
-    \ 'swift': ['xcrun', 'sourcekit-lsp'],
+    \ 'swift': ['sourcekit-lsp'],
     \ 'tex': ['texlab'],
     \ 'python': ['pyls'],
     \ 'haskell': ['hie-wrapper', '--lsp'],
