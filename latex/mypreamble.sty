@@ -114,10 +114,11 @@
 }
 
 % WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
-\newref{equat, sec, fig, tab, lst}
+\newref{chap, equat, sec, fig, tab, lst}
 \newref[scope=subsection]{enum}
-\setrefstyle{equat}{refcmd=(\ref{#1}),prefix=式}
+\setrefstyle{chap}{prefix=第,suffix=章}
 \setrefstyle{sec}{prefix=第,suffix=節}
+\setrefstyle{equat}{refcmd=(\ref{#1}),prefix=式}
 \setrefstyle{fig}{prefix=図}
 \setrefstyle{tab}{prefix=表}
 \setrefstyle{lst}{prefix=Listing}
@@ -131,7 +132,7 @@
 
 % engine specific
 \ifluatex
-    \@ifclassloaded{beamer}{}{
+    \@ifpackageloaded{hyperref}{}{
         \RequirePackage[unicode]{hyperref}
     }
     \RequirePackage[haranoaji,no-math,match,deluxe,jis2004]{luatexja-preset}
@@ -139,7 +140,7 @@
 \fi
 
 \ifptex
-    \@ifclassloaded{beamer}{}{
+    \@ifpackageloaded{hyperref}{}{
         \RequirePackage[dvipdfmx]{hyperref}
     }
     \RequirePackage{pxjahyper}

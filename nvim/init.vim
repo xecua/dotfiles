@@ -104,10 +104,6 @@ tnoremap <Esc> <C-\><C-q>
 " see :h DiffOrig
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
-" fzf integration
-" fzf自体をまず理解しよう
-set rtp+=/usr/local/opt/fzf " installed with homebrew
-
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
 
