@@ -10,3 +10,5 @@ set -gx LANG "ja_JP.UTF-8"
 
 set -gx NVIM_LISTEN_ADDRESS /tmp/nvim.sock
 
+set -gx COURSIER_INSTALL_DIR ~/.local/share/coursier/bin
+set -gxp PATH $COURSIER_INSTALL_DIR

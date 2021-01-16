@@ -104,6 +104,12 @@ tnoremap <Esc> <C-\><C-q>
 " see :h DiffOrig
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
+augroup Init
+  " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
+  " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
+  au! BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
+augroup END
+
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
 
@@ -134,4 +140,3 @@ augroup LoadLocalVimrc
 augroup END
 
 filetype plugin indent on
-
