@@ -1,7 +1,7 @@
 set -gx GOPATH $HOME/.go
 set -gxp PATH $GOPATH/bin
 
-set -gxp PATH $HOME/.cargo/bin $HOME/.yarn/bin $HOME/.npm/bin $HOME/.local/bin
+set -gxp PATH $HOME/.cargo/bin $HOME/.local/bin
 
 set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx XDG_CACHE_HOME $HOME/.cache
