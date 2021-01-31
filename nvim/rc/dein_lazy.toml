@@ -1,50 +1,11 @@
+# indentation
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertEnter'
-hook_post_source = 'call DeopleteHookPostSource()'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_ft = ['snippet']
-depends = ['deoplete.nvim','neosnippet-snippets']
-on_event = 'InsertEnter'
-hook_post_source = 'call NeosnippetHookPostSource()'
-
-[[plugins]]
-repo = 'tbodt/deoplete-tabnine'
-depends = ['deoplete.nvim']
-on_event = 'InsertEnter'
-build = './install.sh'
-
-[[plugins]]
-repo = 'zchee/deoplete-clang'
-on_ft = ['c', 'cpp']
-on_source = ['deoplete.nvim']
-hook_source = 'call DeopleteClangHookSource()'
-
-[[plugins]]
-repo = 'rhysd/vim-clang-format'
-on_ft = ['cpp']
+repo = 'lambdalisue/vim-backslash'
+on_ft = ['vim']
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 on_ft = ['python']
-
-[[plugins]]
-repo = "cespare/vim-toml"
-on_ft = ['toml']
-
-[[plugins]]
-repo = 'tpope/vim-markdown'
-on_ft = ['markdown','mkd']
-
-[[plugins]]
-repo = 'dag/vim-fish'
-on_ft = ['fish']
-
-[[plugins]]
-repo = 'lambdalisue/vim-backslash'
-on_ft = ['vim']
 
 # Preview
 [[plugins]]
@@ -52,6 +13,21 @@ repo = 'previm/previm'
 on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
 
 # Syntax Highlighting
+## markdown
+[[plugins]]
+repo = 'tpope/vim-markdown'
+on_ft = ['markdown','mkd']
+
+## fish
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = ['fish']
+
+## toml
+[[plugins]]
+repo = "cespare/vim-toml"
+on_ft = ['toml']
+
 ## .gitignore file
 [[plugins]]
 repo = 'benknoble/gitignore-vim'
@@ -82,5 +58,3 @@ on_ft = ['javascriptreact', 'typescriptreact']
 [[plugins]]
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
-
-

@@ -16,9 +16,8 @@ repo = 'thinca/vim-quickrun'
 # IDE support
 ## LSP Client
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
+repo = 'neoclide/coc.nvim'
+merged = 0
 
 ## if there is no stable LSP Server
 [[plugins]]
@@ -82,6 +81,9 @@ repo = 'cocopon/iceberg.vim'
 
 # Neosnippet
 [[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
 # Template
@@ -90,4 +92,3 @@ repo = 'thinca/vim-template'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-

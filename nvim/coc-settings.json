@@ -1,0 +1,4 @@
+{
+  "dialog.confirmKey": "<C-k>",
+  "python.formatting.provider": "yapf"
+}

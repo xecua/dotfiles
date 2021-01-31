@@ -30,9 +30,15 @@ let g:lightline = {
    \ }
 
 function! LightLineGitBranch() abort
+  if &ft =~ 'defx\|help\|denite'
+    return ''
+  endif
+  let head = FugitiveHead()
+  if strlen(head) == 0
+    return ''
+  endif
   " 0xff7a1  git icon on Cica
-  return &ft =~ 'defx\|help\|denite' ? ''
-      \ : nr2char('0xff7a1').FugitiveHead()
+  return nr2char('0xff7a1').head
 endfunction
 
 function LightLineModified() abort

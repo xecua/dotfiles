@@ -4,7 +4,6 @@ call lexima#add_rule({'char': '[', 'at':'\\\%#', 'input_after': '\]'})
 call lexima#add_rule({'char': '`', 'at': '`\%#', 'input_after': ''''''})
 call lexima#add_rule({'char': '`', 'at': '`\%#`', 'input': '<right>''''<left><left>'})
 
-
 function! s:normalize_punctuation()
   if get(g:, 'convert_punctuation', 0) == 1
     :%s/、/，/ge
@@ -21,4 +20,3 @@ augroup END
 
 " disable conceal
 let g:tex_conceal = ''
-

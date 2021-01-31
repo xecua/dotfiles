@@ -18,7 +18,7 @@ let g:ale_linters = {
     \ 'swift': [],
     \ 'tex': [],
     \ 'python': ['yapf'],
-    \ 'vue': ['eslint'],
+    \ 'vue': [],
     \ }
 
 " prefix for ALE
@@ -28,4 +28,3 @@ map <C-k> [ale]
 
 nmap <silent> [ale]<C-k> <Plug>(ale_previous)
 nmap <silent> [ale]<C-j> <Plug>(ale_next)
-
