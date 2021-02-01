@@ -58,3 +58,8 @@ on_ft = ['javascriptreact', 'typescriptreact']
 [[plugins]]
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
+
+# Java
+[[plugins]]
+repo = 'vim-jp/vim-java'
+on_ft = ['java']
