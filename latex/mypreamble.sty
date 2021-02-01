@@ -15,6 +15,8 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{iftex}
 \RequirePackage{indent}
+\RequirePackage{booktabs}
+\RequirePackage{caption}
 
 % preambleではない(usepackageで読み込まれる)場合は\makeatletterとかいらんらしい
 
@@ -114,7 +116,8 @@
 }
 
 % WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
-\newref{chap, equat, sec, fig, tab, lst}
+\newref{chap, equat, sec, fig, tab}
+\newref[nonamespace]{lst}
 \newref[scope=subsection]{enum}
 \setrefstyle{chap}{prefix=第,suffix=章}
 \setrefstyle{sec}{prefix=第,suffix=節}
