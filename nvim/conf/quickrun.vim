@@ -12,7 +12,6 @@ let g:quickrun_config = {
   \ },
   \ 'tex': {
   \   'command': 'latexmk',
-  \   'commandopt': '-lualatex'
   \ },
   \ 'satysfi': {
   \   'command': 'satysfi'
@@ -45,4 +44,3 @@ unlet s:close_quickfix_hook
 let g:quickrun_no_default_key_mappings = 1
 nnoremap <silent> <F5> :QuickRun -mode n<CR>
 vnoremap <silent> <F5> :QuickRun -mode v<CR>
-

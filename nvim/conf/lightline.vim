@@ -7,7 +7,7 @@ let g:lightline = {
    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
    \ 'active': {
-   \   'left': [['mode', 'paste'], ['gitbranch', 'readonly', 'filename', 'modified']],
+   \   'left': [['mode', 'paste'], ['gitbranch', 'readonly', 'filename'], ['coc-current-func', 'coc-status']],
    \   'right': [['lineinfo'], ['fileformat', 'fileencoding', 'filetype']]
    \ },
    \ 'inactive': {
@@ -15,11 +15,12 @@ let g:lightline = {
    \   'right': [['lineinfo']],
    \ },
    \ 'component': {
+   \   'coc-status': '%{coc#status()}',
+   \   'coc-current-func': '%{get(b:,''coc_current_function'','''')}',
    \   'time': '%{strftime(''%H:%M'')}'
    \ },
    \ 'component_function': {
    \   'readonly': 'LightLineReadonly',
-   \   'modified': 'LightLineModified',
    \   'filename': 'LightLineFilename',
    \   'mode': 'LightLineMode',
    \   'filetype': 'LightLineFiletype',
@@ -41,12 +42,6 @@ function! LightLineGitBranch() abort
   return nr2char('0xff7a1').head
 endfunction
 
-function LightLineModified() abort
-  return &ft =~ 'defx\|help\|denite' ? ''
-      \ : &modified ? '+'
-      \ : ''
-endfunction
-
 function! LightLineFilename() abort
   if &ft == 'denite'
     return denite#get_status('sources')
@@ -54,10 +49,7 @@ function! LightLineFilename() abort
     return ''
   endif
   let filename = expand('%')
-  if strlen(filename) == 0
-    return '[No Name]'
-  endif
-  return winwidth(0) > 100 ? expand('%:~'): filename
+  return strlen(filename) == 0 ? '[No Name]' : filename
 endfunction
 
 function! LightLineReadonly() abort

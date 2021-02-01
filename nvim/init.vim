@@ -43,6 +43,8 @@ set visualbell
 set helplang=ja,en
 " アイコン表示用の幅を確保
 " set signcolumn=yes
+set updatetime=300
+
 
 " 見た目通りの移動
 noremap j gj
@@ -115,18 +117,6 @@ runtime! conf/*.vim
 
 " plugin dependent configuration
 colorscheme molokai
-
-" augroup AfterPluginLoaded
-"   au!
-"   " <CR>でsnippet展開。leximaが上書きするのでIntertEnterで無理やり
-"   au InsertEnter * imap <expr> <CR>
-"     \ (pumvisible()
-"     \ ? (neosnippet#expandable()
-"     \   ? "\<Plug>(neosnippet_expand)"
-"     \   : deoplete#close_popup())
-"     \ : lexima#expand('<CR>', 'i'))
-"
-" augroup END
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()

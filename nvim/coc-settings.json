@@ -1,4 +1,6 @@
 {
   "dialog.confirmKey": "<C-k>",
+  "diagnostic.checkCurrentLine": true,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "python.formatting.provider": "yapf"
 }
