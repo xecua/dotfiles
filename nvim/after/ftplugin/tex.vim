@@ -15,8 +15,16 @@ endfunction
 augroup TeXMyCnf
     au!
     au BufWritePre,FileWritePre *.tex :call s:normalize_punctuation()
-    au BufWritePost,FileWritePost *.tex QuickRun
+    " au BufWritePost,FileWritePost *.tex QuickRun
 augroup END
+
+if g:os == 'Darwin'
+  call coc#config('latex', {
+      \ 'forwardSearch': {
+      \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
+      \   'args': ['%l', '%p', '%f']
+      \ }})
+endif
 
 " disable conceal
 let g:tex_conceal = ''

@@ -54,12 +54,17 @@ on_ft = ['javascript', 'typescript']
 repo = 'peitalin/vim-jsx-typescript'
 on_ft = ['javascriptreact', 'typescriptreact']
 
-# Haxe
+## Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
 
-# Java
+## Java
 [[plugins]]
 repo = 'vim-jp/vim-java'
 on_ft = ['java']
+
+## json
+[[plugins]]
+repo = 'kevinoid/vim-jsonc'
+on_ft = ['json', 'jsonc']

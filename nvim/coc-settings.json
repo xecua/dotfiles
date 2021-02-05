@@ -2,5 +2,7 @@
   "dialog.confirmKey": "<C-k>",
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "python.formatting.provider": "yapf"
+  "python.formatting.provider": "yapf",
+  "latex.build.onSave": true,
+  "latex.build.args": []
 }
