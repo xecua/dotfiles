@@ -38,7 +38,6 @@ repo = 'ryanoasis/vim-devicons'
 # explorer
 [[plugins]]
 repo = 'Shougo/defx.nvim'
-depends = ['defx-git', 'defx-icons']
 
 [[plugins]]
 repo ="kristijanhusak/defx-git"
@@ -73,12 +72,6 @@ repo = 'itchyny/vim-parenmatch'
 [[plugins]]
 repo = 'tomasr/molokai'
 
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
-
-[[plugins]]
-repo = 'cocopon/iceberg.vim'
-
 # Neosnippet
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
@@ -92,3 +85,48 @@ repo = 'thinca/vim-template'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+
+# indentation
+[[plugins]]
+repo = 'lambdalisue/vim-backslash'
+
+[[plugins]]
+repo = 'hynek/vim-python-pep8-indent'
+
+# Syntax Highlighting
+## markdown
+[[plugins]]
+repo = 'tpope/vim-markdown'
+
+## fish
+[[plugins]]
+repo = 'dag/vim-fish'
+
+## .gitignore file
+[[plugins]]
+repo = 'benknoble/gitignore-vim'
+
+## Swift
+[[plugins]]
+repo = 'apple/swift'
+rtp = 'utils/vim'
+
+## SATySFi
+[[plugins]]
+repo = 'qnighy/satysfi.vim'
+
+## TypeScript
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+## React
+[[plugins]]
+repo = 'peitalin/vim-jsx-typescript'
+
+## Java
+[[plugins]]
+repo = 'vim-jp/vim-java'
+
+## json
+[[plugins]]
+repo = 'kevinoid/vim-jsonc'

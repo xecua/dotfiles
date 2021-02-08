@@ -12,3 +12,6 @@ set -gx NVIM_LISTEN_ADDRESS /tmp/nvim.sock
 
 set -gx COURSIER_INSTALL_DIR ~/.local/share/coursier/bin
 set -gxp PATH $COURSIER_INSTALL_DIR
+
+set -gx ANDROID_SDK_ROOT /opt/android-sdk
+set -gxp PATH $ANDROID_SDK_ROOT/cmdline-tools/latest/bin

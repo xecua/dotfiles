@@ -3,6 +3,7 @@ let g:coc_global_extensions = [
     \ 'coc-vimlsp',
     \ 'coc-tabnine',
     \ 'coc-json',
+    \ 'coc-flutter',
     \ 'coc-tsserver',
     \ 'coc-eslint',
     \ 'coc-prettier',
@@ -65,3 +66,19 @@ nmap <silent> <leader>F <Plug>(coc-fix-current)
 
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" OS Specific configuration
+if g:os == 'Darwin'
+  let g:coc_user_config = {
+      \ 'latex': {
+      \   'forwardSearch': {
+      \     'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
+      \     'args': ['%l', '%p', '%f']
+      \   }
+      \ },
+      \ 'python': {
+      \   'formatting': {
+      \     'yapfPath': '/usr/local/bin/yapf'
+      \   }
+      \ }}
+endif

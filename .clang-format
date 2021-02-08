@@ -1,0 +1,7 @@
+BasedOnStyle: LLVM
+
+AccessModifierOffset: -4
+AllowShortIfStatementsOnASingleLine: Always
+AlwaysBreakTemplateDeclarations: Yes
+BreakBeforeBraces: Attach
+Standard: c++20

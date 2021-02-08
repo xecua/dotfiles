@@ -18,13 +18,5 @@ augroup TeXMyCnf
     " au BufWritePost,FileWritePost *.tex QuickRun
 augroup END
 
-if g:os == 'Darwin'
-  call coc#config('latex', {
-      \ 'forwardSearch': {
-      \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
-      \   'args': ['%l', '%p', '%f']
-      \ }})
-endif
-
 " disable conceal
 let g:tex_conceal = ''

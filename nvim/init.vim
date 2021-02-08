@@ -94,7 +94,6 @@ let g:tex_flavor = "latex"
 
 " 各設定で利用する変数
 let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
-let g:rc_dir = $XDG_CONFIG_HOME.'/nvim/rc'
 
 " undofile
 set undofile
@@ -110,12 +109,12 @@ augroup Init
   " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
   " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
   au! BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
+  au! VimEnter * call s:load_local_vimrc()
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
 
-" plugin dependent configuration
 colorscheme molokai
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
@@ -125,8 +124,5 @@ function! s:load_local_vimrc()
     source `=i`
   endfor
 endfunction
-augroup LoadLocalVimrc
-  au! VimEnter * call s:load_local_vimrc()
-augroup END
 
 filetype plugin indent on

@@ -1,0 +1,20 @@
+# Preview
+[[plugins]]
+repo = 'previm/previm'
+on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
+
+# Syntax Highlighting
+## dart
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+on_ft = ['dart']
+
+## toml
+[[plugins]]
+repo = "cespare/vim-toml"
+on_ft = ['toml']
+
+## Haxe
+[[plugins]]
+repo = 'jdonaldson/vaxe'
+on_ft = ['haxe']

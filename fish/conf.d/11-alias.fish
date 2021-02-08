@@ -1,10 +1,14 @@
 if status --is-interactive
   # typo
-  alias gti git
-  alias g git
+  if type -q git
+    alias gti git
+    alias g git
+  end
 
   # format style
-  alias clang-format "clang-format -style='{BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup,IndentWidth: 4}'"
+  if type -q clang-format
+    alias clang-format "clang-format -style='{BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup,IndentWidth: 4}'"
+  end 
 
   # from https://github.com/arkark/dotfiles
   if type -q exa
@@ -47,7 +51,8 @@ if status --is-interactive
     alias man batman
   end
 
-  # in fish, ssh-agent must be used with -c
-  alias ssh-agent 'ssh-agent -c'
-
+  if type -q ssh-agent
+    # in fish, ssh-agent must be used with -c
+    alias ssh-agent 'ssh-agent -c'
+  end
 end
