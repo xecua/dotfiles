@@ -67,18 +67,15 @@ nmap <silent> <leader>F <Plug>(coc-fix-current)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-" OS Specific configuration
-if g:os == 'Darwin'
-  let g:coc_user_config = {
-      \ 'latex': {
-      \   'forwardSearch': {
-      \     'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
-      \     'args': ['%l', '%p', '%f']
-      \   }
-      \ },
-      \ 'python': {
-      \   'formatting': {
-      \     'yapfPath': '/usr/local/bin/yapf'
-      \   }
-      \ }}
-endif
+function s:setup_coc() abort
+  call coc#config('latex.forwardSearch', {
+       \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
+       \   'args': ['%l', '%p', '%f']
+       \ })
+  call coc#config('python.formatting', {
+      \   'yapfPath': '/usr/local/bin/yapf'
+      \ })
+endfunction
+augroup CocConfig
+  au! VimEnter * call <SID>setup_coc()
+augroup END
