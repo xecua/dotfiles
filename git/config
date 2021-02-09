@@ -5,6 +5,7 @@
 	signingkey = 335095B0
 [core]
 	editor = nvim
+	pager = (delta 2>/dev/null) || ${PAGER:-less}
 [init]
 	defaultBranch = main
 [color]
@@ -42,5 +43,17 @@
 	enabled = true
 [pull]
 	rebase = false
+[delta]
+	plus-color = "#012800"
+	minus-color = "#340001"
+	syntax-theme = Monokai Extended
+	line-numbers = true
+[interactive]
+	diffFilter = delta --color-only
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [include]
 	path = ~/.config/git/config.local
