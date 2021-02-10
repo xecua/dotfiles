@@ -40,10 +40,10 @@ repo = 'ryanoasis/vim-devicons'
 repo = 'Shougo/defx.nvim'
 
 [[plugins]]
-repo ="kristijanhusak/defx-git"
+repo = "kristijanhusak/defx-git"
 
 [[plugins]]
-repo ="kristijanhusak/defx-icons"
+repo = "kristijanhusak/defx-icons"
 
 [[plugins]]
 repo = 'mbbill/undotree'

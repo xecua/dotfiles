@@ -1,4 +1,5 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
   "diagnostic.displayByAle": true,
   "dialog.confirmKey": "<C-k>",
   "diagnostic.checkCurrentLine": true,

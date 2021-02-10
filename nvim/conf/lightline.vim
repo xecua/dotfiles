@@ -7,7 +7,7 @@ let g:lightline = {
    \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
    \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
    \ 'active': {
-   \   'left': [['mode', 'paste'], ['gitbranch', 'readonly', 'filename'], ['coc-current-func', 'coc-status']],
+   \   'left': [['mode', 'paste'], ['gitbranch', 'readonly', 'filename'], ['coc-current-func']],
    \   'right': [['lineinfo'], ['fileformat', 'fileencoding', 'filetype']]
    \ },
    \ 'inactive': {
@@ -21,7 +21,6 @@ let g:lightline = {
    \ },
    \ 'component_function': {
    \   'readonly': 'LightLineReadonly',
-   \   'filename': 'LightLineFilename',
    \   'mode': 'LightLineMode',
    \   'filetype': 'LightLineFiletype',
    \   'fileformat': 'LightLineFileformat',
