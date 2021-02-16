@@ -8,6 +8,8 @@ set -gx XDG_CACHE_HOME $HOME/.cache
 
 set -gx LANG "ja_JP.UTF-8"
 
+set -gx HOMEBREW_EDITOR code
+set -gx EDITOR nvim
 set -gx NVIM_LISTEN_ADDRESS /tmp/nvim.sock
 
 set -gx COURSIER_INSTALL_DIR ~/.local/share/coursier/bin

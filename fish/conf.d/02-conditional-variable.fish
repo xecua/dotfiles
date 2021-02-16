@@ -24,3 +24,13 @@ if [ -e /usr/local/opt/llvm ] && status --is-interactive
   # LLVM installed with Homebrew
   set -gxp PATH /usr/local/opt/llvm/bin
 end
+
+if [ -e /usr/local/opt/ruby ]
+  # Ruby installed with Hoebrew
+  # gems
+  set -gxp PATH /usr/local/lib/ruby/gems/3.0.0/bin
+  if status --is-interactive
+    # interpreter
+    set -gxp PATH /usr/local/opt/ruby/bin
+  end
+end

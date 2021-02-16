@@ -2,6 +2,7 @@ let g:coc_global_extensions = [
     \ 'coc-highlight',
     \ 'coc-vimlsp',
     \ 'coc-json',
+    \ 'coc-fsharp',
     \ 'coc-flutter',
     \ 'coc-tsserver',
     \ 'coc-eslint',

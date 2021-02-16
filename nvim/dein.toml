@@ -130,3 +130,7 @@ repo = 'vim-jp/vim-java'
 ## json
 [[plugins]]
 repo = 'kevinoid/vim-jsonc'
+
+## F#
+[[plugins]]
+repo = 'ionide/Ionide-vim'

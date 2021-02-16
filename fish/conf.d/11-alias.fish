@@ -5,11 +5,6 @@ if status --is-interactive
     alias g git
   end
 
-  # format style
-  if type -q clang-format
-    alias clang-format "clang-format -style='{BasedOnStyle: LLVM, BreakBeforeBraces: Stroustrup,IndentWidth: 4}'"
-  end 
-
   # from https://github.com/arkark/dotfiles
   if type -q exa
     alias ls 'exa --icons'
