@@ -86,6 +86,9 @@ repo = 'thinca/vim-template'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 
+[[plugins]]
+repo = 'subnut/nvim-ghost.nvim'
+
 # indentation
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'
