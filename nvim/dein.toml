@@ -137,3 +137,7 @@ repo = 'kevinoid/vim-jsonc'
 ## F#
 [[plugins]]
 repo = 'ionide/Ionide-vim'
+
+## Brewfile
+[[plugins]]
+repo = 'bfontaine/Brewfile.vim'
