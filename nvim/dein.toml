@@ -128,7 +128,7 @@ repo = 'peitalin/vim-jsx-typescript'
 
 ## Java
 [[plugins]]
-repo = 'vim-jp/vim-java'
+repo = 'uiiaoo/java-syntax.vim'
 
 ## json
 [[plugins]]
