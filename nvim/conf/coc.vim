@@ -14,7 +14,8 @@ let g:coc_global_extensions = [
     \ 'coc-texlab',
     \ 'coc-toml',
     \ 'coc-clangd',
-    \ 'coc-neosnippet'
+    \ 'coc-neosnippet',
+    \ 'coc-xml'
     \ ]
 
 function! s:check_back_space() abort
@@ -68,13 +69,18 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 function s:setup_coc() abort
-  call coc#config('latex.forwardSearch', {
-       \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
-       \   'args': ['%l', '%p', '%f']
-       \ })
-  call coc#config('python.formatting', {
-      \   'yapfPath': '/usr/local/bin/yapf'
-      \ })
+  if g:os == 'Darwin'
+    call coc#config('latex.forwardSearch', {
+         \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
+         \   'args': ['%l', '%p', '%f']
+         \ })
+    call coc#config('python.formatting', {
+        \   'yapfPath': '/usr/local/bin/yapf'
+        \ })
+    call coc#config('xml.java', {
+        \   'home': '/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home'
+        \ })
+  endif
 endfunction
 augroup CocConfig
   au! VimEnter * call <SID>setup_coc()
