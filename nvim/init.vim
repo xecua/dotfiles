@@ -106,7 +106,6 @@ augroup Init
   " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
   au BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
   au VimEnter * call s:load_local_vimrc()
-  au VimEnter * call nvim_ghost#installer#install()
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
