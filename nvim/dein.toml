@@ -89,6 +89,9 @@ repo = 'junegunn/fzf.vim'
 [[plugins]]
 repo = 'subnut/nvim-ghost.nvim'
 
+[[plugins]]
+repo = 'rhysd/accelerated-jk'
+
 # indentation
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'

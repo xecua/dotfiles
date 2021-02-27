@@ -21,4 +21,7 @@ if dein#check_install()
   call dein#install()
 endif
 
-let g:dein#auto_recache = 1
+if !empty(dein#check_clean())
+  call map(dein#check_clean(), "delete(v:val, 'rf')")
+  call dein#recache_runtimepath()
+endif

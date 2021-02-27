@@ -45,11 +45,6 @@ set helplang=ja,en
 " set signcolumn=yes
 set updatetime=300
 
-
-" 見た目通りの移動
-noremap j gj
-noremap k gk
-
 " タブ関連
 set expandtab " スペースを使う
 set tabstop=4 " 幅4
@@ -106,10 +101,12 @@ tnoremap <Esc> <C-\><C-q>
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
 augroup Init
+  au!
   " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
   " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
-  au! BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
-  au! VimEnter * call s:load_local_vimrc()
+  au BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
+  au VimEnter * call s:load_local_vimrc()
+  au VimEnter * call nvim_ghost#installer#install()
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
@@ -133,6 +130,8 @@ if g:os == 'Darwin'
 elseif g:os == 'Linux'
   let g:previm_open_cmd = 'vivaldi-stable'
 end
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()
