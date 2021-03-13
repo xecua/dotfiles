@@ -144,3 +144,7 @@ repo = 'ionide/Ionide-vim'
 ## Brewfile
 [[plugins]]
 repo = 'bfontaine/Brewfile.vim'
+
+## ebuild and etc
+[[plugins]]
+repo = 'gentoo/gentoo-syntax'
