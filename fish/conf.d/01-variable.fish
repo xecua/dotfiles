@@ -13,6 +13,8 @@ set -gx COURSIER_INSTALL_DIR ~/.local/share/coursier/bin
 
 set -gx ANDROID_SDK_ROOT /opt/android-sdk
 
+set -gx FZF_DEFAULT_OPTS '--reverse'
+
 fish_add_path \
   $GOPATH/bin \
   $HOME/.cargo/bin \
