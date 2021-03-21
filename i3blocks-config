@@ -34,6 +34,13 @@ markup=none
 full_text=dmenu
 command=rofi -show drun
 
+# https://github.com/firatakandere/i3blocks-spotify
+[spotify]
+label=
+command=~/Documents/repos/github.com/firatakandere/i3blocks-spotify/spotify.py
+color=#81b71a
+interval=5
+
 # Volume indicator
 #
 # The first parameter sets the step (and units to display)
