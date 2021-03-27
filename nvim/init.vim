@@ -131,6 +131,7 @@ elseif g:os == 'Linux'
 end
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()

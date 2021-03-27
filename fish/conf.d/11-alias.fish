@@ -50,4 +50,8 @@ if status --is-interactive
     # in fish, ssh-agent must be used with -c
     alias ssh-agent 'ssh-agent -c'
   end
+
+  if [ (uname) = 'Darwin' ]
+    alias sudoedit 'sudo -e'
+  end
 end
