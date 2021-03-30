@@ -40,6 +40,9 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Default layout
+workspace_layout tabbed
+
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec tilix
@@ -211,7 +214,8 @@ exec dex -ae i3
 exec --no-startup-id ~/.fehbg
 
 # disable titlebar
-for_window [class=".*"] border pixel 0
+default_border none
+default_floating_border normal
 
 # i3-gaps
 # gaps inner 20
@@ -227,3 +231,6 @@ set $launcher-clipboard-remove clipcat-menu remove
 
 bindsym $mod+i exec $launcher-clipboard-insert
 
+# default floating
+for_window [title="Bitwarden"] floating enable
+for_window [title="LINE Share"] floating enable
