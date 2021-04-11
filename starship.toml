@@ -28,6 +28,8 @@ discharging_symbol = " "
 threshold = 100
 style = "bold green"
 
+[scala]
+symbol = " "
 [aws]
 symbol = " "
 [docker]

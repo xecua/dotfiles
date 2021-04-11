@@ -148,3 +148,7 @@ repo = 'bfontaine/Brewfile.vim'
 ## ebuild and etc
 [[plugins]]
 repo = 'gentoo/gentoo-syntax'
+
+## toml
+[[plugins]]
+repo = "cespare/vim-toml"

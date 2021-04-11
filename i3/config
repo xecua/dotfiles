@@ -213,6 +213,10 @@ client.background       #F8F8F2
 exec dex -ae i3
 exec --no-startup-id ~/.fehbg
 
+# default floating
+for_window [title="Bitwarden"] floating enable, border normal # titlebar does not exist, so cannot move using mouse
+for_window [title="LINE Share"] floating enable
+
 # disable titlebar
 default_border none
 default_floating_border normal
@@ -231,6 +235,5 @@ set $launcher-clipboard-remove clipcat-menu remove
 
 bindsym $mod+i exec $launcher-clipboard-insert
 
-# default floating
-for_window [title="Bitwarden"] floating enable
-for_window [title="LINE Share"] floating enable
+# https://gist.github.com/LeandroLovisolo/7d25271504283543f305
+bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py

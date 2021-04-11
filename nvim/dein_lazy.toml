@@ -9,12 +9,11 @@ on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
 repo = 'dart-lang/dart-vim-plugin'
 on_ft = ['dart']
 
-## toml
-[[plugins]]
-repo = "cespare/vim-toml"
-on_ft = ['toml']
-
 ## Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
+
+[[plugins]]
+repo = 'mattn/vim-goimports'
+on_ft = ['go']
