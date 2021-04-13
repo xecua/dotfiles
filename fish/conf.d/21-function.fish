@@ -25,9 +25,9 @@ function attach_tmux_session_if_needed
 
   set new_session "Create New Session"
   if type -q fzf
-    set ID (echo $ID\n$new_session | fzf | cut -d: -f1)
+    set ID (string collect $ID $new_session | fzf | cut -d: -f1)
   else if type -q peco
-    set ID (echo $ID\n$new_session | peco --on-cancel=error | cut -d: -f1)
+    set ID (string collect $ID $new_session | peco --on-cancel=error | cut -d: -f1)
   else
     set ID ""
   end
