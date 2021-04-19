@@ -47,6 +47,8 @@ command=rofi -show drun
 interval=once
 signal=1
 #STEP=5%
+# SUBSCRIBE=1
+USE_ALSA_NAME=1
 AUDIO_HIGH_SYMBOL=
 AUDIO_MED_SYMBOL=
 AUDIO_LOW_SYMBOL=
@@ -85,19 +87,19 @@ interval=10
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
 [iface]
-#IFACE=wlan0
+command=IFACE=$(ip route | awk '/^default/ { print $5 ; exit }') ~/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 label=󿪨
 color=#00FF00
 interval=10
 separator=false
 
 [wifi]
-INTERFACE=wlp15s0
+command=INTERFACE=$(ip route | awk '/^default/ { print $5 ; exit }') ~/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 interval=60
 separator=false
 
 [bandwidth]
-INTERFACE=wlp15s0
+command=INTERFACE=$(ip route | awk '/^default/ { print $5 ; exit }') ~/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 interval=60
 INLABEL=󿕅
 OUTLABEL=󿕝
@@ -133,18 +135,17 @@ interval=10
 # #label=⚡
 # interval=30
 
-[arch-update]
-interval=3600
-markup=pango
-AUR=true # yay使ってるならスクリプト中のyaourt使ってるところをyayにする
-QUIET=true
-LABEL= 
-WATCH=^linux.* ^pacman.*
-BASE_COLOR=#5fff5f
-UPDATE_COLOR=#FFFF85
+# [arch-update]
+# interval=3600
+# markup=pango
+# AUR=true # yay使ってるならスクリプト中のyaourt使ってるところをyayにする
+# QUIET=true
+# LABEL= 
+# WATCH=^linux.* ^pacman.*
+# BASE_COLOR=#5fff5f
+# UPDATE_COLOR=#FFFF85
 
 # Date Time
-#
 [time]
 command=date '+%Y/%m/%d %H:%M:%S'
 interval=5

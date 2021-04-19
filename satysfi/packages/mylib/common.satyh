@@ -6,6 +6,7 @@ module MyLib : sig
   direct \mbr : [] math-cmd
   direct \id: [] math-cmd
   direct \lnot: [] math-cmd
+  direct \widehat: [math] math-cmd
 
   val compare-string: string -> string -> int
 
@@ -105,5 +106,28 @@ end = struct
     in
     sub lstl lstr
 
-end
+  % https://zenn.dev/toga/articles/9d566e93edfb4f95bb50
+  let-math \widehat it =
+    text-in-math MathOrd (fun ctx -> (
+      let it = embed-math ctx ${#it} in
+      let (length, height, depth) = get-natural-metrics it in
+      let hat-thickness-mid = .6pt in
+      let hat-thickness-end = .2pt in
+      let hat-height = length *' .2 in
+      let hat-pos = 1.2pt in
+      inline-graphics length (height +' hat-pos +' hat-height +' hat-thickness-mid) depth (fun (x, y) -> [
+        draw-text (x, y) it;
+        fill
+        Color.black(
+          start-path (x, y +' height +' hat-pos)
+          |> line-to (x, y +' height +' hat-pos +' hat-thickness-end)
+          |> line-to (x +' length *' 0.5, y +' height +' hat-pos +' hat-height +' hat-thickness-mid)
+          |> line-to (x +' length, y +' height +' hat-pos +' hat-thickness-end)
+          |> line-to (x +' length, y +' height +' hat-pos)
+          |> line-to (x +' length *' 0.5, y +' height +' hat-pos +' hat-height)
+          |> close-with-line
+        )
+      ])
+  ))
 
+end

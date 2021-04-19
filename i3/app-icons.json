@@ -4,6 +4,7 @@
   "chrome": "chrome",
   "google-chrome": "chrome",
   "vivaldi-stable": "chrome",
+  "kitty": "terminal",
   "x-terminal-emulator": "terminal",
   "tilix": "terminal",
   "slack": "slack",
@@ -19,6 +20,8 @@
   "Spotify": "spotify",
   "code": "code",
   "Org.gnome.Nautilus": "folder",
+  "org.pwmt.zathura": "file-pdf",
+  "Evince": "file-pdf",
   "Zotero": "newspaper",
   "jetbrains-studio": "android",
   "_no_match": "question"
