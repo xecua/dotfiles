@@ -1,0 +1,30 @@
+@require: stdjareport
+
+% \refがstdjareportに依存してるので個別に
+
+module StdjaReportExt : sig
+  direct \ref-theorem: [string] inline-cmd
+  direct \ref-theorem-page: [string] inline-cmd
+  direct \ref-definition : [string] inline-cmd
+  direct \ref-definition-page : [string] inline-cmd
+  direct \ref-example : [string] inline-cmd
+  direct \ref-example-page : [string] inline-cmd
+  direct \ref-lemma : [string] inline-cmd
+  direct \ref-lemma-page : [string] inline-cmd
+  direct \ref-corollary : [string] inline-cmd
+  direct \ref-corollary-page : [string] inline-cmd
+
+end = struct
+
+  let-inline ctx \ref-theorem label = read-inline ctx {Theorem \ref(`theorem:`^label);}
+  let-inline ctx \ref-theorem-page label = read-inline ctx {\ref-page(`theorem:`^label);}
+  let-inline ctx \ref-definition label = read-inline ctx {Definition \ref(`definition:`^label);}
+  let-inline ctx \ref-definition-page label = read-inline ctx {\ref-page(`definition:`^label);}
+  let-inline ctx \ref-example label = read-inline ctx {Example \ref(`example:`^label);}
+  let-inline ctx \ref-example-page label = read-inline ctx {\ref-page(`example:`^label);}
+  let-inline ctx \ref-lemma label = read-inline ctx {Lemma \ref(`lemma:`^label);}
+  let-inline ctx \ref-lemma-page label = read-inline ctx {\ref-page(`lemma:`^label);}
+  let-inline ctx \ref-corollary label = read-inline ctx {Corollary \ref(`corollary:`^label);}
+  let-inline ctx \ref-corollary-page label = read-inline ctx {\ref-page(`corollary:`^label);}
+
+end

@@ -5,6 +5,8 @@ module MyLib : sig
   direct \break : [] inline-cmd
   direct \mbr : [] math-cmd
   direct \id: [] math-cmd
+  direct \mod: [] math-cmd
+  direct \opmod: [] math-cmd
   direct \lnot: [] math-cmd
   direct \widehat: [math] math-cmd
 
@@ -21,6 +23,8 @@ end = struct
   let-math \mbr = text-in-math MathOrd (fun ctx -> discretionary (-100) inline-nil inline-fil inline-nil)
 
   let-math \id = math-char MathOp `id`
+  let-math \mod = math-char MathOp `mod`
+  let-math \opmod = math-char MathBin `mod` % 2項演算子としてのmod(プで言う%)
   let-math \lnot = math-char MathPrefix `¬`
 
   let bracket-metrics fontsize halflen =

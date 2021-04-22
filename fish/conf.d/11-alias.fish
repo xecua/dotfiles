@@ -25,11 +25,6 @@ if status --is-interactive
     alias rg 'rg --smart-case'
   end
 
-  if type -q bat
-    alias less 'bat -p'
-    alias cat 'bat -pp'
-  end
-
   if type -q nvim
     alias vi nvim
     alias vim nvim
