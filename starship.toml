@@ -32,7 +32,7 @@ style = "bold green"
 symbol = " "
 [aws]
 symbol = " "
-[docker]
+[docker_context]
 symbol = " "
 [dotnet]
 symbol = " "
@@ -41,12 +41,8 @@ symbol = " "
 disabled = false
 [golang]
 symbol = " "
-[haskell]
-symbol = " "
 [java]
 symbol = " "
-[nodejs]
-symbol = " "
 [php]
 symbol = " "
 [python]
