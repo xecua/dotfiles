@@ -30,10 +30,6 @@ command=~/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[dmenu]
-full_text=dmenu
-command=rofi -show drun
-
 
 # Volume indicator
 #
