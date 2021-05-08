@@ -49,4 +49,8 @@ if status --is-interactive
   if [ (uname) = 'Darwin' ]
     alias sudoedit 'sudo -e'
   end
+
+  if string match -rq 'gentoo$' (uname -r)
+    alias うどん 'sudo emerge -auvDN --with-bdeps=y --keep-going @world'
+  end
 end

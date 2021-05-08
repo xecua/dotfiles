@@ -104,6 +104,21 @@ if [ (uname) = "Linux" ]
   if not [ -e $XDG_CONFIG_HOME/zathura ]
     ln -s $sciprt_dir/zathura $XDG_CONFIG_HOME/zathura
   end
+  # libskk
+  if not [ -d $XDG_CONFIG_HOME/libskk ]
+    mkdir $XDG_CONFIG_HOME/libskk
+  end
+  if not [ -e $XDG_CONFIG_HOME/libskk/rules ]
+    ln -s $script_dir/skk/libskk/rules $XDG_CONFIG_HOME/libskk/rules
+  end
+end
+
+# macOS specific
+if [ (uname) == "Darwin" ]
+  # AquaSKK (assumed to be installed)
+  if [ -e $HOME/Library/Application\ Support/AquaSKK ]
+    ln -s $script_dir/skk/AquaSKK/* $HOME/Library/Application\ Support/AquaSKK
+  end
 end
 
 # SATySFi
