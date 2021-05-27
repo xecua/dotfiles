@@ -133,6 +133,10 @@ nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 nnoremap <leader>u :UndotreeToggle<CR>
 
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+let g:closetag_filetypes = 'html,xhtml,phtml,xml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
+
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()
   let files = findfile('.vimrc.local', getcwd().';', -1)

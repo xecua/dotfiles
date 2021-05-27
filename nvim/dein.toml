@@ -68,6 +68,9 @@ repo = 'ConradIrwin/vim-bracketed-paste'
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
 
+[[plugins]]
+repo = 'alvan/vim-closetag'
+
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'

@@ -6,7 +6,7 @@ set -euCo pipefail
 function main() {
   # 表示したい項目と実際に実行するコマンドを連想配列として定義する。
   local -Ar menu=(
-    ['Lock']='dm-tool lock'
+    ['Lock']='loginctl lock-session'
     ['Logout']='i3-msg exit'
     ['Suspend']='systemctl suspend'
     ['Hibernate']='systemctl hibernate'
@@ -21,4 +21,3 @@ function main() {
 }
 
 main $@
-

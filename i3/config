@@ -27,7 +27,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- \
     i3lock \
     --nofork \
     --indicator \
-    --blur=1.0 \
+    --blur=5.0 \
     --clock \
     --timecolor=009cd188 \
     --datecolor=009cd188 \

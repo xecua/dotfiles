@@ -4,9 +4,6 @@ add_newline = true
 success_symbol = '''\(´∀`\)'''
 error_symbol = '''\(ﾉ∀`\)'''
 
-[gcloud]
-disabled = true
-
 [line_break]
 disabled = true
 
@@ -28,26 +25,39 @@ discharging_symbol = " "
 threshold = 100
 style = "bold green"
 
-[scala]
-symbol = " "
 [aws]
-symbol = " "
+symbol = " " # U+E7AD, Devicons
+[dart]
+symbol = " " # U+E798, Devicons
 [docker_context]
-symbol = " "
+symbol = " " # U+E7B0, Devicons
 [dotnet]
-symbol = " "
+symbol = " " # U+E77F, Devicons
+[gcloud]
+symbol = " " # U+E7B2, Devicons
 [git_branch]
-symbol = " "
-disabled = false
+symbol = " " # U+E702, Devicons
 [golang]
-symbol = " "
+symbol = " " # U+E724, Devicons
 [java]
-symbol = " "
+symbol = " " # U+E738, Devicons
+[julia]
+symbol = " " # U+E624, Seti-UI + Custom
+[lua]
+symbol = " " # U+E620, Seti-UI + Custom
+[nodejs]
+symbol = " " # U+E718, Devicons
+[perl]
+symbol = " " # U+E769, Devicons
 [php]
-symbol = " "
+symbol = " " # U+E73D, Devicons
 [python]
-symbol = " "
+symbol = " " # U+E73C, Devicons
 [ruby]
-symbol = " "
+symbol = " " # U+E739, Devicons
 [rust]
-symbol = " "
+symbol = " " # U+E7A8, Devicons
+[scala]
+symbol = " " # U+E737, Devicons
+[swift]
+symbol = " " # U+E755, Devicons
