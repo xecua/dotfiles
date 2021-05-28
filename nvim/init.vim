@@ -137,6 +137,8 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
 
+let g:python_highlight_all = 1
+
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()
   let files = findfile('.vimrc.local', getcwd().';', -1)

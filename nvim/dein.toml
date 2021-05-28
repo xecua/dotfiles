@@ -103,6 +103,10 @@ repo = 'lambdalisue/vim-backslash'
 repo = 'hynek/vim-python-pep8-indent'
 
 # Syntax Highlighting
+## Python (following latest syntax)
+[[plugins]]
+repo = 'vim-python/python-syntax'
+
 ## markdown
 [[plugins]]
 repo = 'tpope/vim-markdown'
