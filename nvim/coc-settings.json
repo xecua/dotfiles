@@ -3,11 +3,13 @@
   "diagnostic.displayByAle": true,
   "dialog.confirmKey": "<C-k>",
   "diagnostic.checkCurrentLine": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.width": 30,
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.nodeEnv": "local",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "python.formatting.provider": "yapf",
-  "latex.build.onSave": true,
-  "latex.build.args": []
+  "texlab.build.onSave": true,
+  "texlab.build.args": []
 }

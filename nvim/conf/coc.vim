@@ -1,4 +1,5 @@
 let g:coc_global_extensions = [
+    \ 'coc-explorer',
     \ 'coc-highlight',
     \ 'coc-vimlsp',
     \ 'coc-emoji',
@@ -84,6 +85,9 @@ function s:setup_coc() abort
         \ })
   endif
 endfunction
+
+nnoremap <silent><C-n> :<C-u>CocCommand explorer<CR>
+
 augroup CocConfig
   au! VimEnter * call <SID>setup_coc()
 augroup END

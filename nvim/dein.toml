@@ -35,16 +35,6 @@ repo = 'cohama/lexima.vim'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
-# explorer
-[[plugins]]
-repo = 'Shougo/defx.nvim'
-
-[[plugins]]
-repo = "kristijanhusak/defx-git"
-
-[[plugins]]
-repo = "kristijanhusak/defx-icons"
-
 [[plugins]]
 repo = 'mbbill/undotree'
 
