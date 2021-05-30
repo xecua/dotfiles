@@ -46,9 +46,11 @@ set helplang=ja,en
 set updatetime=300
 
 " タブ関連
-set expandtab " スペースを使う
-set tabstop=4 " 幅4
-set shiftwidth=4 " 幅4
+set expandtab " tabstop個の連続したスペースをtabに変換しない
+set softtabstop=-1 " <Tab>・<BS>での移動幅(-1 => shiftwidth)
+set shiftwidth=0 " 改行・<</>>でのインデント量(0 => tabstop)
+set tabstop=4 " tab文字の幅
+echomsg &shiftwidth
 let g:vim_indent_cont = 4 " 継続行のインデント量を固定
 
 " 検索関連

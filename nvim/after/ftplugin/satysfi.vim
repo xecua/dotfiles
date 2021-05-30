@@ -1,4 +1,3 @@
-setl shiftwidth=2
 setl tabstop=2
 
 function! s:normalize_punctuation()
@@ -17,4 +16,3 @@ augroup SATySFiMyCnf
     au BufWritePre,FileWritePre *.saty :call s:normalize_punctuation()
     au BufWritePost,FileWritePost *.saty QuickRun
 augroup END
-

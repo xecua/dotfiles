@@ -1,3 +1,2 @@
-setl shiftwidth=2
+tabstopetl shiftwidth=2
 setl tabstop=2
-

@@ -1,6 +1,5 @@
-" ハードタブじゃないとダメ
-" https://rhysd.hatenablog.com/entry/2012/11/11/222150
 setl noexpandtab
+" neosnippet.vim/ftplugin/neosnippet.vimで上書きしてしまっている
+set softtabstop=-1
+setl shiftwidth=0
 setl tabstop=2
-setl shiftwidth=2
-
