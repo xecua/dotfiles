@@ -86,8 +86,10 @@ function s:setup_coc() abort
   endif
 endfunction
 
+nnoremap <silent><C-S-p> :<C-u>CocCommand<CR>
 nnoremap <silent><C-n> :<C-u>CocCommand explorer<CR>
 
 augroup CocConfig
   au! VimEnter * call <SID>setup_coc()
+  au! VimEnter * :if bufname()=='' | call execute('CocCommand explorer') | endif
 augroup END

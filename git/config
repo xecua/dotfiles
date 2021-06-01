@@ -19,11 +19,12 @@
 	plo = pull origin
 	f = fetch --prune
 	m = merge
-	mas = !git show-ref --quiet refs/heads/master && git checkout master || git checkout main
+	mas = !git show-ref --quiet refs/heads/master && git switch master || git switch main
 	s = status
 	ss = status -sb
 	c = commit -am
 	co = checkout
+	sw = switch
 	b = branch
 	d = diff
 	l = log
