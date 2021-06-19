@@ -50,7 +50,6 @@ set expandtab " tabstop個の連続したスペースをtabに変換しない
 set softtabstop=-1 " <Tab>・<BS>での移動幅(-1 => shiftwidth)
 set shiftwidth=0 " 改行・<</>>でのインデント量(0 => tabstop)
 set tabstop=4 " tab文字の幅
-echomsg &shiftwidth
 let g:vim_indent_cont = 4 " 継続行のインデント量を固定
 
 " 検索関連
@@ -143,7 +142,7 @@ let g:python_highlight_all = 1
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()
-  let files = findfile('.vimrc.local', getcwd().';', -1)
+  let files = findfile('.vim/vimrc', getcwd().';', -1)
   for i in reverse(filter(files, 'filereadable(v:val)'))
     source `=i`
   endfor

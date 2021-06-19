@@ -1,5 +1,6 @@
 @require: math
 @require: pervasives
+@require: color
 
 module MyLib : sig
   direct \break : [] inline-cmd

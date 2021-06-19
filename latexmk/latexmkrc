@@ -8,7 +8,7 @@ if ($^O eq 'darwin') {
 
 $latex = 'uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-line-error -synctex=1';
 $latex_silent = 'uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
-$lualatex = 'lualatex -interaction=nonstopmode -synctex=1S';
+$lualatex = 'lualatex -interaction=nonstopmode -synctex=1';
 $dvipdf = 'dvipdfmx -o %D %S';
 $bibtex = 'upbibtex';
 $makeindex = 'mendex';
@@ -18,4 +18,3 @@ $max_repeat = 5;
 $out_dir = 'out';
 
 $pvc_view_file_via_temporary = 0;
-

@@ -2,6 +2,7 @@ snippet     stdjareport
 abbr        stdjareport template
 options     head
 	@require: stdjareport
+	@require: azmath/azmath
 	@require: mylib/common
 
 	document(|
@@ -22,4 +23,21 @@ options	head
 		+frame{${1:#:フレームのタイトル}} <
 			${0}
 		>
+	>
+
+snippet jlreq
+abbr jlreq template
+options head
+	@require: class-jlreq/jlreq
+	@require: azmath/azmath
+	@require: mylib/common
+
+	document(|
+		title={${1:#:title}};
+		author={${2:#:author}};
+		date = {${3:#:date}};
+		show-title = true;
+		show-toc = false;
+	|) '<
+		${0}
 	>

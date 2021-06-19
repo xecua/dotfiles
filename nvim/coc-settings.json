@@ -8,8 +8,15 @@
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",
   "eslint.nodeEnv": "local",
+  "npm.binPath": "yarn",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "python.formatting.provider": "yapf",
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k"
+  },
   "texlab.build.onSave": true,
-  "texlab.build.args": []
+  "texlab.auxDirectory": "./out",
+  "texlab.build.args": [],
+  "texlab.build.forwardSearchAfter": true
 }

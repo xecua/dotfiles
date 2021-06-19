@@ -73,7 +73,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 function s:setup_coc() abort
   if g:os == 'Darwin'
-    call coc#config('latex.forwardSearch', {
+    call coc#config('texlab.forwardSearch', {
          \   'executable': '/Applications/Skim.app/Contents/SharedSupport/displayline',
          \   'args': ['%l', '%p', '%f']
          \ })
@@ -83,6 +83,11 @@ function s:setup_coc() abort
     call coc#config('xml.java', {
         \   'home': '/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home'
         \ })
+  elseif g:os == 'Linux'
+    call coc#config('texlab.forwardSearch', {
+        \   'executable': 'zathura',
+        \   'args':  ["--synctex-forward", "%l:1:%f", "%p"]
+        \ })
   endif
 endfunction
 
@@ -90,6 +95,7 @@ nnoremap <silent><C-S-p> :<C-u>CocCommand<CR>
 nnoremap <silent><C-n> :<C-u>CocCommand explorer<CR>
 
 augroup CocConfig
-  au! VimEnter * call <SID>setup_coc()
-  au! VimEnter * :if bufname()=='' | call execute('CocCommand explorer') | endif
+  au!
+  au VimEnter * call <SID>setup_coc()
+  au VimEnter * :if bufname()=='' | call execute('CocCommand explorer') | endif
 augroup END

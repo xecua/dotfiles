@@ -1,5 +1,6 @@
 augroup DeniteMyConf
-  au! FileType denite call s:denite_my_settings()
+  au!
+  au FileType denite call s:denite_my_settings()
 augroup END
 
 " mappings
@@ -12,4 +13,3 @@ function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> / denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
 endfunction
-
