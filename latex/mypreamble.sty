@@ -9,7 +9,7 @@
 \RequirePackage{diagbox} % 表の左上のスラッシュ
 \RequirePackage{comment}
 \RequirePackage{float,here} % 場所系
-\RequirePackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx}
+\RequirePackage{amsmath,amssymb,amsthm,ascmac,mathrsfs,mathtools,bm,empheq,mleftright,siunitx,stmaryrd}
 \RequirePackage{listings} % for upLaTeX, need jlisting
 \RequirePackage{wtref}
 \RequirePackage{fancyhdr}
@@ -17,6 +17,7 @@
 \RequirePackage{indent}
 \RequirePackage{booktabs}
 \RequirePackage{caption}
+\RequirePackage[absolute,overlay]{textpos}
 
 % preambleではない(usepackageで読み込まれる)場合は\makeatletterとかいらんらしい
 
@@ -75,9 +76,12 @@
 
 \newcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert} % ノルム
-\newcommand{\bracket}[1]{\langle#1\rangle} % 角括弧
-\newcommand{\Bracket}[1]{\left\langle#1\right\rangle} % 角括弧
-\newcommand{\bbracket}[1]{[\![#1]\!]} % 二重角括弧(semantic bracket)
+% azmath-like (using mathtools commands and stmaryrd symbol(llbracket/rrbracket))
+\newcommand{\p}[1]{\left\lparen#1\right\rparen}
+\newcommand{\pb}[1]{\left\lbrace#1\right\rbrace}
+\newcommand{\pB}[1]{\left\lbrack#1\right\rbrack}
+\newcommand{\pBB}[1]{\left\llbracket#1\right\rrbracket}
+\newcommand{\pangle}[1]{\left\langle#1\right\rangle}
 
 % 演算子
 \DeclareMathOperator{\im}{Im}
@@ -140,6 +144,7 @@
     }
     \RequirePackage[haranoaji,no-math,match,deluxe,jis2004]{luatexja-preset}
     \RequirePackage{luatexja-otf}
+    \RequirePackage{animate}
 \fi
 
 \ifptex
@@ -147,6 +152,7 @@
         \RequirePackage[dvipdfmx]{hyperref}
     }
     \RequirePackage{pxjahyper}
+    \RequirePackage[dvipdfmx]{animate}
 
     \ifuptex
         \RequirePackage[uplatex,deluxe,jis2004]{otf}

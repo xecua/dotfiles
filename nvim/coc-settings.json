@@ -17,6 +17,5 @@
   },
   "texlab.build.onSave": true,
   "texlab.auxDirectory": "./out",
-  "texlab.build.args": [],
-  "texlab.build.forwardSearchAfter": true
+  "texlab.build.args": []
 }

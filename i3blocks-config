@@ -123,6 +123,10 @@ separator=false
 # label=TEMP
 interval=10
 
+[gpu-load]
+label=GPU 
+interval=10
+
 # Battery indicator
 #
 # The battery instance defaults to 0.
