@@ -17,11 +17,7 @@ options      head
 
 	%% theme: focus
 	% \usepackage[colorgrid,gridunit=pt,texcoord]{eso-pic} % position check (for absolute positioning)
-	% template(http://blog.tokor.org/2018/01/19/LaTeX-Beamerで図表などの位置を絶対座標で指定する方法/):
-	% \begin{textblock*}{0.4\linewidth}(230pt, 100pt)
-	%     \centering
-	%     \includegraphics[width=\linewidth]{./figure.pdf}
-	% \end{textblock*}
+
 	% \usetheme[numbering=none,nofirafonts]{focus}
 	% \definecolor{alert}{RGB}{242,114,0}
 	% \definecolor{accent}{RGB}{0,118,186}
@@ -67,3 +63,12 @@ options      head
 	%\end{frame}
 
 	\end{document}
+
+snippet     textpos
+abbr        textblock* environment
+alias       textpos textblock
+options      head
+	\begin{textblock*}{0.4\linewidth}(230pt, 100pt)
+		\centering
+		\includegraphics[width=\linewidth]{${1:./figure.png}}
+	\end{textblock*}

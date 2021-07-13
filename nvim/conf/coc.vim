@@ -91,8 +91,8 @@ function s:setup_coc() abort
   endif
 endfunction
 
-nnoremap <silent><C-S-p> :<C-u>CocCommand<CR>
-nnoremap <silent><C-n> :<C-u>CocCommand explorer<CR>
+nmap <silent> <Leader>p :<C-u>CocCommand<CR>
+nmap <silent> <C-n> :<C-u>CocCommand explorer<CR>
 
 augroup CocConfig
   au!

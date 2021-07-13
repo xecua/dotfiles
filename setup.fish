@@ -58,6 +58,11 @@ if [ $XDG_CURRENT_DESKTOP = "i3" ]
   if not [ -e $XDG_CONFIG_HOME/rofi ]
     ln -s $script_dir/rofi $XDG_CONFIG_HOME/rofi
   end
+
+  ## dunst
+  if not [ -e $XDG_CONFIG_HOME/dunst ]
+    ln -s $script_dir/dunst $XDG_CONFIG_HOME/dunst
+  end
 end
 
 # latex: pass

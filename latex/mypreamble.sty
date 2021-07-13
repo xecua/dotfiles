@@ -18,6 +18,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{caption}
 \RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{adjustbox}
 
 % preambleではない(usepackageで読み込まれる)場合は\makeatletterとかいらんらしい
 
@@ -143,6 +144,8 @@
         \RequirePackage[unicode]{hyperref}
     }
     \RequirePackage[haranoaji,no-math,match,deluxe,jis2004]{luatexja-preset}
+    % 注: setmainfontは明朝体のものを置き換える beamerではゴシック体を使うようにしているので効かない
+    \@ifclassloaded{beamer}{\setsansfont{Arial}}{}
     \RequirePackage{luatexja-otf}
     \RequirePackage{animate}
 \fi

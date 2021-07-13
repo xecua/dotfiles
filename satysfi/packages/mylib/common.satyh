@@ -9,6 +9,7 @@ module MyLib : sig
   direct \mod: [] math-cmd
   direct \opmod: [] math-cmd
   direct \lnot: [] math-cmd
+  direct \exp: [] math-cmd
   direct \widehat: [math] math-cmd
 
   val compare-string: string -> string -> int
@@ -27,6 +28,7 @@ end = struct
   let-math \mod = math-char MathOp `mod`
   let-math \opmod = math-char MathBin `mod` % 2項演算子としてのmod(プで言う%)
   let-math \lnot = math-char MathPrefix `¬`
+  let-math \exp = math-char MathOp `exp`
 
   let bracket-metrics fontsize halflen =
     let w0 = fontsize *' 0.1 in
