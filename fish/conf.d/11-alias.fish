@@ -50,7 +50,7 @@ if status --is-interactive
     alias sudoedit 'sudo -e'
   end
 
-  if string match -rq 'gentoo$' (uname -r)
+  if type -q emerge
     alias うどん 'sudo emerge -auvDN --with-bdeps=y --keep-going @world'
   end
 end
