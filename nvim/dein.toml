@@ -27,6 +27,10 @@ repo = 'dense-analysis/ale'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+# parenthesis control
+[[plugins]]
+repo = 'tpope/vim-surround'
+
 # autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
