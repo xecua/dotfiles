@@ -153,3 +153,7 @@ repo = 'gentoo/gentoo-syntax'
 ## toml
 [[plugins]]
 repo = "cespare/vim-toml"
+
+## GraphQL
+[[plugins]]
+repo = 'jparise/vim-graphql'

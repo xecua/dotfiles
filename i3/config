@@ -231,6 +231,7 @@ exec --no-startup-id ~/.fehbg
 # default floating
 for_window [title="Bitwarden"] floating enable, border normal # titlebar does not exist, so cannot move using mouse
 for_window [title="LINE Share"] floating enable
+for_window [title="PulseAudio 音量調節"] floating disable
 
 # disable titlebar
 default_border none
