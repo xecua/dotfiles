@@ -1,4 +1,3 @@
-# include this file by include.path
 [user]
 	name = xecua
 	email = courser4848@gmail.com
@@ -14,15 +13,14 @@
 	cl = clone
 	a = add
 	p = push
-	po = push origin
 	pl = pull --prune
-	plo = pull origin
 	f = fetch --prune
 	m = merge
 	mas = !git show-ref --quiet refs/heads/master && git switch master || git switch main
 	s = status
 	ss = status -sb
 	c = commit -am
+	amend = commit -a --amend
 	co = checkout
 	sw = switch
 	b = branch
@@ -31,7 +29,9 @@
 	g = log --graph --date=short --decorate=short --oneline
 	r = rebase
 	ri = rebase -i
-	amend = commit -a --amend
+	rs = reset
+	rsh = reset --hard
+	rss = reset --soft
 	st = stash
 	stl = stash list
 	sta = stash apply
@@ -42,6 +42,8 @@
 	gpgsign = true
 [rerere]
 	enabled = true
+[push]
+	default = current
 [pull]
 	rebase = true
 [delta]

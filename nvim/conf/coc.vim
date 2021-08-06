@@ -17,6 +17,7 @@ let g:coc_global_extensions = [
     \ 'coc-toml',
     \ 'coc-clangd',
     \ 'coc-neosnippet',
+    \ 'coc-html',
     \ 'coc-xml',
     \ 'coc-go'
     \ ]
