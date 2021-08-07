@@ -1,3 +1,6 @@
 {
-  "include": ["default/default", "common"]
+    "include": [
+        "default/default",
+        "common"
+    ]
 }
