@@ -19,7 +19,8 @@ let g:coc_global_extensions = [
     \ 'coc-neosnippet',
     \ 'coc-html',
     \ 'coc-xml',
-    \ 'coc-go'
+    \ 'coc-go',
+    \ 'coc-phpls'
     \ ]
 
 function! s:check_back_space() abort
