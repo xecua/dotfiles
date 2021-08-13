@@ -15,6 +15,14 @@ if not [ -d $XDG_CONFIG_HOME/fish ]
   mkdir $XDG_CONFIG_HOME/fish
 end
 
+# override
+if not [ -e $HOME/.bashrc ]
+  mv $script_dir/.bashrc $HOME
+end
+if not [ -e $HOME/.bash_profile ]
+  mv $script_dir/.bash_profile $HOME
+end
+
 ## if exist, do nothing
 if not [ -e $XDG_CONFIG_HOME/fish/conf.d ]
   ln -s $script_dir/fish/conf.d $XDG_CONFIG_HOME/fish/conf.d
