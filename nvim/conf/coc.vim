@@ -9,7 +9,6 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-eslint',
     \ 'coc-prettier',
-    \ 'coc-java',
     \ 'coc-metals',
     \ 'coc-pyright',
     \ 'coc-rust-analyzer',
@@ -22,6 +21,7 @@ let g:coc_global_extensions = [
     \ 'coc-go',
     \ 'coc-phpls'
     \ ]
+    " \ 'coc-java',
 
 function! s:check_back_space() abort
   let col = col('.') - 1

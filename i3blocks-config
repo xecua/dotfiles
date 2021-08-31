@@ -55,6 +55,10 @@ AUDIO_MUTED_SYMBOL=
 interval=once
 FONT_FAMILY=Cica
 
+[colorpicker]
+format=json
+interval=1
+
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.

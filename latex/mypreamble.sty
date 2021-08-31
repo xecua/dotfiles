@@ -180,6 +180,13 @@
     \renewcommand{\kanjifamilydefault}{\gtdefault}%和文をゴシック体に
     \usefonttheme{professionalfonts} % 数式がデフォのフォントになる
 
+
+    \RequirePackage{relsize}
+    \newcommand\textaccent[1]{\textcolor{accent}{ #1}}
+    \newcommand\boldaccent[1]{\textbf{\textcolor{accent}{ #1}}}
+    \newcommand\textalert[1]{\textcolor{alert}{\relsize{1.2} #1}}
+    \newcommand\boldalert[1]{\textbf{\textcolor{alert}{\relsize{1.2}#1}}}
+
     % どうにかしたい…
     % \defbeamertemplate*{frametitle}{focus-custom}{%
     %     % If not title page.

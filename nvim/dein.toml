@@ -18,6 +18,7 @@ repo = 'thinca/vim-quickrun'
 [[plugins]]
 repo = 'neoclide/coc.nvim'
 merged = 0
+rev = 'release'
 
 ## if there is no stable LSP Server
 [[plugins]]
