@@ -132,6 +132,9 @@ if [ (uname) == "Darwin" ]
   if [ -e $HOME/Library/Application\ Support/AquaSKK ]
     ln -s $script_dir/skk/AquaSKK/* $HOME/Library/Application\ Support/AquaSKK
   end
+
+  ln -s $script_dir/Brewfile $HOME/.Brewfile
+
 end
 
 # SATySFi
