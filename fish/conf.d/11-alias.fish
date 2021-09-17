@@ -53,10 +53,4 @@ if status --is-interactive
   if type -q emerge
     alias うどん 'sudo emerge -auvDN --with-bdeps=y --keep-going @world'
   end
-
-  if type -q trash
-    # 経過措置 非推奨らしいのでそのうち消したい
-    alias rm trash
-  end
-
 end

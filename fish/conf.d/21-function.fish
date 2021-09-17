@@ -15,6 +15,14 @@ function pip3-upgrade
   pip3 install -U (pip3 freeze | awk -F '==' '{print $1}')
 end
 
+function pip-user-upgrade
+  pip install -U --user (pip freeze --user | awk -F '==' '{print $1}')
+end
+
+function pip3-user-upgrade
+  pip3 install -U --user (pip3 freeze --user | awk -F '==' '{print $1}')
+end
+
 # https://qiita.com/mkeeda/items/c5fa878436f1cc957892
 function attach_tmux_session_if_needed
   set ID (tmux list-sessions)
