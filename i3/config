@@ -236,6 +236,8 @@ default_floating_border normal
 for_window [class="Bitwarden"] floating enable, border normal # titlebar does not exist, so cannot move using mouse
 for_window [class="pavucontrol-qt"] floating disable, border none
 for_window [class="fcitx5-config-qt"] move position center
+for_window [class="zoom" title="^(?!ズーム会議).*$"] floating enable
+no_focus [window_role="pop-up"]
 
 # i3-gaps
 # gaps inner 20

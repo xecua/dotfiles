@@ -7,7 +7,6 @@ from xkeysnail.transform import *
 # multipurpose timeout
 define_timeout(2)
 
-
 define_modmap({
     Key.CAPSLOCK: Key.LEFT_CTRL,
 })
@@ -19,7 +18,7 @@ define_multipurpose_modmap({
     Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
     Key.RIGHT_META: [Key.HENKAN, Key.RIGHT_META],
     # SandS
-    Key.SPACE: [Key.SPACE, Key.LEFT_SHIFT]
+    Key.HENKAN: [Key.SPACE, Key.LEFT_SHIFT],
+    Key.SPACE: [Key.SPACE, Key.LEFT_SHIFT],
+    Key.KATAKANAHIRAGANA: [Key.SPACE, Key.LEFT_SHIFT]
 })
-
-

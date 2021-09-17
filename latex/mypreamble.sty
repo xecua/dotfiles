@@ -90,36 +90,6 @@
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator*{\ord}{ord}
 
-% listings
-% ちなみにbeamerで使う時はframeにfragileオプションが必要
-\lstset{
-    language={C}, % lstinputlistingとかの引数でも変えられる
-    basicstyle={\ttfamily\lst@ifdisplaystyle\scriptsize\fi},
-    identifierstyle={\ttfamily\scriptsize},
-    commentstyle={\ttfamily\scriptsize\color[rgb]{0,0.5,0.5}},
-    keywordstyle={\bfseries \color[rgb]{0.95,0,0}},
-    ndkeywordstyle={\small\scriptsize},
-    stringstyle={\scriptsize\color[cmyk]{0,0.464,0.934,0.173}},
-    frame={tb},
-    breaklines=true,
-    columns=[l]{fullflexible},
-    numbers=left,
-    % if upLaTeX
-    % xrightmargin=0zw,
-    % xleftmargin=3zw,
-    % numbersep=1zw,
-    % if LuaLaTeX(need backslash)
-    xrightmargin=0\zw,
-    xleftmargin=3\zw,
-    numbersep=1\zw,
-    tabsize=4,
-    numberstyle={\scriptsize},
-    stepnumber=1,
-    lineskip=-0.5ex,
-    upquote=true,
-    showstringspaces=false
-}
-
 % WTRef http://0-chromosome.hatenablog.jp/entry/2016/03/04/185955
 \newref{chap, equat, sec, fig, tab}
 \newref[nonamespace]{lst}
@@ -148,6 +118,31 @@
     \setsansfont{Arial}
     \RequirePackage{luatexja-otf}
     \RequirePackage{animate}
+
+    %\begin{noindent}
+    \lstset{
+        language={C}, % lstinputlistingとかの引数でも変えられる
+        basicstyle={\ttfamily\lst@ifdisplaystyle\scriptsize\fi},
+        identifierstyle={\ttfamily\scriptsize},
+        commentstyle={\ttfamily\scriptsize\color[rgb]{0,0.5,0.5}},
+        keywordstyle={\bfseries \color[rgb]{0.95,0,0}},
+        ndkeywordstyle={\small\scriptsize},
+        stringstyle={\scriptsize\color[cmyk]{0,0.464,0.934,0.173}},
+        frame={tb},
+        breaklines=true,
+        columns=[l]{fullflexible},
+        numbers=left,
+        xrightmargin=0\zw,
+        xleftmargin=3\zw,
+        numbersep=1\zw,
+        tabsize=4,
+        numberstyle={\scriptsize},
+        stepnumber=1,
+        lineskip=-0.5ex,
+        upquote=true,
+        showstringspaces=false
+    }
+    %\end{noindent}
 \fi
 
 \ifptex
@@ -162,6 +157,31 @@
     \else
         \RequirePackage[deluxe,jis2004]{otf}
     \fi
+
+    %\begin{noindent}
+    \lstset{
+        language={C}, % lstinputlistingとかの引数でも変えられる
+        basicstyle={\ttfamily\lst@ifdisplaystyle\scriptsize\fi},
+        identifierstyle={\ttfamily\scriptsize},
+        commentstyle={\ttfamily\scriptsize\color[rgb]{0,0.5,0.5}},
+        keywordstyle={\bfseries \color[rgb]{0.95,0,0}},
+        ndkeywordstyle={\small\scriptsize},
+        stringstyle={\scriptsize\color[cmyk]{0,0.464,0.934,0.173}},
+        frame={tb},
+        breaklines=true,
+        columns=[l]{fullflexible},
+        numbers=left,
+        xrightmargin=0zw,
+        xleftmargin=3zw,
+        numbersep=1zw,
+        tabsize=4,
+        numberstyle={\scriptsize},
+        stepnumber=1,
+        lineskip=-0.5ex,
+        upquote=true,
+        showstringspaces=false
+    }
+    %\end{noindent}
 \fi
 
 
