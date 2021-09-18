@@ -255,3 +255,5 @@ bindsym $mod+i exec $launcher-clipboard-insert
 
 # https://gist.github.com/LeandroLovisolo/7d25271504283543f305
 bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
+
+exec_always --no-startup-id picom -b

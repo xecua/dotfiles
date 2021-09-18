@@ -45,6 +45,11 @@ if not [ -e $XDG_CONFIG_HOME/tig ]
   ln -s $sciprt_dir/tig $XDG_CONFIG_HOME/tig
 end
 
+# picom
+if not [ -d $XDG_CONFIG_HOME/picom ]
+  ln -s $script_dir/picom $XDG_CONFIG_HOME/picom
+end
+
 # i3
 if [ $XDG_CURRENT_DESKTOP = "i3" ]
   if not [ -d $XDG_CONFIG_HOME/i3 ]
