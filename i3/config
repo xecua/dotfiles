@@ -29,17 +29,17 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- \
     --indicator \
     --blur=5.0 \
     --clock \
-    --timecolor=009cd188 \
-    --datecolor=009cd188 \
-    --ringvercolor=3300fa88 \
-    --ringwrongcolor=7d330088 \
-    --ringcolor=009cd188 \
-    --insidevercolor=ffffff00 \
-    --insidewrongcolor=ffffff00 \
-    --insidecolor=ffffff00 \
-    --verifcolor=009cd188 \
-    --wrongcolor=009cd188 \
-    --datestr="%Y/%m/%d(%A)"
+    --time-color=009cd188 \
+    --date-color=009cd188 \
+    --ringver-color=3300fa88 \
+    --ringwrong-color=7d330088 \
+    --ring-color=009cd188 \
+    --insidever-color=ffffff00 \
+    --insidewrong-color=ffffff00 \
+    --inside-color=ffffff00 \
+    --verif-color=009cd188 \
+    --wrong-color=009cd188 \
+    --date-str="%Y/%m/%d(%A)"
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
