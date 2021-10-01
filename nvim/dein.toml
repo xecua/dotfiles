@@ -13,16 +13,35 @@ build = 'make'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
-# IDE support
-## LSP Client
+# LSP
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-merged = 0
-rev = 'release'
+repo = 'neovim/nvim-lspconfig'
 
 ## if there is no stable LSP Server
 [[plugins]]
 repo = 'dense-analysis/ale'
+
+# denops/ddc.vim
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+
+[[plugins]]
+repo = 'matsui54/ddc-nvim-lsp-doc'
 
 # git
 [[plugins]]
@@ -39,6 +58,16 @@ repo = 'cohama/lexima.vim'
 # for good appearance
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
+
+# explorer
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+
+[[plugins]]
+repo = "kristijanhusak/defx-git"
+
+[[plugins]]
+repo = "kristijanhusak/defx-icons"
 
 [[plugins]]
 repo = 'mbbill/undotree'
