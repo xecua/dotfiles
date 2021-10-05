@@ -481,5 +481,5 @@ endfunction
 
 augroup SkkeletonSetup
   au!
-  au VimEnter * if (g:os == 'Linux' && exists('neovide')) | call <sid>skkeleton_setup() | endif
+  au VimEnter * if dein#is_available('skkeleton') | call <sid>skkeleton_setup() | endif
 augroup END

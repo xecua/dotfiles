@@ -1,5 +1,7 @@
-" disable LSP feature (use LanguageClient-neovim instead)
-let g:ale_disable_lsp = 1
+" disable LSP feature
+if has('nvim-0.5') 
+  let g:ale_disable_lsp = 1
+endif
 
 " let g:ale_sign_error = '⨉'
 " let g:ale_sign_warning = '⚠'

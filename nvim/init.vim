@@ -121,6 +121,10 @@ augroup END
 
 " 各種プラグインの設定ファイルを読み込む
 runtime! conf/*.vim
+" LSP Configuration
+if has('nvim-0.5')
+  lua require('lsp')
+endif
 
 " plugin specific, but simple config
 colorscheme molokai
