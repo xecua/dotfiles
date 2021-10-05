@@ -43,6 +43,19 @@ repo = 'Shougo/ddc-sorter_rank'
 [[plugins]]
 repo = 'matsui54/ddc-nvim-lsp-doc'
 
+# explorer
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+
+[[plugins]]
+repo = 'antoinemadec/FixCursorHold.nvim'
+
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -58,16 +71,6 @@ repo = 'cohama/lexima.vim'
 # for good appearance
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-# explorer
-[[plugins]]
-repo = 'Shougo/defx.nvim'
-
-[[plugins]]
-repo = "kristijanhusak/defx-git"
-
-[[plugins]]
-repo = "kristijanhusak/defx-icons"
 
 [[plugins]]
 repo = 'mbbill/undotree'
