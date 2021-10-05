@@ -1,19 +1,31 @@
-call ddc#custom#patch_global('sources', [
+let s:sources = [
     \ 'nvim-lsp',
-    \ 'around'
-    \ ])
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-      \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank'],
-      \ },
-      \ 'around': {
-      \   'mark': 'A'
-      \ },
-      \ 'nvim-lsp': {
-      \   'mark': 'LSP',
-      \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
-      \ })
+    \ 'around']
+
+let s:sourceOptions = {
+        \ '_': {
+        \   'matchers': ['matcher_head'],
+        \   'sorters': ['sorter_rank'],
+        \ },
+        \ 'around': {
+        \   'mark': 'A'
+        \ },
+        \ 'nvim-lsp': {
+        \   'mark': 'LSP',
+        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
+        \ }
+
+if g:os == 'Linux' && exists('g:neovide')
+  let s:sources += ['skkeleton']
+  let s:sourceOptions.skkeleton = {
+      \ 'mark': 'skk',
+      \ 'matchers': ['skkeleton'],
+      \ 'sorters': []
+      \ }
+endif
+
+call ddc#custom#patch_global('sources', s:sources)
+call ddc#custom#patch_global('sourceOptions', s:sourceOptions)
 
 inoremap <silent><expr> <TAB>
   \ pumvisible() ? '<C-n>' :

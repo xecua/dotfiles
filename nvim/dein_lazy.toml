@@ -21,3 +21,10 @@ on_ft = ['go']
 [[plugins]]
 repo = 'rhysd/vim-grammarous'
 on_ft = ['tex', 'satysfi', 'markdown', 'rst', 'asciidoc']
+
+# IME
+[[plugins]]
+repo = 'vim-skk/skkeleton'
+merged = 0
+on_if = 'g:os == "Linux" && exists("g:neovide")'
+hook_source = 'call SkkeletonSetup()'
