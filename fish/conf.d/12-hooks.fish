@@ -23,7 +23,6 @@ end
 if type -q gpgconf
   # if WSL, this should not be executed
   if [ -z "$WSL_DISTRO_NAME" ]
-    echo 'foo'
     gpgconf --launch gpg-agent
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
   end

@@ -4,6 +4,7 @@
   "dialog.confirmKey": "<C-k>",
   "diagnostic.checkCurrentLine": true,
   "explorer.icon.enableNerdfont": true,
+  "explorer.file.cdCommand": "cd",
   "explorer.width": 30,
   "eslint.autoFixOnSave": true,
   "eslint.packageManager": "yarn",

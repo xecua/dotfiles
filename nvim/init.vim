@@ -9,6 +9,16 @@ if !exists("g:os")
   endif
 endif
 
+if g:os == 'Linux'
+  if exists('g:neovide')
+    set guifont=Cica:14
+  else
+    set guifont=Cica\ 14
+  endif
+else
+  set guifont=Cica:h14
+endif
+
 " <Leader> := <Space>
 let mapleader="\<Space>"
 "マウス有効化
