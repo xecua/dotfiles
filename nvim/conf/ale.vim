@@ -1,5 +1,5 @@
 " disable LSP feature
-if has('nvim-0.5') 
+if has('nvim-0.5')
   let g:ale_disable_lsp = 1
 endif
 

@@ -16,7 +16,7 @@ if g:os == 'Linux'
     set guifont=Cica\ 14
   endif
 else
-  set guifont=Cica:h14
+  set guifont=Cica:h16
 endif
 
 " <Leader> := <Space>
@@ -111,25 +111,8 @@ tnoremap <Esc> <C-\><C-q>
 " see :h DiffOrig
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
-augroup Init
-  au!
-  " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
-  " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
-  au BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
-  au VimEnter * call s:load_local_vimrc()
-augroup END
-
-" 各種プラグインの設定ファイルを読み込む
-runtime! conf/*.vim
-" LSP Configuration
-if has('nvim-0.5')
-  lua require('lsp')
-endif
-
-" plugin specific, but simple config
-colorscheme molokai
-let g:loaded_matchparen = 1 " disable default matchparen
-let g:neosnippet#snippets_directory = g:vim_home . '/neosnippet' " スニペット設定ディレクトリ
+" enable embedded code highlight
+let g:vimsyn_embed = 'l'
 let g:markdown_fenced_languages = [
 \ 'html',
 \ 'python',
@@ -139,6 +122,52 @@ let g:markdown_fenced_languages = [
 \ 'c',
 \ 'vim'
 \]
+
+augroup Init
+  au!
+  " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
+  " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
+  au BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
+  au VimEnter * call s:load_local_vimrc()
+augroup END
+
+" 各種プラグインの設定ファイルを読み込む
+" <-- dein.vim
+let s:dein_dir = $XDG_CACHE_HOME.'/dein'
+let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^='.s:dein_repo_dir
+endif
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  call dein#load_toml(g:vim_home.'/dein.toml', {'lazy': 0})
+  call dein#load_toml(g:vim_home.'/dein_lazy.toml', {'lazy': 1})
+
+  call dein#end()
+  call dein#save_state()
+endif
+
+if dein#check_install()
+  call dein#install()
+endif
+" -->
+
+" other plugins' configuration
+runtime! conf/*.vim
+" nvim-lsp
+if has('nvim-0.5')
+  lua require('lsp')
+endif
+
+" plugin specific, but simple config
+colorscheme molokai
+let g:loaded_matchparen = 1 " disable default matchparen
+let g:neosnippet#snippets_directory = g:vim_home . '/neosnippet' " スニペット設定ディレクトリ
 if g:os == 'Darwin'
   let g:previm_open_cmd = 'open -a Safari'
 elseif g:os == 'Linux'

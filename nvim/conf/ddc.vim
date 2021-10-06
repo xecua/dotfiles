@@ -15,7 +15,7 @@ let s:sourceOptions = {
         \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
         \ }
 
-if g:os == 'Linux' && exists('g:neovide')
+if dein#is_available('skkeleton')
   let s:sources += ['skkeleton']
   let s:sourceOptions.skkeleton = {
       \ 'mark': 'skk',

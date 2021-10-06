@@ -1,13 +1,22 @@
-function s:skkeleton_setup()
+if dein#is_available('skkeleton')
+  " これつけなければ大丈夫かもしれん
   imap <C-j> <Plug>(skkeleton-enable)
   cmap <C-j> <Plug>(skkeleton-enable)
   lmap <C-j> <Plug>(skkeleton-enable)
 
-  call skkeleton#config({
+  let skkeleton_config = {
       \ 'eggLikeNewline': v:true,
       \ 'immediatelyCancel': v:false,
       \ 'showCandidatesCount': 1,
-      \ })
+      \ }
+
+  if g:os == 'Windows'
+    let skkeleton_config['globalJisyo'] = $HOME..'/.skk-jisyo.L'
+    let skkeleton_config['userJisyo'] = $HOME..'/.skk-jisyo'
+  endif
+
+  call skkeleton#config(skkeleton_config)
+
   " AZIK: currently unavailable (https://twitter.com/xecual/status/1445387050660896776)
   " call skkeleton#register_kanatable('rom', {
   "     \ ';': ['', 'っ'],
@@ -477,9 +486,4 @@ function s:skkeleton_setup()
   "     \ 'zyz': ['', 'じゃん'],
   "     \ 'zz': ['', 'ざん']
   "     \ })
-endfunction
-
-augroup SkkeletonSetup
-  au!
-  au VimEnter * if dein#is_available('skkeleton') | call <sid>skkeleton_setup() | endif
-augroup END
+endif
