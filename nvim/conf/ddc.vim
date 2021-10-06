@@ -15,13 +15,31 @@ let s:sourceOptions = {
         \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
         \ }
 
-if dein#is_available('skkeleton')
+if exists('g:neovide') " or any other conditions
   let s:sources += ['skkeleton']
   let s:sourceOptions.skkeleton = {
       \ 'mark': 'skk',
       \ 'matchers': ['skkeleton'],
       \ 'sorters': []
       \ }
+
+  imap <C-j> <Plug>(skkeleton-enable)
+  cmap <C-j> <Plug>(skkeleton-enable)
+  lmap <C-j> <Plug>(skkeleton-enable)
+
+  let skkeleton_config = {
+      \ 'eggLikeNewline': v:true,
+      \ 'immediatelyCancel': v:false,
+      \ 'showCandidatesCount': 1,
+      \ 'userJisyo': $HOME..'/.skk-jisyo'
+      \ }
+
+  if g:os == 'Windows'
+    let skkeleton_config['globalJisyo'] = $HOME..'/.skk-jisyo.L'
+  endif
+
+  call skkeleton#config(skkeleton_config)
+
 endif
 
 call ddc#custom#patch_global('sources', s:sources)

@@ -26,6 +26,9 @@ repo = 'dense-analysis/ale'
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
+repo = 'vim-skk/skkeleton'
+
+[[plugins]]
 repo = 'Shougo/ddc.vim'
 
 [[plugins]]

@@ -21,7 +21,3 @@ on_ft = ['go']
 [[plugins]]
 repo = 'rhysd/vim-grammarous'
 on_ft = ['tex', 'satysfi', 'markdown', 'rst', 'asciidoc']
-
-[[plugins]]
-repo = 'vim-skk/skkeleton'
-if = 'exists("g:neovide")'
