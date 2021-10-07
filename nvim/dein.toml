@@ -2,8 +2,9 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# startup
 [[plugins]]
-repo = 'Shougo/denite.nvim'
+repo = 'mhinz/vim-startify'
 
 # task runner
 [[plugins]]
@@ -119,6 +120,10 @@ repo = 'Shougo/neosnippet-snippets'
 # Template
 [[plugins]]
 repo = 'thinca/vim-template'
+
+# Fuzzy Finder
+[[plugins]]
+repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
