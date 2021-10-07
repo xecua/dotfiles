@@ -105,9 +105,10 @@ repo = 'alvan/vim-closetag'
 [[plugins]]
 repo = 'tomasr/molokai'
 
-# Neosnippet
+# snippets
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
+# repo = 'Shougo/deoppet.nvim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'

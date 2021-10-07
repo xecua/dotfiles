@@ -1,5 +1,6 @@
 let s:sources = [
     \ 'nvim-lsp',
+    \ 'neosnippet',
     \ 'around']
 
 let s:sourceOptions = {
@@ -9,6 +10,10 @@ let s:sourceOptions = {
         \ },
         \ 'around': {
         \   'mark': 'A'
+        \ },
+        \ 'neosnippet': {
+        \   'dup': v:true,
+        \   'mark': 'snip'
         \ },
         \ 'nvim-lsp': {
         \   'mark': 'LSP',
@@ -41,6 +46,12 @@ if exists('g:neovide') " or any other conditions
   call skkeleton#config(skkeleton_config)
 
 endif
+
+augroup DDCMyCnf
+  au!
+  " close preview after completion
+  autocmd CompleteDone * silent! pclose!
+augroup END
 
 call ddc#custom#patch_global('sources', s:sources)
 call ddc#custom#patch_global('sourceOptions', s:sourceOptions)

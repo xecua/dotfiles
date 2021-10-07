@@ -167,7 +167,7 @@ endif
 " plugin specific, but simple config
 colorscheme molokai
 let g:loaded_matchparen = 1 " disable default matchparen
-let g:neosnippet#snippets_directory = g:vim_home . '/neosnippet' " スニペット設定ディレクトリ
+
 if g:os == 'Darwin'
   let g:previm_open_cmd = 'open -a Safari'
 elseif g:os == 'Linux'
