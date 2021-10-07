@@ -17,6 +17,9 @@ repo = 'thinca/vim-quickrun'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 
+[[plugins]]
+repo = 'mfussenegger/nvim-jdtls'
+
 ## if there is no stable LSP Server
 [[plugins]]
 repo = 'dense-analysis/ale'

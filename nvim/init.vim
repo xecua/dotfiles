@@ -11,9 +11,9 @@ endif
 
 if g:os == 'Linux'
   if exists('g:neovide')
-    set guifont=Cica:14
+    set guifont=Cica:h12
   else
-    set guifont=Cica\ 14
+    set guifont=Cica\ 12
   endif
 else
   set guifont=Cica:h16
