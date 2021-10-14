@@ -36,6 +36,7 @@ if exists('g:neovide') " or any other conditions
       \ 'eggLikeNewline': v:true,
       \ 'immediatelyCancel': v:false,
       \ 'showCandidatesCount': 1,
+      \ 'globalJisyo': $HOME..'/.skk-jisyo',
       \ 'useSkkServer': v:true,
       \ 'skkServerResEnc': 'utf-8',
       \ 'skkServerReqEnc': 'utf-8',
