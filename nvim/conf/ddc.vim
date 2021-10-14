@@ -37,9 +37,7 @@ if exists('g:neovide') " or any other conditions
       \ 'immediatelyCancel': v:false,
       \ 'showCandidatesCount': 1,
       \ 'globalJisyo': $HOME..'/.skk-jisyo',
-      \ 'useSkkServer': v:true,
-      \ 'skkServerResEnc': 'utf-8',
-      \ 'skkServerReqEnc': 'utf-8',
+      \ 'globalJisyoEncoding': 'utf-8',
       \ }
 
   call skkeleton#config(skkeleton_config)
