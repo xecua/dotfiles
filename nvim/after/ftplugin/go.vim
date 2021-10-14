@@ -1,2 +1,2 @@
-set noexpandtab
-set tabstop=4
+setl noexpandtab
+setl tabstop=4

@@ -30,7 +30,7 @@ let g:lightline = {
    \ }
 
 function! LightLineGitBranch() abort
-  if &ft =~ 'defx\|help\|denite'
+  if &ft =~ 'defx\|help\|denite\|fern'
     return ''
   endif
   let head = FugitiveHead()
@@ -44,7 +44,7 @@ endfunction
 function! LightLineFilename() abort
   if &ft == 'denite'
     return denite#get_status('sources')
-  elseif &ft =~ 'defx\|help'
+  elseif &ft =~ 'defx\|fern\|help'
     return ''
   endif
   let filename = expand('%')
@@ -52,7 +52,7 @@ function! LightLineFilename() abort
 endfunction
 
 function! LightLineReadonly() abort
-  return &ft =~ 'defx\|help\|denite' ? ''
+  return &ft =~ 'defx\|help\|denite\|fern' ? ''
       \ : &readonly ? '[readonly]'
       \ : ''
 endfunction
@@ -60,12 +60,13 @@ endfunction
 function! LightLineMode() abort
   return  &ft == 'denite' ? 'Denite'
       \ : &ft == 'defx' ? 'Defx'
+      \ : &ft == 'fern' ? 'Fern'
       \ : winwidth(0) > 70 ? lightline#mode()
       \ : ''
 endfunction
 
 function! LightLineFiletype() abort
-  return &ft == 'defx' ? ''
+  return (&ft == 'defx' || &ft == 'fern') ? ''
       \ : winwidth(0) < 70 ? ''
       \ : strlen(&ft) != 0 ? &ft . ' ' . WebDevIconsGetFileTypeSymbol()
       \ : 'no ft'

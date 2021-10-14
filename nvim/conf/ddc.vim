@@ -36,12 +36,10 @@ if exists('g:neovide') " or any other conditions
       \ 'eggLikeNewline': v:true,
       \ 'immediatelyCancel': v:false,
       \ 'showCandidatesCount': 1,
-      \ 'userJisyo': $HOME..'/.skk-jisyo'
+      \ 'useSkkServer': v:true,
+      \ 'skkServerResEnc': 'utf-8',
+      \ 'skkServerReqEnc': 'utf-8',
       \ }
-
-  if g:os == 'Windows'
-    let skkeleton_config['globalJisyo'] = $HOME..'/.skk-jisyo.L'
-  endif
 
   call skkeleton#config(skkeleton_config)
 

@@ -23,6 +23,8 @@ endif
 let mapleader="\<Space>"
 "マウス有効化
 set mouse=a
+" allow change title
+set title
 " 改行コードを指定
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
