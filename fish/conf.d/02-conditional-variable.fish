@@ -8,7 +8,6 @@ if type -q npm
     fish_add_path $npmbin
   end
 end
-
 if type -q yarn
   set -l yarnbin (yarn global bin)
   if not contains $yarnbin $PATH
@@ -39,4 +38,9 @@ if [ -e /usr/local/opt/ruby ]
     # interpreter
     fish_add_path /usr/local/opt/ruby/bin
   end
+end
+
+if [ -e $XDG_CONFIG_HOME/rofi/bin ]
+  # scripts from https://github.com/adi1090x/rofi
+  fish_add_path $XDG_CONFIG_HOME/rofi/bin
 end

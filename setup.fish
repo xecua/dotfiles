@@ -69,7 +69,8 @@ if [ $XDG_CURRENT_DESKTOP = "i3" ]
 
   ## rofi
   if not [ -e $XDG_CONFIG_HOME/rofi ]
-    ln -s $script_dir/rofi $XDG_CONFIG_HOME/rofi
+    chmod +x $script_dir/rofi/setup.sh
+    $script_dir/rofi/setup.sh
   end
 
   ## dunst
