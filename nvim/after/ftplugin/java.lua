@@ -3,7 +3,7 @@ if vim.fn.has('nvim-0.5') == 1 then
     local os = vim.api.nvim_get_var('os')
 
     local jdt_home = vim.env.HOME .. '/.local/lib/jdt'
-    local launcher_jar = jdt_home .. '/plugins/org.eclipse.equinox.launcher_1.6.300.v20210813-1054.jar'
+    local launcher_jar = jdt_home .. '/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar'
     local workspace_dirname = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
     local configuration
@@ -12,7 +12,7 @@ if vim.fn.has('nvim-0.5') == 1 then
     elseif os == 'Windows' then
         configuration = jdt_home .. '/config_win'
     elseif os == 'Darwin' then
-        configuraiton = jdt_home .. '/config_mac'
+        configuration = jdt_home .. '/config_mac'
     end
 
     -- lua/lsp.luaと同じ。なんとかしたいね
