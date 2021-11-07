@@ -14,6 +14,11 @@ on_ft = ['dart']
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
 
+## Swift
+[[plugins]]
+repo = 'keith/swift.vim'
+on_ft = ['swift']
+
 [[plugins]]
 repo = 'mattn/vim-goimports'
 on_ft = ['go']

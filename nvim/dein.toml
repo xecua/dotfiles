@@ -158,11 +158,6 @@ repo = 'dag/vim-fish'
 [[plugins]]
 repo = 'benknoble/gitignore-vim'
 
-## Swift
-# [[plugins]]
-# repo = 'apple/swift'
-# rtp = 'utils/vim'
-
 ## SATySFi
 [[plugins]]
 repo = 'qnighy/satysfi.vim'
