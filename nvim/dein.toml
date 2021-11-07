@@ -25,6 +25,9 @@ repo = 'mfussenegger/nvim-jdtls'
 [[plugins]]
 repo = 'dense-analysis/ale'
 
+[[plugins]]
+repo = 'github/copilot.vim'
+
 # denops/ddc.vim
 [[plugins]]
 repo = 'vim-denops/denops.vim'
