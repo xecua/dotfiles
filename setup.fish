@@ -17,10 +17,16 @@ end
 
 # override
 if not [ -e "$HOME/.bashrc" ]
-  mv "$script_dir/.bashrc" "$HOME/.bashrc"
+  ln -s "$script_dir/.bashrc" "$HOME/.bashrc"
 end
 if not [ -e "$HOME/.bash_profile" ]
-  mv "$script_dir/.bash_profile" "$HOME/.bash_profile"
+  ln -s "$script_dir/.bash_profile" "$HOME/.bash_profile"
+end
+if not [ -e "$HOME/.zprofile" ]
+  ln -s "$script_dir/.zprofile" "$HOME/.zprofile"
+end
+if not [ -e "$HOME/.zshrc" ]
+  ln -s "$script_dir/.zshrc" "$HOME/.zshrc"
 end
 
 ## if exist, do nothing
@@ -139,7 +145,9 @@ if [ (uname) = "Darwin" ]
     ln -s "$script_dir/skk/AquaSKK/*" "$HOME/Library/Application Support/AquaSKK"
   end
 
-  ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
+  if not [ -e "$HOME/.Brewfile" ]
+    ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
+  end
 
 end
 
