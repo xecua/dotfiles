@@ -40,6 +40,11 @@ if [ -e /usr/local/opt/ruby ]
   end
 end
 
+if [ -e /Library/TeX/texbin ]
+  # MacTeX
+  fish_add_path /Library/TeX/texbin
+end
+
 if [ -e $XDG_CONFIG_HOME/rofi/bin ]
   # scripts from https://github.com/adi1090x/rofi
   fish_add_path $XDG_CONFIG_HOME/rofi/bin
