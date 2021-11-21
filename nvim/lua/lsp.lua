@@ -1,7 +1,7 @@
 local lsp_config = require('lspconfig')
 local os = vim.api.nvim_get_var('os')
 
-local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'texlab', 'gopls' }
+local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'gopls' }
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -45,6 +45,20 @@ lsp_config.jsonls.setup({
     commands = {
         Format = {
             function() vim.lsp.buf.range_formatting({}, {0, 0}, {vim.fn.line("$"), 0}) end
+        }
+    }
+})
+
+lsp_config.texlab.setup({
+    on_attach = on_attach,
+    commands = commands,
+    settings = {
+        texlab = {
+            auxDirectory = "./out",
+            build = {
+                args = {},
+                onSave = true
+            }
         }
     }
 })
