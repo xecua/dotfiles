@@ -123,6 +123,16 @@ else
   echo "INFO: latexmk was not linked."
 end
 
+# latexindent: setting up .indentconfig.yaml
+if not [ -e "$HOME/.indentconfig.yaml" ]
+  echo "\
+paths:
+  - $script_dir/latexindent/setting.yaml
+" > "$HOME/.indentconfig.yaml"
+else
+  echo "INFO: indentconfig.yaml was not created."
+end
+
 # Neovim
 if not [ -e "$XDG_CONFIG_HOME/nvim" ]
   ln -s "$script_dir/nvim" "$XDG_CONFIG_HOME/nvim"
