@@ -7,13 +7,14 @@ if status --is-interactive
 
   # from https://github.com/arkark/dotfiles
   if type -q exa
-    alias ls 'exa --icons'
-    alias ll 'exa -lh --git --icons'
-    alias la 'exa -alh --git --icons'
-    alias l 'exa'
-    alias lt 'exa --tree --icons --git-ignore'
-    alias llt 'exa -lh --git --tree --icons --git-ignore'
-    alias lat 'exa -alh --git --tree --icons --git-ignore'
+    set -l exa_command 'exa --header --git --modified --created --time-style=iso'
+    alias l   "$exa_command"
+    alias ls  "$exa_command --icons"
+    alias ll  "$exa_command --icons --long"
+    alias la  "$exa_command --icons --long --all"
+    alias lt  "$exa_command --icons --tree --git-ignore"
+    alias llt "$exa_command --icons --tree --long"
+    alias lat "$exa_command --icons --tree --long --all"
   else
     alias ll 'ls -alF'
     alias la 'ls -A'
