@@ -185,6 +185,9 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,ja
 
 let g:python_highlight_all = 1
 call tcomment#type#Define('satysfi', '%% %s')
+let g:copilot_filetypes = {
+    \ 'tex': v:false
+    \ }
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()

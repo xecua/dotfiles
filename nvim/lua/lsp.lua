@@ -49,18 +49,19 @@ lsp_config.jsonls.setup({
     }
 })
 
+-- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
 lsp_config.texlab.setup({
     on_attach = on_attach,
     commands = commands,
-    settings = {
-        texlab = {
-            auxDirectory = "./out",
-            build = {
-                args = {},
-                onSave = true
-            }
-        }
-    }
+    -- settings = {
+    --     texlab = {
+    --         auxDirectory = "./out",
+    --         build = {
+    --             args = {},
+    --             onSave = true
+    --         }
+    --     }
+    -- }
 })
 
 -- assuming compiled repository in ~/.cache

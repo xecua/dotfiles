@@ -8,7 +8,7 @@ call lexima#add_rule({'char': '`', 'at': '`\%#`', 'input': '<right>''''<left><le
 augroup TeXMyCnf
     au!
     au BufWritePre,FileWritePre *.tex :call utils#normalize_punctuation()
-    " au BufWritePost,FileWritePost *.tex QuickRun
+    au BufWritePost,FileWritePost *.tex QuickRun
 augroup END
 
 " disable conceal
