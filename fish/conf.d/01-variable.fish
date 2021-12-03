@@ -21,4 +21,5 @@ fish_add_path \
   $HOME/.local/bin \
   $COURSIER_INSTALL_DIR \
   $POETRY_HOME/bin \
-  $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+  $ANDROID_SDK_ROOT/cmdline-tools/latest/bin \
+  $ANDROID_SDK_ROOT/platform-tools
