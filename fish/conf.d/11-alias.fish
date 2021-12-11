@@ -5,9 +5,13 @@ if status --is-interactive
     alias g git
   end
 
-  # from https://github.com/arkark/dotfiles
   if type -q exa
-    set -l exa_command 'exa --header --git --modified --created --time-style=iso'
+    if [ (uname) = 'Linux' ]
+      # --created is not supported on Linux? https://github.com/ogham/exa/issues/576
+      set exa_command 'exa --header --git --time-style=iso --modified'
+    else
+      set exa_command 'exa --header --git --time-style=iso --modified --created'
+    end
     alias l   "$exa_command"
     alias ls  "$exa_command --icons"
     alias ll  "$exa_command --icons --long"
