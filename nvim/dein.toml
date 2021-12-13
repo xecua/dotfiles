@@ -131,8 +131,8 @@ repo = 'Shougo/denite.nvim'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 
-[[plugins]]
-repo = 'subnut/nvim-ghost.nvim'
+# [[plugins]]
+# repo = 'subnut/nvim-ghost.nvim'
 
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
