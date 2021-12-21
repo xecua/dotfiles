@@ -5,6 +5,8 @@ if status --is-interactive
     alias g git
   end
 
+  alias gitop "cd (git rev-parse --show-toplevel)"
+
   if type -q exa
     if [ (uname) = 'Linux' ]
       # --created is not supported on Linux? https://github.com/ogham/exa/issues/576

@@ -19,6 +19,7 @@
 \RequirePackage{caption}
 \RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{adjustbox}
+\RequirePackage{physics}
 
 % preambleではない(usepackageで読み込まれる)場合は\makeatletterとかいらんらしい
 
@@ -76,11 +77,11 @@
 \renewcommand{\C}{\mathbb{C}} % 複素数
 \newcommand{\F}{\mathbb{F}} % 有限体
 
-\newcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % ノルム
+\renewcommand{\abs}[1]{\left\lvert#1\right\rvert} % 絶対値 (already defined in physics)
+\renewcommand{\norm}[1]{\left\lVert#1\right\rVert} % ノルム (already defined in physics)
 % azmath-like (using mathtools commands and stmaryrd symbol(llbracket/rrbracket))
 \newcommand{\p}[1]{\left\lparen#1\right\rparen}
-\newcommand{\pb}[1]{\left\lbrace#1\right\rbrace}
+\renewcommand{\pb}[1]{\left\lbrace#1\right\rbrace} % (overriding physics)
 \newcommand{\pB}[1]{\left\lbrack#1\right\rbrack}
 \newcommand{\pBB}[1]{\left\llbracket#1\right\rrbracket}
 \newcommand{\pangle}[1]{\left\langle#1\right\rangle}
