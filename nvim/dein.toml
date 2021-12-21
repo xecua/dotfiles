@@ -208,3 +208,7 @@ repo = 'pantharshit00/vim-prisma'
 ## CoPL Derivation Language
 [[plugins]]
 repo = 'ymyzk/vim-copl'
+
+## Kotlin
+[[plugins]]
+repo = 'udalov/kotlin-vim'

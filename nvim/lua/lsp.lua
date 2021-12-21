@@ -1,7 +1,7 @@
 local lsp_config = require('lspconfig')
 local os = vim.api.nvim_get_var('os')
 
-local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'gopls' }
+local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'gopls', 'kotlin_language_server' }
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
