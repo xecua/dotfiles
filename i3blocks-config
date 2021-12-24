@@ -50,14 +50,9 @@ AUDIO_MED_SYMBOL=
 AUDIO_LOW_SYMBOL=
 AUDIO_MUTED_SYMBOL=
 
-
 [monitor_manager]
 interval=once
 FONT_FAMILY=Cica
-
-[colorpicker]
-format=json
-interval=1
 
 # Memory usage
 #

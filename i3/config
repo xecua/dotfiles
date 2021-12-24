@@ -202,7 +202,8 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     position top
-    status_command i3blocks
+    # status_command i3blocks
+    status_command i3status-rs
 
     colors {
         background #282A36
@@ -239,7 +240,8 @@ default_floating_border normal
 for_window [class="Bitwarden"] floating enable, border normal # titlebar does not exist, so cannot move using mouse
 for_window [class="pavucontrol-qt"] floating disable, border none
 for_window [class="fcitx5-config-qt"] move position center
-for_window [title="^zoom$"] floating enable
+for_window [class="^zoom$"] floating enable
+for_window [title="ズーム会議"] floating disable
 no_focus [window_role="pop-up"]
 
 # i3-gaps
