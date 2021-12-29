@@ -2,6 +2,10 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# Utility
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
@@ -20,6 +24,13 @@ repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
+
+## Formatter (via LSP)
+[[plugins]]
+repo = 'jose-elias-alvarez/null-ls.nvim'
+
+[[plugins]]
+repo = 'MunifTanjim/prettier.nvim'
 
 ## if there is no stable LSP Server
 [[plugins]]

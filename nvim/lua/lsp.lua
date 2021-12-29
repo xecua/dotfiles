@@ -1,4 +1,6 @@
 local lsp_config = require('lspconfig')
+local null_ls = require("null-ls")
+local prettier = require("prettier")
 local os = vim.api.nvim_get_var('os')
 
 local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'gopls', 'kotlin_language_server' }
@@ -22,6 +24,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>i', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>m', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   buf_set_keymap('x', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting(vim.lsp.buf.make_given_range_params().range["start"], vim.lsp.buf.make_given_range_params().range["end"])<CR>', opts)
 
 end
@@ -99,4 +102,53 @@ lsp_config.sumneko_lua.setup( {
             },
         },
     },
+})
+
+-- null-ls: not LSP, used for formatting etc
+null_ls.setup({
+    on_attach = function(client, bufnr)
+        if client.resolved_capabilities.document_formatting then
+            vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+        end
+
+        if client.resolved_capabilities.document_range_formatting then
+            vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+        end
+    end
+})
+
+prettier.setup({
+  bin = 'prettier', -- or `prettierd`
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "sss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+
+  -- -- prettier format options
+  -- arrow_parens = "always",
+  -- bracket_spacing = true,
+  -- embedded_language_formatting = "auto",
+  -- end_of_line = "lf",
+  -- html_whitespace_sensitivity = "css",
+  -- jsx_bracket_same_line = false,
+  -- jsx_single_quote = false,
+  -- print_width = 80,
+  -- prose_wrap = "preserve",
+  -- quote_props = "as-needed",
+  -- semi = true,
+  -- single_quote = false,
+  -- tab_width = 2,
+  -- trailing_comma = "es5",
+  -- use_tabs = false,
+  -- vue_indent_script_and_style = false,
 })
