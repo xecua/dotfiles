@@ -131,6 +131,10 @@ augroup Init
   " and vim always add <EOL> to the end of file if not exist (see 'fixeol').
   au BufWritePre * :silent! %s#\($\n\s*\)\+\%$##
   au VimEnter * call s:load_local_vimrc()
+
+  au BufNewFile,BufRead *.tsx,*.jsx setf typescriptreact
+  au FileType c,cpp,fish,html,javascript,json,lua,rst,satysfi,typescript,typescriptreact,vim,vue,xml,yaml setl tabstop=2
+  au FileType gitconfig,go setl noexpandtab
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
@@ -180,7 +184,6 @@ nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 nnoremap <leader>u :UndotreeToggle<CR>
 
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 let g:closetag_filetypes = 'html,xhtml,phtml,xml'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
 
