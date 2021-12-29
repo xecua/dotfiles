@@ -23,6 +23,9 @@ repo = 'thinca/vim-quickrun'
 repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
+repo = 'williamboman/nvim-lsp-installer'
+
+[[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
 
 ## Formatter (via LSP)

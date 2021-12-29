@@ -1,13 +1,39 @@
-local lsp_config = require('lspconfig')
+-- server installation
+local lsp_installer = require('nvim-lsp-installer')
+local servers = {
+  'pyright',
+  'rust_analyzer',
+  'clangd',
+  'tsserver',
+  'vimls',
+  'html',
+  'gopls',
+  'kotlin_language_server',
+  'jdtls',
+  'jsonls',
+  'texlab',
+  'eslint',
+  'sumneko_lua',
+}
+
+for _, name in pairs(servers) do
+  local server_is_found, server = lsp_installer.get_server(name)
+  if server_is_found then
+    if not server:is_installed() then
+      print("Installing " .. name)
+      server:install()
+    end
+  end
+end
+
+-- server configuratiion
 local null_ls = require("null-ls")
 local prettier = require("prettier")
-local os = vim.api.nvim_get_var('os')
-
-local servers = { 'pyright', 'rust_analyzer', 'clangd', 'tsserver', 'vimls', 'html', 'gopls', 'kotlin_language_server' }
+local jdtls = require('jdtls')
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -24,8 +50,14 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>i', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<leader>m', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('x', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting(vim.lsp.buf.make_given_range_params().range["start"], vim.lsp.buf.make_given_range_params().range["end"])<CR>', opts)
+
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  end
+
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap('v', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+  end
 
 end
 
@@ -35,52 +67,48 @@ local commands = {
     }
 }
 
-for _, server in ipairs(servers) do
-    lsp_config[server].setup({
-        on_attach = on_attach,
-        commands = commands
-    })
-end
-
--- extra configuration
-lsp_config.jsonls.setup({
+lsp_installer.on_server_ready(function(server)
+  local opts = {
     on_attach = on_attach,
-    commands = {
-        Format = {
+    commands = commands
+  }
+
+  if server.name == "eslint" then
+    opts.on_attach = function(client, bufnr)
+      client.resolved_capabilities.document_formatting = true
+      on_attach(client, bufnr)
+    end
+    opts.settings = {
+      format = { enable = true }
+    }
+  end
+
+  if server.name == "jsonls" then
+    opts.commands = {
+      Format = {
             function() vim.lsp.buf.range_formatting({}, {0, 0}, {vim.fn.line("$"), 0}) end
         }
-    }
-})
+      }
+  end
 
--- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
-lsp_config.texlab.setup({
-    on_attach = on_attach,
-    commands = commands,
-    -- settings = {
-    --     texlab = {
-    --         auxDirectory = "./out",
-    --         build = {
-    --             args = {},
-    --             onSave = true
-    --         }
-    --     }
-    -- }
-})
+  -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
+  -- if server.name == "texlab" then
+  --   opts.settings = {
+  --       texlab = {
+  --           auxDirectory = "./out",
+  --           build = {
+  --               args = {},
+  --               onSave = true
+  --           }
+  --       }
+  --   }
+  -- end
 
--- assuming compiled repository in ~/.cache
-local sumneko_root_path = vim.env.XDG_CACHE_HOME .. '/lua-language-server'
-local system_name = os
-if system_name == 'Darwin' then
-    system_name = 'macOS'
-end
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-lsp_config.sumneko_lua.setup( {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-    settings = {
+  if server.name == "sumneko_lua" then
+    local runtime_path = vim.split(package.path, ';')
+    table.insert(runtime_path, "lua/?.lua")
+    table.insert(runtime_path, "lua/?/init.lua")
+    opts.settings = {
         Lua = {
             runtime = {
                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
@@ -101,20 +129,36 @@ lsp_config.sumneko_lua.setup( {
                 enable = false,
             },
         },
-    },
-})
+    }
+  end
+
+  -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
+  if server.name == "jdtls" then
+    if vim.bo.filetype == "java" then
+      local _, jdtls_config = lsp_installer.servers.get_server('jdtls')
+      opts.cmd = jdtls_config.cmd
+      jdtls.start_or_attach(opts)
+      return
+    end
+  end
+
+  server:setup(opts)
+end)
 
 -- null-ls: not LSP, used for formatting etc
 null_ls.setup({
-    on_attach = function(client, bufnr)
-        if client.resolved_capabilities.document_formatting then
-            vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
-        end
+  sources = {
+    null_ls.builtins.formatting.stylua,
+  },
+  on_attach = function(client, _)
+      if client.resolved_capabilities.document_formatting then
+          vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+      end
 
-        if client.resolved_capabilities.document_range_formatting then
-            vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
-        end
-    end
+      if client.resolved_capabilities.document_range_formatting then
+          vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+      end
+  end
 })
 
 prettier.setup({
@@ -133,22 +177,4 @@ prettier.setup({
     "typescriptreact",
     "yaml",
   },
-
-  -- -- prettier format options
-  -- arrow_parens = "always",
-  -- bracket_spacing = true,
-  -- embedded_language_formatting = "auto",
-  -- end_of_line = "lf",
-  -- html_whitespace_sensitivity = "css",
-  -- jsx_bracket_same_line = false,
-  -- jsx_single_quote = false,
-  -- print_width = 80,
-  -- prose_wrap = "preserve",
-  -- quote_props = "as-needed",
-  -- semi = true,
-  -- single_quote = false,
-  -- tab_width = 2,
-  -- trailing_comma = "es5",
-  -- use_tabs = false,
-  -- vue_indent_script_and_style = false,
 })
