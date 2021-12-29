@@ -155,7 +155,6 @@ null_ls.setup({
   },
   on_attach = function(client, _)
     if client.resolved_capabilities.document_formatting then
-      print("formatting")
       vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
     end
 
