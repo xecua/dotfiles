@@ -83,6 +83,10 @@ repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
 
+# editorconfig
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
