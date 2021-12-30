@@ -28,6 +28,9 @@ repo = 'williamboman/nvim-lsp-installer'
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
 
+[[plugins]]
+repo = 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
 ## Formatter (via LSP)
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'

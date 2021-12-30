@@ -30,6 +30,7 @@ end
 local null_ls = require("null-ls")
 local prettier = require("prettier")
 local jdtls = require("jdtls")
+local ts_utils = require('nvim-lsp-ts-utils')
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -104,6 +105,16 @@ lsp_installer.on_server_ready(function(server)
   --       }
   --   }
   -- end
+
+  if server.name == "tsserver" then
+    -- integrate ts-utils
+    opts.init_options = ts_utils.init_options
+    opts.on_attach = function(client, bufnr)
+      ts_utils.setup({ debug = false })
+      ts_utils.setup_client(client)
+      on_attach(client, bufnr)
+    end
+  end
 
   if server.name == "sumneko_lua" then
     local runtime_path = vim.split(package.path, ";")
