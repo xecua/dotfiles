@@ -184,7 +184,7 @@ nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 nnoremap <leader>u :UndotreeToggle<CR>
 
-let g:closetag_filetypes = 'html,xhtml,phtml,xml'
+let g:closetag_filetypes = 'html,xhtml,phtml,xml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
 
 let g:python_highlight_all = 1
