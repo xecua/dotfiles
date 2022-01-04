@@ -198,3 +198,14 @@ prettier.setup({
     "yaml",
   },
 })
+
+-- echo diagnostics
+local echo_diagnostics = require('echo-diagnostics')
+echo_diagnostics.setup({
+  show_diagnostic_number = true
+})
+
+vim.cmd("augroup LSPMyCnf")
+vim.cmd("au!")
+vim.cmd("au CursorHold * lua require('echo-diagnostics').echo_line_diagnostic()")
+vim.cmd("augroup END")

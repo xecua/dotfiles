@@ -18,6 +18,10 @@ build = 'make'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+# GitHub Copilot
+[[plugins]]
+repo = 'github/copilot.vim'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
@@ -26,32 +30,35 @@ repo = 'neovim/nvim-lspconfig'
 repo = 'williamboman/nvim-lsp-installer'
 
 [[plugins]]
+repo = 'seblj/nvim-echo-diagnostics'
+
+[[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
 
 [[plugins]]
 repo = 'jose-elias-alvarez/nvim-lsp-ts-utils'
 
-## Formatter (via LSP)
+## Formatter with LSP interface
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
 
 [[plugins]]
 repo = 'MunifTanjim/prettier.nvim'
 
-## if there is no stable LSP Server
-[[plugins]]
-repo = 'dense-analysis/ale'
-
-[[plugins]]
-repo = 'github/copilot.vim'
-
-# denops/ddc.vim
+# denops
 [[plugins]]
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+
+[[plugins]]
+repo = 'matsui54/denops-signature_help'
+
+## ddc
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 
@@ -66,9 +73,6 @@ repo = 'Shougo/ddc-matcher_head'
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
-
-[[plugins]]
-repo = 'matsui54/ddc-nvim-lsp-doc'
 
 # explorer
 [[plugins]]

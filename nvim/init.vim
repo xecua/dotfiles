@@ -192,6 +192,10 @@ call tcomment#type#Define('satysfi', '%% %s')
 let g:copilot_filetypes = {
     \ 'tex': v:false
     \ }
+let g:startify_change_to_dir = 0
+
+call popup_preview#enable()
+call signature_help#enable()
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()

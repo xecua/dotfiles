@@ -60,5 +60,4 @@ inoremap <silent><expr> <TAB>
 
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<C-h>'
 
-call ddc_nvim_lsp_doc#enable()
 call ddc#enable()
