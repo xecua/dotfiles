@@ -1,4 +1,6 @@
 -- server installation
+require('lsp.satysfi')
+
 local lsp_installer = require("nvim-lsp-installer")
 local servers = {
   "pyright",
@@ -14,6 +16,7 @@ local servers = {
   "texlab",
   "eslint",
   "sumneko_lua",
+  "satysfi"
 }
 
 for _, name in pairs(servers) do
