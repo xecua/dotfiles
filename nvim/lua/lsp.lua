@@ -16,7 +16,7 @@ local servers = {
   "texlab",
   "eslint",
   "sumneko_lua",
-  "satysfi"
+  "satysfi-ls"
 }
 
 for _, name in pairs(servers) do
