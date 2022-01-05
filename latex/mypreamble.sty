@@ -110,6 +110,10 @@
 \cfoot{\thepage}
 \lhead{}
 
+% 柱(右上に節のタイトルが出る部分)を空にする
+\NewPageStyle{no_running_head}{odd_running_head={},even_running_head={}}
+% enable by `\pagestyle{no_running_head}`
+
 % engine specific
 \ifluatex
     \@ifpackageloaded{hyperref}{}{
