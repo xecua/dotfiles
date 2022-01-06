@@ -1,5 +1,5 @@
 -- server installation
-require('lsp.satysfi')
+require('lsp.satysfi-ls')
 
 local lsp_installer = require("nvim-lsp-installer")
 local servers = {
