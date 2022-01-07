@@ -170,9 +170,9 @@ repo = 'lambdalisue/vim-backslash'
 repo = 'hynek/vim-python-pep8-indent'
 
 # Syntax Highlighting
-## Python (following latest syntax)
 [[plugins]]
-repo = 'vim-python/python-syntax'
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_post_update = 'TSUpdate'
 
 ## markdown
 [[plugins]]
@@ -190,22 +190,6 @@ repo = 'benknoble/gitignore-vim'
 [[plugins]]
 repo = 'qnighy/satysfi.vim'
 
-## TypeScript
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
-
-## React
-[[plugins]]
-repo = 'peitalin/vim-jsx-typescript'
-
-## Java
-[[plugins]]
-repo = 'uiiaoo/java-syntax.vim'
-
-## json
-[[plugins]]
-repo = 'kevinoid/vim-jsonc'
-
 ## F#
 [[plugins]]
 repo = 'ionide/Ionide-vim'
@@ -218,25 +202,9 @@ repo = 'bfontaine/Brewfile.vim'
 [[plugins]]
 repo = 'gentoo/gentoo-syntax'
 
-## toml
-[[plugins]]
-repo = "cespare/vim-toml"
-
-## GraphQL
-[[plugins]]
-repo = 'jparise/vim-graphql'
-
-## Prisma
-[[plugins]]
-repo = 'pantharshit00/vim-prisma'
-
 ## CoPL Derivation Language
 [[plugins]]
 repo = 'ymyzk/vim-copl'
-
-## Kotlin
-[[plugins]]
-repo = 'udalov/kotlin-vim'
 
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]

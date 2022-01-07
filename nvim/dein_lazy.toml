@@ -3,12 +3,17 @@
 repo = 'previm/previm'
 on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
 
-# Syntax Highlighting
-## dart
+# Go auto import
 [[plugins]]
-repo = 'dart-lang/dart-vim-plugin'
-on_ft = ['dart']
+repo = 'mattn/vim-goimports'
+on_ft = ['go']
 
+#
+[[plugins]]
+repo = 'rhysd/vim-grammarous'
+on_ft = ['tex', 'satysfi', 'markdown', 'rst', 'asciidoc']
+
+# Syntax Highlighting
 ## Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
@@ -18,11 +23,3 @@ on_ft = ['haxe']
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = ['swift']
-
-[[plugins]]
-repo = 'mattn/vim-goimports'
-on_ft = ['go']
-
-[[plugins]]
-repo = 'rhysd/vim-grammarous'
-on_ft = ['tex', 'satysfi', 'markdown', 'rst', 'asciidoc']

@@ -169,6 +169,7 @@ runtime! conf/*.vim
 if has('nvim-0.5')
   let g:lsp_diagnostics_echo_cursor = 1
   lua require('lsp')
+  lua require('treesitter')
 endif
 
 " plugin specific, but simple config
@@ -190,7 +191,8 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,ja
 let g:python_highlight_all = 1
 call tcomment#type#Define('satysfi', '%% %s')
 let g:copilot_filetypes = {
-    \ 'tex': v:false
+    \ 'tex': v:false,
+    \ 'satysfi': v:false
     \ }
 let g:startify_change_to_dir = 0
 

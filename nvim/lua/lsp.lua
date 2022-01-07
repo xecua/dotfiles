@@ -6,6 +6,7 @@ local servers = {
   "pyright",
   "rust_analyzer",
   "clangd",
+  "dartls",
   "tsserver",
   "vimls",
   "html",
