@@ -264,6 +264,6 @@ bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 # picom: compositor
 exec_always --no-startup-id picom -b
 # xkeysnail: key remapper
-exec --no-startup-id xkeysnail ~/.config/xkeysnail/config.py
+exec_always --no-startup-id sh -c "killall xkeysnail && xkeysnail ~/.config/xkeysnail/config.py"
 # yaskkserv2
 exec --no-startup-id yaskkserv2 --no-daemonize ~/.yaskkserv2
