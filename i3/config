@@ -242,6 +242,7 @@ for_window [class="pavucontrol-qt"] floating disable, border none
 for_window [class="fcitx5-config-qt"] move position center
 for_window [class="^zoom$"] floating enable
 for_window [title="ズーム会議"] floating disable
+for_window [title="^SimpleRotation$"] floating enable
 no_focus [window_role="pop-up"]
 
 # i3-gaps
@@ -264,6 +265,6 @@ bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 # picom: compositor
 exec_always --no-startup-id picom -b
 # xkeysnail: key remapper
-exec_always --no-startup-id sh -c "killall xkeysnail && xkeysnail ~/.config/xkeysnail/config.py"
+exec --no-startup-id xkeysnail ~/.config/xkeysnail/config.py
 # yaskkserv2
 exec --no-startup-id yaskkserv2 --no-daemonize ~/.yaskkserv2
