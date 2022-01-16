@@ -209,3 +209,7 @@ repo = 'ymyzk/vim-copl'
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
+
+## Firestore Security Rule
+[[plugins]]
+repo = 'delphinus/vim-firestore'
