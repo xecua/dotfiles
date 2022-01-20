@@ -108,7 +108,7 @@ set undofile
 set undodir=$XDG_CACHE_HOME/nvim/undo
 
 " back to Normal mode using Esc in Terminal mode
-tnoremap <Esc> <C-\><C-q>
+tnoremap <Esc> <C-\><C-n>
 
 " see :h DiffOrig
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
