@@ -4,6 +4,7 @@ if isdirectory('/usr/local/opt/fzf')
   set rtp+=/usr/local/opt/fzf
 endif
 
+nnoremap <silent> <Leader>b :Buffer<CR>
 nnoremap <silent> <Leader>c :Commands<CR>
 
 " パクってきた 多すぎるしやっぱForkするか…?
@@ -228,4 +229,3 @@ function! s:functions(...)
 endfunction
 
 command! -bar -bang Functions :call <SID>functions(<bang>0)
-

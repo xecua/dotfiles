@@ -162,6 +162,9 @@ repo = 'junegunn/fzf.vim'
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
 
+[[plugins]]
+repo = 'skanehira/jumpcursor.vim'
+
 # indentation
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'
