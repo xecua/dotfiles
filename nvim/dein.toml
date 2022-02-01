@@ -78,6 +78,38 @@ repo = 'Shougo/ddc-matcher_head'
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
 
+## ddu
+[[plugins]]
+repo = 'Shougo/ddu.vim'
+
+[[plugins]]
+repo = 'Shougo/ddu-commands.vim'
+
+### UI
+[[plugins]]
+repo = 'Shougo/ddu-ui-std'
+
+### Matcher
+[[plugins]]
+repo = 'Shougo/ddu-filter-matcher_substring'
+
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+
+### Sources
+[[plugins]]
+repo = 'Shougo/ddu-source-file_rec'
+
+[[plugins]]
+repo = 'shun/ddu-source-buffer'
+
+[[plugins]]
+repo = 'shun/ddu-source-rg'
+
+### Kinds
+[[plugins]]
+repo = 'Shougo/ddu-kind-file'
+
 # explorer
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
