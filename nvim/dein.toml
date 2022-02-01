@@ -45,6 +45,10 @@ repo = 'jose-elias-alvarez/null-ls.nvim'
 [[plugins]]
 repo = 'MunifTanjim/prettier.nvim'
 
+# Popup
+[[plugins]]
+repo = 'Shougo/pum.vim'
+
 # denops
 [[plugins]]
 repo = 'vim-denops/denops.vim'

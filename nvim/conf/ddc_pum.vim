@@ -52,12 +52,16 @@ augroup END
 
 call ddc#custom#patch_global('sources', s:sources)
 call ddc#custom#patch_global('sourceOptions', s:sourceOptions)
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? '<C-n>' :
-  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+inoremap <silent><expr> <tab>
+  \ pum#visible() ? '<cmd>call pum#map#insert_relative(+1)<cr>' :
+  \ (col('.') <= 1 <bar><bar> getline('.')[col('.') - 2] =~# '\s') ?
   \ '<tab>' : ddc#manual_complete()
-
-inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<C-h>'
+inoremap <expr> <S-tab> pum#visible() ? '<cmd>call pum#map#insert_relative(-1)<cr>' : '<C-h>'
+inoremap <C-n> <cmd>call pum#map#insert_relative(+1)<cr>
+inoremap <C-p> <cmd>call pum#map#insert_relative(-1)<cr>
+inoremap <C-y> <cmd>call pum#map#confirm()<cr>
+inoremap <C-e> <cmd>call pum#map#cancel()<cr>
 
 call ddc#enable()
