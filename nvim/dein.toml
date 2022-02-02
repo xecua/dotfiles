@@ -106,9 +106,15 @@ repo = 'shun/ddu-source-buffer'
 [[plugins]]
 repo = 'shun/ddu-source-rg'
 
+[[plugins]]
+repo = 'Shougo/ddu-source-register'
+
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
+
+[[plugins]]
+repo = 'Shougo/ddu-kind-word'
 
 # explorer
 [[plugins]]
