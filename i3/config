@@ -242,7 +242,7 @@ for_window [class="pavucontrol-qt"] floating disable, border none
 for_window [class="fcitx5-config-qt"] move position center
 for_window [class="^zoom$"] floating enable
 for_window [title="ズーム会議"] floating disable
-for_window [title="^SimpleExampleIco$"] floating enable
+for_window [title="^SimpleExample6Objs$"] floating enable
 no_focus [window_role="pop-up"]
 
 # i3-gaps

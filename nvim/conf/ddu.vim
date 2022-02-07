@@ -5,11 +5,14 @@ call ddu#custom#patch_global({
     \     'matchers': ['matcher_substring']
     \   },
     \ },
-    \ 'sourceParams': {
-    \   'rg': {
-    \     'args': ['--column', '--no-heading']
+    \ 'kindOptions': {
+    \   'file': {
+    \     'defaultAction': 'open',
     \   },
-    \ }
+    \   'word': {
+    \     'defaultAction': 'append'
+    \   },
+    \ },
     \ })
 
 function! s:ddu_my_settings() abort
