@@ -190,6 +190,7 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,ja
 
 let g:python_highlight_all = 1
 call tcomment#type#Define('satysfi', '%% %s')
+call tcomment#type#Define('glsl', '// %s')
 let g:copilot_filetypes = {
     \ 'tex': v:false,
     \ 'satysfi': v:false
