@@ -13,3 +13,5 @@ augroup END
 
 " disable conceal
 let g:tex_conceal = ''
+
+setl makeprg=latexmk

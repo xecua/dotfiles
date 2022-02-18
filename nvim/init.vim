@@ -195,11 +195,15 @@ let g:copilot_filetypes = {
     \ 'tex': v:false,
     \ 'satysfi': v:false
     \ }
+" not expand by tab
+inoremap <silent><script><expr> <C-l> copilot#Accept()
+let g:copilot_no_tab_map = v:true
 let g:startify_change_to_dir = 0
 
 call popup_preview#enable()
 call signature_help#enable()
 nmap <Leader>j <Plug>(jumpcursor-jump)
+
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()

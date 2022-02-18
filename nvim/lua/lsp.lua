@@ -167,6 +167,8 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua.with({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
+    null_ls.builtins.formatting.yapf,
+    null_ls.builtins.formatting.xmllint
   },
   on_attach = function(client, _)
     if client.resolved_capabilities.document_formatting then

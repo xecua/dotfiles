@@ -1,7 +1,8 @@
 let s:sources = [
     \ 'nvim-lsp',
     \ 'neosnippet',
-    \ 'around']
+    \ 'around',
+    \ 'file']
 
 let s:sourceOptions = {
         \ '_': {
@@ -17,8 +18,27 @@ let s:sourceOptions = {
         \ },
         \ 'nvim-lsp': {
         \   'mark': 'LSP',
-        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*' },
+        \   'forceCompletionPattern': '\.\w*|:\w*|->\w*'
+        \ },
+        \ 'file': {
+        \   'mark': 'F',
+        \   'forceCompletionPattern': '\S/\S*'
         \ }
+        \ }
+
+" ddc-file: for windows
+call ddc#custom#patch_filetype(
+    \ ['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+    \ 'sourceOptions': {
+    \   'file': {
+    \     'forceCompletionPattern': '\S\\\S*',
+    \   },
+    \ },
+    \ 'sourceParams': {
+    \   'file': {
+    \     'mode': 'win32',
+    \   },
+    \ }})
 
 if exists('g:neovide') " or any other conditions
   let s:sources += ['skkeleton']

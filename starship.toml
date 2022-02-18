@@ -26,8 +26,16 @@ discharging_symbol = " "
 threshold = 100
 style = "bold green"
 
+[hg_branch]
+disabled = false
+
+[sudo]
+disabled = false
+
 [aws]
 symbol = " " # U+E7AD, Devicons
+[azure]
+symbol = "󿴃 "
 [dart]
 symbol = " " # U+E798, Devicons
 [docker_context]
