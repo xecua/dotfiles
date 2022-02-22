@@ -1,7 +1,7 @@
 [user]
 	name = xecua
 	email = courser4848@gmail.com
-	signingkey = 335095B0
+	signingkey = 33A065F0
 [core]
 	editor = nvim
 	pager = (delta 2>/dev/null) || ${PAGER:-less}
