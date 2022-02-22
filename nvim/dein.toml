@@ -261,3 +261,8 @@ repo = 'mechatroner/rainbow_csv'
 ## Firestore Security Rule
 [[plugins]]
 repo = 'delphinus/vim-firestore'
+
+# Rust tooltip
+[[plugins]]
+repo = 'simrat39/rust-tools.nvim'
+on_ft = ['rust']

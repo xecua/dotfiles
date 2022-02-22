@@ -158,6 +158,17 @@ lsp_installer.on_server_ready(function(server)
     end
   end
 
+  -- https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
+  if server.name == "rust_analyzer" then
+    local rust_tools = require("rust-tools")
+    local inlay_hints = require("rust-tools.inlay_hints")
+    rust_tools.setup({
+      server = vim.tbl_deep_extend("force", server:get_default_options(), opts)
+    })
+    server:attach_buffers()
+    rust_tools.start_standalone_if_required()
+  end
+
   server:setup(opts)
 end)
 
