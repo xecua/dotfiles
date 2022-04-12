@@ -43,7 +43,7 @@
 [rerere]
 	enabled = true
 [push]
-	default = current
+	default = upstream
 [pull]
 	rebase = true
 [delta]
