@@ -2,25 +2,23 @@ function randomstring
   if [ -z "$argv[1]" ]
     echo "usage: randomstring width" >&2
     return 1
-end
-cat /dev/urandom | base64 | fold -w $argv[1] | head -1
-end
-
-# upgrade all installed packages
-function pip-upgrade
-  pip install -U (pip freeze | awk -F '==' '{print $1}')
+  end
+  cat /dev/urandom | base64 | fold -w $argv[1] | head -1
 end
 
-function pip3-upgrade
-  pip3 install -U (pip3 freeze | awk -F '==' '{print $1}')
-end
+function go-update
+  # https://zenn.dev/kyoh86/articles/291618538dcf0d
+  pushd $HOME
+  set gobin (go env GOBIN)
+  if [ -z "$gobin" ]
+    set gobin (go env GOPATH)/bin
+  end
 
-function pip-user-upgrade
-  pip install -U --user (pip freeze --user | awk -F '==' '{print $1}')
-end
-
-function pip3-user-upgrade
-  pip3 install -U --user (pip3 freeze --user | awk -F '==' '{print $1}')
+  for ex in $(find $gobin -type f -executable)
+    set -l pkg (go version -m $ex | head -2 | tail -1 | awk '{print $2}')
+    go install "$pkg@latest"
+  end
+  popd
 end
 
 # https://qiita.com/mkeeda/items/c5fa878436f1cc957892
