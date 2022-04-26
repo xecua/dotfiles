@@ -90,7 +90,7 @@ repo = 'Shougo/ddu-commands.vim'
 
 ### UI
 [[plugins]]
-repo = 'Shougo/ddu-ui-std'
+repo = 'Shougo/ddu-ui-ff'
 
 ### Matcher
 [[plugins]]
@@ -100,6 +100,9 @@ repo = 'Shougo/ddu-filter-matcher_substring'
 repo = 'yuki-yano/ddu-filter-fzf'
 
 ### Sources
+[[plugins]]
+repo = '4513ECHO/ddu-source-source'
+
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
 
@@ -111,6 +114,9 @@ repo = 'shun/ddu-source-rg'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
+
+[[plugins]]
+repo = 'matsui54/ddu-source-command_history'
 
 ### Kinds
 [[plugins]]
