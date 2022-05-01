@@ -22,15 +22,20 @@ repo = 'thinca/vim-quickrun'
 [[plugins]]
 repo = 'github/copilot.vim'
 
+# diagnostics
+[[plugins]]
+repo = 'folke/trouble.nvim'
+
+## dependency
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
 repo = 'williamboman/nvim-lsp-installer'
-
-[[plugins]]
-repo = 'seblj/nvim-echo-diagnostics'
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'

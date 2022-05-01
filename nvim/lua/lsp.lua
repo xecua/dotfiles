@@ -183,11 +183,17 @@ null_ls.setup({
   },
   on_attach = function(client, _)
     if client.resolved_capabilities.document_formatting then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+      vim.api.nvim_buf_set_keymap("n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", {
+        noremap = true,
+        silent = true,
+      })
     end
 
     if client.resolved_capabilities.document_range_formatting then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+      vim.api.nvim_buf_set_keymap("x", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting({})<CR>", {
+        noremap = true,
+        silent = true
+      })
     end
   end,
   commands = commands,
@@ -213,13 +219,6 @@ prettier.setup({
   },
 })
 
--- echo diagnostics
-local echo_diagnostics = require('echo-diagnostics')
-echo_diagnostics.setup({
-  show_diagnostic_number = true
-})
-
-vim.cmd("augroup LSPMyCnf")
-vim.cmd("au!")
-vim.cmd("au CursorHold * lua require('echo-diagnostics').echo_line_diagnostic()")
-vim.cmd("augroup END")
+-- Diagnostics
+local trouble = require('trouble')
+trouble.setup({})

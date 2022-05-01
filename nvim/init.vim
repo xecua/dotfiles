@@ -167,7 +167,6 @@ endif
 runtime! conf/*.vim
 " nvim-lsp
 if has('nvim-0.5')
-  let g:lsp_diagnostics_echo_cursor = 1
   lua require('lsp')
   lua require('treesitter')
 endif
