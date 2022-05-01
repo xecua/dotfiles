@@ -135,6 +135,12 @@ augroup Init
   au BufNewFile,BufRead *.tsx,*.jsx setf typescriptreact
   au FileType c,cpp,fish,html,javascript,json,lua,rst,satysfi,typescript,typescriptreact,vim,vue,xml,yaml setl tabstop=2
   au FileType gitconfig,go setl noexpandtab
+
+  " automatically open pdf as text in new buffer. requirement: pdftotext (included in poppler)
+  " see https://qiita.com/u1and0/items/526d95d6991bc19003d2
+  if executable('pdftotext')
+    au BufRead *.pdf :enew  | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -
+  end
 augroup END
 
 " 各種プラグインの設定ファイルを読み込む
