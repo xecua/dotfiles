@@ -181,16 +181,16 @@ null_ls.setup({
     null_ls.builtins.formatting.yapf,
     null_ls.builtins.formatting.xmllint
   },
-  on_attach = function(client, _)
+  on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
-      vim.api.nvim_buf_set_keymap("n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", {
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", {
         noremap = true,
         silent = true,
       })
     end
 
     if client.resolved_capabilities.document_range_formatting then
-      vim.api.nvim_buf_set_keymap("x", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting({})<CR>", {
+      vim.api.nvim_buf_set_keymap(bufnr, "x", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting({})<CR>", {
         noremap = true,
         silent = true
       })
