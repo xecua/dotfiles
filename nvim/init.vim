@@ -125,6 +125,18 @@ let g:markdown_fenced_languages = [
 \ 'vim'
 \]
 
+" Resize without repeately pressing C-w
+" https://zenn.dev/mattn/articles/83c2d4c7645faa
+nmap <C-w>+ <C-w>+<SID>ws
+nmap <C-w>- <C-w>-<SID>ws
+nmap <C-w>> <C-w>><SID>ws
+nmap <C-w>< <C-w><<SID>ws
+nnoremap <script> <SID>ws+ <C-w>+<SID>ws
+nnoremap <script> <SID>ws- <C-w>-<SID>ws
+nnoremap <script> <SID>ws> <C-w>><SID>ws
+nnoremap <script> <SID>ws< <C-w><<SID>ws
+nmap <SID>ws <Nop>
+
 augroup Init
   au!
   " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
