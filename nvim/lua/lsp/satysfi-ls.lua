@@ -2,7 +2,7 @@ local configs = require("lspconfig.configs")
 local util = require("lspconfig.util")
 local server = require("nvim-lsp-installer.server")
 local servers = require("nvim-lsp-installer.servers")
-local path = require("nvim-lsp-installer.path")
+local path = require("nvim-lsp-installer.core.path")
 local cargo = require("nvim-lsp-installer.core.managers.cargo")
 
 local server_name = "satysfi-ls"
