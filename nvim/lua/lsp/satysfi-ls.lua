@@ -23,8 +23,8 @@ local satysfi_ls = server.Server:new({
   root_dir = root_dir,
   async = true,
   installer = cargo.crate(
-    "https://github.com/monaqa/satysfi-langauge-server.git",
-    {git = true}
+    "https://github.com/monaqa/satysfi-language-server.git",
+    { git = true }
   ),
   default_options = {
     cmd = {
