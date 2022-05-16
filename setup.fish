@@ -154,9 +154,9 @@ if not [ -e "$XDG_CONFIG_HOME/alacritty/alacritty.yml" ]
 else
   echo "INFO: alacritty was not linked."
 end
-if not [ -e "$HOME/.alacritty.yml" ]
+if not [ -e "$HOME/.alacritty.yml.local" ]
   # platform specific, imported by above file
-  touch "$HOME/.alacritty.yml"
+  touch "$HOME/.alacritty.yml.local"
 end
 
 # starship
