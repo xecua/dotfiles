@@ -145,6 +145,20 @@ else
   echo "INFO: nvim was not linked."
 end
 
+# alacritty
+if not [ -d "$XDG_CONFIG_HOME/alacritty" ]
+  mkdir "$XDG_CONFIG_HOME/alacritty"
+end
+if not [ -e "$XDG_CONFIG_HOME/alacritty/alacritty.yml" ]
+  ln -s "$script_dir/alacritty/alacritty.yml" "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
+else
+  echo "INFO: alacritty was not linked."
+end
+if not [ -e "$HOME/.alacritty.yml" ]
+  # platform specific, imported by above file
+  touch "$HOME/.alacritty.yml"
+end
+
 # starship
 if not [ -e "$XDG_CONFIG_HOME/starship.toml" ]
   ln -s "$script_dir/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
