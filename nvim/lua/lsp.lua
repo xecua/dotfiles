@@ -33,7 +33,6 @@ end
 -- server configuratiion
 local null_ls = require("null-ls")
 local prettier = require("prettier")
-local jdtls = require("jdtls")
 local ts_utils = require('nvim-lsp-ts-utils')
 
 local on_attach = function(client, bufnr)
@@ -151,8 +150,10 @@ lsp_installer.on_server_ready(function(server)
   -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
   if server.name == "jdtls" then
     if vim.bo.filetype == "java" then
-      local _, jdtls_config = lsp_installer.servers.get_server("jdtls")
-      opts.cmd = jdtls_config.cmd
+      local lsp_installer_servers = require("nvim-lsp-installer.servers")
+      local jdtls = require("jdtls")
+      local _, jdtls_config = lsp_installer_servers.get_server("jdtls")
+      opts.cmd = jdtls_config:get_default_options().cmd
       jdtls.start_or_attach(opts)
       return
     end
