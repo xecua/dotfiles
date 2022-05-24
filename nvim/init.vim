@@ -186,7 +186,7 @@ runtime! conf/*.vim
 " nvim-lsp
 if has('nvim-0.5')
   " eclipse.jdt.ls https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/jdtls/init.lua#L84
-  let $WORKSPACE = "$HOME/Documents/eclipse-workspace/jdt.ls"
+  let $WORKSPACE = $HOME."/Documents/eclipse-workspace/jdt.ls"
   lua require('lsp')
   lua require('treesitter')
 endif
