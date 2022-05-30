@@ -6,11 +6,11 @@ block = "xrandr"
 
 [[block]]
 block = "cpu"
-format = "{barchart} {utilization}"
+format = "{barchart} {utilization} @ {frequency}"
 
 [[block]]
 block = "load"
-format = "{1m:4}"
+format = "{1m:4} / {5m:4} / {15m:4}"
 
 [[block]]
 block = "nvidia_gpu"
@@ -28,7 +28,7 @@ format = "{ip} {speed_up;K} {speed_down;K}"
 block = "music"
 player = "spotify"
 buttons = ["play", "next"]
-marquee = false
+marquee_interval = 60
 hide_when_empty = true
 
 [[block]]
