@@ -1,15 +1,14 @@
-" zenkakuがfunctionsに入ってない……
+call skkeleton#register_keymap('input', '<space>', 'henkanFirst')
+call skkeleton#register_keymap('input', 'l', 'disable')
+call skkeleton#register_keymap('input', '[', 'katakana')
 call skkeleton#register_kanatable('rom', {
-    \ ' ': 'henkanFirst',
-    \ '[': 'katakana',
-    \ 'l': 'disable',
     \ '!': ['！'],
     \ '?': ['？'],
     \ ',': ['、'],
     \ '-': ['ー'],
     \ '.': ['。'],
-    \ ':': ['：'],
     \ ']': ['」'],
+    \ ':': ['っ'],
     \ ';': ['っ'],
     \ 'a': ['あ'],
     \ 'ba': ['ば'],
