@@ -6,23 +6,30 @@ if !exists("g:os")
     let g:os = "Windows"
   else
     let g:os = substitute(system('uname'), '\n', '', '')
-    if g:os == "Linux"
-      let lines = readfile("/proc/version")
-      if lines[0] =~ "Microsoft"
-        let g:os = "WSL"
-      endif
+    if g:os == 'Linux' && readfile('/proc/version')[0] =~ 'microsoft'
+      let g:os = 'WSL'
     endif
   endif
 endif
 
-if g:os == 'Linux'
-  if exists('g:neovide')
+" 各設定で利用する変数
+let g:config_home = empty($XDG_CONFIG_HOME) ? $HOME.'/.config' : $XDG_CONFIG_HOME
+let g:vim_home = g:config_home.'/nvim'
+let g:cache_home = empty($XDG_CACHE_HOME) ? $HOME.'/.cache' : $XDG_CACHE_HOME
+
+
+if exists('g:neovide')
+  if g:os == 'Linux'
     set guifont=Cica:h12
   else
-    set guifont=Cica\ 12
+    set guifont=Cica:h16
   endif
 else
-  set guifont=Cica:h16
+  if g:os == 'Linux'
+    set guifont=Cica\ 12
+  else
+    set guifont=Cica:h12
+  endif
 endif
 
 " <Leader> := <Space>
@@ -95,12 +102,9 @@ set noshowmode
 " set all file whose extension is '.tex' as LaTeX file
 let g:tex_flavor = "latex"
 
-" 各設定で利用する変数
-let g:vim_home = $XDG_CONFIG_HOME.'/nvim'
-
 " undofile
 set undofile
-set undodir=$XDG_CACHE_HOME/nvim/undo
+execute 'set undodir='.g:cache_home.'/nvim/undo'
 
 " back to Normal mode using Esc in Terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -161,7 +165,7 @@ augroup END
 
 " 各種プラグインの設定ファイルを読み込む
 " <-- dein.vim
-let s:dein_dir = $XDG_CACHE_HOME.'/dein'
+let s:dein_dir = g:cache_home.'/dein'
 let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
 
 if &runtimepath !~# '/dein.vim'
