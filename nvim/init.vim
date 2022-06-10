@@ -33,22 +33,15 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " 読み込み時に試みるエンコーディング(左から順に試す)
 set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
-" 全角文字をちゃんと表示する
-set ambiwidth=double
-" スワップファイルを作らない
 set noswapfile
-" auto reload on edit
 set autoread
 " closeしたバッファを(実際にはcloseせず)hiddenにする
 set hidden
 " クリップボードとNeovimの無名レジスタを一体化
 set clipboard+=unnamedplus
-" 行番号
 set number
-" 空白文字等、不可視な文字の可視化
 set list
 set listchars=tab:>-,trail:*,nbsp:+
-" インデントとか 見ての通り
 set smartindent
 set visualbell
 " ヘルプの日本語化
@@ -65,16 +58,12 @@ set tabstop=4 " tab文字の幅
 let g:vim_indent_cont = 4 " 継続行のインデント量を固定
 
 " 検索関連
-" 大文字と小文字を区別しない
 set ignorecase
-" 混在しているときに限り区別
 set smartcase
-" 下まで行ったら上に戻る
 set wrapscan
-" Esc連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
-" 行頭行末間移動(backspace, space, カーソルキー)
+" 行頭行末間移動(backspace, space, カーソルキー(normal/visual, insert/replace))
 set whichwrap=b,s,<,>,[,]
 
 " pythonのpath
@@ -137,6 +126,15 @@ nnoremap <script> <SID>ws> <C-w>><SID>ws
 nnoremap <script> <SID>ws< <C-w><<SID>ws
 nmap <SID>ws <Nop>
 
+if exists('g:vscode')
+  " inside VSCode
+  let g:startify_disable_at_vimenter = 1
+else
+  " https://twitter.com/otukaw/status/1367741425765412871
+  set ambiwidth=double
+endif
+let g:startify_change_to_dir = 0
+
 augroup Init
   au!
   " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
@@ -182,47 +180,56 @@ endif
 " -->
 
 " other plugins' configuration
+" common
 runtime! conf/*.vim
-" nvim-lsp
-if has('nvim-0.5')
-  " eclipse.jdt.ls https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/jdtls/init.lua#L84
-  let $WORKSPACE = $HOME."/Documents/eclipse-workspace/jdt.ls"
-  lua require('lsp')
-  lua require('treesitter')
-endif
 
-" plugin specific, but simple config
-colorscheme molokai
-let g:loaded_matchparen = 1 " disable default matchparen
 
-if g:os == 'Darwin'
-  let g:previm_open_cmd = 'open -a Safari'
-elseif g:os == 'Linux'
-  let g:previm_open_cmd = 'vivaldi-stable'
-end
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
-nnoremap <leader>u :UndotreeToggle<CR>
 
-let g:closetag_filetypes = 'html,xhtml,phtml,xml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
-
-let g:python_highlight_all = 1
-call tcomment#type#Define('satysfi', '%% %s')
-call tcomment#type#Define('glsl', '// %s')
-let g:copilot_filetypes = {
-    \ 'tex': v:false,
-    \ 'satysfi': v:false
-    \ }
-" not expand by tab
-inoremap <silent><script><expr> <C-l> copilot#Accept()
-let g:copilot_no_tab_map = v:true
-let g:startify_change_to_dir = 0
-
-call popup_preview#enable()
-call signature_help#enable()
 nmap <Leader>j <Plug>(jumpcursor-jump)
 
+if exists('g:vscode')
+  filetype plugin on " indent not needed
+else
+  " nvim-lsp
+  if has('nvim-0.5')
+    " eclipse.jdt.ls https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/jdtls/init.lua#L84
+    let $WORKSPACE = $HOME."/Documents/eclipse-workspace/jdt.ls"
+    lua require('lsp')
+    lua require('treesitter')
+  endif
+  " plugin specific, but simple config
+  colorscheme molokai
+  let g:loaded_matchparen = 1 " disable default matchparen
+
+  if g:os == 'Darwin'
+    let g:previm_open_cmd = 'open -a Safari'
+  elseif g:os == 'Linux'
+    let g:previm_open_cmd = 'vivaldi-stable'
+  end
+
+  nnoremap <leader>u :UndotreeToggle<CR>
+
+  let g:closetag_filetypes = 'html,xhtml,phtml,xml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
+  let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
+
+  let g:python_highlight_all = 1
+  call tcomment#type#Define('satysfi', '%% %s')
+  call tcomment#type#Define('glsl', '// %s')
+  let g:copilot_filetypes = {
+      \ 'tex': v:false,
+      \ 'satysfi': v:false
+      \ }
+  " not expand by tab
+  inoremap <silent><script><expr> <C-l> copilot#Accept()
+  let g:copilot_no_tab_map = v:true
+
+  call popup_preview#enable()
+  call signature_help#enable()
+
+  filetype plugin indent on
+endif
 
 " https://qiita.com/unosk/items/43989b61eff48e0665f3
 function! s:load_local_vimrc()
@@ -231,5 +238,3 @@ function! s:load_local_vimrc()
     source `=i`
   endfor
 endfunction
-
-filetype plugin indent on
