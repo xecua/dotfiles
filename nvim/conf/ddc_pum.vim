@@ -40,7 +40,7 @@ call ddc#custom#patch_filetype(
     \   },
     \ }})
 
-if exists('g:neovide') " or any other conditions
+if exists('g:neovide') || g:os == 'wsl' " or any other conditions
   let s:sources += ['skkeleton']
   let s:sourceOptions.skkeleton = {
       \ 'mark': 'skk',

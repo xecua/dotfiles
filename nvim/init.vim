@@ -6,6 +6,12 @@ if !exists("g:os")
     let g:os = "Windows"
   else
     let g:os = substitute(system('uname'), '\n', '', '')
+    if g:os == "Linux"
+      let lines = readfile("/proc/version")
+      if lines[0] =~ "Microsoft"
+        let g:os = "WSL"
+      endif
+    endif
   endif
 endif
 
