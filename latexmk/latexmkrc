@@ -10,6 +10,7 @@ $latex = 'uplatex -kanji=utf-8 -halt-on-error -interaction=nonstopmode -file-lin
 $latex_silent = 'uplatex -kanji=utf-8 -halt-on-error -interaction=batchmode -file-line-error -synctex=1';
 $lualatex = 'lualatex -interaction=nonstopmode -synctex=1';
 $dvipdf = 'dvipdfmx -o %D %S';
+$biber = 'biber --bblencoding=utf8 -u -U --output_safachars';
 $bibtex = 'upbibtex';
 $makeindex = 'mendex';
 
