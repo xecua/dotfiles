@@ -25,11 +25,7 @@ if exists('g:neovide')
     set guifont=Cica:h16
   endif
 else
-  if g:os == 'Linux'
-    set guifont=Cica\ 12
-  else
-    set guifont=Cica:h12
-  endif
+  set guifont=Cica:h12
 endif
 
 " <Leader> := <Space>
