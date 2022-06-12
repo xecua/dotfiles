@@ -119,6 +119,7 @@ let g:markdown_fenced_languages = [
 \ 'c',
 \ 'vim'
 \]
+let g:tex_conceal = ''
 
 " Resize without repeately pressing C-w
 " https://zenn.dev/mattn/articles/83c2d4c7645faa
@@ -132,15 +133,6 @@ nnoremap <script> <SID>ws> <C-w>><SID>ws
 nnoremap <script> <SID>ws< <C-w><<SID>ws
 nmap <SID>ws <Nop>
 
-if exists('g:vscode')
-  " inside VSCode
-  let g:startify_disable_at_vimenter = 1
-else
-  " https://twitter.com/otukaw/status/1367741425765412871
-  set ambiwidth=double
-endif
-let g:startify_change_to_dir = 0
-
 augroup Init
   au!
   " remove redundant lines at the end of file. see https://stackoverflow.com/a/7496112
@@ -149,8 +141,11 @@ augroup Init
   au VimEnter * call s:load_local_vimrc()
 
   au BufNewFile,BufRead *.tsx,*.jsx setf typescriptreact
+  au BufNewFile,BufRead *.tex setl makepkrg=latexmk
   au FileType c,cpp,fish,html,javascript,json,lua,rst,satysfi,typescript,typescriptreact,vim,vue,xml,yaml setl tabstop=2
   au FileType gitconfig,go setl noexpandtab
+  au BufWritePre,FileWritePre *.md,*.saty,*.tex call utils#normalize_punctuation()
+  au BufWritePost,FileWritePost *.saty,*.tex QuickRun
 
   " automatically open pdf as text in new buffer. requirement: pdftotext (included in poppler)
   " see https://qiita.com/u1and0/items/526d95d6991bc19003d2
@@ -195,9 +190,21 @@ nmap k <Plug>(accelerated_jk_gk)
 
 nmap <Leader>j <Plug>(jumpcursor-jump)
 
+let g:startify_change_to_dir = 0
+let g:copilot_filetypes = {
+    \ '*': v:false
+    \ }
+
 if exists('g:vscode')
+  " inside VSCode
+  let g:startify_disable_at_vimenter = 1
+  let g:vim_backlash_disale_default_mapping = 1
+
   filetype plugin on " indent not needed
 else
+  " https://twitter.com/otukaw/status/1367741425765412871
+  set ambiwidth=double
+
   " nvim-lsp
   if has('nvim-0.5')
     " eclipse.jdt.ls https://github.com/williamboman/nvim-lsp-installer/blob/main/lua/nvim-lsp-installer/servers/jdtls/init.lua#L84
@@ -220,10 +227,10 @@ else
   let g:closetag_filetypes = 'html,xhtml,phtml,xml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
   let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,javascript.jsx,typescript.tsx,javascriptreact,typescriptreact'
 
-  let g:python_highlight_all = 1
   call tcomment#type#Define('satysfi', '%% %s')
   call tcomment#type#Define('glsl', '// %s')
   let g:copilot_filetypes = {
+      \ '*': v:true,
       \ 'tex': v:false,
       \ 'satysfi': v:false
       \ }
