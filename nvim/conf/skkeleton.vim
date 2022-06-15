@@ -1,13 +1,14 @@
 call skkeleton#register_keymap('input', '<space>', 'henkanFirst')
-call skkeleton#register_keymap('input', 'l', 'disable')
-call skkeleton#register_keymap('input', '[', 'katakana')
+" kanatableの一部にしないと常にそのコマンドになってしまうので、必要最小限にすべきかも(libskkはそこを考慮してくれている?)
 call skkeleton#register_kanatable('rom', {
     \ '!': ['！'],
     \ '?': ['？'],
     \ ',': ['、'],
-    \ '-': ['ー'],
     \ '.': ['。'],
+    \ '-': ['ー'],
+    \ '[': 'katakana',
     \ ']': ['」'],
+    \ 'l': 'disable',
     \ ':': ['っ'],
     \ ';': ['っ'],
     \ 'a': ['あ'],
