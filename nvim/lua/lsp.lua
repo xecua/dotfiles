@@ -2,6 +2,12 @@
 require('lsp.satysfi-ls')
 
 local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.setup({
+  automatic_installation = true
+})
+
+local lspconfig = require("lspconfig")
+
 local servers = {
   "pyright",
   "rust_analyzer",
@@ -20,19 +26,7 @@ local servers = {
   "satysfi-ls"
 }
 
-for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found then
-    if not server:is_installed() then
-      print("Installing " .. name)
-      server:install()
-    end
-  end
-end
-
 -- server configuratiion
-local null_ls = require("null-ls")
-local prettier = require("prettier")
 local ts_utils = require('nvim-lsp-ts-utils')
 
 local on_attach = function(client, bufnr)
@@ -74,13 +68,13 @@ local commands = {
   },
 }
 
-lsp_installer.on_server_ready(function(server)
+for _, name in pairs(servers) do
   local opts = {
     on_attach = on_attach,
     commands = commands,
   }
 
-  if server.name == "eslint" then
+  if name == "eslint" then
     opts.on_attach = function(client, bufnr)
       client.resolved_capabilities.document_formatting = true
       on_attach(client, bufnr)
@@ -90,7 +84,7 @@ lsp_installer.on_server_ready(function(server)
     }
   end
 
-  if server.name == "jsonls" then
+  if name == "jsonls" then
     opts.init_options = {
       provideFormatter = false,
     }
@@ -109,7 +103,7 @@ lsp_installer.on_server_ready(function(server)
   --   }
   -- end
 
-  if server.name == "tsserver" then
+  if name == "tsserver" then
     -- integrate ts-utils
     opts.init_options = ts_utils.init_options
     opts.on_attach = function(client, bufnr)
@@ -119,7 +113,7 @@ lsp_installer.on_server_ready(function(server)
     end
   end
 
-  if server.name == "sumneko_lua" then
+  if name == "sumneko_lua" then
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
@@ -148,32 +142,30 @@ lsp_installer.on_server_ready(function(server)
   end
 
   -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
-  if server.name == "jdtls" then
+  if name == "jdtls" then
     if vim.bo.filetype == "java" then
       local lsp_installer_servers = require("nvim-lsp-installer.servers")
       local jdtls = require("jdtls")
       local _, jdtls_config = lsp_installer_servers.get_server("jdtls")
       opts.cmd = jdtls_config:get_default_options().cmd
       jdtls.start_or_attach(opts)
-      return
+      goto continue
     end
   end
 
   -- https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
-  if server.name == "rust_analyzer" then
+  if name == "rust_analyzer" then
     local rust_tools = require("rust-tools")
-    local inlay_hints = require("rust-tools.inlay_hints")
-    rust_tools.setup({
-      server = vim.tbl_deep_extend("force", server:get_default_options(), opts)
-    })
-    server:attach_buffers()
-    rust_tools.start_standalone_if_required()
+    rust_tools.setup({})
   end
 
-  server:setup(opts)
-end)
+  lspconfig[name].setup(opts)
+
+  ::continue::
+end
 
 -- null-ls: not LSP, used for formatting etc
+local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua.with({
@@ -200,6 +192,7 @@ null_ls.setup({
   commands = commands,
 })
 
+local prettier = require("prettier")
 prettier.setup({
   bin = "prettier", -- or `prettierd`
   filetypes = {
