@@ -141,7 +141,7 @@ augroup Init
   au VimEnter * call s:load_local_vimrc()
 
   au BufNewFile,BufRead *.tsx,*.jsx setf typescriptreact
-  au BufNewFile,BufRead *.tex setl makepkrg=latexmk
+  au BufNewFile,BufRead *.tex setl makeprg=latexmk
   au FileType c,cpp,fish,html,javascript,json,lua,rst,satysfi,typescript,typescriptreact,vim,vue,xml,yaml setl tabstop=2
   au FileType gitconfig,go setl noexpandtab
   au BufWritePre,FileWritePre *.md,*.saty,*.tex call utils#normalize_punctuation()
@@ -190,7 +190,6 @@ nmap k <Plug>(accelerated_jk_gk)
 
 nmap <Leader>j <Plug>(jumpcursor-jump)
 
-let g:startify_change_to_dir = 0
 let g:copilot_filetypes = {
     \ '*': v:false
     \ }
