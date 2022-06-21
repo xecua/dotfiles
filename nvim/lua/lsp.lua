@@ -33,6 +33,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
@@ -91,17 +92,16 @@ for _, name in pairs(servers) do
   end
 
   -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
-  -- if server.name == "texlab" then
-  --   opts.settings = {
-  --       texlab = {
-  --           auxDirectory = "./out",
-  --           build = {
-  --               args = {},
-  --               onSave = true
-  --           }
-  --       }
-  --   }
-  -- end
+  if name == "texlab" then
+    opts.settings = {
+      texlab = {
+        auxDirectory = "./out",
+        build = {
+          args = {}
+        }
+      }
+    }
+  end
 
   if name == "tsserver" then
     -- integrate ts-utils
@@ -153,7 +153,6 @@ for _, name in pairs(servers) do
     end
   end
 
-  -- https://github.com/williamboman/nvim-lsp-installer/wiki/Rust
   if name == "rust_analyzer" then
     local rust_tools = require("rust-tools")
     rust_tools.setup({})
