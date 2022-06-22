@@ -184,15 +184,10 @@ endif
 " common
 runtime! conf/*.vim
 
-
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
 nmap <Leader>j <Plug>(jumpcursor-jump)
-
-let g:copilot_filetypes = {
-    \ '*': v:false
-    \ }
 
 if exists('g:vscode')
   " inside VSCode
@@ -228,14 +223,6 @@ else
 
   call tcomment#type#Define('satysfi', '%% %s')
   call tcomment#type#Define('glsl', '// %s')
-  let g:copilot_filetypes = {
-      \ '*': v:true,
-      \ 'tex': v:false,
-      \ 'satysfi': v:false
-      \ }
-  " not expand by tab
-  inoremap <silent><script><expr> <C-l> copilot#Accept()
-  let g:copilot_no_tab_map = v:true
 
   call popup_preview#enable()
   call signature_help#enable()

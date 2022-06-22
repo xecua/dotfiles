@@ -32,5 +32,10 @@ marquee_interval = 60
 hide_when_empty = true
 
 [[block]]
+block = "custom"
+command = "echo `whoami` @ `cat /etc/hostname`"
+interval = "once"
+
+[[block]]
 block = "time"
 format = "%Y/%m/%d(%a) %H:%M:%S"
