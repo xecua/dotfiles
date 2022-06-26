@@ -75,7 +75,8 @@ bindsym $mod+Shift+q kill
 # need https://github.com/adi1090x/rofi and rofi >= 1.7
 bindsym $mod+d exec --no-startup-id launcher_misc
 bindsym $mod+p exec --no-startup-id menu_powermenu
-bindsym $mod+s exec --no-startup-id menu_screenshot
+# bindsym $mod+s exec --no-startup-id menu_screenshot
+bindsym $mod+s exec --no-startup-id ~/.config/i3/menu_screenshot_shutter
 
 # change focus
 bindsym $mod+j focus left

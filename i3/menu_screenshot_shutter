@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+## Author  : Aditya Shakya
+## Mail    : adi1090x@gmail.com
+## Github  : @adi1090x
+## Twitter : @adi1090x
+
+## Modified: scrot -> shutter
+
+style="$($HOME/.config/rofi/applets/menu/style.sh)"
+
+dir="$HOME/.config/rofi/applets/menu/configs/$style"
+rofi_command="rofi -theme $dir/screenshot.rasi"
+
+# Error msg
+msg() {
+	rofi -theme "$HOME/.config/rofi/applets/styles/message.rasi" -e "Please install 'shutter' first."
+}
+
+# Options
+screen=""
+area=""
+window=""
+
+# Variable passed to rofi
+options="$screen\n$area\n$window"
+
+chosen="$(echo -e "$options" | $rofi_command -p 'App : shutter' -dmenu -selected-row 1)"
+case $chosen in
+	$screen)
+		if [[ -x $(which shutter) ]]; then
+			shutter -f -o 'Screenshot_%Y-%m-%d-%T_$wx$h.png' --delay=1
+		else
+			msg
+		fi
+		;;
+	$area)
+		if [[ -x $(which shutter) ]]; then
+			shutter -s -o 'Screenshot_%Y-%m-%d-%T_$wx$h.png'
+		else
+			msg
+		fi
+		;;
+	$window)
+		if [[ -x $(which shutter) ]]; then
+			shutter -w -o 'Screenshot_%Y-%m-%d-%T_$wx$h.png' --delay=1
+		else
+			msg
+		fi
+		;;
+esac

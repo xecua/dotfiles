@@ -77,20 +77,9 @@ end
 # i3
 if [ "$XDG_CURRENT_DESKTOP" = "i3" ]
   if not [ -d "$XDG_CONFIG_HOME/i3" ]
-    mkdir "$XDG_CONFIG_HOME/i3"
-  end
-  if not [ -e "$XDG_CONFIG_HOME/i3/config" ]
-    ln -s "$script_dir/i3/config" "$XDG_CONFIG_HOME/i3/config"
-    # git update-index --assume-unchanged $script_dir/i3/config
+    ln -s "$script_dir/i3" "$XDG_CONFIG_HOME/i3"
   else
     echo "INFO: i3 was not linked."
-  end
-
-  if not [ -e "$XDG_CONFIG_HOME/i3/app-icons.json" ]
-    ln -s "$script_dir/i3/app-icons.json" "$XDG_CONFIG_HOME/i3/app-icons.json"
-    # git update-index --assume-unchanged $script_dir/i3/app-icons.json
-  else
-    echo "INFO: i3 app-icons was not linked."
   end
 
   # i3blocks?
