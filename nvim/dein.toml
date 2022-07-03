@@ -10,6 +10,10 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'mhinz/vim-startify'
 
+# open URL
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
 # task runner
 [[plugins]]
 repo = 'Shougo/vimproc.vim'

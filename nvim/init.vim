@@ -29,7 +29,7 @@ else
 endif
 
 " <Leader> := <Space>
-let mapleader="\<Space>"
+let mapleader= "\<Space>" " \: キーコードであると認識させる: つけないと<Space>という7文字がleaderになる あとシングルクォートでもそうなる
 "マウス有効化
 set mouse=a
 " allow change title
@@ -38,8 +38,8 @@ set title
 set fileformats=unix,dos,mac
 " 端末上でTrue Colorを使用
 set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 " 読み込み時に試みるエンコーディング(左から順に試す)
 set fileencodings=ucs-bombs,utf-8,euc-jp,cp932
 set noswapfile
@@ -108,6 +108,7 @@ tnoremap <Esc> <C-\><C-n>
 " see :h DiffOrig
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
+" treesitter入れたしいらなくね? (see also: https://github.com/nvim-treesitter/nvim-treesitter/issues/2131)
 " enable embedded code highlight
 let g:vimsyn_embed = 'l'
 let g:markdown_fenced_languages = [
