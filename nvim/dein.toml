@@ -14,6 +14,10 @@ repo = 'mhinz/vim-startify'
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 
+# Window resize mode
+[[plugins]]
+repo = 'sedm0784/vim-resize-mode'
+
 # task runner
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
