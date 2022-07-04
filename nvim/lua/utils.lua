@@ -11,16 +11,18 @@ function M.load_local_vimrc()
 end
 
 function M.normalize_punctuation()
-  -- とりあえず
-  vim.cmd[[
-    if get(g:, 'convert_punctuation', 1) == 1
+  if vim.g.convert_punctuation ~= 0 then
+    -- マジでこれしかなさそう
+    vim.cmd[[
       :%s/、/，/ge
       :%s/。/．/ge
-    else
+    ]]
+  else
+    vim.cmd[[
       :%s/、/,/ge
       :%s/。/./ge
-    endif
-  ]]
+    ]]
+  end
 end
 
 return M

@@ -95,16 +95,24 @@ end
 local List = require("plenary.collections.py_list")
 
 -- plugin configurations(not yet rewritten)
-vim.cmd("runtime! conf/*.vim")
+require('plugin_configs.ddc')
+require('plugin_configs.ddu')
+require('plugin_configs.denite')
+require('plugin_configs.lightline')
+require('plugin_configs.quickrun')
+require('plugin_configs.skkeleton')
 
 -- keymaps
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
+vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
+
+vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
 
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
@@ -190,15 +198,15 @@ vim.api.nvim_create_autocmd(
 )
 
 if vim.fn.executable("pdftotext") then
-  vim.api.nvim_create_autocmd(
-    { "BufRead" },
-    {
-      group = init_augroup_id,
-      pattern = { "*.pdf" },
-      command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
-    }
-  )
+  vim.api.nvim_create_autocmd({ "BufRead" }, {
+    group = init_augroup_id,
+    pattern = { "*.pdf" },
+    command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
+  })
 end
+
+-- plugin configuration by variable
+vim.g['neosnippet#snippets_directory'] = vim.g.vim_home .. '/neosnippet'
 
 -- conditional configurations
 
@@ -210,6 +218,11 @@ if vim.g.os == "Darwin" then
   vim.g.python3_host_prog = "/usr/local/bin/python3"
 elseif vim.g.os == "Linux" then
   vim.g.python3_host_prog = "/usr/bin/python"
+end
+
+-- fzf.vim (when fzf was installed with Homebrew)
+if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
+  vim.opt.rtp:append("/usr/local/opt/fzf")
 end
 
 if vim.g.vscode ~= nil then
@@ -239,6 +252,7 @@ else
   vim.g.closetag_filetypes = closetag_xhtml_filetypes
     :concat(closetag_xhtml_filetypes, closetag_normal_filetypes)
     :join(",")
+  vim.g["fern#renderer"] = "nerdfont"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")
