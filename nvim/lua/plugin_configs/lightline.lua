@@ -116,3 +116,38 @@ function LightLineFileencoding()
     end
   end
 end
+
+vim.cmd[[
+  function! LightLineTime() abort
+    return v:lua.LightLineTime()
+  endfunction
+
+  function! LightLineGitBranch() abort
+    return v:lua.LightLineGitBranch()
+  endfunction
+
+  function! LightLineFilename() abort
+    return v:lua.LightLineFilename()
+  endfunction
+
+  function! LightLineReadOnly() abort
+    return v:lua.LightLineReadOnly()
+  endfunction
+
+  function! LightLineMode() abort
+    return v:lua.LightLineMode()
+  endfunction
+
+  function! LightLineFiletype() abort
+    return v:lua.LightLineFiletype()
+  endfunction
+
+  function! LightLineFileFormat() abort
+    return v:lua.LightLineFileFormat()
+  endfunction
+
+  function! LightLineFileencoding() abort
+    return v:lua.LightLineFileencoding()
+  endfunction
+
+]]
