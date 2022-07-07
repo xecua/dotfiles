@@ -91,3 +91,7 @@ vim.keymap.set("i", "<C-e>", "<Cmd>call pum#map#cancel()<CR>")
 
 local ddc_group_id = vim.api.nvim_create_augroup("DdcMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("CompleteDone", { group = ddc_group_id, command = "silent! pclose!" })
+
+if vim.fn.exists('g:vscode') ~= 1 then
+  vim.fn['ddc#enable']()
+end

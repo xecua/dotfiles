@@ -26,7 +26,7 @@ vim.opt.fileencodings = { "ucs-bombs", "utf-8", "euc-jp", "cp932" }
 vim.opt.swapfile = false
 vim.opt.autoread = true
 vim.opt.hidden = true
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = { "unnamedplus", "unnamed" }
 vim.opt.number = true
 vim.opt.list = true
 vim.opt.listchars = { tab = ">-", trail = "*", nbsp = "+" }
@@ -228,6 +228,8 @@ end
 if vim.g.vscode ~= nil then
   vim.g.startify_disable_at_vimenter = 1
   vim.g.vim_backslash_disable_default_mapping = 1
+  -- VSCodeでWSL使う時。決め打ち(???)
+  vim.g['denops#deno'] = vim.fn.executable('deno') == 1 and 'deno' or vim.env.HOME .. '/cargo/bin/deno'
 
   vim.cmd("filetype plugin on")
 else
@@ -242,6 +244,7 @@ else
   require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
   })
+  
 
   vim.cmd("colorscheme molokai")
 
