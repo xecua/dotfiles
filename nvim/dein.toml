@@ -137,6 +137,7 @@ repo = 'Shougo/ddu-kind-word'
 # explorer
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
+rev = 'main'
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'

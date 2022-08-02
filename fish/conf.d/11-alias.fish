@@ -58,6 +58,6 @@ if status --is-interactive
   end
 
   if type -q emerge
-    alias うどん 'sudo emerge -auvDN --with-bdeps=y --keep-going @world'
+    alias うどん 'sudo emerge -avtuDN --with-bdeps=y --keep-going @world'
   end
 end

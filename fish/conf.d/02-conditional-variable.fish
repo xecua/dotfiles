@@ -40,6 +40,12 @@ if [ -e /usr/local/opt/ruby ]
   end
 end
 
+if type -q ruby
+  # user local gem path
+  # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
+  fish_add_path (ruby -e "print Gem.user_dir")/bin
+end
+
 if [ -e /Library/TeX/texbin ]
   # MacTeX
   fish_add_path /Library/TeX/texbin
