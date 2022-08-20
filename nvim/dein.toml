@@ -34,6 +34,10 @@ repo = 'folke/trouble.nvim'
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
 
+# Ghosttext
+[[plugins]]
+repo = 'subnut/nvim-ghost.nvim'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
