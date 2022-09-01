@@ -11,6 +11,7 @@
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.itaiji.JIS3_4" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS2" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS3_4" enabled="1" />
+      <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS2004" enabled="1" />
       <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.npiii.utf8" enabled="1" />
       <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.2ch.utf8" enabled="1" />
       <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.genshin.utf8" enabled="1" />
