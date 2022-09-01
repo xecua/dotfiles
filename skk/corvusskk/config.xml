@@ -11,11 +11,12 @@
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.itaiji.JIS3_4" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS2" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS3_4" enabled="1" />
-      <row path="G:\マイドライブ\other\skk\dict\SKK-JISYO.2ch.utf8" enabled="1" />
+      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.npiii.utf8" enabled="1" />
+      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.2ch.utf8" enabled="1" />
+      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.genshin.utf8" enabled="1" />
       <row path="https://gist.githubusercontent.com/orumin/4971333/raw/b71ff032916d0ea9f5c73ea4ceebcf5220d7e932/SKK-JISYO.mahjong" enabled="1" />
       <row path="https://raw.githubusercontent.com/uasi/skk-emoji-jisyo/master/SKK-JISYO.emoji.utf8" enabled="1" />
       <row path="https://raw.githubusercontent.com/xecua/dotfiles/master/skk/skk-jisyo.utf-8" enabled="1" />
-      <row path="G:\マイドライブ\other\skk\dict\SKK-JISYO.genshin.utf8" enabled="1" />
     </list>
   </section>
   <section name="server">
