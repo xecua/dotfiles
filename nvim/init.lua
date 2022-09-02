@@ -57,6 +57,9 @@ vim.g.tex_conceal = ""
 -- see :h DiffOrig とりあえず
 vim.cmd("command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis")
 
+-- man.vim
+vim.cmd("runtime! ftplugin/man.vim")
+
 -- dein.vim
 local dein_dir = vim.g.cache_home .. "/dein"
 local dein_repo_dir = dein_dir .. "/repos/github.com/Shougo/dein.vim"
