@@ -140,6 +140,13 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     vim.opt_local.makeprg = "latexmk"
   end,
 })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = init_augroup_id,
+  pattern = { "*.er" },
+  callback = function()
+    vim.opt_local.filetype = "python" -- Erg
+  end
+})
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = init_augroup_id,
   callback = function()
