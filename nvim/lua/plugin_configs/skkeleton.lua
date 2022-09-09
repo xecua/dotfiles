@@ -1,3 +1,19 @@
+-- neovide: use ui
+if vim.g.neovide ~= nil then
+  vim.keymap.set({ "i", "c", "l" }, "<C-j>", "<Plug>(skkeleton-enable)")
+end
+
+vim.fn["skkeleton#config"]({
+  eggLikeNewline = true,
+  immediatelyCancel = false,
+  showCandidatesCount = 1,
+  globalJisyo = vim.env.HOME .. "/.skk-jisyo",
+  globalJisyoEncoding = "utf-8",
+  useSkkServer = true,
+  skkServerReqEnc = "utf-8",
+  skkServerResEnc = "utf-8",
+})
+
 vim.fn["skkeleton#register_keymap"]("input", "<Space>", "henkanFirst")
 -- kanatableの一部にしないと常にそのコマンドになってしまうので、必要最小限にすべきかも(libskkはそこを考慮してくれている?)
 -- luaで呼ぶとなんか怒られるので一旦vim.cmd(要調査)

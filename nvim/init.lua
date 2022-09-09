@@ -98,12 +98,12 @@ end
 local List = require("plenary.collections.py_list")
 
 -- plugin configurations(not yet rewritten)
+require('plugin_configs.skkeleton')
 require('plugin_configs.ddc')
 require('plugin_configs.ddu')
 require('plugin_configs.denite')
 require('plugin_configs.lightline')
 require('plugin_configs.quickrun')
-require('plugin_configs.skkeleton')
 
 -- keymaps
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)

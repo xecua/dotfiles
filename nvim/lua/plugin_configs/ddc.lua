@@ -3,6 +3,7 @@ local sources = {
   "neosnippet",
   "around",
   "file",
+  "skkeleton",
 }
 
 local sourceOptions = {
@@ -25,26 +26,14 @@ local sourceOptions = {
     mark = "F",
     forceCompletionPattern = [[\S/\S*]],
   },
-}
-
-if vim.g.neovide ~= nil then
-  table.insert(sources, "skkeleton")
-  sourceOptions.skkeleton = {
+  skkeleton = {
     mark = "skk",
     matchers = { "skkeleton" },
     sorters = {},
-  }
+  },
+}
 
-  vim.keymap.set({ "i", "c", "l" }, "<C-j>", "<Plug>(skkeleton-enable)")
-
-  vim.fn["skkeleton#config"]({
-    eggLikeNewline = true,
-    immediatelyCancel = false,
-    showCandidatesCount = 1,
-    globalJisyo = vim.env.HOME .. "/.skk-jisyo",
-    globalJisyoEncoding = "utf-8",
-  })
-end
+-- skkeleton: ddcの候補として出すだけかコレ(変換機能は別)
 
 -- ddc-file (windows)
 vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry" }, {
@@ -92,6 +81,6 @@ vim.keymap.set("i", "<C-e>", "<Cmd>call pum#map#cancel()<CR>")
 local ddc_group_id = vim.api.nvim_create_augroup("DdcMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("CompleteDone", { group = ddc_group_id, command = "silent! pclose!" })
 
-if vim.fn.exists('g:vscode') ~= 1 then
-  vim.fn['ddc#enable']()
+if vim.fn.exists("g:vscode") ~= 1 then
+  vim.fn["ddc#enable"]()
 end
