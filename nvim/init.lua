@@ -98,12 +98,12 @@ end
 local List = require("plenary.collections.py_list")
 
 -- plugin configurations(not yet rewritten)
-require('plugin_configs.skkeleton')
-require('plugin_configs.ddc')
-require('plugin_configs.ddu')
-require('plugin_configs.denite')
-require('plugin_configs.lightline')
-require('plugin_configs.quickrun')
+require("plugin_configs.skkeleton")
+require("plugin_configs.ddc")
+require("plugin_configs.ddu")
+require("plugin_configs.denite")
+require("plugin_configs.lightline")
+require("plugin_configs.quickrun")
 
 -- keymaps
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
@@ -114,6 +114,9 @@ vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
+vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)")
+vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)")
+vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
 
 vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
 
@@ -145,7 +148,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   pattern = { "*.er" },
   callback = function()
     vim.opt_local.filetype = "python" -- Erg
-  end
+  end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = init_augroup_id,
@@ -216,7 +219,15 @@ if vim.fn.executable("pdftotext") then
 end
 
 -- plugin configuration by variable
-vim.g['neosnippet#snippets_directory'] = vim.g.vim_home .. '/neosnippet'
+vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/neosnippet"
+
+vim.g["operator#surround#blocks"] = {
+  ["-"] = {
+    { block = {"（", "）"}, motionwise = {'char', 'line', 'block'}, keys = {"P"} }, -- 全角だと入力しにくいのでP、か
+    { block = {"「", "」"}, motionwise = {'char', 'line', 'block'}, keys = {"B"} },
+    { block = {"『", "』"}, motionwise = {'char', 'line', 'block'}, keys = {"D"} }
+  }
+}
 
 -- conditional configurations
 
@@ -238,8 +249,8 @@ end
 if vim.g.vscode ~= nil then
   vim.g.startify_disable_at_vimenter = 1
   vim.g.vim_backslash_disable_default_mapping = 1
-  -- VSCodeでWSL使う時。決め打ち(???)
-  vim.g['denops#deno'] = vim.fn.executable('deno') == 1 and 'deno' or vim.env.HOME .. '/cargo/bin/deno'
+  -- VSCodeでWSL使う時。Win側で探してしまい見つからないので決め打ち(???)
+  vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.cargo/bin/deno"
 
   vim.cmd("filetype plugin on")
 else
@@ -254,7 +265,6 @@ else
   require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
   })
-  
 
   vim.cmd("colorscheme molokai")
 
@@ -262,9 +272,8 @@ else
   local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact" })
   local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
-  vim.g.closetag_filetypes = closetag_xhtml_filetypes
-    :concat(closetag_xhtml_filetypes, closetag_normal_filetypes)
-    :join(",")
+  vim.g.closetag_filetypes =
+    closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
   vim.g["fern#renderer"] = "nerdfont"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")

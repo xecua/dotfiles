@@ -162,7 +162,11 @@ repo = 'tpope/vim-fugitive'
 
 # parenthesis control
 [[plugins]]
-repo = 'tpope/vim-surround'
+repo = 'rhysd/vim-operator-surround'
+
+## dependency
+[[plugins]]
+repo = 'kana/vim-operator-user'
 
 # autocomplete matching brace/quotation
 [[plugins]]

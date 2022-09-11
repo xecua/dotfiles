@@ -9,9 +9,9 @@ vim.fn["skkeleton#config"]({
   showCandidatesCount = 1,
   globalJisyo = vim.env.HOME .. "/.skk-jisyo",
   globalJisyoEncoding = "utf-8",
-  useSkkServer = true,
-  skkServerReqEnc = "utf-8",
-  skkServerResEnc = "utf-8",
+  -- useSkkServer = true,
+  -- skkServerReqEnc = "utf-8",
+  -- skkServerResEnc = "utf-8",
 })
 
 vim.fn["skkeleton#register_keymap"]("input", "<Space>", "henkanFirst")
