@@ -1,25 +1,14 @@
-# Preview
+# Go utility
 [[plugins]]
-repo = 'previm/previm'
-on_ft = ['markdown', 'rst', 'asciidoc'] # あとtextileもあるらしい
-
-# Go auto import
-[[plugins]]
-repo = 'mattn/vim-goimports'
+repo = 'fatih/vim-go'
 on_ft = ['go']
 
-#
-[[plugins]]
-repo = 'rhysd/vim-grammarous'
-on_ft = ['tex', 'satysfi', 'markdown', 'rst', 'asciidoc']
-
-# Syntax Highlighting
-## Haxe
+# Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
 on_ft = ['haxe']
 
-## Swift
+# Swift
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = ['swift']

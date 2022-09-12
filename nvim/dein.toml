@@ -10,6 +10,10 @@ repo = 'nvim-lua/plenary.nvim'
 [[plugins]]
 repo = 'mhinz/vim-startify'
 
+# Preview
+[[plugins]]
+repo = 'previm/previm'
+
 # open URL
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -34,9 +38,13 @@ repo = 'folke/trouble.nvim'
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
 
+# Grammar check
+[[plugins]]
+repo = 'rhysd/vim-grammarous'
+
 # Ghosttext
 [[plugins]]
-repo = 'subnut/nvim-ghost.nvim'
+repo = 'gamoutatsumi/dps-ghosttext.vim'
 
 # LSP
 [[plugins]]
@@ -224,9 +232,6 @@ repo = 'Shougo/denite.nvim'
 
 [[plugins]]
 repo = 'junegunn/fzf.vim'
-
-# [[plugins]]
-# repo = 'subnut/nvim-ghost.nvim'
 
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
