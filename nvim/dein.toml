@@ -113,16 +113,25 @@ repo = 'Shougo/ddu-commands.vim'
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
 
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
 
 [[plugins]]
-repo = 'yuki-yano/ddu-filter-fzf'
+repo = 'Shougo/ddu-filter-matcher_hidden'
 
 ### Sources
 [[plugins]]
+repo = 'Shougo/ddu-source-action'
+
+[[plugins]]
 repo = '4513ECHO/ddu-source-source'
+
+[[plugins]]
+repo = 'Shougo/ddu-source-file'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
@@ -146,17 +155,21 @@ repo = 'Shougo/ddu-kind-file'
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
 
-# explorer
+### column
 [[plugins]]
-repo = 'lambdalisue/fern.vim'
-rev = 'main'
+repo = 'Shougo/ddu-column-filename'
+
+[[plugins]]
+repo = 'ryota2357/ddu-column-icon_filename'
+
+# for good appearance
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
 
-[[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-
+# other
 [[plugins]]
 repo = 'antoinemadec/FixCursorHold.nvim'
 
@@ -180,10 +193,7 @@ repo = 'kana/vim-operator-user'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
-# for good appearance
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-
+# undo
 [[plugins]]
 repo = 'mbbill/undotree'
 
@@ -229,9 +239,6 @@ repo = 'thinca/vim-template'
 # Fuzzy Finder
 [[plugins]]
 repo = 'Shougo/denite.nvim'
-
-[[plugins]]
-repo = 'junegunn/fzf.vim'
 
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
@@ -294,4 +301,3 @@ repo = 'delphinus/vim-firestore'
 # Rust tooltip
 [[plugins]]
 repo = 'simrat39/rust-tools.nvim'
-on_ft = ['rust']

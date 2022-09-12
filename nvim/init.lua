@@ -110,7 +110,7 @@ vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
-vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
+vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
@@ -274,7 +274,6 @@ else
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
   vim.g.closetag_filetypes =
     closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
-  vim.g["fern#renderer"] = "nerdfont"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")

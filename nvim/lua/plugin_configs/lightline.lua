@@ -25,7 +25,7 @@ vim.g.lightline = {
   },
 }
 
-local filer = "fern"
+local filer = "ddu-filer"
 
 local function is_exceptional_filetype()
   local filetype = vim.opt.filetype:get()
@@ -76,8 +76,6 @@ function LightLineMode()
   local filetype = vim.opt.ft:get()
   if filetype == 'denite' then
     return 'Denite'
-  elseif filetype == 'fern' then
-    return 'Fern'
   elseif vim.api.nvim_win_get_width(0) > 70 then
     return vim.fn['lightline#mode']()
   else
