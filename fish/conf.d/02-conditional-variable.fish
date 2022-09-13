@@ -52,6 +52,11 @@ if [ -e /Library/TeX/texbin ]
 end
 
 if [ -e $XDG_CONFIG_HOME/rofi/bin ]
-  # scripts from https://github.com/adi1090x/rofi
+  # scripts from https://github.com/adi1090x/rofi (v1.7)
   fish_add_path $XDG_CONFIG_HOME/rofi/bin
+end
+
+if [ -e $XDG_CONFIG_HOME/rofi/scripts ]
+  # scripts from https://github.com/adi1090x/rofi (master)
+  fish_add_path $XDG_CONFIG_HOME/rofi/scripts
 end

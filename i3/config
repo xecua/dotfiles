@@ -71,11 +71,15 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 # bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --no-generic --term=/usr/bin/tilix
-# need https://github.com/adi1090x/rofi and rofi >= 1.7
-bindsym $mod+d exec --no-startup-id launcher_misc
-bindsym $mod+p exec --no-startup-id menu_powermenu
-# bindsym $mod+s exec --no-startup-id menu_screenshot
-bindsym $mod+s exec --no-startup-id ~/.config/i3/menu_screenshot_shutter
+# need https://github.com/adi1090x/rofi(master) and rofi >= 1.7
+# preferred: type-1, style-6
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/scripts/launcher_t1
+# preferred: type-2, style-2
+bindsym $mod+p exec --no-startup-id ~/.config/rofi/scripts/powermenu_t2
+
+# preferred: type-2, style-3
+bindsym $mod+b exec --no-startup-id ~/.config/rofi/applets/bin/volume.sh
+bindsym $mod+s exec --no-startup-id ~/.config/i3/screenshot_shutter.sh
 
 # change focus
 bindsym $mod+j focus left
