@@ -5,6 +5,7 @@
 [core]
 	editor = nvim
 	pager = (delta 2>/dev/null) || ${PAGER:-less}
+	autocrlf = input
 [init]
 	defaultBranch = main
 [color]
