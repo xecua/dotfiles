@@ -162,6 +162,21 @@ else
   echo "INFO: tmux.conf was not linked."
 end
 
+# ranger
+if not [ -d "$XDG_CONFIG_HOME/ranger" ]
+  mkdir "$XDG_CONFIG_HOME/ranger"
+end
+if not [ -e "$XDG_CONFIG_HOME/ranger/rc.conf" ]
+  ln -s "$script_dir/ranger/rc.conf" "$XDG_CONFIG_HOME/ranger/rc.conf"
+else
+  echo "INFO: ranger/rc.conf was not linked."
+end
+if not [ -e "$XDG_CONFIG_HOME/ranger/rifle.conf" ]
+  ln -s "$script_dir/ranger/rifle.conf" "$XDG_CONFIG_HOME/ranger/rifle.conf"
+else
+  echo "INFO: ranger/rifle.conf was not linked."
+end
+
 # clang-format(?)
 if not [ -e "$HOME/.clang-format" ]
   ln -s "$script_dir/.clang-format" "$HOME/.clang-format"

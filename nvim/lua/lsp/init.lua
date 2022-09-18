@@ -175,6 +175,9 @@ mason_lspconfig.setup_handlers({
     })
   end,
   jdtls = function()
+    if vim.bo.filetype ~= 'java' then
+      return
+    end
     -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
     local pkg_dir = registry.get_package("jdtls"):get_install_path()
     local jdtls = require("jdtls")
