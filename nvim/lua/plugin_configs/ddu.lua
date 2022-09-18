@@ -1,5 +1,10 @@
 vim.fn["ddu#custom#patch_global"]({
   ui = "ff",
+  uiOptions = {
+    filer = {
+      toggle = true,
+    },
+  },
   uiParams = {
     ff = {
       previewWidth = 80,
