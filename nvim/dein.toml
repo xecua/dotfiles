@@ -13,6 +13,7 @@ repo = 'mhinz/vim-startify'
 # Preview
 [[plugins]]
 repo = 'previm/previm'
+depends = ['open-browser.vim'] # optional
 
 # open URL
 [[plugins]]
@@ -33,6 +34,7 @@ repo = 'thinca/vim-quickrun'
 # diagnostics
 [[plugins]]
 repo = 'folke/trouble.nvim'
+depends = ['nvim-web-devicons'] # optional
 
 ## dependency
 [[plugins]]
@@ -50,21 +52,29 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 
+## Installer
 [[plugins]]
-repo = 'williamboman/nvim-lsp-installer'
+repo = 'williamboman/mason.nvim'
+
+[[plugins]]
+repo = 'williamboman/mason-lspconfig.nvim'
+depends = ['nvim-lspconfig', 'mason.nvim']
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
 
+## tsserver integration
 [[plugins]]
-repo = 'jose-elias-alvarez/nvim-lsp-ts-utils'
+repo = 'jose-elias-alvarez/typescript.nvim'
 
 ## Formatter with LSP interface
 [[plugins]]
 repo = 'jose-elias-alvarez/null-ls.nvim'
+depends = ['plenary.nvim']
 
 [[plugins]]
 repo = 'MunifTanjim/prettier.nvim'
+depends = ['nvim-lspconfig', 'null-ls.nvim']
 
 # Popup
 [[plugins]]
@@ -76,98 +86,137 @@ repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'vim-skk/skkeleton'
+depends = ['denops.vim']
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
+depends = ['denops.vim']
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
+depends = ['denops.vim']
 
 ## ddc
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+depends = ['denops.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-nvim-lsp'
+depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-around'
+depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_head'
+depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
+depends = ['denops.vim', 'ddc.vim']
 
 ## ddu
 [[plugins]]
 repo = 'Shougo/ddu.vim'
+depends = ['denops.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'
+depends = ['denops.vim', 'ddu.vim']
 
 ### UI
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
+depends = ['denops.vim', 'ddu.vim']
 
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
+depends = ['denops.vim', 'ddu.vim']
 
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = '4513ECHO/ddu-source-source'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'shun/ddu-source-buffer'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'matsui54/ddu-source-command_history'
+depends = ['denops.vim', 'ddu.vim']
 
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
+depends = ['denops.vim', 'ddu.vim']
 
 ### column
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'ryota2357/ddu-column-icon_filename'
+depends = ['denops.vim', 'ddu.vim']
+
+# filer
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+rev = 'main'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+depends = ['nerdfont.vim']
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-hijack.vim'
 
 # for good appearance
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
-
-[[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
 
 # other
 [[plugins]]
@@ -184,6 +233,7 @@ repo = 'tpope/vim-fugitive'
 # parenthesis control
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
+depends = ['vim-operator-user']
 
 ## dependency
 [[plugins]]
@@ -236,10 +286,7 @@ repo = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repo = 'thinca/vim-template'
 
-# Fuzzy Finder
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-
+# cursor
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
 

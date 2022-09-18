@@ -1,33 +1,39 @@
--- server installation
-require('lsp.satysfi-ls')
+-- register custom server
+require("lsp.satysfi-ls")
+local index = require("mason-registry.index")
+index["satysfi-ls"] = "lsp.satysfi-ls"
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.setup({
-  automatic_installation = true
-})
-
+-- setup
+local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
 
-local servers = {
-  "pyright",
-  "rust_analyzer",
-  "clangd",
-  "dartls",
-  "tsserver",
-  "vimls",
-  "html",
-  "gopls",
-  "kotlin_language_server",
-  "jdtls",
-  "jsonls",
-  "texlab",
-  "eslint",
-  "sumneko_lua",
-  "satysfi-ls"
-}
-
--- server configuratiion
-local ts_utils = require('nvim-lsp-ts-utils')
+local mason = require("mason")
+mason.setup()
+local mason_lspconfig = require("mason-lspconfig")
+mason_lspconfig.setup({
+  -- めも(doc読んでもよくわからなくなりがちなので)
+  -- ここに挙げたものは必ずインストールされる(そしてsetupを呼ばずとも実行される?)
+  ensure_installed = {
+    "pyright",
+    "rust_analyzer",
+    "clangd",
+    -- "dartls", -- not registered in mason, because dartls is  dart compiler (https://github.com/williamboman/mason.nvim/issues/136)
+    "tsserver",
+    "vimls",
+    "html",
+    "gopls",
+    "kotlin_language_server",
+    "jdtls",
+    "jsonls",
+    "texlab",
+    "eslint",
+    "sumneko_lua",
+    "satysfi-ls",
+  },
+  -- lspconfig.setupで呼ばれたのにインストールされていないものは(masonで)インストールされる
+  -- そういうのはセットアップしないと思うのでfalse(default)でいいや
+  automatic_installation = false,
+})
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -69,99 +75,162 @@ local commands = {
   },
 }
 
-for _, name in pairs(servers) do
-  local opts = {
-    on_attach = on_attach,
-    commands = commands,
-  }
-
-  if name == "eslint" then
-    opts.on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = true
-      on_attach(client, bufnr)
-    end
-    opts.settings = {
-      format = { enable = true },
-    }
-  end
-
-  if name == "jsonls" then
-    opts.init_options = {
-      provideFormatter = false,
-    }
-  end
-
-  -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
-  if name == "texlab" then
-    opts.settings = {
-      texlab = {
-        auxDirectory = "./out",
-        build = {
-          args = {}
-        }
-      }
-    }
-  end
-
-  if name == "tsserver" then
-    -- integrate ts-utils
-    opts.init_options = ts_utils.init_options
-    opts.on_attach = function(client, bufnr)
-      ts_utils.setup({ debug = false })
-      ts_utils.setup_client(client)
-      on_attach(client, bufnr)
-    end
-  end
-
-  if name == "sumneko_lua" then
+mason_lspconfig.setup_handlers({
+  function(server_name)
+    lspconfig[server_name].setup({
+      on_attach = on_attach,
+      commands = commands,
+    })
+  end,
+  ["rust_analyzer"] = function()
+    require("rust-tools").setup({
+      server = {
+        on_attach = on_attach,
+        commands = commands,
+      },
+    })
+  end,
+  ["sumneko_lua"] = function()
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
-    opts.settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-          -- Setup your lua path
-          path = runtime_path,
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
+    lspconfig.sumneko_lua.setup({
+      on_attach = on_attach,
+      commands = commands,
+      settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+            -- Setup your lua path
+            path = runtime_path,
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+          format = {
+            enable = false, -- とりあえずstyluaでいいかな……?
+          },
         },
       },
-    }
-  end
-
-  -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
-  if name == "jdtls" then
-    if vim.bo.filetype == "java" then
-      local lsp_installer_servers = require("nvim-lsp-installer.servers")
-      local jdtls = require("jdtls")
-      local _, jdtls_config = lsp_installer_servers.get_server("jdtls")
-      opts.cmd = jdtls_config:get_default_options().cmd
-      jdtls.start_or_attach(opts)
-      goto continue
+    })
+  end,
+  texlab = function()
+    lspconfig.texlab.setup({
+      on_attach = on_attach,
+      commands = commands,
+      settings = {
+        -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
+        texlab = {
+          auxDirectory = "./out",
+          build = {
+            args = {},
+          },
+        },
+      },
+    })
+  end,
+  eslint = function()
+    lspconfig.eslint.setup({
+      on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = true
+        on_attach(client, bufnr)
+      end,
+      commands = commands,
+      settings = {
+        format = { enable = true },
+      },
+    })
+  end,
+  jsonls = function()
+    lspconfig.jsonls.setup({
+      on_attach = on_attach,
+      commands = commands,
+      init_options = {
+        provideFormatter = false,
+      },
+    })
+  end,
+  tsserver = function()
+    -- https://github.com/jose-elias-alvarez/typescript.nvim#setup
+    require("typescript").setup({
+      disable_commands = false, -- prevent the plugin from creating Vim commands
+      debug = false, -- enable debug logging for commands
+      go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+      },
+      server = {
+        on_attach = on_attach,
+        commands = commands,
+      },
+    })
+  end,
+  jdtls = function()
+    -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
+    local pkg_dir = registry.get_package("jdtls"):get_install_path()
+    local jdtls = require("jdtls")
+    local jar_path = vim.fn.glob(
+      require("mason-registry").get_package("jdtls"):get_install_path() .. "/plugins/org.eclipse.equinox.launcher_*.jar"
+    )
+    local system = "linux"
+    if vim.g.os == "Windows" then
+      system = "win"
+    elseif vim.g.os == "Darwin" then
+      system = "mac"
     end
-  end
+    local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 
-  if name == "rust_analyzer" then
-    local rust_tools = require("rust-tools")
-    rust_tools.setup({})
-  end
+    jdtls.start_or_attach({
+      -- masonが入れた付属の`jdtls`(pythonスクリプト)はfull-featureには使えない?
+      cmd = {
+        "java",
+        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        "-Dosgi.bundles.defaultStartLevel=4",
+        "-Declipse.product=org.eclipse.jdt.ls.core.product",
+        "-Dlog.protocol=true",
+        "-Dlog.level=ALL",
+        "-Xms1g",
+        "--add-modules=ALL-SYSTEM",
+        "--add-opens",
+        "java.base/java.util=ALL-UNNAMED",
+        "-jar",
+        jar_path,
+        "-configuration",
+        pkg_dir .. "/config_" .. system,
+        -- See `data directory configuration` section in the README
+        "-data",
+        vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls" .. project_name,
+      },
+      on_attach = on_attach,
+      commands = commands,
+    })
+  end,
+})
 
-  lspconfig[name].setup(opts)
-
-  ::continue::
-end
+-- for _, name in pairs(servers) do
+--   local opts = {
+--     on_attach = on_attach,
+--     commands = commands,
+--   }
+--   if name == "jdtls" then
+--     if vim.bo.filetype == "java" then
+--       local lsp_installer_servers = require("nvim-lsp-installer.servers")
+--       local jdtls = require("jdtls")
+--       local _, jdtls_config = lsp_installer_servers.get_server("jdtls")
+--       opts.cmd = jdtls_config:get_default_options().cmd
+--       jdtls.start_or_attach(opts)
+--       goto continue
+--     end
+--   end
 
 -- null-ls: not LSP, used for formatting etc
 local null_ls = require("null-ls")
@@ -171,7 +240,7 @@ null_ls.setup({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
     null_ls.builtins.formatting.yapf,
-    null_ls.builtins.formatting.xmllint
+    null_ls.builtins.formatting.xmllint,
   },
   on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_formatting then
@@ -184,7 +253,7 @@ null_ls.setup({
     if client.resolved_capabilities.document_range_formatting then
       vim.api.nvim_buf_set_keymap(bufnr, "x", "<Leader>f", "<cmd>lua vim.lsp.buf.range_formatting({})<CR>", {
         noremap = true,
-        silent = true
+        silent = true,
       })
     end
   end,
@@ -213,5 +282,5 @@ prettier.setup({
 })
 
 -- Diagnostics
-local trouble = require('trouble')
+local trouble = require("trouble")
 trouble.setup({})

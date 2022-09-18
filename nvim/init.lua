@@ -94,6 +94,8 @@ if vim.fn["dein#check_install"]() == 1 then
   vim.fn["dein#install"]()
 end
 
+vim.cmd([[command DeinClean call map(dein#check_clean(), { _, val -> delete(val, 'rf') })]])
+
 -- dependency
 local List = require("plenary.collections.py_list")
 
@@ -101,7 +103,6 @@ local List = require("plenary.collections.py_list")
 require("plugin_configs.skkeleton")
 require("plugin_configs.ddc")
 require("plugin_configs.ddu")
-require("plugin_configs.denite")
 require("plugin_configs.lightline")
 require("plugin_configs.quickrun")
 
@@ -110,7 +111,8 @@ vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
-vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
+vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
+-- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
@@ -223,10 +225,10 @@ vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/neosnippet"
 
 vim.g["operator#surround#blocks"] = {
   ["-"] = {
-    { block = {"（", "）"}, motionwise = {'char', 'line', 'block'}, keys = {"P"} }, -- 全角だと入力しにくいのでP、か
-    { block = {"「", "」"}, motionwise = {'char', 'line', 'block'}, keys = {"B"} },
-    { block = {"『", "』"}, motionwise = {'char', 'line', 'block'}, keys = {"D"} }
-  }
+    { block = { "（", "）" }, motionwise = { "char", "line", "block" }, keys = { "P" } }, -- 全角だと入力しにくいのでP、か
+    { block = { "「", "」" }, motionwise = { "char", "line", "block" }, keys = { "B" } },
+    { block = { "『", "』" }, motionwise = { "char", "line", "block" }, keys = { "D" } },
+  },
 }
 
 -- conditional configurations
@@ -264,6 +266,7 @@ else
   -- treesitter config
   require("nvim-treesitter.configs").setup({
     highlight = { enable = true },
+    auto_install = true,
   })
 
   vim.cmd("colorscheme molokai")
@@ -274,6 +277,8 @@ else
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
   vim.g.closetag_filetypes =
     closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
+
+  vim.g["fern#renderer"] = "nerdfont"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")

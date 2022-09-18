@@ -25,7 +25,7 @@ vim.g.lightline = {
   },
 }
 
-local filer = "ddu-filer"
+local filer = "fern"
 
 local function is_exceptional_filetype()
   local filetype = vim.opt.filetype:get()
@@ -50,9 +50,7 @@ end
 
 function LightLineFilename()
   local filetype = vim.opt.ft:get()
-  if filetype == "denite" then
-    return vim.fn["denite#get_status"]("sources")
-  elseif is_exceptional_filetype() then
+  if is_exceptional_filetype() then
     return ""
   else
     local filename = vim.fn.expand("%")
@@ -74,9 +72,7 @@ end
 
 function LightLineMode()
   local filetype = vim.opt.ft:get()
-  if filetype == 'denite' then
-    return 'Denite'
-  elseif vim.api.nvim_win_get_width(0) > 70 then
+  if vim.api.nvim_win_get_width(0) > 70 then
     return vim.fn['lightline#mode']()
   else
     return ''
