@@ -45,6 +45,7 @@
 	enabled = true
 [push]
 	default = upstream
+	autoSetupRemote = true
 [pull]
 	rebase = true
 [delta]
