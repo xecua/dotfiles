@@ -1,10 +1,3 @@
-if type -q google-drive-ocamlfuse
-  set -l dir_items (ls ~/GoogleDrive)
-  if [ -z "$dir_items" ] # directory is empty
-    google-drive-ocamlfuse ~/GoogleDrive
-  end
-end
-
 if status --is-interactive
   if type -q direnv
     eval (direnv hook fish)
@@ -32,6 +25,9 @@ if type -q opam
   source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 end
 
-if type -q batpipe
-  eval (batpipe)
+if type -q batpipe 
+  if [ -z "$WSL_DISTRO_NAME" ]
+    # WSLだとなんかうまくいかないので一旦パスする
+    eval (batpipe)
+  end
 end
