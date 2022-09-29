@@ -19,6 +19,14 @@ require("lualine").setup({
   },
   tabline = {
     lualine_a = { { "tabs", mode = 2 }},
-    lualine_y = { 'os.date("%H:%M")' },
+    lualine_y = { '" " .. os.date("%H:%M")' },
+    -- on_click is supported in neovim-0.8 or higher
+    -- lualine_z = {{
+    --   'close',
+    --   icon = {"", align = 'right'},
+    --   icon_only = true,
+    --   on_click = function() vim.fn.close() end
+    -- }}
   },
+  extensions = { 'fern', 'man', 'quickfix' }
 })

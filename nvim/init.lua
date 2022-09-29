@@ -34,6 +34,7 @@ vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 2
+vim.opt.laststatus = 3
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -56,7 +57,11 @@ vim.g.tex_flavor = "latex"
 vim.g.tex_conceal = ""
 
 -- see :h DiffOrig とりあえず
-vim.cmd("command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis")
+vim.api.nvim_create_user_command(
+  "DiffOrig",
+  "vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis",
+  {}
+)
 
 -- man.vim
 vim.cmd("runtime! ftplugin/man.vim")
@@ -65,21 +70,15 @@ vim.cmd("runtime! ftplugin/man.vim")
 local dein_dir = vim.g.cache_home .. "/dein"
 local dein_repo_dir = dein_dir .. "/repos/github.com/Shougo/dein.vim"
 
--- runtimepath
--- if false then
---   vim.opt.rtp:prepend(dein_repo_dir)
--- end
-vim.cmd([[
-  let s:dein_dir = g:cache_home.'/dein'
-  let s:dein_repo_dir = s:dein_dir.'/repos/github.com/Shougo/dein.vim'
+-- vim.o: get option as string (unlike vim.opt:get)-> utilize string.find
+if not vim.o.rtp:find("/dein.vim") then
+  if vim.fn.isdirectory(dein_repo_dir) then
+    -- todo: clone
+    vim.fn.execute("!git clone https://github.com/Shougo/dein.vim " .. dein_repo_dir)
+  end
 
-  if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^='.s:dein_repo_dir
-  endif
-]])
+  vim.opt.rtp:prepend(dein_repo_dir)
+end
 
 if vim.fn["dein#load_state"](dein_dir) == 1 then
   vim.fn["dein#begin"](dein_dir)
@@ -95,7 +94,7 @@ if vim.fn["dein#check_install"]() == 1 then
   vim.fn["dein#install"]()
 end
 
-vim.cmd([[command DeinClean call map(dein#check_clean(), { _, val -> delete(val, 'rf') })]])
+vim.api.nvim_create_user_command("DeinClean", "call map(dein#check_clean(), { _, val -> delete(val, 'rf') })", {})
 
 -- dependency
 local List = require("plenary.collections.py_list")
@@ -201,7 +200,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = [=['\)]=] })
     vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = [=[\]]=] })
     vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#]], input_after = [['''']] })
-    vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], input = [[<right>''''<left><left>]] })
+    vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], input = [[<Right>''''<Left><Left>]] })
   end,
 })
 vim.api.nvim_create_autocmd(
@@ -253,13 +252,12 @@ if vim.g.vscode ~= nil then
   vim.g.startify_disable_at_vimenter = 1
   vim.g.vim_backslash_disable_default_mapping = 1
   -- VSCodeでWSL使う時。Win側で探してしまい見つからないので決め打ち(???)
-  vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.cargo/bin/deno"
+  vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 
   vim.cmd("filetype plugin on")
 else
   vim.opt.ambiwidth = "double"
 
-  -- init.luaの時点で0.5は仮定してるのでチェックはパス
   vim.env.WORKSPACE = vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls" -- jdt.ls workspace
   -- lsp config
   require("lsp")
