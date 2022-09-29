@@ -247,9 +247,9 @@ repo = 'cohama/lexima.vim'
 [[plugins]]
 repo = 'mbbill/undotree'
 
-# status line
 [[plugins]]
-repo = 'itchyny/lightline.vim'
+repo = 'nvim-lualine/lualine.nvim'
+depends = ['nvim-web-devicons'] # optional
 
 # comment out
 [[plugins]]

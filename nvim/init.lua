@@ -33,6 +33,7 @@ vim.opt.listchars = { tab = ">-", trail = "*", nbsp = "+" }
 vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
+vim.opt.cmdheight = 2
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -103,7 +104,7 @@ local List = require("plenary.collections.py_list")
 require("plugin_configs.skkeleton")
 require("plugin_configs.ddc")
 require("plugin_configs.ddu")
-require("plugin_configs.lightline")
+require("plugin_configs.lualine")
 require("plugin_configs.quickrun")
 
 -- keymaps
