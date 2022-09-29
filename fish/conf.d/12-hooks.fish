@@ -11,23 +11,8 @@ if status --is-interactive
     starship init fish | source
   end
 
-end
-
-if type -q gpgconf
-  # if WSL, this should not be executed
-  if [ -z "$WSL_DISTRO_NAME" ]
-    gpgconf --launch gpg-agent
-    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-  end
-end
-
-if type -q opam
-  source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
-end
-
-if type -q batpipe 
-  if [ -z "$WSL_DISTRO_NAME" ]
-    # WSLだとなんかうまくいかないので一旦パスする
-    eval (batpipe)
-  end
+  # ./build.sh --compress (sys-apps/bat-extras) seems to have bug (#82)
+  # if type -q batpipe
+  #   eval (batpipe)
+  # end
 end

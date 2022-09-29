@@ -20,6 +20,12 @@ else
 end
 
 # shell rc
+if not [ -e "$HOME/.profile" ]
+  ln -s "$script_dir/.profile" "$HOME/.profile"
+else
+  echo "INFO: profile was not linked."
+end
+
 if not [ -e "$HOME/.bashrc" ]
   ln -s "$script_dir/.bashrc" "$HOME/.bashrc"
 else
