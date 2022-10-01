@@ -51,21 +51,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts)
   vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts)
   vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<Leader>i]", vim.lsp.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "<Leader>i[", vim.lsp.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "<Leader>i]", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts)
   vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts)
   vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts)
   vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
 
-  if client.resolved_capabilities.document_formatting then
-    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.formatting, opts)
+  if client.server_capabilities.documentFormattingProvider then
+    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, opts)
   end
 
-  if client.resolved_capabilities.document_range_formatting then
-    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.range_formatting, opts)
+  if client.server_capabilities.documentRangeFormattingProvider then
+    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, opts)
   end
 
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.formatting, {})
+  vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, {})
 end
 
 mason_lspconfig.setup_handlers({
@@ -151,7 +151,7 @@ mason_lspconfig.setup_handlers({
   eslint = function()
     lspconfig.eslint.setup({
       on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = true
+        client.server_capabilities.documentFormattingProvider = true
         on_attach(client, bufnr)
       end,
       settings = {

@@ -11,21 +11,22 @@ null_ls.setup({
     null_ls.builtins.formatting.yapf,
   },
   on_attach = function(client, bufnr)
-    if client.resolved_capabilities.document_formatting then
-      vim.keymap.set("n", "<Leader>if", vim.lsp.buf.formatting, {
+    if client.server_capabilities.documentFormattingProvider then
+      vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, {
         buffer = bufnr,
         silent = true,
       })
     end
 
-    if client.resolved_capabilities.document_range_formatting then
-      vim.keymap.set("v", "<Leader>if", vim.lsp.buf.range_formatting, {
+    if client.server_capabilities.documentRangeFormattingProvider then
+      -- in visual mode automatically set to range?
+      vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, {
         buffer = bufnr,
         silent = true,
       })
     end
 
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.formatting, {})
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format, {})
   end,
 })
 
