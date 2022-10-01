@@ -109,6 +109,7 @@ require("plugin_configs.quickrun")
 -- keymaps
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
 vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
@@ -251,25 +252,29 @@ end
 if vim.g.vscode ~= nil then
   vim.g.startify_disable_at_vimenter = 1
   vim.g.vim_backslash_disable_default_mapping = 1
-  -- VSCodeでWSL使う時。Win側で探してしまい見つからないので決め打ち(???)
+  -- WSL: Win側で探してしまい見つからない
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 
   vim.cmd("filetype plugin on")
 else
   vim.opt.ambiwidth = "double"
 
-  vim.env.WORKSPACE = vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls" -- jdt.ls workspace
   -- lsp config
-  require("lsp")
+  require("plugin_configs.mason-lsp")
+  require("plugin_configs.null-ls")
+  require("plugin_configs.dap")
 
   -- treesitter config
   require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,
-      disable= { "help" } -- temporally have invalid spacing. https://github.com/neovim/tree-sitter-vimdoc/issues/23
+      disable = { "help" }, -- temporally have invalid spacing. https://github.com/neovim/tree-sitter-vimdoc/issues/23
     },
     auto_install = true,
   })
+
+  -- Diagnostics
+  require("trouble").setup({})
 
   vim.cmd("colorscheme molokai")
 

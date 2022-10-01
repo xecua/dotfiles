@@ -33,25 +33,22 @@ vim.api.nvim_create_autocmd("FileType", {
   group = ddu_group_id,
   pattern = "ddu-ff",
   callback = function()
-    vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#ff#do_action('itemAction')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "/", "<Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#ff#do_action('preview')<CR>", { buffer = true, silent = true })
-    vim.keymap.set(
-      "n",
-      "<Space>",
-      "<Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>",
-      { buffer = true, silent = true }
-    )
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#ff#do_action('quit')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "e", "<Cmd>call ddu#ui#ff#do_action('edit')<CR>", { buffer = true, silent = true })
+    local opts = { buffer = true, silent = true }
+    vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#ff#do_action('itemAction')<CR>", opts)
+    vim.keymap.set("n", "/", "<Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>", opts)
+    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#ff#do_action('preview')<CR>", opts)
+    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>", opts)
+    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#ff#do_action('quit')<CR>", opts)
+    vim.keymap.set("n", "e", "<Cmd>call ddu#ui#ff#do_action('edit')<CR>", opts)
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
   group = ddu_group_id,
   pattern = "ddu-ff-filter",
   callback = function()
-    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", { buffer = true, silent = true })
-    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", { buffer = true, silent = true })
+    local opts = { buffer = true, silent = true }
+    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
+    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
   end,
 })
 
@@ -90,40 +87,27 @@ vim.api.nvim_create_autocmd("FileType", {
   group = ddu_group_id,
   pattern = "ddu-filer",
   callback = function()
+    local opts = { buffer = true, silent = true }
     vim.keymap.set("n", "<CR>", function()
       if vim.fn["ddu#ui#filer#is_directory"]() then
-        return "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow'})<CR>"
+        vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow" })
       else
-        return "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'open'})<CR>"
+        vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "open" })
       end
-    end, { expr = true, buffer = true, silent = true })
-    vim.keymap.set(
-      "n",
-      "<BS>",
-      "<Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'narrow', 'params': {'path': '..'}})<CR>",
-      { buffer = true, silent = true }
-    )
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "<C-n>", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "l", "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "h", "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>", { buffer = true, silent = true })
-    vim.keymap.set(
-      "n",
-      "o",
-      "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>",
-      { buffer = true, silent = true }
-    )
-    vim.keymap.set("n", "n", "<Cmd>call ddu#ui#filer#do_action('newFile')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "r", "<Cmd>call ddu#ui#filer#do_action('rename')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "y", "<Cmd>call ddu#ui#filer#do_action('copy')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "m", "<Cmd>call ddu#ui#filer#do_action('move')<CR>", { buffer = true, silent = true })
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#filer#do_action('paste')<CR>", { buffer = true, silent = true })
-    vim.keymap.set(
-      "n",
-      "<Space>",
-      "<Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>",
-      { buffer = true, silent = true }
-    )
+    end, opts)
+    vim.keymap.set("n", "<BS>", function()
+      vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
+    end, opts)
+    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", opts)
+    vim.keymap.set("n", "l", "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>", opts)
+    vim.keymap.set("n", "h", "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>", opts)
+    vim.keymap.set("n", "o", "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
+    vim.keymap.set("n", "n", "<Cmd>call ddu#ui#filer#do_action('newFile')<CR>", opts)
+    vim.keymap.set("n", "r", "<Cmd>call ddu#ui#filer#do_action('rename')<CR>", opts)
+    vim.keymap.set("n", "y", "<Cmd>call ddu#ui#filer#do_action('copy')<CR>", opts)
+    vim.keymap.set("n", "m", "<Cmd>call ddu#ui#filer#do_action('move')<CR>", opts)
+    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#filer#do_action('paste')<CR>", opts)
+    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>", opts)
     -- toggle hidden files
     vim.keymap.set("n", "!", function()
       local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)

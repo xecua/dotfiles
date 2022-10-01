@@ -29,77 +29,84 @@ mason_lspconfig.setup({
     "eslint",
     "sumneko_lua",
     "satysfi-ls",
-
-    "codelldb",
-    "java-debug-adapter"
+    "lemminx"
+    -- note: name of server other than lsp does not reflect: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
   },
   -- lspconfig.setupで呼ばれたのにインストールされていないものは(masonで)インストールされる
   -- そういうのはセットアップしないと思うのでfalse(default)でいいや
-  automatic_installation = false,
+  atomatic_installation = false,
 })
 
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-
   -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  local opts = { buffer = bufnr, silent = true }
 
-  buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "gy", "<Cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  buf_set_keymap("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
-  buf_set_keymap("n", "]g", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-  buf_set_keymap("n", "[g", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "<F2>", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  buf_set_keymap("n", "<Leader>i", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  buf_set_keymap("n", "<Leader>m", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  -- LSP related: preceded by <Leader>i
+  vim.keymap.set("n", "<Leader>id", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts)
+  vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts)
+  vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "<Leader>i]", vim.lsp.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "<Leader>i[", vim.lsp.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts)
+  vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts)
+  vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
 
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.formatting, opts)
   end
 
   if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("v", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.range_formatting, opts)
   end
-end
 
-local commands = {
-  Format = {
-    function()
-      vim.lsp.buf.formatting()
-    end,
-  },
-}
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.formatting, {})
+end
 
 mason_lspconfig.setup_handlers({
   function(server_name)
     lspconfig[server_name].setup({
       on_attach = on_attach,
-      commands = commands,
     })
   end,
-  ["rust_analyzer"] = function()
-    require("rust-tools").setup({
-      server = {
-        on_attach = on_attach,
-        commands = commands,
+  rust_analyzer = function()
+    local dap_config = {}
+    if registry.is_installed('codelldb') then
+      local pkg_dir = registry.get_package("codelldb"):get_install_path()
+      dap_config = {
+        adapter = require('rust-tools.dap').get_codelldb_adapter(
+          pkg_dir .. '/extension/adapter/codelldb',
+          pkg_dir .. '/extension/lldb/lib/liblldb.so'
+        )
+      }
+    end
+    local rust_tools = require("rust-tools")
+    rust_tools.setup({
+      tools = {
+        hover_actions = { border = "single", auto_focus = true } -- default cause error (those of cica has double width)
       },
+      server = {
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+          -- overwrite default configs
+          vim.keymap.set("n", "<Leader>ih", rust_tools.hover_actions.hover_actions, { buffer = bufnr, silent = true })
+          vim.keymap.set("n", "<Leader>ia", rust_tools.code_action_group.code_action_group, { buffer = bufnr, silent = true })
+        end,
+      },
+      dap = dap_config
     })
   end,
-  ["sumneko_lua"] = function()
+  sumneko_lua = function()
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
     lspconfig.sumneko_lua.setup({
       on_attach = on_attach,
-      commands = commands,
       settings = {
         Lua = {
           runtime = {
@@ -130,7 +137,6 @@ mason_lspconfig.setup_handlers({
   texlab = function()
     lspconfig.texlab.setup({
       on_attach = on_attach,
-      commands = commands,
       settings = {
         -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
         texlab = {
@@ -148,7 +154,6 @@ mason_lspconfig.setup_handlers({
         client.resolved_capabilities.document_formatting = true
         on_attach(client, bufnr)
       end,
-      commands = commands,
       settings = {
         format = { enable = true },
       },
@@ -157,7 +162,6 @@ mason_lspconfig.setup_handlers({
   jsonls = function()
     lspconfig.jsonls.setup({
       on_attach = on_attach,
-      commands = commands,
       init_options = {
         provideFormatter = false,
       },
@@ -173,20 +177,17 @@ mason_lspconfig.setup_handlers({
       },
       server = {
         on_attach = on_attach,
-        commands = commands,
       },
     })
   end,
   jdtls = function()
-    if vim.bo.filetype ~= 'java' then
+    if vim.bo.filetype ~= "java" then
       return
     end
     -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
     local pkg_dir = registry.get_package("jdtls"):get_install_path()
     local jdtls = require("jdtls")
-    local jar_path = vim.fn.glob(
-      require("mason-registry").get_package("jdtls"):get_install_path() .. "/plugins/org.eclipse.equinox.launcher_*.jar"
-    )
+    local jar_path = vim.fn.glob(pkg_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar")
     local system = "linux"
     if vim.g.os == "Windows" then
       system = "win"
@@ -217,82 +218,6 @@ mason_lspconfig.setup_handlers({
         vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls" .. project_name,
       },
       on_attach = on_attach,
-      commands = commands,
     })
   end,
 })
-
--- for _, name in pairs(servers) do
---   local opts = {
---     on_attach = on_attach,
---     commands = commands,
---   }
---   if name == "jdtls" then
---     if vim.bo.filetype == "java" then
---       local lsp_installer_servers = require("nvim-lsp-installer.servers")
---       local jdtls = require("jdtls")
---       local _, jdtls_config = lsp_installer_servers.get_server("jdtls")
---       opts.cmd = jdtls_config:get_default_options().cmd
---       jdtls.start_or_attach(opts)
---       goto continue
---     end
---   end
-
--- null-ls: not LSP, used for formatting etc
-local null_ls = require("null-ls")
-null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.stylua.with({
-      extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-    }),
-    null_ls.builtins.formatting.yapf,
-    null_ls.builtins.formatting.xmllint,
-  },
-  on_attach = function(client, bufnr)
-    if client.resolved_capabilities.document_formatting then
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", {
-        noremap = true,
-        silent = true,
-      })
-    end
-
-    if client.resolved_capabilities.document_range_formatting then
-      vim.api.nvim_buf_set_keymap(bufnr, "x", "<Leader>f", "<Cmd>lua vim.lsp.buf.range_formatting({})<CR>", {
-        noremap = true,
-        silent = true,
-      })
-    end
-  end,
-  commands = commands,
-})
-
-local prettier = require("prettier")
-prettier.setup({
-  bin = "prettier", -- or `prettierd`
-  filetypes = {
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "javascript.jsx",
-    "javascriptreact",
-    "json",
-    "less",
-    "markdown",
-    "sss",
-    "typescript",
-    "typescript.tsx",
-    "typescriptreact",
-    "yaml",
-  },
-})
-
--- Diagnostics
-local trouble = require("trouble")
-trouble.setup({})
-
--- debugging
-local dap = require('dap')
-local dap_ui = require('dapui')
-
-dap_ui.setup({})
