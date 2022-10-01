@@ -264,7 +264,10 @@ else
 
   -- treesitter config
   require("nvim-treesitter.configs").setup({
-    highlight = { enable = true },
+    highlight = {
+      enable = true,
+      disable= { "help" } -- temporally have invalid spacing. https://github.com/neovim/tree-sitter-vimdoc/issues/23
+    },
     auto_install = true,
   })
 
