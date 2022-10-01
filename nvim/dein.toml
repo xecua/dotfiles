@@ -63,6 +63,14 @@ depends = ['nvim-lspconfig', 'mason.nvim']
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
 
+## DAP
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+
+[[plugins]]
+repo = 'rcarriga/nvim-dap-ui'
+depends = ['nvim-dap']
+
 ## tsserver integration
 [[plugins]]
 repo = 'jose-elias-alvarez/typescript.nvim'

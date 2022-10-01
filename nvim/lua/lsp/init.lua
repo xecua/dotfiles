@@ -29,6 +29,9 @@ mason_lspconfig.setup({
     "eslint",
     "sumneko_lua",
     "satysfi-ls",
+
+    "codelldb",
+    "java-debug-adapter"
   },
   -- lspconfig.setupで呼ばれたのにインストールされていないものは(masonで)インストールされる
   -- そういうのはセットアップしないと思うのでfalse(default)でいいや
@@ -287,3 +290,9 @@ prettier.setup({
 -- Diagnostics
 local trouble = require("trouble")
 trouble.setup({})
+
+-- debugging
+local dap = require('dap')
+local dap_ui = require('dapui')
+
+dap_ui.setup({})
