@@ -29,7 +29,7 @@ mason_lspconfig.setup({
     "eslint",
     "sumneko_lua",
     "satysfi-ls",
-    "lemminx"
+    "lemminx",
     -- note: name of server other than lsp does not reflect: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
   },
   -- lspconfig.setupで呼ばれたのにインストールされていないものは(masonで)インストールされる
@@ -76,29 +76,34 @@ mason_lspconfig.setup_handlers({
   end,
   rust_analyzer = function()
     local dap_config = {}
-    if registry.is_installed('codelldb') then
+    if registry.is_installed("codelldb") then
       local pkg_dir = registry.get_package("codelldb"):get_install_path()
       dap_config = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(
-          pkg_dir .. '/extension/adapter/codelldb',
-          pkg_dir .. '/extension/lldb/lib/liblldb.so'
-        )
+        adapter = require("rust-tools.dap").get_codelldb_adapter(
+          pkg_dir .. "/extension/adapter/codelldb",
+          pkg_dir .. "/extension/lldb/lib/liblldb.so"
+        ),
       }
     end
     local rust_tools = require("rust-tools")
     rust_tools.setup({
       tools = {
-        hover_actions = { border = "single", auto_focus = true } -- default cause error (those of cica has double width)
+        hover_actions = { border = "single", auto_focus = true }, -- default cause error (those of cica has double width)
       },
       server = {
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
           -- overwrite default configs
           vim.keymap.set("n", "<Leader>ih", rust_tools.hover_actions.hover_actions, { buffer = bufnr, silent = true })
-          vim.keymap.set("n", "<Leader>ia", rust_tools.code_action_group.code_action_group, { buffer = bufnr, silent = true })
+          vim.keymap.set(
+            "n",
+            "<Leader>ia",
+            rust_tools.code_action_group.code_action_group,
+            { buffer = bufnr, silent = true }
+          )
         end,
       },
-      dap = dap_config
+      dap = dap_config,
     })
   end,
   sumneko_lua = function()

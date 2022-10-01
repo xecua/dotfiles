@@ -17,7 +17,7 @@ vim.fn["skkeleton#config"]({
 vim.fn["skkeleton#register_keymap"]("input", "<Space>", "henkanFirst")
 -- kanatableの一部にしないと常にそのコマンドになってしまうので、必要最小限にすべきかも(libskkはそこを考慮してくれている?)
 -- luaで呼ぶとなんか怒られるので一旦vim.cmd(要調査)
-vim.cmd[[
+vim.cmd([[
 call skkeleton#register_kanatable('rom', {
     \ '!': ['！'],
     \ '?': ['？'],
@@ -685,7 +685,7 @@ call skkeleton#register_kanatable('rom', {
     \ 'zyz': ['じゃん'],
     \ 'zz': ['ざん'],
     \ })
-]]
+]])
 -- vim.fn["skkeleton#register_kanatable"]("rom", {
 --   ["!"] = "！",
 --   ["?"] = "？",
