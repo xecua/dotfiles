@@ -125,6 +125,23 @@ vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
 
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
+-- filetype
+vim.filetype.add({
+  extension = {
+    tsx = 'typescriptreact',
+    jsx = 'typescriptreact',
+    er = 'python', -- erg
+    hx = 'haxe',
+    frag = 'glsl',
+    vert = 'glsl',
+    gitignore = 'gitignore'
+  },
+  pattern = {
+    ['.*/git/config.*'] = { 'gitconfig', { priority = 10 } },
+    ['.*/nvim/template/.*'] = {'vim', { priority = 10 } }
+  }
+})
+
 -- autocommands
 local init_augroup_id = vim.api.nvim_create_augroup("Init", { clear = true }) -- au! will be automatically executed
 vim.api.nvim_create_autocmd(
@@ -132,25 +149,12 @@ vim.api.nvim_create_autocmd(
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
 )
 vim.api.nvim_create_autocmd({ "VimEnter" }, { group = init_augroup_id, callback = utils.load_local_vimrc })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  group = init_augroup_id,
-  pattern = { "*.tsx", "*.jsx" },
-  callback = function()
-    vim.opt_local.filetype = "typescriptreact"
-  end,
-})
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = init_augroup_id,
   pattern = { "*.tex" },
   callback = function()
     vim.opt_local.makeprg = "latexmk"
-  end,
-})
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  group = init_augroup_id,
-  pattern = { "*.er" },
-  callback = function()
-    vim.opt_local.filetype = "python" -- Erg
   end,
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -206,7 +210,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 vim.api.nvim_create_autocmd(
   { "BufWritePre", "FileWritePre" },
-  { group = init_augroup_id, pattern = { "*.md", "*.saty", "*.tex" }, callback = utils.normalize_punctuation }
+  { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, callback = utils.normalize_punctuation }
 )
 vim.api.nvim_create_autocmd(
   { "BufWritePost", "FileWritePost" },
