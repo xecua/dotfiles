@@ -20,14 +20,26 @@ require("lualine").setup({
   },
   tabline = {
     lualine_a = { { "tabs", mode = 2 } },
+    lualine_b = {
+      {
+        '""', -- 'create new tabpage' component
+        on_click = function()
+          vim.cmd("tabnew")
+        end,
+      },
+    },
     lualine_y = { '" " .. os.date("%H:%M")' },
-    -- on_click is supported in neovim-0.8 or higher
-    -- lualine_z = {{
-    --   'close',
-    --   icon = {"", align = 'right'},
-    --   icon_only = true,
-    --   on_click = function() vim.fn.close() end
-    -- }}
+    lualine_z = {
+      {
+        '""', -- 'close current buffer' component
+        cond = function()
+          return vim.fn.tabpagenr("$") ~= 1
+        end,
+        on_click = function()
+          vim.cmd("close")
+        end,
+      },
+    },
   },
   extensions = { "fern", "man", "quickfix" },
 })
