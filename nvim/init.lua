@@ -111,6 +111,7 @@ vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
+vim.keymap.set("n", "<Leader>t", "<Cmd>TroubleToggle<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
 vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
 -- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
@@ -128,18 +129,18 @@ vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 -- filetype
 vim.filetype.add({
   extension = {
-    tsx = 'typescriptreact',
-    jsx = 'typescriptreact',
-    er = 'python', -- erg
-    hx = 'haxe',
-    frag = 'glsl',
-    vert = 'glsl',
-    gitignore = 'gitignore'
+    tsx = "typescriptreact",
+    jsx = "typescriptreact",
+    er = "python", -- erg
+    hx = "haxe",
+    frag = "glsl",
+    vert = "glsl",
+    gitignore = "gitignore",
   },
   pattern = {
-    ['.*/git/config.*'] = { 'gitconfig', { priority = 10 } },
-    ['.*/nvim/template/.*'] = {'vim', { priority = 10 } }
-  }
+    [".*/git/config.*"] = { "gitconfig", { priority = 10 } },
+    [".*/nvim/template/.*"] = { "vim", { priority = 10 } },
+  },
 })
 
 -- autocommands
