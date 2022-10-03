@@ -19,7 +19,6 @@ vim.g.vim_home = vim.g.config_home .. "/nvim"
 vim.g.cache_home = vim.env.XDG_CACHE_HOME or vim.env.HOME .. "/.cache"
 
 vim.opt.mouse = "a"
-vim.opt.title = true
 vim.opt.fileformats = { "unix", "dos", "mac" }
 vim.opt.termguicolors = true -- t_8f, t_8bは消してみた: 必要なら https://vim-jp.org/vimdoc-ja/term.html#xterm-true-color
 vim.opt.fileencodings = { "ucs-bombs", "utf-8", "euc-jp", "cp932" }
@@ -35,6 +34,7 @@ vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 2
 vim.opt.laststatus = 3
+vim.opt.guifont = "monospace"
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -238,10 +238,6 @@ vim.g["operator#surround#blocks"] = {
 
 -- conditional configurations
 
-if vim.g.neovide ~= nil then
-  vim.opt.guifont = "Cica:h12"
-end
-
 if vim.g.os == "Darwin" then
   vim.g.python3_host_prog = "/usr/local/bin/python3"
 elseif vim.g.os == "Linux" then
@@ -253,6 +249,11 @@ if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
   vim.opt.rtp:append("/usr/local/opt/fzf")
 end
 
+if vim.g.neovide ~= nil then
+  -- 通常のターミナルでやろうとするとめんどくさい(失敗するとバッファ上に表示されて鬱陶しい)
+  vim.opt.title = true
+end
+
 if vim.g.vscode ~= nil then
   vim.g.startify_disable_at_vimenter = 1
   vim.g.vim_backslash_disable_default_mapping = 1
@@ -261,7 +262,7 @@ if vim.g.vscode ~= nil then
 
   vim.cmd("filetype plugin on")
 else
-  vim.opt.ambiwidth = "double"
+  -- vim.opt.ambiwidth = "double" -- そもそもなんでこれ入れてたんだっけ
 
   -- lsp config
   require("plugin_configs.mason-lsp")
