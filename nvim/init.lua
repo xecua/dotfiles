@@ -34,7 +34,7 @@ vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 2
 vim.opt.laststatus = 3
-vim.opt.guifont = "monospace"
+vim.opt.guifont = { "UDEV Gothic 35NFLG:h12", "Cica:h14", "monospace:h12" }
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -172,6 +172,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "typescript",
     "typescriptreact",
     "json",
+    "markdown",
     "lua",
     "rst",
     "satysfi",

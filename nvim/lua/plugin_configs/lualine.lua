@@ -4,6 +4,13 @@ local function fileformat()
   return vim.bo.fileformat .. " " .. vim.fn.WebDevIconsGetFileFormatSymbol()
 end
 
+local function shiftwidth()
+  -- インデントがタブかどうか、タブ幅はどうか(expandtabとtabstopしかいじらないようにしてるのでその2つで判別可能)
+  local indentation = vim.o.expandtab and "Space" or "Tab"
+  local width = vim.o.tabstop
+  return indentation .. ":" .. width
+end
+
 require("lualine").setup({
   options = {
     theme = "wombat",
@@ -15,7 +22,7 @@ require("lualine").setup({
       { "filename", symbols = { readonly = "[readonly]" } },
     },
     lualine_c = { "diagnostics" },
-    lualine_x = { fileformat, "encoding", "filetype" },
+    lualine_x = { fileformat, shiftwidth, "encoding", "filetype" },
     lualine_y = {},
   },
   tabline = {
