@@ -52,7 +52,6 @@ AUDIO_MUTED_SYMBOL=
 
 [monitor_manager]
 interval=once
-FONT_FAMILY=Cica
 
 # Memory usage
 #
