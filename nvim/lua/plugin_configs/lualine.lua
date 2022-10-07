@@ -18,7 +18,7 @@ require("lualine").setup({
   },
   sections = {
     lualine_b = {
-      { "branch", icon = { "󿞡" } },
+      { "branch", icon = { "" } }, -- 0xe702 (devicons)
       { "filename", symbols = { readonly = "[readonly]" } },
     },
     lualine_c = { "diagnostics" },
@@ -29,7 +29,8 @@ require("lualine").setup({
     lualine_a = { { "tabs", mode = 2 } },
     lualine_b = {
       {
-        '""', -- 'create new tabpage' component
+        -- 'create new tabpage' component
+        '""', -- 0xf067 (Font Awesome)
         on_click = function()
           vim.cmd("tabnew")
         end,
@@ -38,7 +39,8 @@ require("lualine").setup({
     lualine_y = { '" " .. os.date("%H:%M")' },
     lualine_z = {
       {
-        '""', -- 'close current buffer' component
+        -- 'close current buffer' component
+        '""', -- 0xf00d (Font Awesome)
         cond = function()
           return vim.fn.tabpagenr("$") ~= 1
         end,
