@@ -196,6 +196,8 @@ mason_lspconfig.setup_handlers({
     local system = "linux"
     if vim.g.os == "Windows" then
       system = "win"
+    elseif vim.g.os == "WSL" then
+      system = "linux"
     elseif vim.g.os == "Darwin" then
       system = "mac"
     end

@@ -3,12 +3,12 @@ vim.cmd("filetype plugin indent off")
 local utils = require("utils")
 
 if vim.g.os == nil then
-  if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") then
+  if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1 then
     vim.g.os = "Windows"
   else
     local uname = vim.fn.system("uname")
     vim.g.os = uname:gsub("\n", "")
-    if vim.g.os == "Linux" and vim.fn.readfile("/proc/version")[0].find("microsoft") ~= nil then
+    if vim.g.os == "Linux" and string.find(vim.fn.readfile("/proc/version")[1], "microsoft") ~= nil then
       vim.g.os = "WSL"
     end
   end
