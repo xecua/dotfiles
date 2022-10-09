@@ -25,4 +25,14 @@ function M.normalize_punctuation()
   end
 end
 
+function M.find(pattern, list)
+  for i, item in ipairs(list) do
+    if pattern == item then
+      return i
+    end
+  end
+
+  return -1
+end
+
 return M

@@ -70,9 +70,13 @@ end
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    lspconfig[server_name].setup({
-      on_attach = on_attach,
-    })
+    local utils = require("utils")
+    local ignore_servers = { "jdtls" }
+    if utils.find(server_name, ignore_servers) == -1 then
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+      })
+    end
   end,
   rust_analyzer = function()
     local dap_config = {}
@@ -185,11 +189,12 @@ mason_lspconfig.setup_handlers({
       },
     })
   end,
-  jdtls = function()
-    if vim.bo.filetype ~= "java" then
-      return
-    end
-    -- https://github.com/mfussenegger/nvim-jdtls/issues/156#issuecomment-999943363
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "java" },
+  callback = function()
+    -- setting up jdtls (this does not works when call in setup_handlers)
     local pkg_dir = registry.get_package("jdtls"):get_install_path()
     local jdtls = require("jdtls")
     local jar_path = vim.fn.glob(pkg_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar")
@@ -202,6 +207,13 @@ mason_lspconfig.setup_handlers({
       system = "mac"
     end
     local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
+    -- DAP: both of java-debug-adapter and java-test are ought to be installed. (https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap)
+    local debug_adapter_dir = registry.get_package("java-debug-adapter"):get_install_path()
+    local java_test_dir = registry.get_package("java-test"):get_install_path()
+
+    local bundles = { vim.fn.glob(debug_adapter_dir .. "/extension/server/com.microsoft.java.debug.plugin-*.jar") }
+    vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_dir .. "/extension/server/*.jar"), "\n"))
 
     jdtls.start_or_attach({
       -- masonが入れた付属の`jdtls`(pythonスクリプト)はfull-featureには使えない?
@@ -222,9 +234,23 @@ mason_lspconfig.setup_handlers({
         pkg_dir .. "/config_" .. system,
         -- See `data directory configuration` section in the README
         "-data",
-        vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls" .. project_name,
+        vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls/" .. project_name,
       },
-      on_attach = on_attach,
+      on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr, silent = true }
+        vim.keymap.set("n", "<Leader>io", jdtls.organize_imports, opts)
+        vim.keymap.set("n", "<Leader>dc", jdtls.test_class, opts)
+        vim.keymap.set("n", "<Leader>dm", jdtls.test_nearest_method, opts)
+
+        jdtls.setup_dap({ hotcodereplace = "auto" })
+
+
+        -- exposed commands
+        require('jdtls.setup').add_commands()
+
+        on_attach(client, bufnr)
+      end,
+      init_options = { bundles = bundles },
     })
   end,
 })
