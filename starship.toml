@@ -1,9 +1,15 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
 add_newline = true
 
 [character]
-format = '$symbol  '
-success_symbol = '''\(´∀`\)'''
-error_symbol = '''\(ﾉ∀`\)'''
+success_symbol = '''\(´∀`\)[INSERT❯](bold green)'''
+error_symbol = '''\(ﾉ∀`\)[INSERT❯](bold green)'''
+vimcmd_symbol = "[NORMAL❯](bold blue)"
+vimcmd_replace_one_symbol = "[REPLACE❯](bold purple)"
+vimcmd_replace_symbol = "[REPLACE❯](bold purple)"
+vimcmd_visual_symbol = "[VISUAL❯](bold yellow)"
 
 [line_break]
 disabled = true
@@ -17,10 +23,6 @@ format = "🕙[$time]($style) "
 time_format = "%R"
 
 [battery]
-full_symbol = " "
-charging_symbol = "⚡️ "
-discharging_symbol = " "
-
 [[battery.display]]
 threshold = 100
 style = "bold green"

@@ -15,4 +15,7 @@ if status --is-interactive
   # if type -q batpipe
   #   eval (batpipe)
   # end
+
+  # enable vi mode
+  fish_vi_key_bindings
 end
