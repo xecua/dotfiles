@@ -1,23 +1,12 @@
--- register custom server
-require("lsp.satysfi-ls")
-local index = require("mason-registry.index")
-index["satysfi-ls"] = "lsp.satysfi-ls"
-
--- setup
 local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
-
-local mason = require("mason")
-mason.setup()
 local mason_lspconfig = require("mason-lspconfig")
+
 mason_lspconfig.setup({
-  -- めも(doc読んでもよくわからなくなりがちなので)
-  -- ここに挙げたものは必ずインストールされる(そしてsetupを呼ばずとも実行される?)
   ensure_installed = {
     "pyright",
     "rust_analyzer",
     "clangd",
-    -- "dartls", -- not registered in mason, because dartls is  dart compiler (https://github.com/williamboman/mason.nvim/issues/136)
     "tsserver",
     "vimls",
     "html",
@@ -30,11 +19,10 @@ mason_lspconfig.setup({
     "sumneko_lua",
     "satysfi-ls",
     "lemminx",
-    -- note: name of server other than lsp does not reflect: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
+    "taplo",
+    -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
   },
-  -- lspconfig.setupで呼ばれたのにインストールされていないものは(masonで)インストールされる
-  -- そういうのはセットアップしないと思うのでfalse(default)でいいや
-  atomatic_installation = false,
+  -- automatic_installation = false,
 })
 
 local on_attach = function(client, bufnr)
@@ -244,9 +232,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
         jdtls.setup_dap({ hotcodereplace = "auto" })
 
-
         -- exposed commands
-        require('jdtls.setup').add_commands()
+        require("jdtls.setup").add_commands()
 
         on_attach(client, bufnr)
       end,

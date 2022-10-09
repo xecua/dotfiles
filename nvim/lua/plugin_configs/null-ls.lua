@@ -1,7 +1,10 @@
 -- null-ls: LSP interface for linter/formatter
--- preferred (via Mason?): stylua, yapf, prettier
--- note: null-ls' `builtins` are just a configuration, and binaries must be installed by hand (so Mason is good choice): https://github.com/williamboman/mason.nvim/discussions/143
+-- note: `builtins` are just a (builtin) configuration, and executables must be installed separately (Mason is a good choice)
 local null_ls = require("null-ls")
+
+-- local ensure_installed = {
+--   "stylua", "yapf", "prettier"
+-- }
 
 null_ls.setup({
   sources = {
@@ -26,13 +29,12 @@ null_ls.setup({
       })
     end
 
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', vim.lsp.buf.format, {})
+    vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, {})
   end,
 })
 
 -- null-ls config wrapper for prettier
-local prettier = require("prettier")
-prettier.setup({
+require("prettier").setup({
   bin = "prettier", -- or `prettierd`
   filetypes = {
     "css",

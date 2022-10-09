@@ -2,7 +2,14 @@
 local dap = require("dap")
 local dap_ui = require("dapui")
 
--- preferred (via Mason?): codelldb, java-debug-adapter, debugpy, etc
+-- local ensure_installed = {
+--   "codelldb",
+--   "debugpy",
+--   "delve",
+--   "java-debug-adapter",
+--   "java-test",
+--   "php-debug-adapter"
+-- }
 
 -- Debugger related: preceded by <Leader>d
 dap_ui.setup({})
@@ -17,7 +24,7 @@ vim.keymap.set("n", "<Leader>do", dap.step_out, { silent = true })
 vim.keymap.set("n", "<Leader>db", dap.step_back, { silent = true })
 
 -- Rust: configured in mason-lsp.lua (rust-tools offers better annotation)
--- Some plugins(e.g. rust-tools) may be set dap.adapters, so set whole dap.adapters is not preferred
+-- Some plugins(e.g. rust-tools) may be set dap.adapters, so setting whole dap.adapters is not preferred
 dap.adapters.python = {
   type = "executable",
   command = vim.fn.exepath("debugpy-adapter"), -- mason

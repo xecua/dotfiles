@@ -267,7 +267,13 @@ else
   -- vim.opt.ambiwidth = "double" -- そもそもなんでこれ入れてたんだっけ
 
   -- lsp config
-  require("plugin_configs.mason-lsp")
+  -- setting up mason.nvim
+  require("plugin_configs.mason.satysfi-ls")
+  local index = require("mason-registry.index")
+  index["satysfi-ls"] = "plugin_configs.mason.satysfi-ls"
+
+  require("mason").setup()
+  require("plugin_configs.lspconfig")
   require("plugin_configs.null-ls")
   require("plugin_configs.dap")
 
