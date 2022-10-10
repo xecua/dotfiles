@@ -132,6 +132,24 @@ mason_lspconfig.setup_handlers({
     })
   end,
   texlab = function()
+    local forward_search_config = {}
+    if vim.g.os == "Linux" then
+      forward_search_config = {
+        executable = "zathura",
+        args = { "--synctex-forward", "%l:1:%f", "%p" },
+      }
+    elseif vim.g.os == "Windows" then
+      forward_search_config = {
+        executable = "SumatraPDF.exe", -- PATHに入れちゃうのがいいかなあ
+        args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" }
+      }
+    elseif vim.g.os == "Darwin" then
+      forward_search_config = {
+        executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+        args = { "%l", "%p", "%f" }
+      }
+    end
+
     lspconfig.texlab.setup({
       on_attach = on_attach,
       settings = {
@@ -141,6 +159,7 @@ mason_lspconfig.setup_handlers({
           build = {
             args = {},
           },
+          forwardSearch = forward_search_config,
         },
       },
     })
