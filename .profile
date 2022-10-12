@@ -12,11 +12,6 @@ export DENO_INSTALL="$HOME/.deno"
 
 export FZF_DEFAULT_OPTS="--reverse"
 
-# Conditional variables
-if [ -x $(command -v sccache) ]; then
-    export RUSTC_WRAPPER=$(command -v sccache)
-fi
-
 # Update PATH
 PATH="$GOPATH/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
@@ -27,11 +22,16 @@ PATH="$DENO_INSTALL/bin:$PATH"
 PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 PATH="$ANDROID_HOME/platform-tools:$PATH"
 
-if [ -x $(command -v npm) ]; then
+# Conditional variables
+if command -v sccache >/dev/null ; then
+    export RUSTC_WRAPPER=$(command -v sccache)
+fi
+
+if command -v npm >/dev/null; then
     PATH="$(npm -g bin 2>/dev/null):$PATH"
 fi
 
-if [ -x $(command -v yarn) ]; then
+if command -v yarn >/dev/null; then
     PATH="$(yarn global bin):$PATH"
 fi
 
@@ -45,7 +45,7 @@ if [ -e /usr/local/opt/gnu-tar ]; then
     PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 fi
 
-if [ -x $(command -v ruby) ]; then
+if command -v ruby >/dev/null; then
     # user local gem path
     # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
     PATH="$(ruby -e "print Gem.user_dir")/bin:$PATH"
