@@ -238,6 +238,16 @@ vim.g["operator#surround#blocks"] = {
   },
 }
 
+vim.g.startify_lists = {
+  { type = 'files', header = {'   MRU'} },
+  { type = 'bookmarks', header = {'   Bookmarks'} },
+  { type = 'sessions', header = {'   Sessions'} }
+}
+vim.g.startify_bookmarks = {
+  '~',
+  '~/.config/nvim'
+}
+
 -- conditional configurations
 
 if vim.g.os == "Darwin" then
