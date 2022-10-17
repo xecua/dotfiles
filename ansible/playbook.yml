@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/playbook
+# Assuming: このdotfilesを落としてきており、ansible-playbookが実行できる(i.e. gitとpython3はインストールされている) (sshdだけを仮定するという方法もある?)
+---
+- name: Setup this machine
+  hosts: localhost
+  connection: local
+  roles:
+    - role: gentoo
+      tags:
+        - system-setup
+      when: ansible_facts["os_family"] == "Gentoo"

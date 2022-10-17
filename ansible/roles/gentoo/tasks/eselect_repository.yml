@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/tasks
+---
+- name: Enable repositories
+  ansible.builtin.command:
+    cmd: eselect repository enable {{ registered_overlays | join(' ') }}
+  changed_when: false
+- name: Add repositories
+  ansible.builtin.command:
+    cmd: eselect repository add {{ item.name }} git {{ item.url }}
+  loop: "{{ additional_overlays }}"
+  changed_when: false

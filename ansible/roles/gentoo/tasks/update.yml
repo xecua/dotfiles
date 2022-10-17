@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/tasks
+---
+- name: Sync and update @world
+  community.general.portage:
+    package: '@world'
+    sync: true
+    update: true
+    deep: true
+    newuse: true
