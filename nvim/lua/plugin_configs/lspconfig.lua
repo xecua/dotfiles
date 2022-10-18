@@ -17,7 +17,7 @@ mason_lspconfig.setup({
     "texlab",
     "eslint",
     "sumneko_lua",
-    "satysfi-ls",
+    -- "satysfi-ls",
     "lemminx",
     "taplo",
     -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
