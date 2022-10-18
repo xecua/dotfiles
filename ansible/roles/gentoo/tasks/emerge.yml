@@ -1,5 +1,0 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/tasks
----
-- name: Emerge eselect-repository
-  community.general.portage:
-    package: "{{ packages }}"

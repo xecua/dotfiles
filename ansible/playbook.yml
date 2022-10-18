@@ -1,11 +1,93 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/playbook
 # Assuming: このdotfilesを落としてきており、ansible-playbookが実行できる(i.e. gitとpython3はインストールされている) (sshdだけを仮定するという方法もある?)
+# とりあえずベタ書き。アレならtasksとか場合によってはrolesに分離
 ---
-- name: Setup this machine
-  hosts: localhost
-  connection: local
-  roles:
-    - role: gentoo
-      tags:
-        - system-setup
-      when: ansible_facts["os_family"] == "Gentoo"
+- name: Initialize
+  hosts: localhost # 勝手に生成されるらしい
+  tasks:
+    - name: Grouping by OS family
+      ansible.builtin.group_by:
+        key: os_{{ ansible_facts["os_family"] }}
+
+# これをrootで実行してるならuser追加とかも?
+
+# 各OS固有の準備
+- name: Prepare for setup (gentoo)
+  hosts: os_Gentoo
+  become: true
+  tags:
+    - setup
+    - pre_setup
+  tasks:
+    - name: Sync and update world
+      community.general.portage:
+        package: "@world"
+        sync: true
+        update: true
+        deep: true
+        newuse: true
+    - name: Emerge eselect-repository in advance
+      community.general.portage:
+        package: eselect-repository
+    - name: Add repositories
+      block:
+        - name: Enable repositories
+          ansible.builtin.command:
+            cmd: eselect repository enable {{ overlays | join(' ') }}
+          changed_when: false
+          vars:
+            overlays:
+              - 4nykey
+              - gentoo-zh
+              - go-overlay
+              - guru
+              - java
+              - pentoo
+              - tatsh-overlay
+        - name: Add repositories
+          ansible.builtin.command:
+            cmd: eselect repository add {{ item.name }} git {{ item.url }}
+          loop:
+            - name: "gachicam-overlay"
+              url: "https://github.com/Gachicam/gachicam-overlay.git"
+            - name: "ncaq-overlay"
+              url: "https://github.com/ncaq/ncaq-overlay.git"
+          changed_when: false
+    # TODO: define USE flags
+
+- name: Prepare for setup (Arch)
+  hosts: os_Archlinux
+  become: true
+  tags:
+    - setup
+    - pre_setup
+  tasks:
+    - name: Update system
+      community.general.pacman:
+        upgrade: true
+    - name: Install paru
+      # ちなみにAnsibleでpacmanの代わりにするのは無理?
+      # https://github.com/Morganamilo/paru/issues/866
+      block:
+        - name: Install dependencies
+          community.general.pacman:
+            name: base-devel
+        - name: Clone repository
+          ansible.builtin.git:
+            repo: https://aur.archlinux.org/paru.git
+            dest: /tmp/paru
+        - name: Build and install paru
+          ansible.builtin.command:
+            chdir: /tmp/paru
+            cmd: makepkg -si
+
+
+# group_varsを利用すればOSに依らずにいい感じに書けそう
+# - name: Setup system
+#   hosts: all
+#   tags:
+#     - setup
+#     - system
+#   tasks:
+#     - name: Install packages
+#       ansible.builtin.package:
