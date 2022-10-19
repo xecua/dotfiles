@@ -19,7 +19,7 @@ require("lualine").setup({
   sections = {
     lualine_b = {
       { "branch", icon = { "" } }, -- 0xe702 (devicons)
-      { "filename", symbols = { readonly = "[readonly]" } },
+      { "filename", path = 1, symbols = { readonly = "[readonly]" } },
     },
     lualine_c = { "diagnostics" },
     lualine_x = { fileformat, shiftwidth, "encoding", "filetype" },
