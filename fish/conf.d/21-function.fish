@@ -63,6 +63,19 @@ function test-echo
   end
 end
 
+# switch `delta` option when teminal size changed (https://github.com/dandavison/delta/issues/359#issuecomment-799628302)
+function __delta-switch-flag --on-signal WINCH
+  if [ "$COLUMNS" -ge 120 ]; and not contains "side-by-side" "$DELTA_FEATURES"
+    set -gxp DELTA_FEATURES "side-by-side"
+  else if [ "$COLUMNS" -lt 120 ]
+    set -l i (contains --index "side-by-side" "$DELTA_FEATURES")
+    if [ -n "$i" ]
+      set -e DELTA_FEATURES[$i]
+    end
+  end
+end
+__delta-switch-flag # on created
+
 # override
 function fish_title
   # emacs' "term" is basically the only term that can't handle it.
