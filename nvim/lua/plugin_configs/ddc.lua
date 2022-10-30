@@ -1,12 +1,12 @@
-local sources = {
+vim.fn["ddc#custom#patch_global"]("ui", "pum")
+vim.fn["ddc#custom#patch_global"]("sources", {
   "nvim-lsp",
   "neosnippet",
   "around",
   "file",
   "skkeleton",
-}
-
-local sourceOptions = {
+})
+vim.fn["ddc#custom#patch_global"]("sourceOptions", {
   _ = {
     matchers = { "matcher_head" },
     sorters = { "sorter_rank" },
@@ -31,9 +31,7 @@ local sourceOptions = {
     matchers = { "skkeleton" },
     sorters = {},
   },
-}
-
--- skkeleton: ddcの候補として出すだけかコレ(変換機能は別)
+})
 
 -- ddc-file (windows)
 vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry" }, {
@@ -48,10 +46,6 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
     },
   },
 })
-
-vim.fn["ddc#custom#patch_global"]("sources", sources)
-vim.fn["ddc#custom#patch_global"]("sourceOptions", sourceOptions)
-vim.fn["ddc#custom#patch_global"]("completionMenu", "pum.vim")
 
 vim.keymap.set("i", "<Tab>", function()
   if vim.fn["pum#visible"]() == 1 then
