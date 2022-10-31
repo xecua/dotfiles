@@ -1,6 +1,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
 export EDITOR=nvim
 
 # Language related variables
