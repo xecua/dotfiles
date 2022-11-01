@@ -2,4 +2,4 @@ if [[ $- != *i* ]]; then
     return
 fi
 
-command -pv fish >/dev/null && SHELL=$(command -pv fish) exec fish
+command -v fish >/dev/null && SHELL=$(command -v fish) exec fish
