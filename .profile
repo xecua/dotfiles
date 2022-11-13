@@ -1,15 +1,19 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 
 export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
 export EDITOR=nvim
 
 # Language related variables
 export GOPATH="$HOME/.go"
-export COURSIER_INSTALL_DIR="$HOME/.local/share/coursier/bin"
+export COURSIER_INSTALL_DIR="$XDG_DATA_HOME/coursier/bin"
 export ANDROID_HOME="$HOME/Android/Sdk" # Android Studio default
 export POETRY_HOME="$HOME/.poetry"
 export DENO_INSTALL="$HOME/.deno"
+export NPM_PREFIX="$XDG_DATA_HOME/npm" # npm config set prefix $NPM_PREFIX
+export YARN_PREFIX="$XDG_DATA_HOME/yarn" # yarn config set prefix $YARN_PREFIX
+export PNPM_HOME="$XDG_DATA_HOME/pnpm" # automatically used
 
 export FZF_DEFAULT_OPTS="--reverse"
 
@@ -29,11 +33,15 @@ if command -v sccache >/dev/null ; then
 fi
 
 if command -v npm >/dev/null; then
-    PATH="$(npm -g bin 2>/dev/null):$PATH"
+    PATH="$(npm -g bin 2>/dev/null):$PATH" # become $NPM_PREFIX in win32 (otherwise $NPM_PREFIX/bin)
 fi
 
 if command -v yarn >/dev/null; then
-    PATH="$(yarn global bin):$PATH"
+    PATH="$YARN_PREFIX/bin:$PATH" # independent of platform
+fi
+
+if command -v pnpm >/dev/null; then
+    PATH="$PNPM_HOME:$PATH"
 fi
 
 if [ -e /usr/local/opt/gnu-sed ]; then
