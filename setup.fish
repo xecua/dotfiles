@@ -4,16 +4,13 @@
 set -l script_dir (realpath (dirname (status --current-filename)))
 
 [ -n "$XDG_CONFIG_HOME" ]; or set XDG_CONFIG_HOME "$HOME/.config"
+[ -n "$XDG_CACHE_HOME" ]; or set XDG_CACHE_HOME "$HOME/.cache"
+[ -n "$XDG_DATA_HOME" ]; or set XDG_DATA_HOME "$HOME/.local/share"
 
-if not [ -d "$XDG_CONFIG_HOME" ]
-  mkdir -p "$XDG_CONFIG_HOME"
-end
+mkdir -p "$XDG_CONFIG_HOME"
 
 # fish
-if not [ -d "$XDG_CONFIG_HOME/fish" ]
-  mkdir "$XDG_CONFIG_HOME/fish"
-  echo "INFO: fish linked."
-end
+mkdir -p "$XDG_CONFIG_HOME/fish"
 if not [ -e "$XDG_CONFIG_HOME/fish/conf.d" ]
   ln -s "$script_dir/fish/conf.d" "$XDG_CONFIG_HOME/fish/conf.d"
 else
@@ -24,7 +21,6 @@ end
 if not [ -e "$HOME/.profile" ]
   ln -s "$script_dir/.profile" "$HOME/.profile"
   echo "INFO: profile linked."
-end
 else
   echo "WARN: profile was not linked."
 end
@@ -32,7 +28,6 @@ end
 if not [ -e "$HOME/.bashrc" ]
   ln -s "$script_dir/.bashrc" "$HOME/.bashrc"
   echo "INFO: bashrc linked."
-end
 else
   echo "WARN: bashrc was not linked."
 end
@@ -40,7 +35,6 @@ end
 if not [ -e "$HOME/.bash_profile" ]
   ln -s "$script_dir/.bash_profile" "$HOME/.bash_profile"
   echo "INFO: bash_profile linked."
-end
 else
   echo "WARN: bash_profile was not linked."
 end
@@ -48,7 +42,6 @@ end
 if not [ -e "$HOME/.zprofile" ]
   ln -s "$script_dir/.zprofile" "$HOME/.zprofile"
   echo "INFO: zprofile linked."
-end
 else
   echo "WARN: zprofile was not linked."
 end
@@ -56,27 +49,21 @@ end
 if not [ -e "$HOME/.zshrc" ]
   ln -s "$script_dir/.zshrc" "$HOME/.zshrc"
   echo "INFO: zshrc linked."
-end
 else
   echo "WARN: zshrc was not linked."
 end
 
 # git
-if not [ -d "$XDG_CONFIG_HOME/git" ]
-  mkdir "$XDG_CONFIG_HOME/git"
-end
-
+mkdir -p "$XDG_CONFIG_HOME/git"
 if not [ -e "$XDG_CONFIG_HOME/git/config" ]
   ln -s "$script_dir/git/config" "$XDG_CONFIG_HOME/git/config"
   echo "INFO: gitconfig linked."
-end
 else
   echo "WARN: gitconfig was not linked."
 end
 if not [ -e "$XDG_CONFIG_HOME/git/ignore" ]
   ln -s "$script_dir/git/ignore" "$XDG_CONFIG_HOME/git/ignore"
   echo "INFO: gitignore linked."
-end
 else
   echo "WARN: gitignore was not linked."
 end
@@ -85,10 +72,10 @@ end
 if not [ -e "$XDG_CONFIG_HOME/tig" ]
   ln -s "$script_dir/tig" "$XDG_CONFIG_HOME/tig"
   echo "INFO: tig linked."
-end
 else
   echo "WARN: tig was not linked."
 end
+mkdir -p "$XDG_DATA_HOME/tig"
 
 # picom
 if not [ -d "$XDG_CONFIG_HOME/picom" ]
@@ -96,6 +83,17 @@ if not [ -d "$XDG_CONFIG_HOME/picom" ]
   echo "INFO: picom linked."
 else
   echo "WARN: picom was not linked."
+end
+
+# SSR
+mkdir -p "$XDG_CONFIG_HOME/simplescreenrecorder"
+
+# wget
+if not [ -e "$XDG_CONFIG_HOME/wgetrc" ]
+  echo "hsts-file = \"$XDG_CACHE_HOME\"wget-hsts" >"$XDG_CONFIG_HOME/wgetrc"
+  echo "INFO: wget configured."
+else
+  echo "WARN: wget was not configured."
 end
 
 # i3
@@ -135,10 +133,7 @@ end
 
 # latex: pass
 # latexmk
-if not [ -d "$XDG_CONFIG_HOME/latexmk" ]
-  mkdir "$XDG_CONFIG_HOME/latexmk"
-end
-
+mkdir -p "$XDG_CONFIG_HOME/latexmk"
 if not [ -e "$XDG_CONFIG_HOME/latexmk/latexmkrc" ]
   ln -s "$script_dir/latexmk/latexmkrc" "$XDG_CONFIG_HOME/latexmk/latexmkrc"
   echo "INFO: latexmk linked."
@@ -158,18 +153,20 @@ else
 end
 
 # npm / yarn
-if grep -Esq "^prefix" "$HOME/.npmrc"
-  echo "prefix=$HOME/.local/share/npm" >> "$HOME/.npmrc"
-  echo "INFO: npm prefix configured."
+if command -v npm >/dev/null
+  npm config set prefix "$XDG_DATA_HOME/npm"
+  npm config set cache "$XDG_CACHE_HOME/npm"
+  npm config set init-module "$XDG_CONFIG_HOME/npm/config/npm-init.js"
+  echo "INFO: npm configured."
 else
-  echo "WARN: npm prefix was not configured."
+  echo "WARN: npm was not configured. Never forget to set manually."
 end
 
 if command -v yarn >/dev/null
-  yarn config set prefix "$HOME/.local/share/yarn"
+  yarn config set prefix "$XDG_DATA_HOME/yarn"
   echo "INFO: yarn prefix is set."
 else
-  echo "WARN: yarn prefix cannot be set because yarn is not installed. Never forget to set it manually."
+  echo "WARN: yarn was not configured. Never forget to set manually."
 end
 
 # Neovim
@@ -181,10 +178,7 @@ else
 end
 
 # alacritty
-if not [ -d "$XDG_CONFIG_HOME/alacritty" ]
-  mkdir "$XDG_CONFIG_HOME/alacritty"
-  echo "INFO: alacritty linked."
-end
+mkdir -p "$XDG_CONFIG_HOME/alacritty"
 if not [ -e "$XDG_CONFIG_HOME/alacritty/alacritty.yml" ]
   ln -s "$script_dir/alacritty/alacritty.yml" "$XDG_CONFIG_HOME/alacritty/alacritty.yml"
 else
@@ -204,17 +198,16 @@ else
 end
 
 # tmux
-if not [ -e "$HOME/.tmux.conf" ]
-  ln -s "$script_dir/.tmux.conf" "$HOME/.tmux.conf"
+mkdir -p "$XDG_CONFIG_HOME/tmux"
+if not [ -e "$XDG_CONFIG_HOME/tmux/tmux.conf" ]
+  ln -s "$script_dir/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
   echo "INFO: tmux linked."
 else
   echo "WARN: tmux.conf was not linked."
 end
 
 # ranger
-if not [ -d "$XDG_CONFIG_HOME/ranger" ]
-  mkdir "$XDG_CONFIG_HOME/ranger"
-end
+mkdir -p "$XDG_CONFIG_HOME/ranger"
 if not [ -e "$XDG_CONFIG_HOME/ranger/rc.conf" ]
   ln -s "$script_dir/ranger/rc.conf" "$XDG_CONFIG_HOME/ranger/rc.conf"
   echo "INFO: ranger/rc.conf linked."
@@ -263,10 +256,7 @@ if [ (uname) = "Linux" ]
   end
 
   # libskk
-  if not [ -d "$XDG_CONFIG_HOME/libskk" ]
-    mkdir "$XDG_CONFIG_HOME/libskk"
-    echo "INFO: libskk linked."
-  end
+  mkdir -p "$XDG_CONFIG_HOME/libskk"
   if not [ -e "$XDG_CONFIG_HOME/libskk/rules" ]
     ln -s "$script_dir/skk/libskk/rules" "$XDG_CONFIG_HOME/libskk/rules"
   else
@@ -308,9 +298,7 @@ if [ (uname) = "Darwin" ]
 end
 
 # SATySFi
-if not [ -d "$HOME/.satysfi/local" ]
-  mkdir -p "$HOME/.satysfi/local"
-end
+mkdir -p "$HOME/.satysfi/local"
 if not [ -e "$HOME/.satysfi/local/packages" ]
   ln -s "$script_dir/satysfi/packages" "$HOME/.satysfi/local/packages"
   echo "INFO: satysfi linked."
