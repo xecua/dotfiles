@@ -18,6 +18,7 @@ null_ls.setup({
       vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, {
         buffer = bufnr,
         silent = true,
+        desc = "null-ls: Format whole file",
       })
     end
 
@@ -26,6 +27,7 @@ null_ls.setup({
       vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, {
         buffer = bufnr,
         silent = true,
+        desc = "null-ls: Format selected range",
       })
     end
 

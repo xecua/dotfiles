@@ -32,25 +32,27 @@ local on_attach = function(client, bufnr)
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { buffer = bufnr, silent = true }
+  local opts_with_desc = function(desc)
+    return { buffer = bufnr, silent = true, desc = "LSP: " .. desc }
+  end
 
   -- LSP related: preceded by <Leader>i
-  vim.keymap.set("n", "<Leader>id", vim.lsp.buf.definition, opts)
-  vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts)
-  vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts)
-  vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<Leader>i]", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+  vim.keymap.set("n", "<Leader>id", vim.lsp.buf.definition, opts_with_desc("Definition"))
+  vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts_with_desc("Type definition"))
+  vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts_with_desc("Implementation"))
+  vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts_with_desc("References"))
+  vim.keymap.set("n", "<Leader>i]", vim.diagnostic.goto_next, opts_with_desc("Goto next item"))
+  vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts_with_desc("Goto previous item"))
+  vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts_with_desc("Code actions"))
+  vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts_with_desc("Hover"))
+  vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_with_desc("Rename"))
 
   if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, opts)
+    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format whole file"))
   end
 
   if client.server_capabilities.documentRangeFormattingProvider then
-    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, opts)
+    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format selected range"))
   end
 
   vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, {})
@@ -86,12 +88,20 @@ mason_lspconfig.setup_handlers({
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
           -- overwrite default configs
-          vim.keymap.set("n", "<Leader>ih", rust_tools.hover_actions.hover_actions, { buffer = bufnr, silent = true })
+          local opts_with_desc = function(desc)
+            return { buffer = bufnr, silent = true, desc = "LSP(Rust): " .. desc }
+          end
+          vim.keymap.set(
+            "n",
+            "<Leader>ih",
+            rust_tools.hover_actions.hover_actions,
+            opts_with_desc("LSP(Rust): Hover actions")
+          )
           vim.keymap.set(
             "n",
             "<Leader>ia",
             rust_tools.code_action_group.code_action_group,
-            { buffer = bufnr, silent = true }
+            opts_with_desc("LSP(Rust): Code action group")
           )
         end,
       },
@@ -141,12 +151,12 @@ mason_lspconfig.setup_handlers({
     elseif vim.g.os == "Windows" then
       forward_search_config = {
         executable = "SumatraPDF.exe", -- PATHに入れちゃうのがいいかなあ
-        args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" }
+        args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" },
       }
     elseif vim.g.os == "Darwin" then
       forward_search_config = {
         executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-        args = { "%l", "%p", "%f" }
+        args = { "%l", "%p", "%f" },
       }
     end
 
@@ -244,10 +254,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls/" .. project_name,
       },
       on_attach = function(client, bufnr)
-        local opts = { buffer = bufnr, silent = true }
-        vim.keymap.set("n", "<Leader>io", jdtls.organize_imports, opts)
-        vim.keymap.set("n", "<Leader>dc", jdtls.test_class, opts)
-        vim.keymap.set("n", "<Leader>dm", jdtls.test_nearest_method, opts)
+        local opts_with_desc = function(desc)
+          return { buffer = bufnr, silent = true, desc = "LSP(Java): " .. desc }
+        end
+        vim.keymap.set("n", "<Leader>io", jdtls.organize_imports, opts_with_desc("Organize imports"))
+        vim.keymap.set("n", "<Leader>dc", jdtls.test_class, opts_with_desc("Test class"))
+        vim.keymap.set("n", "<Leader>dm", jdtls.test_nearest_method, opts_with_desc("Test method"))
 
         jdtls.setup_dap({ hotcodereplace = "auto" })
 

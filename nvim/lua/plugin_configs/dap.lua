@@ -13,15 +13,18 @@ local dap_ui = require("dapui")
 
 -- Debugger related: preceded by <Leader>d
 dap_ui.setup({})
-vim.keymap.set("n", "<Leader>dd", dap_ui.toggle, { silent = true })
-vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, { silent = true })
-vim.keymap.set("n", "<Leader>dr", dap.continue, { silent = true })
-vim.keymap.set("n", "<Leader>dp", dap.pause, { silent = true })
-vim.keymap.set("n", "<Leader>dx", dap.close, { silent = true })
-vim.keymap.set("n", "<Leader>ds", dap.step_over, { silent = true })
-vim.keymap.set("n", "<Leader>di", dap.step_into, { silent = true })
-vim.keymap.set("n", "<Leader>do", dap.step_out, { silent = true })
-vim.keymap.set("n", "<Leader>db", dap.step_back, { silent = true })
+local opts_with_desc = function(desc)
+  return { silent = true, desc = "Debug Adapter: " .. desc }
+end
+vim.keymap.set("n", "<Leader>dd", dap_ui.toggle, opts_with_desc("Toggle UI"))
+vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, opts_with_desc("Toggle breakpoint"))
+vim.keymap.set("n", "<Leader>dr", dap.continue, opts_with_desc("Continue"))
+vim.keymap.set("n", "<Leader>dp", dap.pause, opts_with_desc("Pause"))
+vim.keymap.set("n", "<Leader>dx", dap.close, opts_with_desc("Close session"))
+vim.keymap.set("n", "<Leader>ds", dap.step_over, opts_with_desc("Step over"))
+vim.keymap.set("n", "<Leader>di", dap.step_into, opts_with_desc("Step into"))
+vim.keymap.set("n", "<Leader>do", dap.step_out, opts_with_desc("Step out"))
+vim.keymap.set("n", "<Leader>db", dap.step_back, opts_with_desc("Step back"))
 
 -- Rust: configured in mason-lsp.lua (rust-tools offers better annotation)
 -- Some plugins(e.g. rust-tools) may be set dap.adapters, so setting whole dap.adapters is not preferred

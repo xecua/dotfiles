@@ -88,16 +88,20 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "ddu-filer",
   callback = function()
     local opts = { buffer = true, silent = true }
+    local opts_with_desc = function(desc)
+      return { buffer = true, silent = true, desc = "ddu-filer: " .. desc }
+    end
+
     vim.keymap.set("n", "<CR>", function()
       if vim.fn["ddu#ui#filer#is_directory"]() then
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow" })
       else
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "open" })
       end
-    end, opts)
+    end, opts_with_desc("Narrow(directory), Open(file)"))
     vim.keymap.set("n", "<BS>", function()
       vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
-    end, opts)
+    end, opts_with_desc("Narrow"))
     vim.keymap.set("n", "q", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", opts)
     vim.keymap.set("n", "l", "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>", opts)
     vim.keymap.set("n", "h", "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>", opts)
@@ -122,6 +126,6 @@ vim.api.nvim_create_autocmd("FileType", {
           },
         },
       })
-    end, { buffer = true, silent = true })
+    end, opts_with_desc("Toggle hidden files"))
   end,
 })

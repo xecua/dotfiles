@@ -58,14 +58,17 @@ vim.keymap.set("i", "<Tab>", function()
   else
     vim.fn["ddc#manual_complete"]()
   end
-end, { expr = true })
+end, {
+  expr = true,
+  desc = "if pum.vim visible then select next entry, otherwise insert Tab or Start completion depending on current position.",
+})
 vim.keymap.set("i", "<S-Tab>", function()
   if vim.fn["pum#visible"]() == 1 then
     return "<Cmd>call pum#map#insert_relative(-1)<CR>"
   else
     return "<C-h>"
   end
-end, { expr = true })
+end, { expr = true, desc = "if pum.vim visible then select previous entry, otherwise backspace" })
 
 vim.keymap.set("i", "<C-n>", "<Cmd>call pum#map#insert_relative(+1)<CR>")
 vim.keymap.set("i", "<C-p>", "<Cmd>call pum#map#insert_relative(-1)<CR>")
