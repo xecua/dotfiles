@@ -240,13 +240,13 @@ vim.g["operator#surround#blocks"] = {
 
 vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_lists = {
-  { type = 'files', header = { '   MRU' } },
-  { type = 'bookmarks', header = { '   Bookmarks' } },
-  { type = 'sessions', header = { '   Sessions' } }
+  { type = "files", header = { "   MRU" } },
+  { type = "bookmarks", header = { "   Bookmarks" } },
+  { type = "sessions", header = { "   Sessions" } },
 }
 vim.g.startify_bookmarks = {
-  '~',
-  '~/.config/nvim'
+  "~",
+  "~/.config/nvim",
 }
 
 -- conditional configurations
@@ -306,7 +306,7 @@ else
   local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
   vim.g.closetag_filetypes =
-  closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
+    closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
 
   vim.g["fern#renderer"] = "nerdfont"
 

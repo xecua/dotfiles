@@ -26,7 +26,7 @@ vim.keymap.set("n", "<Leader>di", dap.step_into, opts_with_desc("Step into"))
 vim.keymap.set("n", "<Leader>do", dap.step_out, opts_with_desc("Step out"))
 vim.keymap.set("n", "<Leader>db", dap.step_back, opts_with_desc("Step back"))
 
--- Rust: configured in mason-lsp.lua (rust-tools offers better annotation)
+-- Rust: configured in ./lspconfig.lua (rust-tools offers better annotation)
 -- Some plugins(e.g. rust-tools) may be set dap.adapters, so setting whole dap.adapters is not preferred
 dap.adapters.python = {
   type = "executable",

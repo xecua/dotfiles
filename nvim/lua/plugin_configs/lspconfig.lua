@@ -1,6 +1,8 @@
 local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
+local augroup = vim.api.nvim_create_augroup("LspConfig", {})
+local utils = require("utils")
 
 mason_lspconfig.setup({
   ensure_installed = {
@@ -45,22 +47,49 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts_with_desc("Goto previous item"))
   vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts_with_desc("Code actions"))
   vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts_with_desc("Hover"))
+
   vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_with_desc("Rename"))
 
+  local format_opts = {
+    bufnr = bufnr,
+    filter = function(clt)
+      return utils.find(clt.name, {
+        "tsserver",
+        "jsonls",
+        "sumneko_lua",
+        "pyright",
+        "html",
+      }) == -1
+    end,
+  }
   if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set("n", "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format whole file"))
+    vim.keymap.set("n", "<Leader>if", function()
+      vim.lsp.buf.format(format_opts)
+    end, opts_with_desc("Format whole file"))
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format(format_opts)
+      end,
+      desc = "LSP: Format on save",
+    })
   end
 
   if client.server_capabilities.documentRangeFormattingProvider then
-    vim.keymap.set("v", "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format selected range"))
+    vim.keymap.set("v", "<Leader>if", function()
+      vim.lsp.buf.format(format_opts)
+    end, opts_with_desc("Format selected range"))
   end
 
-  vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, {})
+  vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+    vim.lsp.buf.format(format_opts)
+  end, { desc = "LSP: Format whole file" })
 end
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    local utils = require("utils")
     local ignore_servers = { "jdtls" }
     if utils.find(server_name, ignore_servers) == -1 then
       lspconfig[server_name].setup({
@@ -91,17 +120,12 @@ mason_lspconfig.setup_handlers({
           local opts_with_desc = function(desc)
             return { buffer = bufnr, silent = true, desc = "LSP(Rust): " .. desc }
           end
-          vim.keymap.set(
-            "n",
-            "<Leader>ih",
-            rust_tools.hover_actions.hover_actions,
-            opts_with_desc("LSP(Rust): Hover actions")
-          )
+          vim.keymap.set("n", "<Leader>ih", rust_tools.hover_actions.hover_actions, opts_with_desc("Hover actions"))
           vim.keymap.set(
             "n",
             "<Leader>ia",
             rust_tools.code_action_group.code_action_group,
-            opts_with_desc("LSP(Rust): Code action group")
+            opts_with_desc("Code action group")
           )
         end,
       },
