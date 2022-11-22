@@ -1,0 +1,6 @@
+set NERDTree
+
+set clipboard=unnamed
+set ignorecase
+set smartcase
+set wrapscan

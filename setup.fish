@@ -177,6 +177,14 @@ else
   echo "WARN: nvim was not linked."
 end
 
+# ideavim
+if not [ -e "$XDG_CONFIG_HOME/ideavim" ]
+  ln -s "$script_dir/ideavim" "$XDG_CONFIG_HOME/ideavim"
+  echo "INFO: ideavim linked."
+else
+  echo "WARN: ideavim was not linked."
+end
+
 # alacritty
 mkdir -p "$XDG_CONFIG_HOME/alacritty"
 if not [ -e "$XDG_CONFIG_HOME/alacritty/alacritty.yml" ]
