@@ -212,7 +212,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 vim.api.nvim_create_autocmd(
   { "BufWritePre", "FileWritePre" },
-  { group = init_augroup_id, pattern = { "*.md", "*.saty", "*.tex" }, callback = utils.normalize_punctuation }
+  { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, callback = utils.normalize_punctuation }
 )
 vim.api.nvim_create_autocmd(
   { "BufWritePost", "FileWritePost" },
