@@ -121,6 +121,11 @@ vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
 vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)")
 vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)")
 vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
+-- Always enable verymagic (a.k.a. ERE). see :h \v
+vim.keymap.set({ "n", "v" }, "/", "/\\v")
+vim.keymap.set({ "n", "v" }, "?", "?\\v")
+vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
+vim.keymap.set({ "n", "v" }, ":%s/", ":%s/\\v")
 
 vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
 
