@@ -47,10 +47,14 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
   },
 })
 
-vim.cmd([[inoremap <silent><expr> <TAB>
+vim.cmd([[
+inoremap <silent><expr> <TAB>
   \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
   \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
   \ '<TAB>' : ddc#map#manual_complete()
+inoremap <silent><expr> <S-Tab>
+  \ pum#visible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' :
+  \ '<C-h>'
 ]])
 -- vim.keymap.set("i", "<Tab>", function()
 --   if vim.fn["pum#visible"]() == 1 then
@@ -66,13 +70,13 @@ vim.cmd([[inoremap <silent><expr> <TAB>
 --   expr = true,
 --   desc = "if pum.vim visible then select next entry, otherwise insert Tab or Start completion depending on current position.",
 -- })
-vim.keymap.set("i", "<S-Tab>", function()
-  if vim.fn["pum#visible"]() == 1 then
-    return "<Cmd>call pum#map#insert_relative(-1)<CR>"
-  else
-    return "<C-h>"
-  end
-end, { expr = true, desc = "if pum.vim visible then select previous entry, otherwise backspace" })
+-- vim.keymap.set("i", "<S-Tab>", function()
+--   if vim.fn["pum#visible"]() == 1 then
+--     return "<Cmd>call pum#map#insert_relative(-1)<CR>"
+--   else
+--     return "<C-h>"
+--   end
+-- end, { expr = true, desc = "if pum.vim visible then select previous entry, otherwise backspace" })
 
 vim.keymap.set("i", "<C-n>", "<Cmd>call pum#map#insert_relative(+1)<CR>")
 vim.keymap.set("i", "<C-p>", "<Cmd>call pum#map#insert_relative(-1)<CR>")
