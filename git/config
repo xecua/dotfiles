@@ -61,4 +61,4 @@
 	process = git-lfs filter-process
 	required = true
 [include]
-	path = ~/.config/git/config.local
+	path = ~/.gitconfig.local

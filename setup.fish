@@ -56,16 +56,10 @@ end
 # git
 mkdir -p "$XDG_CONFIG_HOME/git"
 if not [ -e "$XDG_CONFIG_HOME/git/config" ]
-  ln -s "$script_dir/git/config" "$XDG_CONFIG_HOME/git/config"
-  echo "INFO: gitconfig linked."
+  ln -s "$script_dir/git" "$XDG_CONFIG_HOME/git"
+  echo "INFO: git linked."
 else
-  echo "WARN: gitconfig was not linked."
-end
-if not [ -e "$XDG_CONFIG_HOME/git/ignore" ]
-  ln -s "$script_dir/git/ignore" "$XDG_CONFIG_HOME/git/ignore"
-  echo "INFO: gitignore linked."
-else
-  echo "WARN: gitignore was not linked."
+  echo "WARN: git was not linked."
 end
 
 # tig

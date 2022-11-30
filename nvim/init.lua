@@ -140,10 +140,12 @@ vim.filetype.add({
     hx = "haxe",
     frag = "glsl",
     vert = "glsl",
-    gitignore = "gitignore",
   },
   pattern = {
     [".*/git/config.*"] = { "gitconfig", { priority = 10 } },
+    -- [".*/git/ignore.*"] = { "gitignore", { priority = 10 } }, -- cause error?
+    ["%.gitconfig.*"] = { "gitconfig", { priority = 10 } },
+    [".*/git/attributes.*"] = { "gitattributes", { priority = 10 } },
     [".*/nvim/template/.*"] = { "vim", { priority = 10 } },
   },
 })
