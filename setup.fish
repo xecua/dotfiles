@@ -54,8 +54,7 @@ else
 end
 
 # git
-mkdir -p "$XDG_CONFIG_HOME/git"
-if not [ -e "$XDG_CONFIG_HOME/git/config" ]
+if not [ -e "$XDG_CONFIG_HOME/git" ]
   ln -s "$script_dir/git" "$XDG_CONFIG_HOME/git"
   echo "INFO: git linked."
 else
@@ -69,7 +68,6 @@ if not [ -e "$XDG_CONFIG_HOME/tig" ]
 else
   echo "WARN: tig was not linked."
 end
-mkdir -p "$XDG_DATA_HOME/tig"
 
 # picom
 if not [ -d "$XDG_CONFIG_HOME/picom" ]
@@ -91,38 +89,36 @@ else
 end
 
 # i3
-if [ "$XDG_CURRENT_DESKTOP" = "i3" ]
-  if not [ -d "$XDG_CONFIG_HOME/i3" ]
-    ln -s "$script_dir/i3" "$XDG_CONFIG_HOME/i3"
-    echo "INFO: i3 linked."
-  else
-    echo "WARN: i3 was not linked."
-  end
+if not [ -d "$XDG_CONFIG_HOME/i3" ]
+  ln -s "$script_dir/i3" "$XDG_CONFIG_HOME/i3"
+  echo "INFO: i3 linked."
+else
+  echo "WARN: i3 was not linked."
+end
 
-  # i3blocks?
-  if not [ -e "$XDG_CONFIG_HOME/i3status-rust" ]
-    ln -s "$script_dir/i3status-rust" "$XDG_CONFIG_HOME/i3status-rust"
-    echo "INFO: i3status-rust linked."
-  else
-    echo "WARN: i3status-rust was not linked."
-  end
+# i3blocks?
+if not [ -e "$XDG_CONFIG_HOME/i3status-rust" ]
+  ln -s "$script_dir/i3status-rust" "$XDG_CONFIG_HOME/i3status-rust"
+  echo "INFO: i3status-rust linked."
+else
+  echo "WARN: i3status-rust was not linked."
+end
 
-  ## rofi
-  if not [ -e "$XDG_CONFIG_HOME/rofi" ]
-    chmod +x "$script_dir/rofi/setup.sh"
-    "$script_dir/rofi/setup.sh"
-    echo "INFO: rofi linked."
-  else
-    echo "WARN: rofi was not linked."
-  end
+## rofi
+if not [ -e "$XDG_CONFIG_HOME/rofi" ]
+  chmod +x "$script_dir/rofi/setup.sh"
+  "$script_dir/rofi/setup.sh"
+  echo "INFO: rofi linked."
+else
+  echo "WARN: rofi was not linked."
+end
 
-  ## dunst
-  if not [ -e "$XDG_CONFIG_HOME/dunst" ]
-    ln -s "$script_dir/dunst" "$XDG_CONFIG_HOME/dunst"
-    echo "INFO: dunst linked."
-  else
-    echo "WARN: dunst was not linked."
-  end
+## dunst
+if not [ -e "$XDG_CONFIG_HOME/dunst" ]
+  ln -s "$script_dir/dunst" "$XDG_CONFIG_HOME/dunst"
+  echo "INFO: dunst linked."
+else
+  echo "WARN: dunst was not linked."
 end
 
 # latex: pass
@@ -186,9 +182,9 @@ if not [ -e "$XDG_CONFIG_HOME/alacritty/alacritty.yml" ]
 else
   echo "WARN: alacritty was not linked."
 end
-if not [ -e "$HOME/.alacritty.yml.local" ]
-  # platform specific, imported by above file
-  touch "$HOME/.alacritty.yml.local"
+if not [ -e "$HOME/.alacritty.local.yml" ]
+  # platform specific, imported by the default config file
+  touch "$HOME/.alacritty.local.yml"
 end
 
 # starship

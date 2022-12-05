@@ -58,6 +58,6 @@ if status --is-interactive
   end
 
   if type -q emerge
-    alias うどん 'sudo emerge -avtuDU --keep-going @world'
+    alias うどん 'sudo emerge -avtuDU --keep-going --autounmask=n @world'
   end
 end
