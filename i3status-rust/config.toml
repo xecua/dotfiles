@@ -1,4 +1,9 @@
+[theme]
 theme = "solarized-dark"
+[theme.overrides]
+separator = " \ue0b2"
+
+[icons]
 icons = "awesome"
 
 [[block]]
@@ -6,29 +11,29 @@ block = "xrandr"
 
 [[block]]
 block = "cpu"
-format = "{barchart} {utilization} @ {frequency}"
+format = "$icon  $barchart $utilization @ $frequency"
 
 [[block]]
 block = "load"
-format = "{1m:4} / {5m:4} / {15m:4}"
+format = "$icon  $1m.eng(4) / $5m.eng(4) / $15m.eng(4)"
 
 [[block]]
 block = "nvidia_gpu"
 
 [[block]]
 block = "memory"
-format_mem = "{mem_used;G} /{mem_total;G} ({mem_used_percents:1})"
-clickable = false
 
 [[block]]
 block = "net"
-format = "{ip} {speed_up;K} {speed_down;K}"
+format = "$icon  $ip ^icon_net_up $speed_up.eng(3,B,K) ^icon_net_down $speed_down.eng(3,B,K)"
+
+[[block]]
+block = "sound"
 
 [[block]]
 block = "music"
 player = "spotify"
-buttons = ["play", "next"]
-marquee_interval = 60
+format = "$icon $combo.rot-str(20,60) $play $next"
 hide_when_empty = true
 
 [[block]]
@@ -37,5 +42,9 @@ command = "echo `whoami` @ `cat /etc/hostname`"
 interval = "once"
 
 [[block]]
+block = "battery"
+format = " $icon  $percentage "
+
+[[block]]
 block = "time"
-format = "%Y/%m/%d(%a) %H:%M:%S"
+format = " $icon %Y/%m/%d(%a) %H:%M:%S"

@@ -96,7 +96,7 @@ else
   echo "WARN: i3 was not linked."
 end
 
-# i3blocks?
+# i3status-rust
 if not [ -e "$XDG_CONFIG_HOME/i3status-rust" ]
   ln -s "$script_dir/i3status-rust" "$XDG_CONFIG_HOME/i3status-rust"
   echo "INFO: i3status-rust linked."
