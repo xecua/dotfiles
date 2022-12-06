@@ -2,6 +2,7 @@
 theme = "solarized-dark"
 [theme.overrides]
 separator = " \ue0b2"
+end_separator = " "
 
 [icons]
 icons = "awesome"
@@ -19,9 +20,14 @@ format = "$icon  $1m.eng(4) / $5m.eng(4) / $15m.eng(4)"
 
 [[block]]
 block = "nvidia_gpu"
+format = "$icon $name $utilization $memory $temperature"
+error_format = ""
+error_interval = 0
 
 [[block]]
 block = "memory"
+format = "$icon $mem_used.eng(3,B,M)/$mem_total.eng(3,B,M) ($mem_used_percents.eng(2))"
+format_alt = "$icon_swap $swap_used.eng(3,B,M)/$swap_total.eng(3,B,M) ($swap_used_percents.eng(2))"
 
 [[block]]
 block = "net"
@@ -43,8 +49,8 @@ interval = "once"
 
 [[block]]
 block = "battery"
-format = " $icon  $percentage "
+format = "$icon  $percentage"
 
 [[block]]
 block = "time"
-format = " $icon %Y/%m/%d(%a) %H:%M:%S"
+format = "$icon %Y/%m/%d(%a) %H:%M:%S"
