@@ -54,3 +54,4 @@ missing_format = ""
 [[block]]
 block = "time"
 format = "$icon %Y/%m/%d(%a) %H:%M:%S"
+interval = 10

@@ -71,6 +71,10 @@ repo = 'mfussenegger/nvim-dap'
 repo = 'rcarriga/nvim-dap-ui'
 depends = ['nvim-dap']
 
+## outliner
+[[plugins]]
+repo = 'simrat39/symbols-outline.nvim'
+
 ## tsserver integration
 [[plugins]]
 repo = 'jose-elias-alvarez/typescript.nvim'
@@ -262,7 +266,7 @@ repo = 'mbbill/undotree'
 
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
-depends = ['nvim-web-devicons'] # optional
+depends = ['nvim-web-devicons']    # optional
 
 # comment out
 [[plugins]]
