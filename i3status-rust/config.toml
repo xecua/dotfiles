@@ -39,7 +39,7 @@ block = "sound"
 [[block]]
 block = "music"
 player = "spotify"
-format = "{$icon $combo.rot-str(20,60) $play  $next|}"
+format = "{$icon $combo.rot-str(30,30) $play  $next|}"
 
 [[block]]
 block = "custom"
