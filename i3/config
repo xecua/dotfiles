@@ -255,7 +255,7 @@ no_focus [window_role="pop-up"]
 gaps inner 10
 
 # i3-workspace-names-daemon
-exec_always --no-startup-id exec i3-workspace-names-daemon
+exec_always --no-startup-id exec i3-workspace-names-daemon -u -d ' |'
 
 # xrelkd/clipcat
 exec_always --no-startup-id clipcatd
