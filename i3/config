@@ -245,6 +245,7 @@ for_window [class="Bitwarden"] floating enable, border normal # titlebar does no
 for_window [class="pavucontrol-qt"] floating disable, border none
 for_window [class="fcitx5-config-qt"] move position center
 for_window [class="^zoom$"] floating enable
+for_window [class="^sunamu$"] floating enable
 for_window [class="Toggl Desktop"] floating enable, resize set 350 700
 for_window [title="Zoom - 無料アカウント"] floating disable
 for_window [title="Zoom ミーティング$"] floating disable

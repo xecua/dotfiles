@@ -35,7 +35,6 @@ format = "$icon  $ip ^icon_net_up $speed_up.eng(3,B,K) ^icon_net_down $speed_dow
 
 [[block]]
 block = "sound"
-format = "$icon $output_description {$volume.eng(2) |}"
 headphones_indicator = true
 
 [[block]]
