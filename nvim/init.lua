@@ -148,6 +148,7 @@ vim.filetype.add({
     ["%.gitconfig.*"] = { "gitconfig", { priority = 10 } },
     [".*/git/attributes.*"] = { "gitattributes", { priority = 10 } },
     [".*/nvim/template/.*"] = { "vim", { priority = 10 } },
+    [".textlintrc"] = { "json", { priority = 10 } },
   },
 })
 
