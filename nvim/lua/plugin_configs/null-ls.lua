@@ -4,7 +4,7 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("NullLs", {})
 
 -- local ensure_installed = {
---   "stylua", "yapf", "prettier"
+--   "stylua", "yapf", "prettier", "textlint"
 -- }
 
 null_ls.setup({
@@ -13,6 +13,8 @@ null_ls.setup({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
     null_ls.builtins.formatting.yapf,
+    null_ls.builtins.formatting.textlint,
+    null_ls.builtins.diagnostics.textlint,
   },
   on_attach = function(client, bufnr)
     local format_opts = { bufnr = bufnr }
