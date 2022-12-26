@@ -88,6 +88,10 @@ depends = ['plenary.nvim']
 repo = 'MunifTanjim/prettier.nvim'
 depends = ['nvim-lspconfig', 'null-ls.nvim']
 
+## Rust tooltip
+[[plugins]]
+repo = 'simrat39/rust-tools.nvim'
+
 # Popup
 [[plugins]]
 repo = 'Shougo/pum.vim'
@@ -358,6 +362,6 @@ repo = 'mechatroner/rainbow_csv'
 [[plugins]]
 repo = 'delphinus/vim-firestore'
 
-# Rust tooltip
+## skk-jisyo
 [[plugins]]
-repo = 'simrat39/rust-tools.nvim'
+repo = 'vim-skk/skkdict.vim'

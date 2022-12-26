@@ -131,6 +131,10 @@ bindsym $mod+space focus mode_toggle
 # focus the child container
 # bindsym $mod+n focus child
 
+# scratchpad (invisible window)
+bindsym $mod+minus move scratchpad
+bindsym $mod+Shift+minus scratchpad show
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
