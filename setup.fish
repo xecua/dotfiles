@@ -204,6 +204,14 @@ else
   echo "WARN: tmux.conf was not linked."
 end
 
+# mutagen
+if not [ -e "$HOME/.mutagen.yml" ]
+  ln -s "$script_dir/.mutagen.yml" "$HOME/.mutagen.yml"
+  echo "INFO: mutagen.yml linked."
+else
+  echo "WARN: mutagen.yml was not linked."
+end
+
 # ranger
 mkdir -p "$XDG_CONFIG_HOME/ranger"
 if not [ -e "$XDG_CONFIG_HOME/ranger/rc.conf" ]

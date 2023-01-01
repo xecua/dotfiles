@@ -21,3 +21,6 @@
 
 # local vimrc. see nvim/init.vim
 **/.vim
+
+# CodeTour extension
+**/.tours
