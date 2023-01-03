@@ -7,13 +7,12 @@ end
 -- + :をs-;扱いにする(別のキーにマッピングする機能が必要; 雑な実装だとダメだったのでちゃんと調査して実装する必要がある)
 vim.fn["skkeleton#register_keymap"]("input", "'", "henkanPoint") -- 暫定処置としてsticky keyを使うといいのでは?
 -- + 半角カタカナモードで\を入力したらかなモードに移行する(azik/hankaku-katakana.json)
--- + abbrevが↓で設定できない(function.tsで公開されていない) ← これバグっぽい? PR投げるか
 -- + latin/wide-latinでC-jを入力したらかなモードに移行する(default/(wide-)?latin.json)
 --   + モード切り替えがハードコードなので、C-jがマップされたとしても↓には戻せない そうなると一旦disableする方が合理的なのかも
 --   + insert-charもそうだけど、関数にも引数を与えたい (というPRあるいはissueを立てるのはアリかも?)
 vim.fn["skkeleton#register_kanatable"]("azik", {
   [" "] = "henkanFirst",
-  -- ["/"] = "abbrev",
+  ["/"] = "abbrev",
   ["<s-l>"] = "zenkaku",
   [";"] = { "っ" },
   -- [":"] = { "っ" }, -- きびしい
