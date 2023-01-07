@@ -97,6 +97,12 @@ mason_lspconfig.setup_handlers({
       })
     end
   end,
+  denols = function()
+    lspconfig.denols.setup({
+      on_attach = on_attach,
+      root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    })
+  end,
   rust_analyzer = function()
     local dap_config = {}
     if registry.is_installed("codelldb") then
@@ -227,6 +233,7 @@ mason_lspconfig.setup_handlers({
       },
       server = {
         on_attach = on_attach,
+        root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json"),
       },
     })
   end,
