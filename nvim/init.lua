@@ -320,8 +320,7 @@ else
   local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact" })
   local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
-  vim.g.closetag_filetypes =
-    closetag_xhtml_filetypes:concat(closetag_xhtml_filetypes, closetag_normal_filetypes):join(",")
+  vim.g.closetag_filetypes = closetag_xhtml_filetypes:concat(closetag_normal_filetypes):join(",")
 
   vim.g["fern#renderer"] = "nerdfont"
 

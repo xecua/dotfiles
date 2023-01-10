@@ -36,6 +36,10 @@ repo = 'thinca/vim-quickrun'
 repo = 'folke/trouble.nvim'
 depends = ['nvim-web-devicons'] # optional
 
+# popup notification
+[[plugins]]
+repo = 'rcarriga/nvim-notify'
+
 ## dependency
 [[plugins]]
 repo = 'kyazdani42/nvim-web-devicons'
