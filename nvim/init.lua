@@ -237,7 +237,7 @@ if vim.fn.executable("pdftotext") then
 end
 
 -- plugin configuration by variable
-vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/neosnippet"
+vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/mysnippets"
 
 vim.g["operator#surround#blocks"] = {
   ["-"] = {
