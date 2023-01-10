@@ -129,6 +129,8 @@ vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
 vim.keymap.set({ "n", "v" }, ":%s/", ":%s/\\v")
 
 vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
+vim.keymap.set({ "n", "i", "v" }, "<C-_><C-_>", "<Plug>TComment_<c-_><c-_>")
+vim.keymap.set({ "n", "i", "v" }, "<C-_>b", "<Plug>TComment_<c-_>b")
 
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
 
@@ -238,6 +240,7 @@ end
 
 -- plugin configuration by variable
 vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/mysnippets"
+vim.g.tcomment_maps = false
 
 vim.g["operator#surround#blocks"] = {
   ["-"] = {
