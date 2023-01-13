@@ -248,9 +248,6 @@ repo = 'lambdalisue/fern-hijack.vim'
 repo = 'ryanoasis/vim-devicons'
 
 # other
-[[plugins]]
-repo = 'antoinemadec/FixCursorHold.nvim'
-
 # editorconfig
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
@@ -321,6 +318,10 @@ repo = 'rhysd/accelerated-jk'
 
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
+
+# Highlight under cursor
+[[plugins]]
+repo = 'RRethy/vim-illuminate'
 
 # indentation
 [[plugins]]

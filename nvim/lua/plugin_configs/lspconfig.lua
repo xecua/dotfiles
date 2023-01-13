@@ -1,8 +1,9 @@
 local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
-local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 local utils = require("utils")
+
+local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 
 mason_lspconfig.setup({
   ensure_installed = {
@@ -62,6 +63,7 @@ local on_attach = function(client, bufnr)
       }) == -1
     end,
   }
+
   if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set("n", "<Leader>if", function()
       vim.lsp.buf.format(format_opts)

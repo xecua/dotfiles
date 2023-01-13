@@ -319,6 +319,13 @@ else
   -- Diagnostics
   require("trouble").setup({})
 
+  -- Cursor highlight
+  require("illuminate").configure({
+    filetype_overrides = {
+      toml = { providers = { "regex" } },
+    },
+  })
+
   vim.cmd("colorscheme molokai")
 
   vim.g.loaded_matchparen = 1 -- disable default settings
