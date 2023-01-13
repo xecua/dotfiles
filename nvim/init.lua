@@ -37,8 +37,8 @@ vim.opt.laststatus = 3
 vim.opt.guifont = { "UDEV Gothic 35NFLG:h12", "Cica:h14", "monospace:h12" }
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- fold block by treesitter
-vim.opt.foldlevel = 99 -- open all fold by default
-vim.opt.foldcolumn = "4"
+vim.opt.foldlevelstart = 99 -- open all fold by default
+vim.opt.foldcolumn = "auto:4"
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
