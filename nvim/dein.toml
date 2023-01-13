@@ -19,6 +19,10 @@ depends = ['open-browser.vim'] # optional
 [[plugins]]
 repo = 'tyru/open-browser.vim'
 
+# nonsense animation
+[[plugins]]
+repo = 'eandrju/cellular-automaton.nvim'
+
 # Window resize mode
 [[plugins]]
 repo = 'sedm0784/vim-resize-mode'
@@ -350,7 +354,7 @@ repo = 'ionide/Ionide-vim'
 [[plugins]]
 repo = 'bfontaine/Brewfile.vim'
 
-## ebuild and etc
+## ebuild etc
 [[plugins]]
 repo = 'gentoo/gentoo-syntax'
 
