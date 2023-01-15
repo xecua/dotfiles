@@ -338,6 +338,7 @@ else
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")
+  vim.fn["tcomment#type#Define"]("kotlin", "// %s")
 
   vim.fn["popup_preview#enable"]()
   vim.fn["signature_help#enable"]()
