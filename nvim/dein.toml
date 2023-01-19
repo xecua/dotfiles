@@ -138,6 +138,10 @@ repo = 'Shougo/ddc-matcher_head'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
+repo = 'tani/ddc-fuzzy'
+depends = ['denops.vim', 'ddc.vim']
+
+[[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
 depends = ['denops.vim', 'ddc.vim']
 

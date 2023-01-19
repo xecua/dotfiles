@@ -13,6 +13,9 @@ vim.fn["ddc#custom#patch_global"]("sourceOptions", {
   },
   around = {
     mark = "A",
+    matchers = { "matcher_fuzzy" },
+    sorters = { "sorter_fuzzy" },
+    converters = { "converter_fuzzy" },
   },
   neosnippet = {
     mark = "snip",
@@ -20,16 +23,23 @@ vim.fn["ddc#custom#patch_global"]("sourceOptions", {
   },
   ["nvim-lsp"] = {
     mark = "LSP",
+    matchers = { "matcher_fuzzy" },
+    sorters = { "sorter_fuzzy" },
+    converters = { "converter_fuzzy" },
     forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
   },
   file = {
     mark = "File",
+    matchers = { "matcher_fuzzy" },
+    sorters = { "sorter_fuzzy" },
+    converters = { "converter_fuzzy" },
     forceCompletionPattern = [[\S/\S*]],
   },
   skkeleton = {
     mark = "skk",
     matchers = { "skkeleton" },
     sorters = {},
+    isVolatile = true,
   },
 })
 
