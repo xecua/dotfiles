@@ -25,6 +25,8 @@ vim.fn["ddu#custom#patch_global"]({
   kindOptions = {
     file = { defaultAction = "open" },
     word = { defaultAction = "append" },
+    action = { defaultAction = "do" },
+    command_history = { defaultAction = "edit" },
   },
 })
 
@@ -59,10 +61,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_create_user_command("DduRg", function(opts)
       vim.fn["ddu#start"]({
         volatile = opts.args == "",
-        sources = { {
-          name = "rg",
-          params = { input = opts.args },
-        } },
+        sources = {
+          {
+            name = "rg",
+            params = { input = opts.args },
+            options = { matchers = {} },
+          },
+        },
         uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
       })
     end, { nargs = "?" })

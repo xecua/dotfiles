@@ -14,10 +14,6 @@ if vim.g.os == nil then
   end
 end
 
-vim.g.config_home = vim.env.XDG_CONFIG_HOME or vim.env.HOME .. "/.config"
-vim.g.vim_home = vim.g.config_home .. "/nvim"
-vim.g.cache_home = vim.env.XDG_CACHE_HOME or vim.env.HOME .. "/.cache"
-
 vim.opt.mouse = "a"
 vim.opt.fileformats = { "unix", "dos", "mac" }
 vim.opt.termguicolors = true -- t_8f, t_8bは消してみた: 必要なら https://vim-jp.org/vimdoc-ja/term.html#xterm-true-color
@@ -55,7 +51,7 @@ vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.showtabline = 2
 vim.opt.showmode = false
 vim.opt.undofile = true
-vim.opt.undodir = vim.g.cache_home .. "/nvim/undo"
+vim.opt.undodir = vim.fn.stdpath("cache") .. "/nvim/undo"
 
 vim.g.vimsyn_embed = "l"
 vim.g.tex_flavor = "latex"
@@ -71,35 +67,9 @@ vim.api.nvim_create_user_command(
 -- man.vim
 vim.cmd("runtime! ftplugin/man.vim")
 
--- dein.vim
-local dein_dir = vim.g.cache_home .. "/dein"
-local dein_repo_dir = dein_dir .. "/repos/github.com/Shougo/dein.vim"
-
--- vim.o: get option as string (unlike vim.opt:get)-> utilize string.find
-if not vim.o.rtp:find("/dein.vim") then
-  if vim.fn.isdirectory(dein_repo_dir) then
-    -- todo: clone
-    vim.fn.execute("!git clone https://github.com/Shougo/dein.vim " .. dein_repo_dir)
-  end
-
-  vim.opt.rtp:prepend(dein_repo_dir)
-end
-
-if vim.fn["dein#load_state"](dein_dir) == 1 then
-  vim.fn["dein#begin"](dein_dir)
-
-  vim.fn["dein#load_toml"](vim.g.vim_home .. "/dein.toml", { lazy = 0 })
-  vim.fn["dein#load_toml"](vim.g.vim_home .. "/dein_lazy.toml", { lazy = 1 })
-
-  vim.fn["dein#end"]()
-  vim.fn["dein#save_state"]()
-end
-
-if vim.fn["dein#check_install"]() == 1 then
-  vim.fn["dein#install"]()
-end
-
-vim.api.nvim_create_user_command("DeinClean", "call map(dein#check_clean(), { _, val -> delete(val, 'rf') })", {})
+-- plugin managers
+require("plugin_configs.dein")
+-- require("plugin_configs.jetpack")
 
 -- dependency
 local List = require("plenary.collections.py_list")
@@ -245,7 +215,7 @@ if vim.fn.executable("pdftotext") then
 end
 
 -- plugin configuration by variable
-vim.g["neosnippet#snippets_directory"] = vim.g.vim_home .. "/mysnippets"
+vim.g["neosnippet#snippets_directory"] = vim.fn.stdpath("config") .. "/mysnippets"
 vim.g.tcomment_maps = false
 
 vim.g["operator#surround#blocks"] = {
