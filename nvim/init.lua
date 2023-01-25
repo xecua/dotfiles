@@ -68,8 +68,8 @@ vim.api.nvim_create_user_command(
 vim.cmd("runtime! ftplugin/man.vim")
 
 -- plugin managers
-require("plugin_configs.dein")
--- require("plugin_configs.jetpack")
+require("plugin_configs.jetpack")
+-- require("plugin_configs.dein")
 
 -- dependency
 local List = require("plenary.collections.py_list")
