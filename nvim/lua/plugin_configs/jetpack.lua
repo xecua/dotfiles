@@ -5,6 +5,24 @@ if vim.fn.filereadable(jetpackfile) == 0 then
   vim.fn.system(string.format("curl -fsSLo %s --create-dirs %s", jetpackfile, jetpackurl))
 end
 
+vim.g.jetpack_copy_method = "symlink"
+-- 比較しないだけでコピーはされるっぽい
+vim.g.jetpack_ignore_patterns = {
+  [=[**[\/]tests\=[\/]*]=], -- default
+  [=[**[\/]doc[\/]tags*]=], -- default
+  [=[**[\/][.A-Z]*]=], -- default
+  [=[**[\/]*.md]=], -- e.g. CONTRIBUTING.md
+  [=[**[\/].git*]=], -- e.g. .git, .gitignore
+  [=[**[\/]deno.jsonc\=]=],
+  [=[**[\/]scripts[\/]*]=], -- default
+  [=[**[\/]*.toml]=], -- e.g. stylua.toml
+  [=[**[\/]*.ya\=ml]=], -- e.g. vim.yml
+  [=[**[\/]test.ts]=],
+  [=[**[\/]Dockerfile]=],
+  [=[**[\/]Gemfile]=],
+  [=[**[\/]Makefile]=],
+}
+
 vim.cmd("packadd vim-jetpack")
 -- run: :ではじめればコマンド、関数を渡せばcall、それ以外はsystem
 require("jetpack.packer").add({
