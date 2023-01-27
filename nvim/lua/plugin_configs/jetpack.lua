@@ -29,52 +29,52 @@ require("jetpack.packer").add({
   -- manage itself
   { "tani/vim-jetpack", opt = 1 },
   -- Utility
-  { "nvim-lua/plenary.nvim" },
+  "nvim-lua/plenary.nvim",
   -- startup
-  { "mhinz/vim-startify" },
+  "mhinz/vim-startify",
   -- Preview
   { "previm/previm", requires = { "open-browser.vim" } },
   -- open URL
-  { "tyru/open-browser.vim" },
+  "tyru/open-browser.vim",
   -- nonsense animation
-  { "eandrju/cellular-automaton.nvim" },
+  "eandrju/cellular-automaton.nvim",
   -- Window resize mode
-  { "sedm0784/vim-resize-mode" },
+  "sedm0784/vim-resize-mode",
   -- task runner
   { "Shougo/vimproc.vim", run = "make" },
-  { "thinca/vim-quickrun" },
+  "thinca/vim-quickrun",
   -- diagnostics
   { "folke/trouble.nvim", requires = { "nvim-web-devicons" } },
   -- popup notification
-  { "rcarriga/nvim-notify" },
+  "rcarriga/nvim-notify",
   --- dependency
   { "kyazdani42/nvim-web-devicons" },
   -- Grammar check
-  { "rhysd/vim-grammarous" },
+  "rhysd/vim-grammarous",
   -- Ghosttext
-  { "gamoutatsumi/dps-ghosttext.vim" },
+  "gamoutatsumi/dps-ghosttext.vim",
   -- LSP
-  { "neovim/nvim-lspconfig" },
+  "neovim/nvim-lspconfig",
   --- Installer
-  { "williamboman/mason.nvim" },
+  "williamboman/mason.nvim",
   { "williamboman/mason-lspconfig.nvim", requires = { "nvim-lspconfig", "mason.nvim" } },
-  { "mfussenegger/nvim-jdtls" },
+  "mfussenegger/nvim-jdtls",
   --- DAP
-  { "mfussenegger/nvim-dap" },
+  "mfussenegger/nvim-dap",
   { "rcarriga/nvim-dap-ui", requires = { "nvim-dap" } },
   --- outliner
   { "simrat39/symbols-outline.nvim" },
   --- tsserver integration
-  { "jose-elias-alvarez/typescript.nvim" },
+  "jose-elias-alvarez/typescript.nvim",
   --- Formatter with LSP interface
   { "jose-elias-alvarez/null-ls.nvim", requires = { "plenary.nvim" } },
   { "MunifTanjim/prettier.nvim", requires = { "nvim-lspconfig", "null-ls.nvim" } },
   --- Rust tooltip
   { "simrat39/rust-tools.nvim" },
   -- Popup
-  { "Shougo/pum.vim" },
+  "Shougo/pum.vim",
   -- denops
-  { "vim-denops/denops.vim" },
+  "vim-denops/denops.vim",
   { "vim-skk/skkeleton", requires = { "denops.vim" } },
   { "matsui54/denops-popup-preview.vim", requires = { "denops.vim" } },
   { "matsui54/denops-signature_help", requires = { "denops.vim" } },
@@ -115,71 +115,71 @@ require("jetpack.packer").add({
   -- filer
   { "lambdalisue/fern.vim", branch = "main" },
   { "lambdalisue/fern-renderer-nerdfont.vim", requires = { "nerdfont.vim" } },
-  { "lambdalisue/nerdfont.vim" },
-  { "lambdalisue/fern-hijack.vim" },
+  "lambdalisue/nerdfont.vim",
+  "lambdalisue/fern-hijack.vim",
   -- for good appearance
-  { "ryanoasis/vim-devicons" },
+  "ryanoasis/vim-devicons",
   -- other
   -- editorconfig
-  { "editorconfig/editorconfig-vim" },
+  "editorconfig/editorconfig-vim",
   -- git
-  { "tpope/vim-fugitive" },
+  "tpope/vim-fugitive",
   -- parenthesis control
   { "rhysd/vim-operator-surround", requires = { "vim-operator-user" } },
   --- dependency
-  { "kana/vim-operator-user" },
+  "kana/vim-operator-user",
   -- autocomplete matching brace/quotation
-  { "cohama/lexima.vim" },
+  "cohama/lexima.vim",
   -- undo
-  { "mbbill/undotree" },
+  "mbbill/undotree",
   { "nvim-lualine/lualine.nvim", requires = { "nvim-web-devicons" } },
   -- comment out
-  { "tomtom/tcomment_vim" },
+  "tomtom/tcomment_vim",
   -- helpの日本語化
-  { "vim-jp/vimdoc-ja" },
+  "vim-jp/vimdoc-ja",
   -- ペースト時にpasteモードに
-  { "ConradIrwin/vim-bracketed-paste" },
+  "ConradIrwin/vim-bracketed-paste",
   -- show underscore for matching parenthesis
-  { "itchyny/vim-parenmatch" },
-  { "alvan/vim-closetag" },
+  "itchyny/vim-parenmatch",
+  "alvan/vim-closetag",
   -- color scheme
-  { "tomasr/molokai" },
+  "tomasr/molokai",
   -- snippets
-  { "Shougo/neosnippet.vim" },
+  "Shougo/neosnippet.vim",
   -- { 'Shougo/deoppet.nvim' },
-  { "Shougo/neosnippet-snippets" },
+  "Shougo/neosnippet-snippets",
   -- Template
-  { "thinca/vim-template" },
+  "thinca/vim-template",
   -- cursor
-  { "rhysd/accelerated-jk" },
-  { "skanehira/jumpcursor.vim" },
+  "rhysd/accelerated-jk",
+  "skanehira/jumpcursor.vim",
   -- Highlight under cursor
-  { "RRethy/vim-illuminate" },
+  "RRethy/vim-illuminate",
   -- indentation
-  { "lambdalisue/vim-backslash" },
-  { "hynek/vim-python-pep8-indent" },
+  "lambdalisue/vim-backslash",
+  "hynek/vim-python-pep8-indent",
   -- Syntax Highlighting
   { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
   --- fish
-  { "dag/vim-fish" },
+  "dag/vim-fish",
   --- .gitignore file
-  { "benknoble/gitignore-vim" },
+  "benknoble/gitignore-vim",
   --- SATySFi
-  { "qnighy/satysfi.vim" },
+  "qnighy/satysfi.vim",
   --- F-
-  { "ionide/Ionide-vim" },
+  "ionide/Ionide-vim",
   --- Brewfile
-  { "bfontaine/Brewfile.vim" },
+  "bfontaine/Brewfile.vim",
   --- ebuild etc
-  { "gentoo/gentoo-syntax" },
+  "gentoo/gentoo-syntax",
   --- CoPL Derivation Language
-  { "ymyzk/vim-copl" },
+  "ymyzk/vim-copl",
   --- CSV (Rainbow and SQL-like query)
-  { "mechatroner/rainbow_csv" },
+  "mechatroner/rainbow_csv",
   --- Firestore Security Rule
-  { "delphinus/vim-firestore" },
+  "delphinus/vim-firestore",
   --- skk-jisyo
-  { "vim-skk/skkdict.vim" },
+  "vim-skk/skkdict.vim",
   { "fatih/vim-go", ft = { "go" } },
   { "jdonaldson/vaxe", ft = { "haxe" } },
   { "keith/swift.vim", ft = { "swift" } },
