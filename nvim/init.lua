@@ -51,7 +51,7 @@ vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.showtabline = 2
 vim.opt.showmode = false
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath("cache") .. "/nvim/undo"
+vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
 
 vim.g.vimsyn_embed = "l"
 vim.g.tex_flavor = "latex"

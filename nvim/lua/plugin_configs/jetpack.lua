@@ -5,7 +5,7 @@ if vim.fn.filereadable(jetpackfile) == 0 then
   vim.fn.system(string.format("curl -fsSLo %s --create-dirs %s", jetpackfile, jetpackurl))
 end
 
-vim.g.jetpack_copy_method = "symlink"
+-- vim.g.jetpack_copy_method = "symlink"
 -- 比較しないだけでコピーはされるっぽい
 vim.g.jetpack_ignore_patterns = {
   [=[**[\/]tests\=[\/]*]=], -- default

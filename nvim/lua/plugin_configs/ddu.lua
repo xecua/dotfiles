@@ -17,7 +17,7 @@ vim.fn["ddu#custom#patch_global"]({
       splitDirection = "topleft",
     },
   },
-  souces = { "file_rec" },
+  sources = { "file_rec" },
   sourceOptions = {
     _ = { matchers = { "matcher_substring" } },
     source = { defaultAction = "execute" },

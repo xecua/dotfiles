@@ -236,6 +236,7 @@ mason_lspconfig.setup_handlers({
       },
       server = {
         on_attach = on_attach,
+        single_file_support = false,
         root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json"),
       },
     })
