@@ -131,7 +131,7 @@ vim.filetype.add({
 })
 
 -- autocommands
-local init_augroup_id = vim.api.nvim_create_augroup("Init", { clear = true }) -- au! will be automatically executed
+local init_augroup_id = vim.api.nvim_create_augroup("Init", { clear = true })
 vim.api.nvim_create_autocmd(
   { "BufWritePre" },
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
@@ -197,10 +197,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 vim.api.nvim_create_autocmd(
-  { "BufWritePre", "FileWritePre" },
-  { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, callback = utils.normalize_punctuation }
-)
-vim.api.nvim_create_autocmd(
   { "BufWritePost", "FileWritePost" },
   { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, command = "QuickRun" }
 )
@@ -212,6 +208,31 @@ if vim.fn.executable("pdftotext") then
     command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
   })
 end
+
+-- Switching automatic punctuation substitution
+local punct_sub_augroup_id = vim.api.nvim_create_augroup("PunctSub", { clear = true })
+vim.api.nvim_create_user_command("PunctSubEnable", function()
+  vim.api.nvim_create_autocmd({ "BufWritePre", "FileWritePre" }, {
+    group = punct_sub_augroup_id,
+    buffer = 0, -- current buffer (like other apis; not documented, though)
+    callback = utils.normalize_punctuation,
+  })
+end, {})
+vim.api.nvim_create_user_command("PunctSubDisable", function()
+  for _, autocmd in
+    pairs(vim.api.nvim_get_autocmds({
+      group = punct_sub_augroup_id,
+      buffer = 0,
+    }))
+  do
+    vim.api.nvim_del_autocmd(autocmd.id)
+  end
+end, {})
+-- LaTeX and SATySFi: enabled by default (it is intentional that the augroup is Init)
+vim.api.nvim_create_autocmd(
+  { "BufWritePre", "FileWritePre" },
+  { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, command = "PunctSubEnable" }
+)
 
 -- plugin configuration by variable
 vim.g["neosnippet#snippets_directory"] = vim.fn.stdpath("config") .. "/mysnippets"
