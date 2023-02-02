@@ -95,3 +95,10 @@ function fish_title
     end
   end
 end
+
+#https://fishshell.com/docs/current/relnotes.html#fish-3-6-0-released-january-7-2023; alias ... -> ../../
+function multicd
+  echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+
+abbr --add dotdot --regex '^\.\.+$' --function multicd
