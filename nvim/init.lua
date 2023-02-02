@@ -69,11 +69,13 @@ vim.cmd("runtime! ftplugin/man.vim")
 
 -- plugin managers
 require("plugin_configs.jetpack")
+vim.opt.rtp:prepend("/home/xecua/Documents/repos/github.com/xecua/skkeleton")
+vim.cmd("runtime! /home/xecua/Documents/repos/github.com/xecua/skkeleton")
 
 -- dependency
 local List = require("plenary.collections.py_list")
 
--- plugin configurations(not yet rewritten)
+-- plugin configurations
 require("plugin_configs.skkeleton")
 require("plugin_configs.ddc")
 require("plugin_configs.ddu")

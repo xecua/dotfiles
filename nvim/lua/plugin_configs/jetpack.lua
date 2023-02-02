@@ -75,7 +75,8 @@ require("jetpack.packer").add({
   "Shougo/pum.vim",
   -- denops
   "vim-denops/denops.vim",
-  { "vim-skk/skkeleton", requires = { "denops.vim" } },
+  -- { "vim-skk/skkeleton", requires = { "denops.vim" } },
+  { "xecua/skkeleton", requires = { "denops.vim" } }, -- 暫定的に
   { "matsui54/denops-popup-preview.vim", requires = { "denops.vim" } },
   { "matsui54/denops-signature_help", requires = { "denops.vim" } },
   --- ddc
