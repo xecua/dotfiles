@@ -69,8 +69,6 @@ vim.cmd("runtime! ftplugin/man.vim")
 
 -- plugin managers
 require("plugin_configs.jetpack")
-vim.opt.rtp:prepend("/home/xecua/Documents/repos/github.com/xecua/skkeleton")
-vim.cmd("runtime! /home/xecua/Documents/repos/github.com/xecua/skkeleton")
 
 -- dependency
 local List = require("plenary.collections.py_list")
@@ -307,6 +305,9 @@ else
       enable = true,
     },
     auto_install = true,
+    ignore_install = {
+      "fish", -- seems to have some problem https://github.com/ram02z/tree-sitter-fish/issues/17
+    },
   })
 
   -- Diagnostics
