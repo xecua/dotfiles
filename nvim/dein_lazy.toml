@@ -1,0 +1,14 @@
+# Go utility
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+
+# Haxe
+[[plugins]]
+repo = 'jdonaldson/vaxe'
+on_ft = ['haxe']
+
+# Swift
+[[plugins]]
+repo = 'keith/swift.vim'
+on_ft = ['swift']
