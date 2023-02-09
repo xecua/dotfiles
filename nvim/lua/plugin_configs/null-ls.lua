@@ -13,8 +13,8 @@ null_ls.setup({
       extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
     }),
     null_ls.builtins.formatting.yapf,
-    -- null_ls.builtins.formatting.textlint,
-    -- null_ls.builtins.diagnostics.textlint, -- invalid configuration?
+    null_ls.builtins.formatting.textlint,
+    null_ls.builtins.diagnostics.textlint, -- invalid configuration?
   },
   on_attach = function(client, bufnr)
     local format_opts = { bufnr = bufnr }
