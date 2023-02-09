@@ -14,7 +14,8 @@ null_ls.setup({
     }),
     null_ls.builtins.formatting.yapf,
     null_ls.builtins.formatting.textlint,
-    null_ls.builtins.diagnostics.textlint, -- invalid configuration?
+    -- causes 'failed to decode json error'
+    -- null_ls.builtins.diagnostics.textlint,
   },
   on_attach = function(client, bufnr)
     local format_opts = { bufnr = bufnr }

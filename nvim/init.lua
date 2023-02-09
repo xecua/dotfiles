@@ -301,6 +301,7 @@ else
 
   -- treesitter config
   require("nvim-treesitter.configs").setup({
+    parser_install_dir = vim.fn.stdpath("cache") .. "/parsers",
     highlight = {
       enable = true,
     },
