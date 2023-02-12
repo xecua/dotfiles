@@ -100,6 +100,7 @@ vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
 vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
 -- Always enable verymagic (a.k.a. ERE). see :h \v
+vim.keymap.set({ "n", "v" }, "<Leader>b", "<Plug>(openbrowser-open)")
 vim.keymap.set({ "n", "v" }, "/", "/\\v")
 vim.keymap.set({ "n", "v" }, "?", "?\\v")
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
