@@ -19,7 +19,7 @@ mason_lspconfig.setup({
     "jsonls",
     "texlab",
     "eslint",
-    "sumneko_lua",
+    "lua_ls",
     -- "satysfi-ls",
     "lemminx",
     "taplo",
@@ -57,7 +57,7 @@ local on_attach = function(client, bufnr)
       return utils.find(clt.name, {
         "tsserver",
         "jsonls",
-        "sumneko_lua",
+        "lua_ls",
         "pyright",
         "html",
       }) == -1
@@ -140,11 +140,11 @@ mason_lspconfig.setup_handlers({
       dap = dap_config,
     })
   end,
-  sumneko_lua = function()
+  lua_ls = function()
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
-    lspconfig.sumneko_lua.setup({
+    lspconfig.lua_ls.setup({
       on_attach = on_attach,
       settings = {
         Lua = {
