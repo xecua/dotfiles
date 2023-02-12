@@ -301,8 +301,9 @@ else
   require("symbols-outline").setup()
 
   -- treesitter config
+  local treesitter_parsers_dir = vim.fn.stdpath("cache") .. "/parsers"
   require("nvim-treesitter.configs").setup({
-    parser_install_dir = vim.fn.stdpath("cache") .. "/parsers",
+    parser_install_dir = treesitter_parsers_dir,
     highlight = {
       enable = true,
     },
@@ -311,6 +312,7 @@ else
       "fish", -- seems to have some problem https://github.com/ram02z/tree-sitter-fish/issues/17
     },
   })
+  vim.opt.rtp:append(treesitter_parsers_dir)
 
   -- Diagnostics
   require("trouble").setup({})

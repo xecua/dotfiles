@@ -104,20 +104,21 @@ vim.api.nvim_create_autocmd("User", {
     -- https://github.com/neovim/neovim/issues/12310#issuecomment-628269290 closeされたら消してよさそう?
     -- require("notify")(vim.inspect(vim.json.decode(vim.g["pum#completed_item"].user_data.lspitem))) -- tsserverに`additionalTextEdits`があってほしいんだけど
     local completed = vim.g["pum#completed_item"]
-    if
-      completed == nil
-      or completed.user_data == nil
-      or completed.user_data.lspitem == nil
-      or completed.user_data.lspitem.additionalTextEdits == nil
-    then
+    if completed == nil or completed.user_data == nil or completed.user_data.lspitem == nil then
       return
     end
+
+    local lspitem = vim.json.decode(completed.user_data.lspitem)
+    if lspitem.additionalTextEdits == nil then
+      return
+    end
+
     local lnum, _ = unpack(vim.api.nvim_win_get_cursor(0))
     local bufnr = vim.api.nvim_get_current_buf()
-    local edits = vim.tbl_filter(function(x)
-      return x.range.start.line ~= (lnum - 1)
-    end, completed.user_data.lspitem.additionalTextEdits)
-    vim.lsp.util.apply_text_edits(edits, bufnr)
+    local edits = vim.tbl_filter(function(t)
+      return t.range.start.line ~= (lnum - 1)
+    end, lspitem.additionalTextEdits)
+    vim.lsp.util.apply_text_edits(edits, bufnr, "utf-8")
   end,
   desc = "Apply additionalTextEdits if exists.",
 })
