@@ -282,8 +282,6 @@ if vim.g.vscode ~= nil then
   vim.g.vim_backslash_disable_default_mapping = 1
   -- WSL: Win側で探してしまい見つからない
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
-
-  vim.cmd("filetype plugin on")
 else
   -- vim.opt.ambiwidth = "double" -- そもそもなんでこれ入れてたんだっけ
 
@@ -342,6 +340,6 @@ else
 
   vim.fn["popup_preview#enable"]()
   vim.fn["signature_help#enable"]()
-
-  vim.cmd("filetype plugin indent on")
 end
+
+vim.cmd("filetype plugin on")
