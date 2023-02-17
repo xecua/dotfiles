@@ -176,17 +176,18 @@ mason_lspconfig.setup_handlers({
   end,
   texlab = function()
     local forward_search_config = {}
-    if vim.g.os == "Linux" then
+    local os_string = utils.get_os_string()
+    if os_string == "Linux" then
       forward_search_config = {
         executable = "zathura",
         args = { "--synctex-forward", "%l:1:%f", "%p" },
       }
-    elseif vim.g.os == "Windows" then
+    elseif os_string == "Windows" then
       forward_search_config = {
         executable = "SumatraPDF.exe", -- PATHに入れちゃうのがいいかなあ
         args = { "-reuse-instance", "%p", "-forward-search", "%f", "%l" },
       }
-    elseif vim.g.os == "Darwin" then
+    elseif os_string == "Darwin" then
       forward_search_config = {
         executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
         args = { "%l", "%p", "%f" },

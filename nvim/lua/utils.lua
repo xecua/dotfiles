@@ -36,4 +36,17 @@ function M.find(pattern, list)
   return -1
 end
 
+function M.get_os_string()
+  if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1 then
+    return "Windows"
+  else
+    local uname = vim.fn.system("uname"):gsub("\n", "")
+    if uname == "Linux" and string.find(vim.fn.readfile("/proc/version")[1], "microsoft") ~= nil then
+      return "WSL"
+    else
+      return uname
+    end
+  end
+end
+
 return M

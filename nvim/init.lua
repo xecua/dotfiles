@@ -2,18 +2,6 @@ vim.cmd("filetype plugin indent off")
 
 local utils = require("utils")
 
-if vim.g.os == nil then
-  if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1 then
-    vim.g.os = "Windows"
-  else
-    local uname = vim.fn.system("uname")
-    vim.g.os = uname:gsub("\n", "")
-    if vim.g.os == "Linux" and string.find(vim.fn.readfile("/proc/version")[1], "microsoft") ~= nil then
-      vim.g.os = "WSL"
-    end
-  end
-end
-
 vim.opt.mouse = "a"
 vim.opt.fileformats = { "unix", "dos", "mac" }
 vim.opt.termguicolors = true -- t_8f, t_8bは消してみた: 必要なら https://vim-jp.org/vimdoc-ja/term.html#xterm-true-color
@@ -260,12 +248,6 @@ vim.g.startify_bookmarks = {
 }
 
 -- conditional configurations
-
-if vim.g.os == "Darwin" then
-  vim.g.python3_host_prog = "/usr/local/bin/python3"
-elseif vim.g.os == "Linux" then
-  vim.g.python3_host_prog = "/usr/bin/python"
-end
 
 -- fzf.vim (when fzf was installed with Homebrew)
 if vim.fn.isdirectory("/usr/local/opt/fzf") == 1 then
