@@ -11,19 +11,10 @@ function M.load_local_vimrc()
 end
 
 function M.normalize_punctuation()
-  local mode = vim.g.convert_punctuation or 1
-  if mode == 1 then
-    -- マジでこれしかなさそう
-    vim.cmd([[
-      :%s/、/，/ge
-      :%s/。/．/ge
-    ]])
-  elseif mode == 2 then
-    vim.cmd([[
-      :%s/、/,/ge
-      :%s/。/./ge
-    ]])
-  end
+  vim.cmd([[
+    :%s/、/，/ge
+    :%s/。/．/ge
+  ]])
 end
 
 function M.find(pattern, list)
