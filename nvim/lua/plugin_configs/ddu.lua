@@ -8,8 +8,8 @@ vim.fn["ddu#custom#patch_global"]({
   uiParams = {
     ff = {
       previewWidth = 80,
-      previewVertical = true,
-      autoAction = { name = "preview" },
+      previewSplit = "vertical",
+      autoAction = { name = "preview", delay = 100 },
     },
     filer = {
       winWidth = vim.o.columns / 8,
@@ -17,7 +17,7 @@ vim.fn["ddu#custom#patch_global"]({
       splitDirection = "topleft",
     },
   },
-  sources = { "file_rec" },
+  sources = { { name = "file_rec" } },
   sourceOptions = {
     _ = { matchers = { "matcher_substring" } },
     source = { defaultAction = "execute" },
@@ -29,6 +29,21 @@ vim.fn["ddu#custom#patch_global"]({
     command_history = { defaultAction = "edit" },
   },
 })
+
+vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
+vim.api.nvim_create_user_command("DduRg", function(opts)
+  vim.fn["ddu#start"]({
+    volatile = opts.args == "",
+    sources = {
+      {
+        name = "rg",
+        params = { input = opts.args },
+        options = { matchers = {} },
+      },
+    },
+    uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
+  })
+end, { nargs = "?" })
 
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -51,26 +66,6 @@ vim.api.nvim_create_autocmd("FileType", {
     local opts = { buffer = true, silent = true }
     vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
     vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
-  end,
-})
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = ddu_group_id,
-  callback = function()
-    -- そのまま書くとプラグインの方に上書きされてしまうのでVimEnterで上書き
-    vim.api.nvim_create_user_command("DduRg", function(opts)
-      vim.fn["ddu#start"]({
-        volatile = opts.args == "",
-        sources = {
-          {
-            name = "rg",
-            params = { input = opts.args },
-            options = { matchers = {} },
-          },
-        },
-        uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
-      })
-    end, { nargs = "?" })
   end,
 })
 
