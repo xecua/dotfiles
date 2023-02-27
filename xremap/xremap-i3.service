@@ -1,0 +1,13 @@
+[Unit]
+Description=xremap
+BindsTo=i3-session.target
+
+[Service]
+KillMode=process
+ExecStart=%h/.local/bin/xremap-x11 %h/.config/xremap/config.yml
+ExecStop=/usr/bin/killall xremap
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=i3-session.target

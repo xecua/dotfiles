@@ -278,7 +278,6 @@ bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 
 # picom: compositor
 exec_always --no-startup-id picom -b
-# xkeysnail: key remapper
-# exec --no-startup-id xkeysnail ~/.config/xkeysnail/config.py
-# yaskkserv2
-exec --no-startup-id yaskkserv2 --no-daemonize ~/.yaskkserv2
+
+# https://mako-note.com/ja/sway-desktop-environment-in-archlinux/#sway-%E5%9B%BA%E6%9C%89%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%81%AE%E7%AE%A1%E7%90%86
+exec_always "systemctl --user import-environment; systemctl --user start i3-session.target"

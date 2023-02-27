@@ -121,6 +121,22 @@ else
   echo "WARN: dunst was not linked."
 end
 
+# sway
+if not [ -e "$XDG_CONFIG_HOME/sway" ]
+  ln -s "$script_dir/sway" "$XDG_CONFIG_HOME/sway"
+  echo "INFO: sway linked."
+else
+  echo "WARN: sway was not linked."
+end
+
+## swaylock
+if not [ -e "$XDG_CONFIG_HOME/swaylock" ]
+  ln -s "$script_dir/swaylock" "$XDG_CONFIG_HOME/swaylock"
+  echo "INFO: swaylock linked."
+else
+  echo "WARN: swaylock was not linked."
+end
+
 # latex: pass
 # latexmk
 mkdir -p "$XDG_CONFIG_HOME/latexmk"
@@ -237,12 +253,39 @@ end
 
 # Linux(X11) specific
 if [ (uname) = "Linux" ]
+  # systemd target/service
+  if not [ -e "$XDG_CONFIG_HOME/systemd/user" ]
+    mkdir -p "$XDG_CONFIG_HOME/systemd/user"
+  end
+  if not [ -e "$XDG_CONFIG_HOME/systemd/user/i3-session.target" ]
+    ln -s "$script_dir/systemd/i3-session.target" "$XDG_CONFIG_HOME/systemd/user"
+  end
+  if not [ -e "$XDG_CONFIG_HOME/systemd/user/sway-session.target" ]
+    ln -s "$script_dir/systemd/sway-session.target" "$XDG_CONFIG_HOME/systemd/user"
+  end
+
   # xkeysnail
   if not [ -e "$XDG_CONFIG_HOME/xkeysnail" ]
     ln -s "$script_dir/xkeysnail" "$XDG_CONFIG_HOME/xkeysnail"
     echo "INFO: xkeysnail linked."
   else
     echo "WARN: xkeysnail was not linked."
+  end
+
+  # xremap
+  if not [ -e "$XDG_CONFIG_HOME/xremap" ]
+    ln -s "$script_dir/xremap" "$XDG_CONFIG_HOME/xremap"
+    echo "INFO: xremap linked."
+  else
+    echo "WARN: xremap was not linked."
+  end
+
+  # kanshi
+  if not [ -e "$XDG_CONFIG_HOME/kanshi" ]
+    ln -s "$script_dir/kanshi" "$XDG_CONFIG_HOME/kanshi"
+    echo "INFO: kanshi linked."
+  else
+    echo "WARN: kanshi was not linked."
   end
 
   # fontconfig

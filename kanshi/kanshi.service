@@ -1,0 +1,14 @@
+[Unit]
+Description=kanshi
+Documentation=https://sr.ht/~emersion/kanshi
+BindsTo=sway-session.target
+
+[Service]
+KillMode=process
+ExecStart=/usr/bin/kanshi
+ExecStop=/usr/bin/killall kanshi
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=sway-session.target
