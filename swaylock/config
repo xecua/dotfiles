@@ -2,7 +2,7 @@ ignore-empty-password
 screenshots
 effect-blur=5x3
 clock
-datestr="%y/%m/%d(%A)"
+datestr=%y/%m/%d(%A)
 indicator
 indicator-caps-lock
 text-color=009cd188
