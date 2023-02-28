@@ -1,3 +1,8 @@
 profile laptop-single {
     output eDP-1 enable mode 1920x1200 position 0,0 scale 1.2
 }
+
+profile desktop-default {
+    output HDMI-0 enable mode 1920x1080 position 1920,0
+    output DP-0 enabel mode 1920x1080 position 0,0
+}

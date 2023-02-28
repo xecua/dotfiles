@@ -258,10 +258,10 @@ if [ (uname) = "Linux" ]
     mkdir -p "$XDG_CONFIG_HOME/systemd/user"
   end
   if not [ -e "$XDG_CONFIG_HOME/systemd/user/i3-session.target" ]
-    ln -s "$script_dir/systemd/i3-session.target" "$XDG_CONFIG_HOME/systemd/user"
+    ln -s "$script_dir/systemd/user/i3-session.target" "$XDG_CONFIG_HOME/systemd/user"
   end
   if not [ -e "$XDG_CONFIG_HOME/systemd/user/sway-session.target" ]
-    ln -s "$script_dir/systemd/sway-session.target" "$XDG_CONFIG_HOME/systemd/user"
+    ln -s "$script_dir/systemd/user/sway-session.target" "$XDG_CONFIG_HOME/systemd/user"
   end
 
   # xkeysnail
