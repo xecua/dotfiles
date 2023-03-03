@@ -116,6 +116,11 @@ end
 if not [ -e "$XDG_CONFIG_HOME/rofi" ]
   chmod +x "$script_dir/rofi/setup.sh"
   "$script_dir/rofi/setup.sh"
+  ln -s "$script_dir/rofi_scripts/rofi_launcher" \
+    "$script_dir/rofi_scripts/rofi_powermenu" \
+    "$script_dir/rofi_scripts/rofi_screenshot" \
+    "$script_dir/rofi_scripts/rofi_volume" \
+    "$HOME/.local/bin"
   echo "INFO: rofi linked."
 else
   echo "WARN: rofi was not linked."
@@ -129,7 +134,7 @@ else
   echo "WARN: dunst was not linked."
 end
 
-# sway
+## sway
 if not [ -e "$XDG_CONFIG_HOME/sway" ]
   ln -s "$script_dir/sway" "$XDG_CONFIG_HOME/sway"
   echo "INFO: sway linked."

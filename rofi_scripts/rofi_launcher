@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+## Author : Aditya Shakya (adi1090x)
+## Github : @adi1090x
+#
+## Rofi   : Launcher (Modi Drun, Run, File Browser, Window)
+
+theme="$HOME/.config/rofi/launchers/type-1/style-6.rasi"
+
+rofi -show drun -theme ${theme}
