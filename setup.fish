@@ -88,6 +88,14 @@ else
   echo "WARN: wget was not configured."
 end
 
+# ripgrep
+if not [ -e "$XDG_CONFIG_HOME/ripgrep" ]
+  ln -s "$script_dir/ripgrep" "$XDG_CONFIG_HOME/ripgrep"
+  echo "INFO: ripgrep configured."
+else
+  echo "WARN: ripgrep was not configured."
+end
+
 # i3
 if not [ -d "$XDG_CONFIG_HOME/i3" ]
   ln -s "$script_dir/i3" "$XDG_CONFIG_HOME/i3"
