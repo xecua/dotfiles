@@ -32,6 +32,10 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 
 export FZF_DEFAULT_OPTS="--reverse"
 
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export MOZ_ENABLE_WAYLAND=1
+fi
+
 # Update PATH
 PATH="$HOME/.local/bin:$PATH"
 PATH="$GOPATH/bin:$PATH"

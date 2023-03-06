@@ -1,6 +1,6 @@
 abbr --add g git
 abbr --add gti git
-abbr --add gitop cd (git rev-parse --show-toplevel)
+abbr --add gitop 'cd (git rev-parse --show-toplevel)'
 
 function open_vim
   if type -q nvim
