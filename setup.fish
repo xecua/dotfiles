@@ -266,24 +266,7 @@ end
 
 # Linux(X11) specific
 if [ (uname) = "Linux" ]
-  # systemd target/service
-  if not [ -e "$XDG_CONFIG_HOME/systemd/user" ]
-    mkdir -p "$XDG_CONFIG_HOME/systemd/user"
-  end
-  if not [ -e "$XDG_CONFIG_HOME/systemd/user/i3-session.target" ]
-    ln -s "$script_dir/systemd/user/i3-session.target" "$XDG_CONFIG_HOME/systemd/user"
-  end
-  if not [ -e "$XDG_CONFIG_HOME/systemd/user/sway-session.target" ]
-    ln -s "$script_dir/systemd/user/sway-session.target" "$XDG_CONFIG_HOME/systemd/user"
-  end
-
-  # xkeysnail
-  if not [ -e "$XDG_CONFIG_HOME/xkeysnail" ]
-    ln -s "$script_dir/xkeysnail" "$XDG_CONFIG_HOME/xkeysnail"
-    echo "INFO: xkeysnail linked."
-  else
-    echo "WARN: xkeysnail was not linked."
-  end
+  # TODO: systemdまわり
 
   # xremap
   if not [ -e "$XDG_CONFIG_HOME/xremap" ]

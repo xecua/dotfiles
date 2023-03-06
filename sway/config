@@ -250,9 +250,8 @@ exec --no-startup-id swayidle -w \
     resume 'swaymsg "output * power on"' \
     before-sleep 'swaylock' \
 
-
-exec --no-startup-id dex -ae sway
-# https://mako-note.com/ja/sway-desktop-environment-in-archlinux/#sway-%E5%9B%BA%E6%9C%89%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%81%AE%E7%AE%A1%E7%90%86
-exec_always --no-startup-id "systemctl --user import-environment; systemctl --user start sway-session.target"
+exec --no-startup-id dbus-update-activation-environment --systemd --all
+exec --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYLOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP
+exec --no-startup-id systemctl --user start sway-session.target
 
 # include /etc/sway/config.d/*

@@ -1,6 +1,6 @@
 [Unit]
-Description=i3 session
-Documentation=man:systemd.special
+Description=i3 session target
 BindsTo=graphical-session.target
-Wants=graphical-session-pre.target
 After=graphical-session-pre.target
+Wants=graphical-session-pre.target xdg-desktop-autostart.target
+ConditionEnvironment=XDG_SESSION_DESKTOP=i3

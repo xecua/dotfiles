@@ -2,6 +2,7 @@
 Description=kanshi
 Documentation=https://sr.ht/~emersion/kanshi
 BindsTo=sway-session.target
+After=sway-session.target
 
 [Service]
 KillMode=process

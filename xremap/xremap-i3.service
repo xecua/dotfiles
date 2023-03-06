@@ -1,6 +1,7 @@
 [Unit]
 Description=xremap
 BindsTo=i3-session.target
+After=i3-session.target
 
 [Service]
 KillMode=process

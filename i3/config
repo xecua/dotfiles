@@ -229,10 +229,6 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
-# /etc/xdg/autostart
-exec dex -ae i3
-exec --no-startup-id ~/.fehbg
-
 # disable titlebar
 default_border none
 default_floating_border normal
@@ -252,6 +248,8 @@ no_focus [window_role="pop-up"]
 # gaps inner 20
 gaps inner 10
 
+exec --no-startup-id ~/.fehbg
+
 # i3-workspace-names-daemon
 exec_always --no-startup-id exec i3-workspace-names-daemon -u -d ' |'
 
@@ -268,5 +266,6 @@ bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 # picom: compositor
 exec_always --no-startup-id picom -b
 
-# https://mako-note.com/ja/sway-desktop-environment-in-archlinux/#sway-%E5%9B%BA%E6%9C%89%E3%83%87%E3%83%BC%E3%83%A2%E3%83%B3%E3%81%AE%E7%AE%A1%E7%90%86
-exec_always "systemctl --user import-environment; systemctl --user start i3-session.target"
+exec --no-startup-id dbus-update-activation-environment --systemd --all
+exec --no-startup-id systemctl --user import-environment DISPLAY I3SOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP
+exec --no-startup-id systemctl --user start i3-session.target

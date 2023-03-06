@@ -1,6 +1,6 @@
 [Unit]
-Description=Sway compositor session
-Documentation=man:systemd.special
+Description=sway session target
 BindsTo=graphical-session.target
-Wants=graphical-session-pre.target
 After=graphical-session-pre.target
+Wants=graphical-session-pre.target xdg-desktop-autostart.target
+ConditionEnvironment=XDG_SESSION_DESKTOP=sway
