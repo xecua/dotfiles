@@ -250,22 +250,13 @@ gaps inner 10
 
 exec --no-startup-id ~/.fehbg
 
-# i3-workspace-names-daemon
-exec_always --no-startup-id exec i3-workspace-names-daemon -u -d ' |'
-
-# xrelkd/clipcat
-exec_always --no-startup-id clipcatd
-set $launcher-clipboard-insert clipcat-menu insert
-set $launcher-clipboard-remove clipcat-menu remove
-
-bindsym $mod+i exec $launcher-clipboard-insert
+# Icelk/clipcat (fork of xrelkd/clipcat)
+bindsym $mod+i exec clipcat-menu insert
 
 # https://gist.github.com/LeandroLovisolo/7d25271504283543f305
 bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 
-# picom: compositor
-exec_always --no-startup-id picom -b
-
 exec --no-startup-id dbus-update-activation-environment --systemd --all
-exec --no-startup-id systemctl --user import-environment DISPLAY I3SOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP
+exec --no-startup-id systemctl --user import-environment DISPLAY I3SOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP PATH
+exec sh 'echo $PATH'
 exec --no-startup-id systemctl --user start i3-session.target

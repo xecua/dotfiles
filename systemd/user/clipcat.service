@@ -1,0 +1,11 @@
+[Unit]
+Description=clipcat - clipboard manager (fork)
+Documentation=https://github.com/Icelk/clipcat
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/cargo/bin/clipcatd --no-daemon
+Restart=always
+
+[Install]
+WantedBy=i3-session.target sway-session.target

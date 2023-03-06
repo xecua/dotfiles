@@ -1,0 +1,11 @@
+[Unit]
+Description=A daemon script to dynamically update workspace names in i3wm based on their content
+Documentation=https://github.com/cboddy/i3-workspace-names-daemon
+
+[Service]
+Type=simple
+ExecStart=i3-workspace-names-daemon -u -d ' |'
+Restart=always
+
+[Install]
+WantedBy=i3-session.target
