@@ -1,0 +1,11 @@
+[Unit]
+Description=Fast file synchronization and network forwarding for remote development
+Documentation=https://mutagen.io
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/mutagen daemon run
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

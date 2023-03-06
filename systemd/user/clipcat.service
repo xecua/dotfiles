@@ -1,6 +1,7 @@
 [Unit]
 Description=clipcat - clipboard manager (fork)
 Documentation=https://github.com/Icelk/clipcat
+BindsTo=graphical-session.target
 
 [Service]
 Type=simple

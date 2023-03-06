@@ -89,9 +89,6 @@ fi
 # export BROWSER=/usr/bin/vivaldi
 # export TERMINAL=/usr/bin/alacritty
 # export EDITOR=/usr/bin/nvim
-#
-## How gpg-agent should be started differs from each other (below: gentoo with systemd)
-# gpgconf --launch gpg-agent
 # export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 if [ -e "$HOME/.profile.local" ]; then
     source "$HOME/.profile.local"
