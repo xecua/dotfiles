@@ -12,7 +12,7 @@ vim.fn["ddu#custom#patch_global"]({
       autoAction = { name = "preview", delay = 100 },
     },
     filer = {
-      winWidth = vim.o.columns / 8,
+      winWidth = vim.o.columns / 6,
       split = "vertical",
       splitDirection = "topleft",
     },
@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     local opts = { buffer = true, silent = true }
     vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#ff#do_action('itemAction')<CR>", opts)
+    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>", opts)
     vim.keymap.set("n", "/", "<Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>", opts)
     vim.keymap.set("n", "p", "<Cmd>call ddu#ui#ff#do_action('preview')<CR>", opts)
     vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>", opts)
@@ -93,15 +94,16 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 
     vim.keymap.set("n", "<CR>", function()
-      if vim.fn["ddu#ui#filer#is_directory"]() then
+      if vim.fn["ddu#ui#filer#is_tree"]() then
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow" })
       else
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "open" })
       end
-    end, opts_with_desc("Narrow(directory), Open(file)"))
+    end, opts_with_desc("Narrow(tree), Open(file)"))
     vim.keymap.set("n", "<BS>", function()
       vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
     end, opts_with_desc("Narrow"))
+    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#filer#do_action('chooseAction')<CR>", opts)
     vim.keymap.set("n", "q", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", opts)
     vim.keymap.set("n", "l", "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>", opts)
     vim.keymap.set("n", "h", "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>", opts)
