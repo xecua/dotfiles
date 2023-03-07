@@ -265,5 +265,4 @@ bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 
 exec --no-startup-id dbus-update-activation-environment --systemd --all
 exec --no-startup-id systemctl --user import-environment DISPLAY I3SOCK XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP PATH
-exec sh 'echo $PATH'
 exec --no-startup-id systemctl --user start i3-session.target
