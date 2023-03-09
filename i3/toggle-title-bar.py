@@ -2,20 +2,23 @@
 
 # Save this script to ~/.i3/toggle-title-bar.py, then add the following to
 # your ~/.i3/config file:
-# 
+#
 #   # toggle title bar
 #   bindsym $mod+t exec ~/.i3/toggle-title-bar.py
 #
 # Author: Leandro Lovisolo <leandro@leandro.me>
 #         https://github.com/LeandroLovisolo
 
-from gi.repository import i3ipc
+# Original: https://gist.github.com/LeandroLovisolo/7d25271504283543f305
+# Edit: use `i3ipc` instead of `i3ipc-glib`
 
-i3 = i3ipc.Connection()
+from i3ipc import Connection
 
-border = i3.get_tree().find_focused().get_property("border")
+i3 = Connection()
+
+border = i3.get_tree().find_focused().border
 
 if border == "normal":
-  i3.command("border 1pixel")
+    i3.command("border pixel 1")
 else:
-  i3.command("border normal")
+    i3.command("border normal")

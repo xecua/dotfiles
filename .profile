@@ -3,7 +3,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-# export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
+export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
 export EDITOR=nvim
 
 # Language related variables, using XDG Base Directories
@@ -34,6 +34,10 @@ export FZF_DEFAULT_OPTS="--reverse"
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     export MOZ_ENABLE_WAYLAND=1
+fi
+if [ "$XDG_SESSION_DESKTOP" = "sway" ]; then
+    # https://github.com/swaywm/sway/issues/595
+    export _JAVA_AWT_WM_NONREPARENTING=1
 fi
 
 # Update PATH

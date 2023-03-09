@@ -379,3 +379,7 @@ repo = 'delphinus/vim-firestore'
 ## skk-jisyo
 [[plugins]]
 repo = 'vim-skk/skkdict.vim'
+
+## astro.build
+[[plugins]]
+repo = 'wuelnerdotexe/vim-astro'

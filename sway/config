@@ -256,6 +256,10 @@ bar {
     }
 }
 
+# Icelk/clipcat (fork of xrelkd/clipcat)
+bindsym $mod+i exec clipcat-menu insert
+
+bindsym $mod+t exec ~/.config/i3/toggle-title-bar.py
 
 ### Automatic execution
 exec --no-startup-id swayidle -w \
