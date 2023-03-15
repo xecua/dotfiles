@@ -60,6 +60,7 @@ null_ls.setup({
 require("prettier").setup({
   bin = "prettier", -- or `prettierd`
   filetypes = {
+    "astro",
     "css",
     "graphql",
     "html",

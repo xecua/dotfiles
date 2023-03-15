@@ -39,6 +39,9 @@ if [ "$XDG_SESSION_DESKTOP" = "sway" ]; then
     # https://github.com/swaywm/sway/issues/595
     export _JAVA_AWT_WM_NONREPARENTING=1
 fi
+if [ "$XDG_SESSION_DESKTOP" = "berry" ]; then
+    sxhkd -c $HOME/.config/berry/sxhkdrc &
+fi
 
 # Update PATH
 PATH="$HOME/.local/bin:$PATH"

@@ -308,7 +308,7 @@ else
   vim.cmd("colorscheme molokai")
 
   vim.g.loaded_matchparen = 1 -- disable default settings
-  local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact" })
+  local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact", "astro" })
   local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
   vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
   vim.g.closetag_filetypes = closetag_xhtml_filetypes:concat(closetag_normal_filetypes):join(",")
@@ -318,6 +318,8 @@ else
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")
   vim.fn["tcomment#type#Define"]("kotlin", "// %s")
+  vim.fn["tcomment#type#Define"]("hjson", "# %s")
+  vim.fn["tcomment#type#Define"]("hjson_block", "/* %s */")
   vim.fn["tcomment#type#Define"]("tex_block", [[\begin{comment}%s\end{comment}]])
 
   vim.fn["popup_preview#enable"]()
