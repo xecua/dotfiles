@@ -56,6 +56,12 @@ repo = 'rhysd/vim-grammarous'
 [[plugins]]
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 
+# Machine Learning-based completion
+[[plugins]]
+repo = 'codota/tabnine-nvim'
+# for windows? (hook_post_source's pwd is not the runtimepath?)
+build = './dl_binaries.sh'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
@@ -281,6 +287,10 @@ repo = 'mbbill/undotree'
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons']    # optional
+
+[[plugins]]
+repo = 'arkav/lualine-lsp-progress' # module
+depends = ['lualine.nvim']
 
 # comment out
 [[plugins]]

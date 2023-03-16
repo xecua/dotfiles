@@ -12,18 +12,19 @@ if not vim.o.rtp:find("/dein.vim") then
   vim.opt.rtp:prepend(dein_repo_dir)
 end
 
-if vim.fn["dein#load_state"](dein_dir) == 1 then
-  vim.fn["dein#begin"](dein_dir)
+local dein = require("dein")
+if dein.load_state(dein_dir) then
+  dein.begin(dein_dir)
 
-  vim.fn["dein#load_toml"](vim.fn.stdpath("config") .. "/dein.toml", { lazy = 0 })
-  vim.fn["dein#load_toml"](vim.fn.stdpath("config") .. "/dein_lazy.toml", { lazy = 1 })
+  dein.load_toml(vim.fn.stdpath("config") .. "/dein.toml", { lazy = 0 })
+  dein.load_toml(vim.fn.stdpath("config") .. "/dein_lazy.toml", { lazy = 1 })
 
-  vim.fn["dein#end"]()
-  vim.fn["dein#save_state"]()
+  dein.end_()
+  dein.save_state()
 end
 
-if vim.fn["dein#check_install"]() == 1 then
-  vim.fn["dein#install"]()
+if dein.check_install() then
+  dein.install()
 end
 
 vim.api.nvim_create_user_command("DeinClean", "call map(dein#check_clean(), { _, val -> delete(val, 'rf') })", {})

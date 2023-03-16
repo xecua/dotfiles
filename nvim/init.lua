@@ -278,6 +278,11 @@ else
   require("plugin_configs.null-ls")
   require("plugin_configs.dap")
 
+  -- tabnine
+  require("tabnine").setup({
+    accept_keymap = "<C-k>",
+  })
+
   -- outline
   require("symbols-outline").setup()
 

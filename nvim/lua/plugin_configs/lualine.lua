@@ -21,9 +21,16 @@ require("lualine").setup({
       { "branch", icon = { "" } }, -- 0xe702 (devicons)
       { "filename", path = 1, symbols = { readonly = "[readonly]" } },
     },
-    lualine_c = { "diagnostics" },
-    lualine_x = { fileformat, shiftwidth, "encoding", "filetype" },
-    lualine_y = {},
+    lualine_c = {
+      -- arkav/lualine-lsp-progress
+      "lsp_progress",
+      "diagnostics",
+    },
+    lualine_x = {
+      -- codota/tabnine-nvim
+      "tabnine",
+    },
+    lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
   },
   tabline = {
     lualine_a = { { "tabs", mode = 2 } },

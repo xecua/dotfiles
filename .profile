@@ -4,6 +4,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
+export GHCUP_USE_XDG_DIRS=1
 export EDITOR=nvim
 
 # Language related variables, using XDG Base Directories
