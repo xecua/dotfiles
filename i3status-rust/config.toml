@@ -19,6 +19,11 @@ block = "load"
 format = "$icon  $1m.eng(w:4) / $5m.eng(w:4) / $15m.eng(w:4)"
 
 [[block]]
+block = "amd_gpu"
+format = "$icon $vram_used_percents $vram_total"
+error_format = ""
+error_interval = 0
+[[block]]
 block = "nvidia_gpu"
 format = "$icon $name $utilization $memory $temperature"
 error_format = ""
@@ -42,10 +47,10 @@ block = "music"
 player = "spotify"
 format = "{$icon $combo.str(w:30,rot_interval:30) $play  $next|}"
 
-[[block]]
-block = "custom"
-command = "echo `whoami` @ `cat /etc/hostname`"
-interval = "once"
+# [[block]]
+# block = "custom"
+# command = "echo `whoami` @ `cat /etc/hostname`"
+# interval = "once"
 
 [[block]]
 block = "battery"

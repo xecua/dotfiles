@@ -683,9 +683,7 @@ vim.fn["skkeleton#config"]({
   immediatelyCancel = false,
   showCandidatesCount = 1,
   kanaTable = "azik",
-  globalJisyo = vim.env.HOME .. "/.skk-jisyo",
-  globalJisyoEncoding = "utf-8",
-  -- useSkkServer = true,
-  -- skkServerReqEnc = "utf-8",
-  -- skkServerResEnc = "utf-8",
+  useSkkServer = true,
+  skkServerReqEnc = "utf-8",
+  skkServerResEnc = "utf-8",
 })

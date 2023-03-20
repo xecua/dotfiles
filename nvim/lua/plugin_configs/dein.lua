@@ -13,7 +13,7 @@ if not vim.o.rtp:find("/dein.vim") then
 end
 
 local dein = require("dein")
-if dein.load_state(dein_dir) then
+if dein.load_state(dein_dir) == 1 then
   dein.begin(dein_dir)
 
   dein.load_toml(vim.fn.stdpath("config") .. "/dein.toml", { lazy = 0 })

@@ -1,0 +1,8 @@
+[Unit]
+Description=Yet Another SKK server
+
+[Service]
+ExecStart=/usr/sbin/yaskkserv2 --no-daemonize --midashi-utf8 --google-suggest --google-cache-filename /tmp/yaskkserv2.cache %h/.yaskkserv
+
+[Install]
+WantedBy=default.target
