@@ -1,5 +1,5 @@
 -- neovide: use ui
-if vim.g.neovide ~= nil then
+if vim.g.neovide ~= nil or vim.env.DISPLAY == nil then
   vim.keymap.set({ "i", "c", "l" }, "<C-j>", "<Plug>(skkeleton-enable)")
 end
 
@@ -682,21 +682,20 @@ local os = require("utils").get_os_string()
 local dictionaries = {}
 if os == "Linux" or os == "WSL" then
   dictionaries = {
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.L.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.jinmei.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.geo.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.station.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.propernoun.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.mahjong.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.genshin.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.2ch.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.itaiji.utf8",
+    "/usr/share/skk/SKK-JISYO.L",
+    "/usr/share/skk/SKK-JISYO.jinmei",
+    "/usr/share/skk/SKK-JISYO.geo",
+    "/usr/share/skk/SKK-JISYO.station",
+    "/usr/share/skk/SKK-JISYO.propernoun",
+    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.mahjong",
+    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.genshin",
+    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.2ch",
+    "/usr/share/skk/SKK-JISYO.itaiji",
     "~/GoogleDrive/skk/raw-dict/npiiii.l.euc",
-    "~/GoogleDrive/skk/raw-dict/SKK-JISYO.JIS3_4",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.JIS2.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.pinyin.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.itaiji.JIS3_4.utf8",
-    "~/GoogleDrive/skk/utf8-dict/SKK-JISYO.JIS2004.utf8",
+    "/usr/share/skk/SKK-JISYO.itaiji.JIS3_4",
+    "/usr/share/skk/SKK-JISYO.JIS2004",
+    "/usr/share/skk/SKK-JISYO.JIS2",
+    "/usr/share/skk/SKK-JISYO.JIS3_4",
     "~/Documents/repos/github.com/uasi/skk-emoji-jisyo/SKK-JISYO.emoji.utf8",
     "~/Documents/repos/github.com/xecua/dotfiles/skk/skk-jisyo.utf-8",
     "~/Documents/repos/github.com/gist.github.com/copypasta.skk-jisyo/copypasta.skk-jisyo",

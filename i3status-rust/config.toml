@@ -20,7 +20,7 @@ format = "$icon  $1m.eng(w:4) / $5m.eng(w:4) / $15m.eng(w:4)"
 
 [[block]]
 block = "amd_gpu"
-format = "$icon $vram_used_percents $vram_total"
+format = "$icon  $vram_used_percents $vram_total"
 error_format = ""
 error_interval = 0
 [[block]]
@@ -45,7 +45,7 @@ headphones_indicator = true
 [[block]]
 block = "music"
 player = "spotify"
-format = "{$icon $combo.str(w:30,rot_interval:30) $play  $next|}"
+format = "{$icon $combo.str(max_w:30,rot_interval:30) $play  $next|}"
 
 # [[block]]
 # block = "custom"

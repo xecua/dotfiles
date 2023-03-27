@@ -65,8 +65,8 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "ddu-ff-filter",
   callback = function()
     local opts = { buffer = true, silent = true }
-    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
-    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#close()<CR>", opts)
+    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>", opts)
+    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>", opts)
   end,
 })
 
@@ -94,7 +94,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 
     vim.keymap.set("n", "<CR>", function()
-      if vim.fn["ddu#ui#filer#is_tree"]() then
+      if vim.fn["ddu#ui#get_item"]()["isTree"] == true then
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow" })
       else
         vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "open" })
