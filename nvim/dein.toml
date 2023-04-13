@@ -188,6 +188,10 @@ depends = ['denops.vim', 'ddu.vim']
 repo = 'Shougo/ddu-filter-matcher_hidden'
 depends = ['denops.vim', 'ddu.vim']
 
+[[plugins]]
+repo = 'yuki-yano/ddu-filter-fzf'
+depends = ['denops.vim', 'ddu.vim']
+
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'

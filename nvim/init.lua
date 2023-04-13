@@ -76,7 +76,7 @@ vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")
 vim.keymap.set("n", "<Leader>t", "<Cmd>TroubleToggle<CR>")
 vim.keymap.set("n", "<Leader>u", "<Cmd>UndotreeToggle<CR>")
-vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -drawer -toggle<CR>")
+vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>")
 -- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
@@ -184,6 +184,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = [=[\]]=] })
     vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#]], input_after = [['''']] })
     vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], input = [[<Right>''''<Left><Left>]] })
+  end,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = init_augroup_id,
+  pattern = { "fern" },
+  callback = function()
+    vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
+    vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
+    vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
   end,
 })
 vim.api.nvim_create_autocmd(

@@ -19,8 +19,11 @@ vim.fn["ddu#custom#patch_global"]({
   },
   sources = { { name = "file_rec" } },
   sourceOptions = {
-    _ = { matchers = { "matcher_substring" } },
+    _ = { matchers = { "matcher_fzf" } },
     source = { defaultAction = "execute" },
+  },
+  filterParams = {
+    matcher_fzf = { highlightMatched = "Search" },
   },
   kindOptions = {
     file = { defaultAction = "open" },
@@ -32,18 +35,20 @@ vim.fn["ddu#custom#patch_global"]({
 
 vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 vim.api.nvim_create_user_command("DduRg", function(opts)
+  local source = {}
+  if opts.args ~= "" then
+    source = { name = "rg", params = { args = { "--json" }, input = opts.args } }
+  else
+    source = { name = "rg", params = { args = { "--json" } }, options = { volatile = true, matchers = {} } }
+  end
   vim.fn["ddu#start"]({
-    volatile = opts.args == "",
-    sources = {
-      {
-        name = "rg",
-        params = { input = opts.args },
-        options = { matchers = {} },
-      },
-    },
+    sources = { source },
     uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
   })
 end, { nargs = "?" })
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_rec<CR>")
+vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
+vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRg<CR>")
 
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
