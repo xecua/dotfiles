@@ -13,6 +13,12 @@ if not vim.o.rtp:find("/dein.vim") then
 end
 
 local dein = require("dein")
+
+dein.setup({
+  auto_recache = true,
+  enable_notification = true,
+})
+
 if dein.load_state(dein_dir) == 1 then
   dein.begin(dein_dir)
 
