@@ -37,9 +37,9 @@ vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 vim.api.nvim_create_user_command("DduRg", function(opts)
   local source = {}
   if opts.args ~= "" then
-    source = { name = "rg", params = { args = { "--json" }, input = opts.args } }
+    source = { name = "rg", params = { input = opts.args } }
   else
-    source = { name = "rg", params = { args = { "--json" } }, options = { volatile = true, matchers = {} } }
+    source = { name = "rg", options = { volatile = true, matchers = {} } }
   end
   vim.fn["ddu#start"]({
     sources = { source },

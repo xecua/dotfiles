@@ -1,6 +1,7 @@
 vim.cmd("filetype plugin indent off")
 
 local utils = require("utils")
+vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 
 vim.opt.mouse = "a"
 vim.opt.fileformats = { "unix", "dos", "mac" }
@@ -70,7 +71,6 @@ require("plugin_configs.lualine")
 require("plugin_configs.quickrun")
 
 -- keymaps
-vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>cclose<CR>")

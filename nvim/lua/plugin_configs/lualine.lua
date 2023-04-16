@@ -14,7 +14,6 @@ end
 require("lualine").setup({
   options = {
     theme = "wombat",
-    globalstatus = true,
   },
   sections = {
     lualine_b = {
