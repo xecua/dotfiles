@@ -10,6 +10,7 @@ vim.fn["ddc#custom#patch_global"]("sourceOptions", {
   _ = {
     matchers = { "matcher_head" },
     sorters = { "sorter_rank" },
+    ignoreCase = true,
   },
   around = {
     mark = "A",
