@@ -263,10 +263,6 @@ repo = 'lambdalisue/fern-hijack.vim'
 repo = 'ryanoasis/vim-devicons'
 
 # other
-# editorconfig
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'

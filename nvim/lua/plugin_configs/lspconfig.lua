@@ -15,6 +15,7 @@ mason_lspconfig.setup({
     "html",
     "gopls",
     "kotlin_language_server",
+    "intelephense",
     "jdtls",
     "jsonls",
     "texlab",
@@ -103,6 +104,13 @@ mason_lspconfig.setup_handlers({
     lspconfig.denols.setup({
       on_attach = on_attach,
       root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+    })
+  end,
+  intelephense = function()
+    lspconfig.intelephense.setup({
+      init_options = {
+        licenceKey = vim.env.HOME .. "/.local/share/intelephense/licence.txt",
+      },
     })
   end,
   rust_analyzer = function()
