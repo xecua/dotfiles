@@ -18,7 +18,7 @@ vim.opt.listchars = { tab = ">-", trail = "*", nbsp = "+" }
 vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 vim.opt.guifont = { "UDEV Gothic 35NFLG:h12", "Cica:h14", "monospace:h12" }
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- fold block by treesitter
@@ -87,8 +87,8 @@ vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
 vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
 vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
--- Always enable verymagic (a.k.a. ERE). see :h \v
 vim.keymap.set({ "n", "v" }, "<Leader>b", "<Plug>(openbrowser-open)")
+-- Always enable verymagic (a.k.a. ERE). see :h \v
 vim.keymap.set({ "n", "v" }, "/", "/\\v")
 vim.keymap.set({ "n", "v" }, "?", "?\\v")
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
@@ -126,7 +126,6 @@ vim.api.nvim_create_autocmd(
   { "BufWritePre" },
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
 )
-vim.api.nvim_create_autocmd({ "VimEnter" }, { group = init_augroup_id, callback = utils.load_local_vimrc })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = init_augroup_id,
   pattern = { "*.tex" },
@@ -227,7 +226,7 @@ vim.api.nvim_create_user_command("PunctSubDisable", function()
     vim.api.nvim_del_autocmd(autocmd.id)
   end
 end, {})
--- LaTeX and SATySFi: enabled by default (it is intentional that the augroup is Init)
+-- LaTeX and SATySFi: enable by default (it is intentional that the augroup is Init)
 vim.api.nvim_create_autocmd(
   { "BufWritePre", "FileWritePre" },
   { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, command = "PunctSubEnable" }
@@ -274,10 +273,7 @@ if vim.g.vscode ~= nil then
   -- WSL: Win側で探してしまい見つからない
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 else
-  -- vim.opt.ambiwidth = "double" -- そもそもなんでこれ入れてたんだっけ
-
   -- lsp config
-  -- setting up mason.nvim
   require("plugin_configs.mason.satysfi-ls")
   local index = require("mason-registry.index")
   index["satysfi-ls"] = "plugin_configs.mason.satysfi-ls"

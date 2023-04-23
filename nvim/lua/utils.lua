@@ -1,20 +1,12 @@
 local M = {}
 
-function M.load_local_vimrc()
-  -- とりあえず
-  vim.cmd([[
-    let files = findfile('.vim/vimrc', getcwd().';', -1)
-    for i in reverse(filter(files, 'filereadable(v:val)'))
-      source `=i`
-    endfor
-  ]])
-end
-
 function M.normalize_punctuation()
-  vim.cmd([[
-    :%s/、/，/ge
-    :%s/。/．/ge
-  ]])
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+  local new_lines = {}
+  for i, line in ipairs(lines) do
+    new_lines[i] = vim.fn.substitute(vim.fn.substitute(line, "、", "，", "ge"), "。", "．", "ge")
+  end
+  vim.api.nvim_buf_set_lines(0, 0, -1, true, new_lines)
 end
 
 function M.find(pattern, list)
