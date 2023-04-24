@@ -108,6 +108,7 @@ mason_lspconfig.setup_handlers({
   end,
   intelephense = function()
     lspconfig.intelephense.setup({
+      on_attach = on_attach,
       init_options = {
         licenceKey = vim.env.HOME .. "/.local/share/intelephense/licence.txt",
       },
