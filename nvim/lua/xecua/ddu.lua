@@ -55,13 +55,13 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "ddu-ff",
   callback = function()
     local opts = { buffer = true, silent = true }
-    vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#ff#do_action('itemAction')<CR>", opts)
-    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>", opts)
-    vim.keymap.set("n", "/", "<Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>", opts)
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#ff#do_action('preview')<CR>", opts)
-    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>", opts)
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#ff#do_action('quit')<CR>", opts)
-    vim.keymap.set("n", "e", "<Cmd>call ddu#ui#ff#do_action('edit')<CR>", opts)
+    vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
+    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+    vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
+    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
+    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
+    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
+    vim.keymap.set("n", "e", "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -69,8 +69,8 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "ddu-ff-filter",
   callback = function()
     local opts = { buffer = true, silent = true }
-    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>", opts)
-    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>", opts)
+    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
+    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
   end,
 })
 
@@ -99,25 +99,25 @@ vim.api.nvim_create_autocmd("FileType", {
 
     vim.keymap.set("n", "<CR>", function()
       if vim.fn["ddu#ui#get_item"]()["isTree"] == true then
-        vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow" })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
       else
-        vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "open" })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
       end
     end, opts_with_desc("Narrow(tree), Open(file)"))
     vim.keymap.set("n", "<BS>", function()
-      vim.fn["ddu#ui#filer#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
+      vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
     end, opts_with_desc("Narrow"))
-    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#filer#do_action('chooseAction')<CR>", opts)
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#filer#do_action('quit')<CR>", opts)
-    vim.keymap.set("n", "l", "<Cmd>call ddu#ui#filer#do_action('expandItem')<CR>", opts)
-    vim.keymap.set("n", "h", "<Cmd>call ddu#ui#filer#do_action('collapseItem')<CR>", opts)
-    vim.keymap.set("n", "o", "<Cmd>call ddu#ui#filer#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
-    vim.keymap.set("n", "n", "<Cmd>call ddu#ui#filer#do_action('newFile')<CR>", opts)
-    vim.keymap.set("n", "r", "<Cmd>call ddu#ui#filer#do_action('rename')<CR>", opts)
-    vim.keymap.set("n", "y", "<Cmd>call ddu#ui#filer#do_action('copy')<CR>", opts)
-    vim.keymap.set("n", "m", "<Cmd>call ddu#ui#filer#do_action('move')<CR>", opts)
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#filer#do_action('paste')<CR>", opts)
-    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#filer#do_action('toggleSelectItem')<CR>", opts)
+    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
+    vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
+    vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
+    vim.keymap.set("n", "o", "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
+    vim.keymap.set("n", "n", "<Cmd>call ddu#ui#do_action('newFile')<CR>", opts)
+    vim.keymap.set("n", "r", "<Cmd>call ddu#ui#do_action('rename')<CR>", opts)
+    vim.keymap.set("n", "y", "<Cmd>call ddu#ui#do_action('copy')<CR>", opts)
+    vim.keymap.set("n", "m", "<Cmd>call ddu#ui#do_action('move')<CR>", opts)
+    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('paste')<CR>", opts)
+    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
     -- toggle hidden files
     vim.keymap.set("n", "!", function()
       local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd("FileType", {
       local source_options_all = source_options and source_options["_"] or nil
       local matchers = source_options_all and source_options_all["matchers"] or {}
       local new_matchers = (#matchers == 0) and { "matcher_hidden" } or {}
-      vim.fn["ddu#ui#filer#do_action"]("updateOptions", {
+      vim.fn["ddu#ui#do_action"]("updateOptions", {
         sourceOptions = {
           _ = {
             matchers = new_matchers,

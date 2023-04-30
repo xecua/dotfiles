@@ -16,6 +16,7 @@ end
 abbr --add vi --function open_vim
 abbr --add vim --function open_vim
 abbr --add nvim --function open_vim
+abbr --add nvimdiff --function 'nvim -d'
 abbr --add :q exit
 
 function lastcmd

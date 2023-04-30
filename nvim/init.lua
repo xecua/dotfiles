@@ -1,6 +1,6 @@
 vim.cmd("filetype plugin indent off")
 
-local utils = require("utils")
+local utils = require("xecua.utils")
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 
 vim.opt.mouse = "a"
@@ -57,18 +57,18 @@ vim.api.nvim_create_user_command(
 vim.cmd("runtime! ftplugin/man.vim")
 
 -- plugin managers
-require("plugin_configs.dein")
--- require("plugin_configs.jetpack")
+require("xecua.dein")
+-- require("xecua.jetpack")
 
 -- dependency
 local List = require("plenary.collections.py_list")
 
 -- plugin configurations
-require("plugin_configs.skkeleton")
-require("plugin_configs.ddc")
-require("plugin_configs.ddu")
-require("plugin_configs.lualine")
-require("plugin_configs.quickrun")
+require("xecua.skkeleton")
+require("xecua.ddc")
+require("xecua.ddu")
+require("xecua.lualine")
+require("xecua.quickrun")
 
 -- keymaps
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
@@ -206,6 +206,12 @@ if vim.fn.executable("pdftotext") then
     command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
   })
 end
+-- automatically open QuickFix window after grep
+vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
+  group = init_augroup_id,
+  pattern = { "grep", "vimgrep" },
+  command = "copen",
+})
 
 -- Switching automatic punctuation substitution
 local punct_sub_augroup_id = vim.api.nvim_create_augroup("PunctSub", { clear = true })
@@ -274,14 +280,15 @@ if vim.g.vscode ~= nil then
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 else
   -- lsp config
-  require("plugin_configs.mason.satysfi-ls")
+  require("xecua.mason.satysfi-ls")
   local index = require("mason-registry.index")
-  index["satysfi-ls"] = "plugin_configs.mason.satysfi-ls"
+  index["satysfi-ls"] = "xecua.mason.satysfi-ls"
 
   require("mason").setup()
-  require("plugin_configs.lspconfig")
-  require("plugin_configs.null-ls")
-  require("plugin_configs.dap")
+  require("xecua.mason")
+  require("xecua.lspconfig")
+  require("xecua.null-ls")
+  require("xecua.dap")
 
   -- tabnine
   require("tabnine").setup({

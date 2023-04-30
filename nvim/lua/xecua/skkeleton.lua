@@ -678,7 +678,7 @@ vim.fn["skkeleton#register_kanatable"]("azik", {
   ["zz"] = { "ざん" },
 }, true)
 
-local os = require("utils").get_os_string()
+local os = require("xecua.utils").get_os_string()
 local dictionaries = {}
 if os == "Linux" or os == "WSL" then
   dictionaries = {

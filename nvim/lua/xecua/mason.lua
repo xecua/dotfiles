@@ -1,9 +1,7 @@
 local registry = require("mason-registry")
-local lspconfig = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
-local utils = require("utils")
-
-local augroup = vim.api.nvim_create_augroup("LspConfig", {})
+local lspconfig = require("lspconfig")
+local utils = require("xecua.utils")
 
 mason_lspconfig.setup({
   ensure_installed = {
@@ -29,87 +27,22 @@ mason_lspconfig.setup({
   -- automatic_installation = false,
 })
 
-local on_attach = function(client, bufnr)
-  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts_with_desc = function(desc)
-    return { buffer = bufnr, silent = true, desc = "LSP: " .. desc }
-  end
-
-  -- LSP related: preceded by <Leader>i
-  vim.keymap.set("n", "<Leader>id", vim.lsp.buf.definition, opts_with_desc("Definition"))
-  vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts_with_desc("Type definition"))
-  vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts_with_desc("Implementation"))
-  vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts_with_desc("References"))
-  vim.keymap.set("n", "<Leader>i]", vim.diagnostic.goto_next, opts_with_desc("Goto next item"))
-  vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts_with_desc("Goto previous item"))
-  vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts_with_desc("Code actions"))
-  vim.keymap.set("n", "<Leader>im", vim.lsp.buf.hover, opts_with_desc("Hover"))
-
-  vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_with_desc("Rename"))
-
-  local format_opts = {
-    bufnr = bufnr,
-    filter = function(clt)
-      return utils.find(clt.name, {
-        "tsserver",
-        "jsonls",
-        "lua_ls",
-        "pyright",
-        "html",
-      }) == -1
-    end,
-  }
-
-  if client.server_capabilities.documentFormattingProvider then
-    vim.keymap.set("n", "<Leader>if", function()
-      vim.lsp.buf.format(format_opts)
-    end, opts_with_desc("Format whole file"))
-
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format(format_opts)
-      end,
-      desc = "LSP: Format on save",
-    })
-  end
-
-  if client.server_capabilities.documentRangeFormattingProvider then
-    vim.keymap.set("v", "<Leader>if", function()
-      vim.lsp.buf.format(format_opts)
-    end, opts_with_desc("Format selected range"))
-  end
-
-  vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
-    vim.lsp.buf.format(format_opts)
-  end, { desc = "LSP: Format whole file" })
-end
-
 mason_lspconfig.setup_handlers({
   function(server_name)
     local ignore_servers = { "jdtls" }
     if utils.find(server_name, ignore_servers) == -1 then
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-      })
+      lspconfig[server_name].setup({})
     end
   end,
   denols = function()
     lspconfig.denols.setup({
-      on_attach = on_attach,
       root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     })
   end,
   intelephense = function()
     lspconfig.intelephense.setup({
-      on_attach = on_attach,
       init_options = {
+        globalStoragePath = vim.env.HOME .. "/.local/share/intelephense",
         licenceKey = vim.env.HOME .. "/.local/share/intelephense/licence.txt",
       },
     })
@@ -132,7 +65,6 @@ mason_lspconfig.setup_handlers({
       },
       server = {
         on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
           -- overwrite default configs
           local opts_with_desc = function(desc)
             return { buffer = bufnr, silent = true, desc = "LSP(Rust): " .. desc }
@@ -154,7 +86,6 @@ mason_lspconfig.setup_handlers({
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
     lspconfig.lua_ls.setup({
-      on_attach = on_attach,
       settings = {
         Lua = {
           runtime = {
@@ -204,7 +135,6 @@ mason_lspconfig.setup_handlers({
     end
 
     lspconfig.texlab.setup({
-      on_attach = on_attach,
       settings = {
         -- currently not supported? (https://github.com/latex-lsp/texlab/issues/427)
         texlab = {
@@ -221,7 +151,6 @@ mason_lspconfig.setup_handlers({
     lspconfig.eslint.setup({
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
-        on_attach(client, bufnr)
       end,
       settings = {
         format = { enable = true },
@@ -230,7 +159,6 @@ mason_lspconfig.setup_handlers({
   end,
   jsonls = function()
     lspconfig.jsonls.setup({
-      on_attach = on_attach,
       init_options = {
         provideFormatter = false,
       },
@@ -245,7 +173,6 @@ mason_lspconfig.setup_handlers({
         fallback = true, -- fall back to standard LSP definition on failure
       },
       server = {
-        on_attach = on_attach,
         single_file_support = false,
         root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json"),
       },
@@ -310,8 +237,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
         -- exposed commands
         require("jdtls.setup").add_commands()
-
-        on_attach(client, bufnr)
       end,
       init_options = { bundles = bundles },
     })
