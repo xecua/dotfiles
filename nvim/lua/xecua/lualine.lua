@@ -32,7 +32,13 @@ require("lualine").setup({
     lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
   },
   tabline = {
-    lualine_a = { { "tabs", mode = 2 } },
+    lualine_a = {
+      {
+        "tabs",
+        max_length = vim.o.columns * 2 / 3,
+        mode = 2,
+      },
+    },
     lualine_b = {
       {
         -- 'create new tabpage' component
@@ -56,5 +62,5 @@ require("lualine").setup({
       },
     },
   },
-  extensions = { "fern", "man", "quickfix" },
+  extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
 })
