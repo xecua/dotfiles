@@ -19,9 +19,9 @@ uname = os.uname().sysname
 
 def make_symlink(link: Path, target: Path):
     if not link.parent.exists():
-        link.parent.mkdir(exist_ok=True)
+        link.parent.mkdir(parents=True, exist_ok=True)
 
-    if not target.exists():
+    if not link.exists():
         link.symlink_to(target, target_is_directory=True)
         print(f"Linked: {link} -> {target}", file=sys.stderr)
     else:
@@ -67,7 +67,7 @@ make_symlink(config_home / 'ranger' / 'rifle.conf',
 make_symlink(config_home / 'alacritty', script_dir / 'alacritty')
 if not (home / '.alacritty.local.yml').exists():
     # create
-    open(home / '.alacritty.local.yml').close()
+    (home / '.alacritty.local.yml').touch()
 
 # Linux only
 make_symlink(config_home / 'xremap', script_dir / 'xremap')
@@ -109,16 +109,16 @@ if not (home / '.indentconfig.yaml').exists():
 else:
     print("indentconfig.yaml was not created.", file=sys.stderr)
 
-npm_check = subprocess.run(['npm', '-v'],
-                           stdout=subprocess.DEVNULL,
-                           stderr=subprocess.DEVNULL)
-if npm_check.returncode == 0:
+try:
     subprocess.run(['npm', 'set', 'prefix', data_home / 'npm'])
     subprocess.run(['npm', 'set', 'cache', cache_home / 'npm'])
     subprocess.run([
         'npm', 'set', 'init-module',
         config_home / 'npm' / 'config' / 'npm-init.js'
     ])
+except:
+    print("npm does not exist.",
+          "Please setup manually or run this script again.")
 
 # for yarn berry?
 # yarn_check = subprocess.run(['yarn', '-v'],
