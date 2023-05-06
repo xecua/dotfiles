@@ -78,9 +78,10 @@ make_symlink(config_home / 'libskk' / 'rules',
              script_dir / 'skk' / 'libskk' / 'rules')
 
 if not (config_home / 'rofi').exists():
-    setup_sh_path = script_dir / 'rofi' / 'setup.sh'
+    rofi_path = script_dir / 'rofi'
+    setup_sh_path = rofi_path / 'setup.sh'
     setup_sh_path.chmod(0o755)
-    subprocess.run(setup_sh_path)
+    subprocess.run(setup_sh_path, cwd=rofi_path)
     (script_dir / 'rofi_scripts' / 'rofi_launcher').symlink_to(
         home / '.local' / 'bin' / 'rofi_launcher')
     (script_dir / 'rofi_scripts' / 'rofi_powermenu').symlink_to(
