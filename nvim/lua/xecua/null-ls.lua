@@ -21,6 +21,6 @@ null_ls.setup({
 
 -- null-ls config wrapper for prettier
 require("prettier").setup({
-  bin = "prettier", -- or `prettierd`
+  bin = "prettierd",
   filetypes = require("xecua.lspconfig").prettier_filetypes,
 })
