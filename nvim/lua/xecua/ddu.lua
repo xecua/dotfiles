@@ -78,9 +78,13 @@ vim.api.nvim_create_user_command("DduFiler", function()
   vim.fn["ddu#start"]({
     ui = "filer",
     sources = {
-      { name = "file", params = {}, options = {
-        columns = { "icon_filename" },
-      } },
+      {
+        name = "file",
+        params = {},
+        options = {
+          columns = { "icon_filename" },
+        },
+      },
     },
     actionOptions = {
       narrow = { quit = false },

@@ -59,8 +59,12 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
 })
 
 vim.keymap.set("i", "<Tab>", function()
-  if vim.fn["pum#visible"]() then
-    return vim.fn["pum#map#insert_relative"](1)
+  if vim.fn["neosnippet#expandable_or_jumpable"]() == 1 then
+    print("expandable")
+    -- <Plug>にmapするとremapがついて<Tab>に飛ばせなくなるので直接呼んじゃう
+    return vim.fn["neosnippet#mappings#expand_or_jump_impl"]()
+  elseif vim.fn["pum#visible"]() then
+    return "<Cmd>call pum#map#insert_relative(1)<CR>"
   end
   local _, col = unpack(vim.api.nvim_win_get_cursor(0))
   local current_char = string.sub(vim.api.nvim_get_current_line(), 0, col)

@@ -94,7 +94,6 @@ vim.keymap.set({ "n", "v" }, "?", "?\\v")
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
 vim.keymap.set({ "n", "v" }, ":%s/", ":%s/\\v")
 
-vim.keymap.set("i", "<C-k>", "<Plug>(neosnippet_expand_or_jump)")
 vim.keymap.set({ "n", "i", "v" }, "<C-_><C-_>", "<Plug>TComment_<c-_><c-_>")
 vim.keymap.set({ "n", "i", "v" }, "<C-_>b", "<Plug>TComment_<c-_>b")
 
@@ -212,6 +211,14 @@ vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   pattern = { "grep", "vimgrep" },
   command = "copen",
 })
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = init_augroup_id,
+  pattern = { "qf" },
+  callback = function()
+    -- open buffer and then move back to quickfix
+    vim.keymap.set("n", "p", "<CR>:copen<CR>", { buffer = true })
+  end,
+})
 
 -- Switching automatic punctuation substitution
 local punct_sub_augroup_id = vim.api.nvim_create_augroup("PunctSub", { clear = true })
@@ -315,6 +322,9 @@ else
     auto_install = true,
     ignore_install = {
       "fish", -- seems to have some problem https://github.com/ram02z/tree-sitter-fish/issues/17
+    },
+    rainbow = {
+      enable = true,
     },
   })
   vim.opt.rtp:append(treesitter_parsers_dir)

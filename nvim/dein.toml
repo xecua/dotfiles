@@ -350,6 +350,9 @@ repo = 'hynek/vim-python-pep8-indent'
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = 'TSUpdate'
 
+[[plugins]]
+repo = 'HiPhish/nvim-ts-rainbow2'
+
 ## fish
 [[plugins]]
 repo = 'dag/vim-fish'

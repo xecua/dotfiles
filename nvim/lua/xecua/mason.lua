@@ -2,6 +2,7 @@ local registry = require("mason-registry")
 local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
 local utils = require("xecua.utils")
+local List = require("plenary.collections.py_list")
 
 mason_lspconfig.setup({
   ensure_installed = {
@@ -29,8 +30,8 @@ mason_lspconfig.setup({
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    local ignore_servers = { "jdtls" }
-    if utils.find(server_name, ignore_servers) == -1 then
+    local ignore_servers = List({ "jdtls" })
+    if ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
   end,
@@ -61,22 +62,7 @@ mason_lspconfig.setup_handlers({
     local rust_tools = require("rust-tools")
     rust_tools.setup({
       tools = {
-        hover_actions = { border = "single", auto_focus = true }, -- default cause error (those of cica has double width)
-      },
-      server = {
-        on_attach = function(client, bufnr)
-          -- overwrite default configs
-          local opts_with_desc = function(desc)
-            return { buffer = bufnr, silent = true, desc = "LSP(Rust): " .. desc }
-          end
-          vim.keymap.set("n", "<Leader>ih", rust_tools.hover_actions.hover_actions, opts_with_desc("Hover actions"))
-          vim.keymap.set(
-            "n",
-            "<Leader>ia",
-            rust_tools.code_action_group.code_action_group,
-            opts_with_desc("Code action group")
-          )
-        end,
+        hover_actions = { border = "single", auto_focus = true },
       },
       dap = dap_config,
     })
@@ -102,13 +88,6 @@ mason_lspconfig.setup_handlers({
             -- Make the server aware of Neovim runtime files
             library = vim.api.nvim_get_runtime_file("", true),
             checkThirdParty = false, -- disable prompt that asks whether add library to .luarc.json or not
-          },
-          -- Do not send telemetry data containing a randomized but unique identifier
-          telemetry = {
-            enable = false,
-          },
-          format = {
-            enable = false, -- とりあえずstyluaでいいかな……?
           },
         },
       },
@@ -144,16 +123,6 @@ mason_lspconfig.setup_handlers({
           },
           forwardSearch = forward_search_config,
         },
-      },
-    })
-  end,
-  eslint = function()
-    lspconfig.eslint.setup({
-      on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = true
-      end,
-      settings = {
-        format = { enable = true },
       },
     })
   end,
@@ -225,19 +194,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         "-data",
         vim.env.HOME .. "/Documents/eclipse-workspace/jdt.ls/" .. project_name,
       },
-      on_attach = function(client, bufnr)
-        local opts_with_desc = function(desc)
-          return { buffer = bufnr, silent = true, desc = "LSP(Java): " .. desc }
-        end
-        vim.keymap.set("n", "<Leader>io", jdtls.organize_imports, opts_with_desc("Organize imports"))
-        vim.keymap.set("n", "<Leader>dc", jdtls.test_class, opts_with_desc("Test class"))
-        vim.keymap.set("n", "<Leader>dm", jdtls.test_nearest_method, opts_with_desc("Test method"))
-
-        jdtls.setup_dap({ hotcodereplace = "auto" })
-
-        -- exposed commands
-        require("jdtls.setup").add_commands()
-      end,
       init_options = { bundles = bundles },
     })
   end,

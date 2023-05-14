@@ -19,6 +19,9 @@ abbr --add nvim --function open_vim
 abbr --add nvimdiff 'nvim -d'
 abbr --add :q exit
 
+abbr --add brf "echo (br --conf ~/.config/broot/fzf.hjson)"
+abbr --add brcd "cd (br --only-folders --conf ~/.config/broot/fzd.hjson)"
+
 function lastcmd
   echo $history[1]
 end

@@ -9,27 +9,19 @@ function M.normalize_punctuation()
   vim.api.nvim_buf_set_lines(0, 0, -1, true, new_lines)
 end
 
-function M.find(pattern, list)
-  for i, item in ipairs(list) do
-    if pattern == item then
-      return i
-    end
-  end
-
-  return -1
-end
-
+local os_string = nil
 function M.get_os_string()
-  if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1 then
-    return "Windows"
-  else
-    local uname = vim.fn.system("uname"):gsub("\n", "")
-    if uname == "Linux" and string.find(vim.fn.readfile("/proc/version")[1], "microsoft") ~= nil then
-      return "WSL"
+  if os_string == nil then
+    if vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1 then
+      os_string = "Windows"
     else
-      return uname
+      os_string = vim.fn.system("uname"):gsub("\n", "")
+      if os_string == "Linux" and string.find(vim.fn.readfile("/proc/version")[1], "microsoft") ~= nil then
+        os_string = "WSL"
+      end
     end
   end
+  return os_string
 end
 
 return M
