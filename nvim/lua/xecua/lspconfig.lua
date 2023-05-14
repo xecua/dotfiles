@@ -58,7 +58,7 @@ M.on_attach(function(client, buffer)
   vim.keymap.set("n", "<Leader>ico", vim.lsp.buf.outgoing_calls, opts_with_desc("Outgoing calls"))
   vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_with_desc("Rename"))
 
-  if formatter_disabled_client_names:contains(client.name) then
+  if not formatter_disabled_client_names:contains(client.name) then
     vim.keymap.set({ "n", "v" }, "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format"))
     vim.api.nvim_buf_create_user_command(buffer, "Format", function()
       vim.lsp.buf.format()
