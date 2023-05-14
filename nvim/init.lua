@@ -87,6 +87,8 @@ vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
 vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
 vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
+vim.keymap.set("n", "<Leader>pp", "<Cmd>Deol -toggle<CR>")
+vim.keymap.set("n", "<Leader>pf", "<Cmd>Deol -edit -split=floating -winheight=25<CR>")
 vim.keymap.set({ "n", "v" }, "<Leader>b", "<Plug>(openbrowser-open)")
 -- Always enable verymagic (a.k.a. ERE). see :h \v
 vim.keymap.set({ "n", "v" }, "/", "/\\v")
@@ -187,6 +189,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = init_augroup_id,
   pattern = { "fern" },
+  callback = function()
+    vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
+    vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
+    vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
+  end,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = init_augroup_id,
+  pattern = { "deol" },
   callback = function()
     vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
     vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
@@ -348,6 +359,13 @@ else
   vim.g.closetag_filetypes = closetag_xhtml_filetypes:concat(closetag_normal_filetypes):join(",")
 
   vim.g["fern#renderer"] = "nerdfont"
+
+  vim.g["deol#floating_border"] = "single"
+  vim.g["deol#custom_map"] = {
+    next_prompt = "<C-j>",
+    previous_prompt = "<C-k>",
+  }
+  vim.g["readme_viewer#plugin_manager"] = "dein.vim"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")

@@ -29,6 +29,8 @@ vim.fn["ddu#custom#patch_global"]({
     word = { defaultAction = "append" },
     action = { defaultAction = "do" },
     command_history = { defaultAction = "edit" },
+    help = { defaultAction = "open" },
+    readme_viewer = { defaultAction = "open" },
   },
 })
 

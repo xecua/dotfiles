@@ -2,6 +2,12 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+
+[[plugins]]
+repo = 'lambdalisue/guise.vim'
+
 # Utility
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
@@ -198,6 +204,14 @@ repo = 'Shougo/ddu-source-action'
 depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
+repo = 'matsui54/ddu-source-help'
+depends = ['denops.vim', 'ddu.vim']
+
+[[plugins]]
+repo = 'matsui54/ddu-source-man'
+depends = ['denops.vim', 'ddu.vim']
+
+[[plugins]]
 repo = '4513ECHO/ddu-source-source'
 depends = ['denops.vim', 'ddu.vim']
 
@@ -299,6 +313,9 @@ repo = 'tomtom/tcomment_vim'
 # helpの日本語化
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
+
+[[plugins]]
+repo = '4513ECHO/vim-readme-viewer'
 
 # ペースト時にpasteモードに
 [[plugins]]
