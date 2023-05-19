@@ -95,6 +95,10 @@ depends = ['nvim-dap']
 [[plugins]]
 repo = 'simrat39/symbols-outline.nvim'
 
+[[plugins]]
+repo = 'SmiteshP/nvim-navic'
+depends = ['nvim-lspconfig']
+
 ## tsserver integration
 [[plugins]]
 repo = 'jose-elias-alvarez/typescript.nvim'

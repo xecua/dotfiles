@@ -125,13 +125,8 @@ M.on_attach(function(client, buffer)
     group = augroup,
     buffer = buffer,
     callback = function()
-      if not is_hovering then
-        if client.server_capabilities.hoverProvider then
-          vim.lsp.buf.hover()
-        end
-        if client.server_capabilities.signatureHelpProvider then
-          vim.lsp.buf.signature_help()
-        end
+      if not is_hovering and client.server_capabilities.hoverProvider then
+        vim.lsp.buf.hover()
       end
     end,
     desc = "LSP: Signature Help on Hold",

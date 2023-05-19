@@ -1,3 +1,12 @@
+local function breadcrumb()
+  local navic = require("nvim-navic")
+  if navic.is_available() then
+    return navic.get_location()
+  else
+    return ""
+  end
+end
+
 local function fileformat()
   -- lualine's fileformat only shows icon *or* text
   -- when nvim-web-devicons becomes to have this, then replace with it.
@@ -14,6 +23,7 @@ end
 require("lualine").setup({
   options = {
     theme = "wombat",
+    globalstatus = true,
   },
   sections = {
     lualine_b = {
@@ -21,6 +31,7 @@ require("lualine").setup({
       { "filename", path = 1, symbols = { readonly = "[readonly]" } },
     },
     lualine_c = {
+      breadcrumb,
       -- arkav/lualine-lsp-progress
       "lsp_progress",
       "diagnostics",
@@ -61,6 +72,9 @@ require("lualine").setup({
         end,
       },
     },
+  },
+  inactive_winbar = {
+    lualine_c = { "filename" },
   },
   extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
 })

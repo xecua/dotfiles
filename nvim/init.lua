@@ -25,6 +25,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- fold block by treesitter
 vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = "1"
 vim.opt.switchbuf = { "useopen", "split" }
+vim.opt.laststatus = 3
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -87,8 +88,11 @@ vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
 vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
 vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
-vim.keymap.set("n", "<Leader>pp", "<Cmd>Deol -toggle<CR>")
-vim.keymap.set("n", "<Leader>pf", "<Cmd>Deol -edit -split=floating -winheight=25<CR>")
+vim.keymap.set("n", "<Leader>p", function()
+  local height = math.floor(vim.o.lines * 2 / 3)
+  local width = math.floor(vim.o.columns * 2 / 3)
+  vim.cmd("Deol -toggle -split=floating -winheight=" .. height .. "-winwidth=" .. width)
+end)
 vim.keymap.set({ "n", "v" }, "<Leader>b", "<Plug>(openbrowser-open)")
 -- Always enable verymagic (a.k.a. ERE). see :h \v
 vim.keymap.set({ "n", "v" }, "/", "/\\v")
@@ -315,6 +319,11 @@ else
 
   -- outline
   require("symbols-outline").setup()
+
+  -- breadcrumb
+  require("nvim-navic").setup({
+    lsp = { auto_attach = true },
+  })
 
   -- treesitter config
   local treesitter_parsers_dir = vim.fn.stdpath("cache") .. "/parsers"
