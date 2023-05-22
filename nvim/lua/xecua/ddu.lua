@@ -16,7 +16,10 @@ vim.fn["ddu#custom#patch_global"]({
       splitDirection = "topleft",
     },
   },
-  sources = { { name = "file_rec" } },
+  sources = { { name = "file_fd" } },
+  sourceParams = {
+    file_fd = { args = { "--type", "f", "--hidden" } },
+  },
   sourceOptions = {
     _ = { matchers = { "matcher_fzf" } },
     source = { defaultAction = "execute" },
@@ -47,7 +50,7 @@ vim.api.nvim_create_user_command("DduRg", function(opts)
     uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
   })
 end, { nargs = "?" })
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_rec<CR>")
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_fd<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRg<CR>")
 

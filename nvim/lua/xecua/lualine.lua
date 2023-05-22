@@ -74,7 +74,7 @@ require("lualine").setup({
     },
   },
   inactive_winbar = {
-    lualine_c = { "filename" },
+    lualine_c = { {"filename", path = 1} },
   },
   extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
 })

@@ -1,4 +1,21 @@
 # dynamic, modification-prone commands and textual correction
+
+function expand_vim
+  if type -q nvim
+    echo nvim
+  elseif type -q vim
+    echo vim
+  elseif type -q vi
+    echo vi
+  else 
+    return 1
+  end
+end
+
+abbr --add nvim --function expand_vim
+abbr --add vim --function expand_vim
+abbr --add vi --function expand_vim
+
 abbr --add g git
 abbr --add gti git
 

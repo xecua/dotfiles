@@ -2,17 +2,7 @@
 if status is-interactive
   alias gitop='cd (git rev-parse --show-toplevel)'
 
-  if type -q nvim
-    alias vi=nvim
-    alias vim=nvim
-  else if type -q vim
-    alias vi=vim
-    alias nvim=vim
-  else if type -q vi
-    alias vim=vi
-    alias nvim=vi
-  end
-
+  alias :q=exit
   alias nvimdiff='nvim -d'
 
   alias brf="echo (br --conf ~/.config/broot/fzf.hjson)"

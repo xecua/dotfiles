@@ -351,6 +351,7 @@ else
 
   -- Diagnostics
   require("trouble").setup({})
+  require("todo-comments").setup({})
 
   -- Cursor highlight
   require("illuminate").configure({
