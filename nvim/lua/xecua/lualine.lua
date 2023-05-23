@@ -20,6 +20,19 @@ local function shiftwidth()
   return indentation .. ":" .. width
 end
 
+local function skkeleton_mode()
+  local mode = vim.fn["skkeleton#mode"]()
+  local tab = {
+    hira = "あ",
+    kata = "ア",
+    hankata = "ｱ",
+    zenkaku = "Ａ",
+    abbrev = "▽",
+  }
+
+  return "SKK: " .. (vim.fn["skkeleton#is_enabled"]() and tab[mode] or "a")
+end
+
 require("lualine").setup({
   options = {
     theme = "wombat",
@@ -46,7 +59,9 @@ require("lualine").setup({
     lualine_a = {
       {
         "tabs",
-        max_length = vim.o.columns * 2 / 3,
+        max_length = function()
+          return vim.o.columns * 2 / 3
+        end,
         mode = 2,
       },
     },
@@ -74,7 +89,7 @@ require("lualine").setup({
     },
   },
   inactive_winbar = {
-    lualine_c = { {"filename", path = 1} },
+    lualine_c = { { "filename", path = 1 } },
   },
   extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
 })

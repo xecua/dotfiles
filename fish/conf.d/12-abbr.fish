@@ -3,11 +3,11 @@
 function expand_vim
   if type -q nvim
     echo nvim
-  elseif type -q vim
+  else if type -q vim
     echo vim
-  elseif type -q vi
+  else if type -q vi
     echo vi
-  else 
+  else
     return 1
   end
 end
