@@ -21,6 +21,9 @@ local function shiftwidth()
 end
 
 local function skkeleton_mode()
+  if not require("xecua.skkeleton").should_use_skkeleton() then
+    return ""
+  end
   local mode = vim.fn["skkeleton#mode"]()
   local tab = {
     hira = "あ",
@@ -39,6 +42,10 @@ require("lualine").setup({
     globalstatus = true,
   },
   sections = {
+    lualine_a = {
+      "mode",
+      skkeleton_mode,
+    },
     lualine_b = {
       { "branch", icon = { "" } }, -- 0xe702 (devicons)
       { "filename", path = 1, symbols = { readonly = "[readonly]" } },

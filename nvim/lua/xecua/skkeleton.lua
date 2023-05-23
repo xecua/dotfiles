@@ -1,5 +1,11 @@
 -- neovide: use ui
-if vim.g.neovide ~= nil or vim.env.DISPLAY == nil then
+local M = {}
+
+M.should_use_skkeleton = function()
+  return vim.g.neovide ~= nil or vim.env.DISPLAY == nil
+end
+
+if M.should_use_skkeleton() then
   vim.keymap.set({ "i", "c", "l" }, "<C-j>", "<Plug>(skkeleton-enable)")
 end
 
@@ -709,3 +715,5 @@ vim.fn["skkeleton#config"]({
   kanaTable = "azik",
   globalDictionaries = dictionaries,
 })
+
+return M
