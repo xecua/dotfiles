@@ -1,3 +1,10 @@
+function brcd
+  set -l destination (br --only-folders --conf ~/.config/broot/fzd.hjson)
+  if [ -n "$destination" ]
+    cd "$destination"
+  end
+end
+
 function randomstring
   if [ -z "$argv[1]" ]
     echo "usage: randomstring width" >&2

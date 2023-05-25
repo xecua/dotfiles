@@ -6,7 +6,6 @@ if status is-interactive
   alias nvimdiff='nvim -d'
 
   alias brf="echo (br --conf ~/.config/broot/fzf.hjson)"
-  alias brcd="cd (br --only-folders --conf ~/.config/broot/fzd.hjson)"
 
   if [ (uname) = 'Darwin' ]
     alias sudoedit='sudo -e'

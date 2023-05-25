@@ -6,6 +6,7 @@ local M = {}
 local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 M.on_attach = function(callback)
   vim.api.nvim_create_autocmd("LspAttach", {
+    group = augroup,
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       local buffer = args.buf

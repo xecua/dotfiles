@@ -43,6 +43,9 @@ repo = 'thinca/vim-quickrun'
 
 # diagnostics
 [[plugins]]
+repo = 'kevinhwang91/nvim-bqf'
+
+[[plugins]]
 repo = 'folke/trouble.nvim'
 depends = ['nvim-web-devicons'] # optional
 
@@ -113,6 +116,10 @@ depends = ['plenary.nvim']
 
 [[plugins]]
 repo = 'MunifTanjim/prettier.nvim'
+depends = ['nvim-lspconfig', 'null-ls.nvim']
+
+[[plugins]]
+repo = 'MunifTanjim/eslint.nvim'
 depends = ['nvim-lspconfig', 'null-ls.nvim']
 
 ## Rust tooltip

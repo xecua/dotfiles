@@ -26,6 +26,7 @@ vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = "1"
 vim.opt.switchbuf = { "useopen", "split" }
 vim.opt.laststatus = 3
+vim.opt.formatoptions = "jronq"
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
@@ -199,15 +200,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = init_augroup_id,
-  pattern = { "deol" },
-  callback = function()
-    vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
-    vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
-    vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
-  end,
-})
 vim.api.nvim_create_autocmd(
   { "BufWritePost", "FileWritePost" },
   { group = init_augroup_id, pattern = { "*.saty", "*.tex" }, command = "QuickRun" }
@@ -225,14 +217,6 @@ vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
   group = init_augroup_id,
   pattern = { "grep", "vimgrep" },
   command = "copen",
-})
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = init_augroup_id,
-  pattern = { "qf" },
-  callback = function()
-    -- open buffer and then move back to quickfix
-    vim.keymap.set("n", "p", "<CR>:copen<CR>", { buffer = true })
-  end,
 })
 
 -- Switching automatic punctuation substitution
