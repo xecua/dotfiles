@@ -4,7 +4,7 @@ local null_ls = require("null-ls")
 -- local augroup = vim.api.nvim_create_augroup("NullLs", {})
 
 -- local ensure_installed = {
---   "stylua", "yapf", "prettier", "textlint"
+--   "stylua", "yapf", "prettierd", "eslint_d"
 -- }
 
 -- これlspだとprettier.nvimのnull_lsが読まれて怒られてる
@@ -23,4 +23,8 @@ null_ls.setup({
 require("prettier").setup({
   bin = "prettierd",
   filetypes = require("xecua.lspconfig").prettier_filetypes,
+})
+
+require("eslint").setup({
+  bin = "eslint_d",
 })

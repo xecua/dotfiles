@@ -18,7 +18,7 @@ mason_lspconfig.setup({
     "jdtls",
     "jsonls",
     "texlab",
-    "eslint",
+    -- "eslint",
     "lua_ls",
     -- "satysfi-ls",
     "lemminx",
