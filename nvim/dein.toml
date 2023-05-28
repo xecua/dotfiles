@@ -118,10 +118,6 @@ depends = ['plenary.nvim']
 repo = 'MunifTanjim/prettier.nvim'
 depends = ['nvim-lspconfig', 'null-ls.nvim']
 
-[[plugins]]
-repo = 'MunifTanjim/eslint.nvim'
-depends = ['nvim-lspconfig', 'null-ls.nvim']
-
 ## Rust tooltip
 [[plugins]]
 repo = 'simrat39/rust-tools.nvim'
@@ -384,6 +380,9 @@ repo = 'hynek/vim-python-pep8-indent'
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = 'TSUpdate'
+
+[[plugins]]
+repo = 'nvim-treesitter/playground'
 
 [[plugins]]
 repo = 'HiPhish/nvim-ts-rainbow2'

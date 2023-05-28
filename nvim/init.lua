@@ -62,7 +62,6 @@ vim.cmd("runtime! ftplugin/man.vim")
 require("xecua.dein")
 -- require("xecua.jetpack")
 
--- dependency
 local List = require("plenary.collections.py_list")
 
 -- plugin configurations
@@ -132,13 +131,6 @@ vim.api.nvim_create_autocmd(
   { "BufWritePre" },
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
 )
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  group = init_augroup_id,
-  pattern = { "*.tex" },
-  callback = function()
-    vim.opt_local.makeprg = "latexmk"
-  end,
-})
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = init_augroup_id,
   callback = function()
@@ -185,6 +177,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   group = init_augroup_id,
   pattern = { "tex" },
   callback = function()
+    vim.opt_local.makeprg = "latexmk"
     vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = [=['\)]=] })
     vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = [=[\]]=] })
     vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#]], input_after = [['''']] })
@@ -246,13 +239,31 @@ vim.api.nvim_create_autocmd(
 
 -- plugin configuration by variable
 vim.g["neosnippet#snippets_directory"] = vim.fn.stdpath("config") .. "/mysnippets"
+
 vim.g.tcomment_maps = false
+
+vim.g.loaded_matchparen = 1 -- disable default settings
+
+local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact", "astro" })
+local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
+vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
+vim.g.closetag_filetypes = closetag_xhtml_filetypes:concat(closetag_normal_filetypes):join(",")
+
+vim.g["fern#renderer"] = "nerdfont"
+
+vim.g["deol#floating_border"] = "single"
+vim.g["deol#custom_map"] = {
+  next_prompt = "<C-j>",
+  previous_prompt = "<C-k>",
+}
+
+vim.g["readme_viewer#plugin_manager"] = "dein.vim"
 
 vim.g["operator#surround#blocks"] = {
   ["-"] = {
-    { block = { "（", "）" }, motionwise = { "char", "line", "block" }, keys = { "P" } }, -- 全角だと入力しにくいのでP、か
-    { block = { "「", "」" }, motionwise = { "char", "line", "block" }, keys = { "B" } },
-    { block = { "『", "』" }, motionwise = { "char", "line", "block" }, keys = { "D" } },
+    { block = { "（", "）" }, motionwise = { "char", "line", "block" }, keys = { "P" } }, -- parenthesis. 全角だと入力しにくいので
+    { block = { "「", "」" }, motionwise = { "char", "line", "block" }, keys = { "B" } }, -- blackets.
+    { block = { "『", "』" }, motionwise = { "char", "line", "block" }, keys = { "D" } }, -- double blackets.
   },
 }
 
@@ -286,6 +297,7 @@ if vim.g.vscode ~= nil then
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 else
   -- lsp config
+  -- ここやりかた変わったっぽいのでなおす
   require("xecua.mason.satysfi-ls")
   local index = require("mason-registry.index")
   index["satysfi-ls"] = "xecua.mason.satysfi-ls"
@@ -345,21 +357,6 @@ else
   })
 
   vim.cmd("colorscheme molokai")
-
-  vim.g.loaded_matchparen = 1 -- disable default settings
-  local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact", "astro" })
-  local closetag_normal_filetypes = List({ "html", "phtml", "xml" })
-  vim.g.closetag_xhtml_filetypes = closetag_xhtml_filetypes:join(",")
-  vim.g.closetag_filetypes = closetag_xhtml_filetypes:concat(closetag_normal_filetypes):join(",")
-
-  vim.g["fern#renderer"] = "nerdfont"
-
-  vim.g["deol#floating_border"] = "single"
-  vim.g["deol#custom_map"] = {
-    next_prompt = "<C-j>",
-    previous_prompt = "<C-k>",
-  }
-  vim.g["readme_viewer#plugin_manager"] = "dein.vim"
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")

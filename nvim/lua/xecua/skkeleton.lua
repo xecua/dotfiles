@@ -1,7 +1,7 @@
 -- neovide: use ui
 local M = {}
 
-M.should_use_skkeleton = function()
+function M.should_use_skkeleton()
   return vim.g.neovide ~= nil or vim.env.DISPLAY == nil
 end
 

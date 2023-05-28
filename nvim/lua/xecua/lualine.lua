@@ -1,12 +1,3 @@
-local function breadcrumb()
-  local navic = require("nvim-navic")
-  if navic.is_available() then
-    return navic.get_location()
-  else
-    return ""
-  end
-end
-
 local function fileformat()
   -- lualine's fileformat only shows icon *or* text
   -- when nvim-web-devicons becomes to have this, then replace with it.
@@ -20,45 +11,25 @@ local function shiftwidth()
   return indentation .. ":" .. width
 end
 
-local function skkeleton_mode()
-  if not require("xecua.skkeleton").should_use_skkeleton() then
-    return ""
-  end
-  local mode = vim.fn["skkeleton#mode"]()
-  local tab = {
-    hira = "あ",
-    kata = "ア",
-    hankata = "ｱ",
-    zenkaku = "Ａ",
-    abbrev = "▽",
-  }
-
-  return "SKK: " .. (vim.fn["skkeleton#is_enabled"]() and tab[mode] or "a")
-end
-
 require("lualine").setup({
   options = {
     theme = "wombat",
     globalstatus = true,
   },
   sections = {
-    lualine_a = {
-      "mode",
-      skkeleton_mode,
-    },
+    lualine_a = { "mode", "skkeleton" },
     lualine_b = {
       { "branch", icon = { "" } }, -- 0xe702 (devicons)
-      { "filename", path = 1, symbols = { readonly = "[readonly]" } },
     },
     lualine_c = {
-      breadcrumb,
       -- arkav/lualine-lsp-progress
       "lsp_progress",
       "diagnostics",
-    },
-    lualine_x = {
       -- codota/tabnine-nvim
       "tabnine",
+    },
+    lualine_x = {
+      "searchcount",
     },
     lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
   },
@@ -76,27 +47,39 @@ require("lualine").setup({
       {
         -- 'create new tabpage' component
         '""', -- 0xf067 (Font Awesome)
-        on_click = function()
+        on_click = function(args)
+          print(args)
           vim.cmd("tabnew")
         end,
       },
     },
     lualine_y = { '" " .. os.date("%H:%M")' },
+  },
+  winbar = {
+    lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
+    lualine_c = { "navic" },
     lualine_z = {
       {
-        -- 'close current buffer' component
         '""', -- 0xf00d (Font Awesome)
-        cond = function()
-          return vim.fn.tabpagenr("$") ~= 1
-        end,
         on_click = function()
-          vim.cmd("close")
+          vim.api.nvim_win_close(0)
         end,
       },
     },
   },
   inactive_winbar = {
-    lualine_c = { { "filename", path = 1 } },
+    -- dduとかではdisableにしたい
+    lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
+    -- lualine_c = { "navic" },
+    -- lualine_z = {
+    --   {
+    --     '""', -- 0xf00d (Font Awesome)
+    --     on_click = function()
+    --       local winnum = *ここが必要*
+    --       vim.api.nvim_win_close(winnum, false)
+    --     end,
+    --   },
+    -- },
   },
   extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
 })

@@ -18,7 +18,7 @@ mason_lspconfig.setup({
     "jdtls",
     "jsonls",
     "texlab",
-    -- "eslint",
+    "eslint",
     "lua_ls",
     -- "satysfi-ls",
     "lemminx",
@@ -31,7 +31,7 @@ mason_lspconfig.setup({
 mason_lspconfig.setup_handlers({
   function(server_name)
     local ignore_servers = List({ "jdtls" })
-    if ignore_servers:contains(server_name) then
+    if not ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
   end,
@@ -152,7 +152,7 @@ mason_lspconfig.setup_handlers({
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "java" },
   callback = function()
-    -- setting up jdtls (this does not works when call in setup_handlers)
+    -- setting up jdtls (this does not work when called in setup_handlers)
     local pkg_dir = registry.get_package("jdtls"):get_install_path()
     local jdtls = require("jdtls")
     local jar_path = vim.fn.glob(pkg_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar")
