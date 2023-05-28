@@ -82,9 +82,6 @@ vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>")
 vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
-vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)")
-vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)")
-vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)")
 vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
 vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
 vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
@@ -131,7 +128,18 @@ vim.api.nvim_create_autocmd(
   { "BufWritePre" },
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
 )
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
+  group = init_augroup_id,
+  pattern = "*",
+  callback = function(args)
+    if args.match ~= "fern" then
+      vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)", { buffer = true })
+      vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)", { buffer = true })
+      vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)", { buffer = true })
+    end
+  end,
+})
+vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   callback = function()
     vim.opt_local.tabstop = 2
@@ -155,14 +163,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     "yaml",
   },
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "gitconfig", "go" },
   callback = function()
     vim.opt_local.expandtab = false
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "neosnippet" },
   callback = function()
@@ -173,7 +181,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.opt_local.tabstop = 2
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "tex" },
   callback = function()
@@ -184,7 +192,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], input = [[<Right>''''<Left><Left>]] })
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "fern" },
   callback = function()
@@ -206,7 +214,7 @@ if vim.fn.executable("pdftotext") then
   })
 end
 -- automatically open QuickFix window after grep
-vim.api.nvim_create_autocmd({ "QuickFixCmdPost" }, {
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   group = init_augroup_id,
   pattern = { "grep", "vimgrep" },
   command = "copen",
