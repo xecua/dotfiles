@@ -40,6 +40,15 @@ mason_lspconfig.setup_handlers({
       root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
     })
   end,
+  eslint = function()
+    lspconfig.eslint.setup({
+      settings = {
+        eslint = {
+          autoFixOnSave = true,
+        },
+      },
+    })
+  end,
   intelephense = function()
     lspconfig.intelephense.setup({
       init_options = {

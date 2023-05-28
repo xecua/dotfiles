@@ -1,5 +1,3 @@
-local List = require("plenary.collections.py_list")
-
 local M = {}
 
 -- wrapper: https://zenn.dev/ryoppippi/articles/8aeedded34c914
@@ -15,113 +13,61 @@ M.on_attach = function(callback)
   })
 end
 
-M.prettier_filetypes = List({
-  "astro",
-  "css",
-  "graphql",
-  "html",
-  "javascript",
-  "javascript.jsx",
-  "javascriptreact",
-  "json",
-  "less",
-  "markdown",
-  "sss",
-  "typescript",
-  "typescript.tsx",
-  "typescriptreact",
-  "yaml",
-})
-local formatter_disabled_client_names = M.prettier_filetypes:concat({
-  "lua_ls",
-  "pyright",
-})
-
 -- common
 M.on_attach(function(client, buffer)
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts_with_desc = function(desc)
-    return { buffer = buffer, silent = true, desc = "LSP: " .. desc }
-  end
-
-  -- LSP related: preceded by <Leader>i
-  vim.keymap.set("n", "<Leader>id", vim.lsp.buf.definition, opts_with_desc("Definition"))
-  vim.keymap.set("n", "<Leader>it", vim.lsp.buf.type_definition, opts_with_desc("Type definition"))
-  vim.keymap.set("n", "<Leader>ii", vim.lsp.buf.implementation, opts_with_desc("Implementation"))
-  vim.keymap.set("n", "<Leader>ir", vim.lsp.buf.references, opts_with_desc("References"))
-  vim.keymap.set("n", "<Leader>i]", vim.diagnostic.goto_next, opts_with_desc("Goto next item"))
-  vim.keymap.set("n", "<Leader>i[", vim.diagnostic.goto_prev, opts_with_desc("Goto previous item"))
-  vim.keymap.set("n", "<Leader>ia", vim.lsp.buf.code_action, opts_with_desc("Code actions"))
-  vim.keymap.set("n", "<Leader>ici", vim.lsp.buf.incoming_calls, opts_with_desc("Incoming calls"))
-  vim.keymap.set("n", "<Leader>ico", vim.lsp.buf.outgoing_calls, opts_with_desc("Outgoing calls"))
-  vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_with_desc("Rename"))
-
-  if not formatter_disabled_client_names:contains(client.name) then
-    vim.keymap.set({ "n", "v" }, "<Leader>if", vim.lsp.buf.format, opts_with_desc("Format"))
-    vim.api.nvim_buf_create_user_command(buffer, "Format", function()
-      vim.lsp.buf.format()
-    end, { desc = "LSP: Format whole file" })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = buffer,
-      callback = function()
-        vim.lsp.buf.format()
-      end,
-      desc = "LSP: Format on save",
-    })
-  end
-  if client.name == "eslint" then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = buffer,
-      command = "EslintFixAll",
-    })
-  end
-  if client.name == "rust_analyzer" then
-    vim.keymap.set(
-      "n",
-      "<Leader>ih",
-      require("rust-tools").hover_actions.hover_actions,
-      { buffer = buffer, silent = true, desc = "LSP: Hover with actions" }
-    )
-    vim.keymap.set(
-      "n",
-      "<Leader>ia",
-      require("rust-tools").code_action_group.code_action_group,
-      { buffer = buffer, silent = true, desc = "LSP: Code action" }
-    )
-  end
-  if client.name == "jdtls" then
-    local jdtls = require("jdtls")
-    vim.keymap.set(
-      "n",
-      "<Leader>io",
-      jdtls.organize_imports,
-      { buffer = buffer, silent = true, desc = "LSP: Organize imports" }
-    )
-    vim.keymap.set("n", "<Leader>dc", jdtls.test_class, { buffer = buffer, silent = true, desc = "LSP: Test class" })
-    vim.keymap.set(
-      "n",
-      "<Leader>dm",
-      jdtls.test_nearest_method,
-      { buffer = buffer, silent = true, desc = "LSP: Test nearest method" }
-    )
-    jdtls.setup_dap({ hotcodereplace = "auto" })
-    require("jdtls.setup").add_commands()
-  end
-
   local is_hovering = false
-  vim.keymap.set("n", "<Leader>ih", function()
+
+  -- commands
+  vim.api.nvim_buf_create_user_command(buffer, "LspFormat", "lua vim.lsp.buf.format()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
     is_hovering = true
     vim.lsp.buf.signature_help()
-  end, opts_with_desc("Signature Help"))
-  vim.keymap.set("n", "<Leader>im", function()
+  end, {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
     is_hovering = true
     vim.lsp.buf.hover()
-  end, opts_with_desc("Hover"))
+  end, {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspCodeAction", "lua vim.lsp.buf.code_action()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspNext", "lua vim.diagnostic.goto_next()", {})
+  vim.api.nvim_buf_create_user_command(buffer, "LspPrev", "lua vim.diagnostic.goto_prev()", {})
+
+  -- Mappings.
+  local opts = { buffer = buffer, silent = true }
+
+  -- LSP related: preceded by <Leader>i
+  vim.keymap.set({ "n", "v" }, "<Leader>if", "<Cmd>LspFormat<CR>", opts)
+  vim.keymap.set("n", "<Leader>ih", "<Cmd>LspSignatureHelp<CR>", opts)
+  vim.keymap.set("n", "<Leader>im", "<Cmd>LspHover<CR>", opts)
+  vim.keymap.set("n", "<Leader>ir", "<Cmd>LspReferences<CR>", opts)
+  vim.keymap.set("n", "<Leader>id", "<Cmd>LspDefinition<CR>", opts)
+  vim.keymap.set("n", "<Leader>it", "<Cmd>LspTypeDefinition<CR>", opts)
+  vim.keymap.set("n", "<Leader>ii", "<Cmd>LspImplementation<CR>", opts)
+  vim.keymap.set("n", "<Leader>i]", "<Cmd>LspNext<CR>", opts)
+  vim.keymap.set("n", "<Leader>i[", "<Cmd>LspPrev<CR>", opts)
+  vim.keymap.set("n", "<Leader>ia", "<Cmd>LspCodeAction<CR>", opts)
+  vim.keymap.set("n", "<Leader>ici", "<Cmd>LspIncomingCalls<CR>", opts)
+  vim.keymap.set("n", "<Leader>ico", "<Cmd>LspOutgoingCalls<CR>", opts)
+  vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
+
+  --
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = buffer,
+    callback = function()
+      vim.lsp.buf.format()
+    end,
+    desc = "LSP: Format on save",
+  })
+
   vim.api.nvim_create_autocmd("CursorHoldI", {
     group = augroup,
     buffer = buffer,
@@ -139,6 +85,36 @@ M.on_attach(function(client, buffer)
       is_hovering = false
     end,
   })
+
+  --
+  if client.name == "rust_analyzer" then
+    vim.api.nvim_buf_create_user_command(
+      buffer,
+      "LspHoverActions",
+      'lua require("rust-tools").hover_actions.hover_actions()',
+      {}
+    )
+    vim.keymap.set("n", "<Leader>ih", "<Cmd>LspHoverActions<CR>", { buffer = buffer, silent = true })
+    vim.api.nvim_buf_create_user_command(
+      buffer,
+      "LspCodeAction",
+      'lua require("rust-tools").code_action_group.code_action_group()',
+      { force = true }
+    )
+  end
+  if client.name == "jdtls" then
+    vim.api.nvim_buf_create_user_command(buffer, "LspOrganizeImports", 'lua require("jdtls").organize_imports()', {})
+    vim.keymap.set("n", "<Leader>io", "<Cmd>LspOrganizeImports<CR>", { buffer = buffer, silent = true })
+
+    vim.api.nvim_buf_create_user_command(buffer, "LspTestClass", 'lua require("jdtls").test_class()', {})
+    vim.keymap.set("n", "<Leader>dc", "<Cmd>LspTestClass<CR>", { buffer = buffer, silent = true })
+
+    vim.api.nvim_buf_create_user_command(buffer, "LspTestMethod", 'lua require("jdtls").test_nearest_method()', {})
+    vim.keymap.set("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>", { buffer = buffer, silent = true })
+
+    require("jdtls").setup_dap({ hotcodereplace = "auto" })
+    require("jdtls.setup").add_commands()
+  end
 end)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {

@@ -22,5 +22,21 @@ null_ls.setup({
 -- null-ls config wrapper for prettier
 require("prettier").setup({
   bin = "prettierd",
-  filetypes = require("xecua.lspconfig").prettier_filetypes,
+  filetypes = {
+    "astro",
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascript.jsx",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "sss",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "yaml",
+  },
 })
