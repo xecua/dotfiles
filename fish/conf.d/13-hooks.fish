@@ -11,7 +11,7 @@ if status --is-interactive
     starship init fish | source
   end
 
-  # ./build.sh --compress (sys-apps/bat-extras) seems to have bug (#82)
+  # uncomment after sys-apps/bat-extras updated
   # if type -q batpipe
   #   eval (batpipe)
   # end

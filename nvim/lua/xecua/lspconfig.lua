@@ -86,7 +86,10 @@ M.on_attach(function(client, buffer)
     end,
   })
 
-  --
+  if client.name == "tsserver" then
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end
   if client.name == "rust_analyzer" then
     vim.api.nvim_buf_create_user_command(
       buffer,
