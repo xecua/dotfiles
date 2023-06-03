@@ -47,6 +47,22 @@ vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
 vim.g.vimsyn_embed = "l"
 vim.g.tex_flavor = "latex"
 vim.g.tex_conceal = ""
+vim.g.terminal_color_0 = "#2e2e2e"
+vim.g.terminal_color_1 = "#eb4129"
+vim.g.terminal_color_2 = "#abe047"
+vim.g.terminal_color_3 = "#f6c744"
+vim.g.terminal_color_4 = "#47a0f3"
+vim.g.terminal_color_5 = "#7b5cb0"
+vim.g.terminal_color_6 = "#64dbed"
+vim.g.terminal_color_7 = "#e5e9f0"
+vim.g.terminal_color_8 = "#565656"
+vim.g.terminal_color_9 = "#ec5357"
+vim.g.terminal_color_10 = "#c0e17d"
+vim.g.terminal_color_11 = "#f9da6a"
+vim.g.terminal_color_12 = "#49a4f8"
+vim.g.terminal_color_13 = "#a47de9"
+vim.g.terminal_color_14 = "#99faf2"
+vim.g.terminal_color_15 = "#ffffff"
 
 -- see :h DiffOrig とりあえず
 vim.api.nvim_create_user_command(
@@ -196,6 +212,13 @@ vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "fern" },
   callback = function()
+    vim.keymap.set("n", "<LeftRelease>", function()
+      return vim.fn["fern#smart#leaf"](
+        "<Plug>(fern-action-open)",
+        "<Plug>(fern-action-expand)",
+        "<Plug>(fern-action-collapse)"
+      )
+    end, { buffer = true, expr = true }) -- 選択は<LeftMouse>でやってる
     vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
     vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
     vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
@@ -296,6 +319,8 @@ end
 if vim.g.neovide ~= nil then
   -- 通常のターミナルでやろうとするとめんどくさい(失敗するとバッファ上に表示されて鬱陶しい)
   vim.opt.title = true
+  vim.env.COLORTERM = "truecolor"
+  -- vim.g.neovide_transparency = 0.5
 end
 
 if vim.g.vscode ~= nil then
@@ -305,12 +330,12 @@ if vim.g.vscode ~= nil then
   vim.g["denops#deno"] = vim.fn.executable("deno") == 1 and "deno" or vim.env.HOME .. "/.deno/bin/deno"
 else
   -- lsp config
-  -- ここやりかた変わったっぽいのでなおす
-  require("xecua.mason.satysfi-ls")
-  local index = require("mason-registry.index")
-  index["satysfi-ls"] = "xecua.mason.satysfi-ls"
-
-  require("mason").setup()
+  require("mason").setup({
+    registries = {
+      "lua:xecua.mason-registry",
+      "github:mason-org/mason-registry",
+    },
+  })
   require("xecua.mason")
   require("xecua.lspconfig")
   require("xecua.null-ls")

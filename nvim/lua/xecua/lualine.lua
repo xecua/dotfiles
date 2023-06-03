@@ -62,7 +62,7 @@ require("lualine").setup({
       {
         '""', -- 0xf00d (Font Awesome)
         on_click = function()
-          vim.api.nvim_win_close(0)
+          vim.api.nvim_win_close(0, false)
         end,
       },
     },

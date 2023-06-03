@@ -4,3 +4,6 @@
 [submodule "rofi"]
 	path = rofi
 	url = https://github.com/adi1090x/rofi
+[submodule "alacritty/theme"]
+	path = alacritty/theme
+	url = https://github.com/alacritty/alacritty-theme.git
