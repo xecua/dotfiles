@@ -17,7 +17,7 @@ require("lualine").setup({
     globalstatus = true,
   },
   sections = {
-    lualine_a = { "mode", "skkeleton" },
+    lualine_a = { "mode" },
     lualine_b = {
       { "branch", icon = { "" } }, -- 0xe702 (devicons)
     },
@@ -32,6 +32,7 @@ require("lualine").setup({
       "searchcount",
     },
     lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
+    lualine_z = { "location", "skkeleton" },
   },
   tabline = {
     lualine_a = {
@@ -48,7 +49,6 @@ require("lualine").setup({
         -- 'create new tabpage' component
         '""', -- 0xf067 (Font Awesome)
         on_click = function(args)
-          print(args)
           vim.cmd("tabnew")
         end,
       },

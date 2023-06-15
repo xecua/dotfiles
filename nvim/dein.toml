@@ -205,6 +205,9 @@ repo = 'Shougo/ddu-filter-matcher_hidden'
 depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
+repo = 'Shougo/ddu-filter-converter_display_word'
+
+[[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
 depends = ['denops.vim', 'ddu.vim']
 

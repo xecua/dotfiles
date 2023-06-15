@@ -9,6 +9,7 @@ vim.fn["ddu#custom#patch_global"]({
     ff = {
       previewWidth = 80,
       previewSplit = "vertical",
+      filterSplitDirection = "botright",
     },
     filer = {
       winWidth = vim.o.columns / 6,

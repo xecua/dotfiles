@@ -14,7 +14,7 @@ vim.opt.clipboard = { "unnamedplus", "unnamed" }
 vim.opt.number = true
 vim.opt.signcolumn = "number"
 vim.opt.list = true
-vim.opt.listchars = { tab = ">-", trail = "*", nbsp = "+" }
+vim.opt.listchars = { tab = ">-", lead = "･", multispace = "･", trail = "･", nbsp = "+" }
 vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
@@ -212,6 +212,8 @@ vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = { "fern" },
   callback = function()
+    vim.opt_local.list = false
+
     vim.keymap.set("n", "<LeftRelease>", function()
       return vim.fn["fern#smart#leaf"](
         "<Plug>(fern-action-open)",
