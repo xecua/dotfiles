@@ -28,6 +28,8 @@ def make_symlink(link: Path, target: Path):
         print(f"Not linked: {link}", file=sys.stderr)
 
 
+make_symlink(config_home / 'fish' / 'completions',
+             script_dir / 'fish' / 'completions')
 make_symlink(config_home / 'fish' / 'conf.d', script_dir / 'fish' / 'conf.d')
 
 make_symlink(home / '.profile', script_dir / '.profile')
