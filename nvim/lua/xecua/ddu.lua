@@ -1,3 +1,5 @@
+local notify = require("notify")
+
 vim.fn["ddu#custom#patch_global"]({
   ui = "ff",
   uiOptions = {
@@ -27,6 +29,7 @@ vim.fn["ddu#custom#patch_global"]({
   },
   filterParams = {
     matcher_fzf = { highlightMatched = "Search" },
+    matcher_substring = { highlightMatched = "Search" },
   },
   kindOptions = {
     file = { defaultAction = "open" },
@@ -68,6 +71,46 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
     vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
     vim.keymap.set("n", "e", "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
+    vim.keymap.set("n", "w", function()
+      -- toggle converter_display_word
+      local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
+      local converters = current
+          and current["sourceOptions"]
+          and current["sourceOptions"]["_"]
+          and current["sourceOptions"]["_"]["converters"]
+        or {}
+      if #converters == 0 then
+        vim.fn["ddu#ui#do_action"](
+          "updateOptions",
+          { sourceOptions = { _ = { converters = { "converter_display_word" } } } }
+        )
+        notify("Display word included.")
+      else
+        vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = { _ = { converters = {} } } })
+        notify("Display word excluded.")
+      end
+    end, opts)
+    vim.keymap.set("n", "s", function()
+      -- toggle fuzzy/substring search
+      local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
+      local options = current and current["sourceOptions"] and current["sourceOptions"]["_"] or {}
+      local sorters = options["sorters"] or {}
+      if #sorters == 0 then
+        vim.fn["ddu#ui#do_action"]("updateOptions", {
+          sourceOptions = {
+            _ = { sorters = { "sorter_fzf" }, matchers = { "matcher_fzf" } },
+          },
+        })
+        notify("Search mode switched to Fuzzy.")
+      else
+        vim.fn["ddu#ui#do_action"]("updateOptions", {
+          sourceOptions = {
+            _ = { sorters = {}, matchers = { "matcher_substring" } },
+          },
+        })
+        notify("Search Mode switched to Substring.")
+      end
+    end, opts)
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -131,9 +174,11 @@ vim.api.nvim_create_autocmd("FileType", {
     -- toggle hidden files
     vim.keymap.set("n", "!", function()
       local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
-      local source_options = current and current["sourceOptions"] or nil
-      local source_options_all = source_options and source_options["_"] or nil
-      local matchers = source_options_all and source_options_all["matchers"] or {}
+      local matchers = current
+          and current["sourceOptions"]
+          and current["sourceOptions"]["_"]
+          and current["sourceOptions"]["_"]["matchers"]
+        or {}
       local new_matchers = (#matchers == 0) and { "matcher_hidden" } or {}
       vim.fn["ddu#ui#do_action"]("updateOptions", {
         sourceOptions = {

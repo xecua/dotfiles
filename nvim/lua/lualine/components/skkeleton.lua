@@ -23,5 +23,7 @@ function M:update_status(is_focused)
 end
 
 -- 色付け
+-- function M:adjust_hl()
+-- end
 
 return M

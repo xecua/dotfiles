@@ -148,7 +148,8 @@ vim.api.nvim_create_autocmd("FileType", {
   group = init_augroup_id,
   pattern = "*",
   callback = function(args)
-    if args.match ~= "fern" then
+    local operator_surround_disabled_buffer_types = List({ "fern", "ddu-ff", "ddu-filer" })
+    if not operator_surround_disabled_buffer_types:contains(args.match) then
       vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)", { buffer = true })
       vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)", { buffer = true })
       vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)", { buffer = true })
