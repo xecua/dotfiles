@@ -86,14 +86,14 @@ end, { expr = true, desc = "Select previous entry, or feed <C-h>" })
 
 vim.keymap.set("i", "<C-n>", function()
   if vim.fn["pum#visible"]() then
-    vim.fn["pum#map#insert_relative"](1)
+    vim.fn["pum#map#insert_relative"](1, "loop")
   else
     vim.fn["ddc#map#manual_complete"]()
   end
 end, { desc = "Select next entry or start completion" })
 vim.keymap.set("i", "<C-p>", function()
   if vim.fn["pum#visible"]() then
-    vim.fn["pum#map#insert_relative"](-1)
+    vim.fn["pum#map#insert_relative"](-1, "loop")
   else
     vim.fn["ddc#map#manual_complete"]()
   end

@@ -58,34 +58,6 @@ M.on_attach(function(client, buffer)
   vim.keymap.set("n", "<Leader>ico", "<Cmd>LspOutgoingCalls<CR>", opts)
   vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
 
-  --
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    buffer = buffer,
-    callback = function()
-      vim.lsp.buf.format()
-    end,
-    desc = "LSP: Format on save",
-  })
-
-  vim.api.nvim_create_autocmd("CursorHoldI", {
-    group = augroup,
-    buffer = buffer,
-    callback = function()
-      if not is_hovering and client.server_capabilities.hoverProvider then
-        vim.lsp.buf.hover()
-      end
-    end,
-    desc = "LSP: Signature Help on Hold",
-  })
-  vim.api.nvim_create_autocmd("CursorMovedI", {
-    group = augroup,
-    buffer = buffer,
-    callback = function()
-      is_hovering = false
-    end,
-  })
-
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
@@ -116,7 +88,37 @@ M.on_attach(function(client, buffer)
     vim.keymap.set("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>", { buffer = buffer, silent = true })
 
     require("jdtls").setup_dap({ hotcodereplace = "auto" })
-    require("jdtls.setup").add_commands()
+  end
+
+  if client.server_capabilities.documentFormattingProvider then
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = buffer,
+      callback = function()
+        vim.lsp.buf.format()
+      end,
+      desc = "LSP: Format on save",
+    })
+  end
+
+  if client.server_capabilities.hoverProvider then
+    vim.api.nvim_create_autocmd("CursorHoldI", {
+      group = augroup,
+      buffer = buffer,
+      callback = function()
+        if not is_hovering then
+          vim.lsp.buf.hover()
+        end
+      end,
+      desc = "LSP: Signature Help on Hold",
+    })
+    vim.api.nvim_create_autocmd("CursorMovedI", {
+      group = augroup,
+      buffer = buffer,
+      callback = function()
+        is_hovering = false
+      end,
+    })
   end
 end)
 
