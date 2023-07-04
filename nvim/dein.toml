@@ -368,6 +368,9 @@ repo = 'rhysd/accelerated-jk'
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
 
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'

@@ -23,6 +23,11 @@ format = "🕙[$time]($style) "
 time_format = "%R"
 
 [battery]
+discharging_symbol = '󰂃 '
+charging_symbol = '󰂄 '
+unknown_symbol = '󰁽 '
+empty_symbol = '󰂎 '
+
 [[battery.display]]
 threshold = 100
 style = "bold green"

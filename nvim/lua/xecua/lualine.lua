@@ -15,6 +15,9 @@ require("lualine").setup({
   options = {
     theme = "wombat",
     globalstatus = true,
+    disabled_filetypes = {
+      winbar = { "dap-repl" },
+    },
   },
   sections = {
     lualine_a = { "mode" },

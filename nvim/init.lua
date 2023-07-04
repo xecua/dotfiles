@@ -99,8 +99,9 @@ vim.keymap.set("n", "j", "<Plug>(accelerated_jk_gj)")
 vim.keymap.set("n", "k", "<Plug>(accelerated_jk_gk)")
 vim.keymap.set("n", "<Leader>j", "<Plug>(jumpcursor-jump)")
 vim.keymap.set("n", "<Leader>o", "<Cmd>SymbolsOutline<CR>")
-vim.keymap.set("n", "<Leader>ar", "<Cmd>CellularAutomaton make_it_rain<CR>")
-vim.keymap.set("n", "<Leader>al", "<Cmd>CellularAutomaton game_of_life<CR>")
+vim.keymap.set({ "n", "v" }, "<Leader>a", "<Plug>(LiveEasyAlign)")
+vim.keymap.set("n", "<Leader>cr", "<Cmd>CellularAutomaton make_it_rain<CR>")
+vim.keymap.set("n", "<Leader>cl", "<Cmd>CellularAutomaton game_of_life<CR>")
 vim.keymap.set("n", "<Leader>p", function()
   local height = math.floor(vim.o.lines / 2)
   local width = math.floor(vim.o.columns / 2)
@@ -275,7 +276,7 @@ vim.api.nvim_create_autocmd(
 vim.g["neosnippet#snippets_directory"] = vim.fn.stdpath("config") .. "/mysnippets"
 
 vim.g.tcomment_maps = false
-
+vim.g.undotree_SetFocusWhenToggle = 1
 vim.g.loaded_matchparen = 1 -- disable default settings
 
 local closetag_xhtml_filetypes = List({ "xhtml", "jsx", "tsx", "typescriptreact", "astro" })
