@@ -256,6 +256,9 @@ depends = ['denops.vim', 'ddu.vim']
 repo = 'matsui54/ddu-source-command_history'
 depends = ['denops.vim', 'ddu.vim']
 
+[[plugins]]
+repo = 'kyoh86/ddu-source-command'
+
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
