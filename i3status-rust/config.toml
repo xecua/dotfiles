@@ -1,3 +1,5 @@
+# note: interval once := 365 days
+
 [theme]
 theme = "solarized-dark"
 [theme.overrides]
@@ -21,13 +23,15 @@ format = "$icon  $1m.eng(w:4) / $5m.eng(w:4) / $15m.eng(w:4)"
 [[block]]
 block = "amd_gpu"
 format = "$icon  $vram_used_percents $vram_total"
+interal = 10
 error_format = ""
-error_interval = 0
+error_interval = 31536000                         # 1y
 [[block]]
 block = "nvidia_gpu"
 format = "$icon $name $utilization $memory $temperature"
+interval = 10
 error_format = ""
-error_interval = 0
+error_interval = 31536000                                # 1y
 
 [[block]]
 block = "memory"
