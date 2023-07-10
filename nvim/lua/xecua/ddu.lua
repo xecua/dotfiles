@@ -24,7 +24,7 @@ vim.fn["ddu#custom#patch_global"]({
   },
   sources = { { name = "file_fd" } },
   sourceParams = {
-    file_fd = { args = { "--type", "f", "--hidden" } },
+    file_fd = { args = { "-tf", "-H", "-E", ".git" } },
   },
   sourceOptions = {
     _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },

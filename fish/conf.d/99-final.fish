@@ -4,6 +4,7 @@ if [ -z $TMUX ] && status --is-interactive && type -q tmux
   if test -n "$SSH_CONNECTION" # SSH
     or test -n "$WT_SESSION" # Windows Terminal
     or test (ps -o command= -p (string trim (ps -o ppid= -p $fish_pid))) = "alacritty"
+    or test -n "$START_TMUX_ON_START" # local env
     attach_tmux_session_if_needed
   end
   # set -l ignored_terms "vscode" "iTerm.app" "Apple_Terminal"
