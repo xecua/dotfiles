@@ -374,6 +374,9 @@ repo = 'skanehira/jumpcursor.vim'
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
 
+[[plugins]]
+repo = 'monaqa/dial.nvim'
+
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'

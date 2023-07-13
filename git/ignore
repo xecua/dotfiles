@@ -19,8 +19,9 @@
 **/.idea/
 **/xcuserdata/
 
-# local vimrc. see nvim/init.vim
-**/.vim
-
 # CodeTour extension
 **/.tours
+
+# fd and rg's ignore file
+**/.fdignore
+**/.rgignore
