@@ -416,6 +416,9 @@ else
     },
   })
 
+  -- flutter
+  require("flutter-tools").setup({})
+
   vim.cmd("colorscheme molokai")
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")

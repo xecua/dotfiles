@@ -125,6 +125,10 @@ depends = ['nvim-lspconfig', 'null-ls.nvim']
 [[plugins]]
 repo = 'simrat39/rust-tools.nvim'
 
+## Flutter integration
+[[plugins]]
+repo = 'akinsho/flutter-tools.nvim'
+
 # Popup
 [[plugins]]
 repo = 'Shougo/pum.vim'
