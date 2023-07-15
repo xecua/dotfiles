@@ -74,6 +74,9 @@ repo = 'codota/tabnine-nvim'
 # for windows? (hook_post_source's pwd is not the runtimepath?)
 build = './dl_binaries.sh'
 
+# [[plugins]]
+# repo = 'github/copilot.vim'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'

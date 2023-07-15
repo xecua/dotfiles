@@ -313,6 +313,12 @@ vim.g.startify_bookmarks = {
   "~/.config/nvim",
 }
 
+vim.g.copilot_filetypes = {
+  ["*"] = true,
+  ["dap-repl"] = false,
+  ["dapui_*"] = false,
+}
+
 -- conditional configurations
 
 -- fzf.vim (when fzf was installed with Homebrew)
@@ -360,6 +366,7 @@ else
   require("xecua.lspconfig")
   require("xecua.null-ls")
   require("xecua.dap")
+  require("xecua.dial")
 
   -- tabnine
   require("tabnine").setup({
