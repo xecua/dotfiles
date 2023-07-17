@@ -22,16 +22,16 @@ vim.opt.cmdheight = 0
 vim.opt.guifont = { "UDEV Gothic 35NFLG:h12", "Cica:h14", "monospace:h12" }
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- fold block by treesitter
-vim.opt.foldlevelstart = 99 -- open all fold by default
+vim.opt.foldlevelstart = 99                     -- open all fold by default
 vim.opt.foldcolumn = "1"
 vim.opt.switchbuf = { "useopen", "split" }
 vim.opt.laststatus = 3
 vim.opt.formatoptions = "jronq"
 
-vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
-vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
-vim.opt.shiftwidth = 0 -- 改行・<</>>でのインデント量(0 => tabstop)
-vim.opt.tabstop = 4 -- tab文字の幅
+vim.opt.expandtab = true  -- tabstop個の連続したスペースをtabに変換しない
+vim.opt.softtabstop = -1  -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
+vim.opt.shiftwidth = 0    -- 改行・<</>>でのインデント量(0 => tabstop)
+vim.opt.tabstop = 4       -- tab文字の幅
 vim.opt.smartindent = true
 vim.g.vim_indent_cont = 4 -- 継続行のインデント量を固定
 
@@ -165,6 +165,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "c",
     "cpp",
+    "dart",
     "fish",
     "html",
     "javascript",
@@ -258,10 +259,10 @@ vim.api.nvim_create_user_command("PunctSubEnable", function()
 end, {})
 vim.api.nvim_create_user_command("PunctSubDisable", function()
   for _, autocmd in
-    pairs(vim.api.nvim_get_autocmds({
-      group = punct_sub_augroup_id,
-      buffer = 0,
-    }))
+  pairs(vim.api.nvim_get_autocmds({
+    group = punct_sub_augroup_id,
+    buffer = 0,
+  }))
   do
     vim.api.nvim_del_autocmd(autocmd.id)
   end
@@ -304,9 +305,9 @@ vim.g["operator#surround#blocks"] = {
 
 vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_lists = {
-  { type = "files", header = { "   MRU" } },
+  { type = "files",     header = { "   MRU" } },
   { type = "bookmarks", header = { "   Bookmarks" } },
-  { type = "sessions", header = { "   Sessions" } },
+  { type = "sessions",  header = { "   Sessions" } },
 }
 vim.g.startify_bookmarks = {
   "~",
