@@ -13,6 +13,7 @@
 	cl = clone
 	a = add
 	p = push
+	pf = push --force-with-lease --force-if-includes
 	pl = pull --prune
 	f = fetch --prune
 	m = merge
@@ -25,6 +26,7 @@
 	b = branch
 	d = diff
 	l = log
+	lp = log -p
 	g = log --graph --date=short --decorate=short --oneline
 	ri = rebase -i
 	rs = restore
