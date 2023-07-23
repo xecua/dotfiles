@@ -19,7 +19,7 @@ vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 0
-vim.opt.guifont = { "UDEV Gothic 35NFLG:h12", "Cica:h14", "monospace:h12" }
+vim.opt.guifont = { "UDEV Gothic 35NFLG:h10", "Cica:h14", "monospace:h12" }
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- fold block by treesitter
 vim.opt.foldlevelstart = 99                     -- open all fold by default
@@ -205,10 +205,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "tex" },
   callback = function()
     vim.opt_local.makeprg = "latexmk"
-    vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = [=['\)]=] })
-    vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = [=[\]]=] })
-    vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#]], input_after = [['''']] })
-    vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], input = [[<Right>''''<Left><Left>]] })
   end,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -365,7 +361,7 @@ else
   })
   require("xecua.mason")
   require("xecua.lspconfig")
-  require("xecua.null-ls")
+  -- require("xecua.null-ls")
   require("xecua.dap")
   require("xecua.dial")
 
@@ -380,6 +376,13 @@ else
   -- breadcrumb
   require("nvim-navic").setup({
     lsp = { auto_attach = true },
+  })
+
+  -- git
+  require("gitsigns").setup({
+    signcolumn = false,
+    numhl = true,
+    current_line_blame = true
   })
 
   -- treesitter config
@@ -421,6 +424,21 @@ else
   require("flutter-tools").setup({})
 
   vim.cmd("colorscheme molokai")
+
+  vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = '\\)', filetype = 'tex' })
+  vim.fn['lexima#add_rule']({ char = '<BS>', at = [[\\(\%#\\)]], delete = 2, input = '<BS><BS>', filetype = 'tex' })
+  vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = '\\]', filetype = 'tex' })
+  vim.fn['lexima#add_rule']({ char = '<BS>', at = [=[\\\[\%#\\]]=], delete = 2, input = '<BS><BS>', filetype = 'tex' })
+  -- move cursor to right by 1(leave), then insert two single-quotes(input_after)
+  vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], leave = 1, input_after = "''", filetype = 'tex' })
+  vim.fn['lexima#add_rule']({ char = '<BS>', at = [[``\%#'']], delete = 2, input = '<BS><BS>', filetype = 'tex' })
+  vim.fn['lexima#add_rule']({
+    char = '[',
+    at = [=[\[\(=\+\)\%#\]]=],
+    input_after = [=[]\1]=],
+    with_submatch = true,
+    filetype = 'lua'
+  })
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
   vim.fn["tcomment#type#Define"]("glsl", "// %s")

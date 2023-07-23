@@ -41,6 +41,9 @@ build = 'make'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+
 # diagnostics
 [[plugins]]
 repo = 'kevinhwang91/nvim-bqf'
@@ -113,13 +116,14 @@ depends = ['nvim-lspconfig']
 repo = 'jose-elias-alvarez/typescript.nvim'
 
 ## Formatter with LSP interface
-[[plugins]]
-repo = 'jose-elias-alvarez/null-ls.nvim'
-depends = ['plenary.nvim']
+# [[plugins]]
+# repo = 'jose-elias-alvarez/null-ls.nvim'
+# depends = ['plenary.nvim']
 
 [[plugins]]
 repo = 'MunifTanjim/prettier.nvim'
-depends = ['nvim-lspconfig', 'null-ls.nvim']
+# depends = ['nvim-lspconfig', 'null-ls.nvim']
+depends = ['nvim-lspconfig']
 
 ## Rust tooltip
 [[plugins]]
@@ -307,6 +311,9 @@ repo = 'ryanoasis/vim-devicons'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'lewis6991/gitsigns.nvim'
 
 # parenthesis control
 [[plugins]]

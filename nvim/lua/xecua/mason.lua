@@ -25,7 +25,6 @@ mason_lspconfig.setup({
     "taplo",
     -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
   },
-  -- automatic_installation = false,
 })
 
 mason_lspconfig.setup_handlers({
@@ -146,9 +145,9 @@ mason_lspconfig.setup_handlers({
     -- https://github.com/jose-elias-alvarez/typescript.nvim#setup
     require("typescript").setup({
       disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
+      debug = false,            -- enable debug logging for commands
       go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
+        fallback = true,        -- fall back to standard LSP definition on failure
       },
       server = {
         root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json"),

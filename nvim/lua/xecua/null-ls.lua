@@ -10,9 +10,6 @@ local null_ls = require("null-ls")
 -- これlspだとprettier.nvimのnull_lsが読まれて怒られてる
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.stylua.with({
-      extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-    }),
     null_ls.builtins.formatting.yapf,
     -- null_ls.builtins.formatting.textlint,
     -- null_ls.builtins.diagnostics.textlint, -- causes 'failed to decode json error'
