@@ -26,6 +26,7 @@
 	b = branch
 	d = diff
 	l = log
+	ls = log --stat
 	lp = log -p
 	g = log --graph --date=short --decorate=short --oneline
 	ri = rebase -i
