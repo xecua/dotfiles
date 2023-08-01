@@ -371,7 +371,10 @@ else
   })
 
   -- outline
-  require("symbols-outline").setup()
+  require("symbols-outline").setup({
+    auto_preview = true,
+    autofold_depth = 1
+  })
 
   -- breadcrumb
   require("nvim-navic").setup({
