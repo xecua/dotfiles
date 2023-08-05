@@ -361,7 +361,7 @@ else
   })
   require("xecua.mason")
   require("xecua.lspconfig")
-  -- require("xecua.null-ls")
+  require("xecua.efmls")
   require("xecua.dap")
   require("xecua.dial")
 
@@ -373,7 +373,7 @@ else
   -- outline
   require("symbols-outline").setup({
     auto_preview = true,
-    autofold_depth = 1
+    autofold_depth = 1,
   })
 
   -- breadcrumb
@@ -385,7 +385,7 @@ else
   require("gitsigns").setup({
     signcolumn = false,
     numhl = true,
-    current_line_blame = true
+    current_line_blame = true,
   })
 
   -- treesitter config
@@ -428,19 +428,19 @@ else
 
   vim.cmd("colorscheme molokai")
 
-  vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = '\\)', filetype = 'tex' })
-  vim.fn['lexima#add_rule']({ char = '<BS>', at = [[\\(\%#\\)]], delete = 2, input = '<BS><BS>', filetype = 'tex' })
-  vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = '\\]', filetype = 'tex' })
-  vim.fn['lexima#add_rule']({ char = '<BS>', at = [=[\\\[\%#\\]]=], delete = 2, input = '<BS><BS>', filetype = 'tex' })
+  vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = "\\)", filetype = "tex" })
+  vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[\\(\%#\\)]], delete = 2, input = "<BS><BS>", filetype = "tex" })
+  vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = "\\]", filetype = "tex" })
+  vim.fn["lexima#add_rule"]({ char = "<BS>", at = [=[\\\[\%#\\]]=], delete = 2, input = "<BS><BS>", filetype = "tex" })
   -- move cursor to right by 1(leave), then insert two single-quotes(input_after)
-  vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], leave = 1, input_after = "''", filetype = 'tex' })
-  vim.fn['lexima#add_rule']({ char = '<BS>', at = [[``\%#'']], delete = 2, input = '<BS><BS>', filetype = 'tex' })
-  vim.fn['lexima#add_rule']({
-    char = '[',
+  vim.fn["lexima#add_rule"]({ char = "`", at = [[`\%#`]], leave = 1, input_after = "''", filetype = "tex" })
+  vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[``\%#'']], delete = 2, input = "<BS><BS>", filetype = "tex" })
+  vim.fn["lexima#add_rule"]({
+    char = "[",
     at = [=[\[\(=\+\)\%#\]]=],
     input_after = [=[]\1]=],
     with_submatch = true,
-    filetype = 'lua'
+    filetype = "lua",
   })
 
   vim.fn["tcomment#type#Define"]("satysfi", "%% %s")

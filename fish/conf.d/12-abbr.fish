@@ -31,6 +31,16 @@ function multidot
 end
 abbr --add dotdot --position anywhere --regex '^\.\.+$' --function multidot
 
+function expand_neovide
+  if type -q neovide.exe
+    echo neovide.exe --wsl
+  else
+    echo neovide
+  end
+end
+abbr --add nv --function expand_neovide
+
+
 if type -q emerge
   set -l emerge_update 'sudo emerge -avtuDU --keep-going --autounmask=n% @world'
   abbr --add udon --set-cursor $emerge_update

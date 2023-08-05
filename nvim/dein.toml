@@ -115,15 +115,9 @@ depends = ['nvim-lspconfig']
 [[plugins]]
 repo = 'jose-elias-alvarez/typescript.nvim'
 
-## Formatter with LSP interface
-# [[plugins]]
-# repo = 'jose-elias-alvarez/null-ls.nvim'
-# depends = ['plenary.nvim']
-
+## efm-langserver presets
 [[plugins]]
-repo = 'MunifTanjim/prettier.nvim'
-# depends = ['nvim-lspconfig', 'null-ls.nvim']
-depends = ['nvim-lspconfig']
+repo = 'creativenull/efmls-configs-nvim'
 
 ## Rust tooltip
 [[plugins]]
