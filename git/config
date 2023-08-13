@@ -24,6 +24,7 @@
 	co = checkout
 	sw = switch
 	b = branch
+	j = jump
 	d = diff
 	l = log
 	ls = log --stat

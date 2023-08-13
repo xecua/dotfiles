@@ -1,0 +1,20 @@
+-- keymaps
+vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<C-[><C-[>', '<Cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Leader>x', '<Cmd>cclose<CR>')
+vim.keymap.set('n', '<Leader>t', '<Cmd>TroubleToggle<CR>')
+vim.keymap.set('n', 'j', '<Plug>(accelerated_jk_gj)')
+vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
+vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
+vim.keymap.set('n', '<Leader>o', '<Cmd>SymbolsOutline<CR>')
+vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')
+vim.keymap.set('n', '<Leader>cr', '<Cmd>CellularAutomaton make_it_rain<CR>')
+vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
+vim.keymap.set({ 'n', 'v' }, '<Leader>b', '<Plug>(openbrowser-open)')
+-- Always enable verymagic (a.k.a. ERE). see :h \v
+vim.keymap.set({ 'n', 'v' }, '/', '/\\v')
+vim.keymap.set({ 'n', 'v' }, '?', '?\\v')
+vim.keymap.set({ 'n', 'v' }, ':s/', ':s/\\v')
+vim.keymap.set({ 'n', 'v' }, ':%s/', ':%s/\\v')
+
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])

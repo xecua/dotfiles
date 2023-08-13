@@ -127,6 +127,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
 vim.api.nvim_create_user_command("DduFiler", function()
   vim.fn["ddu#start"]({
     ui = "filer",

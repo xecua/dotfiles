@@ -2,9 +2,11 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+# terminal
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 
+## open new tabpage instead of start nested instance
 [[plugins]]
 repo = 'lambdalisue/guise.vim'
 
@@ -29,6 +31,10 @@ repo = 'tyru/open-browser.vim'
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
 
+[[plugins]]
+repo = 'epwalsh/obsidian.nvim'
+depends = ['plenary.nvim']
+
 # Window resize mode
 [[plugins]]
 repo = 'sedm0784/vim-resize-mode'
@@ -41,13 +47,14 @@ build = 'make'
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
+# quickfix
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 
-# diagnostics
 [[plugins]]
 repo = 'kevinhwang91/nvim-bqf'
 
+# diagnostics
 [[plugins]]
 repo = 'folke/trouble.nvim'
 depends = ['nvim-web-devicons'] # optional
@@ -73,12 +80,7 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 
 # Machine Learning-based completion
 [[plugins]]
-repo = 'codota/tabnine-nvim'
-# for windows? (hook_post_source's pwd is not the runtimepath?)
-build = './dl_binaries.sh'
-
-# [[plugins]]
-# repo = 'github/copilot.vim'
+repo = 'github/copilot.vim'
 
 # LSP
 [[plugins]]
@@ -91,6 +93,9 @@ repo = 'williamboman/mason.nvim'
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
 depends = ['nvim-lspconfig', 'mason.nvim']
+
+[[plugins]]
+repo = 'tamago324/nlsp-settings.nvim'
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
@@ -153,16 +158,29 @@ depends = ['denops.vim']
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim']
 
+### ui
 [[plugins]]
-repo = 'Shougo/ddc-nvim-lsp'
+repo = 'Shougo/ddc-ui-pum'
+depends = ['denops.vim', 'ddc.vim', 'pum.vim']
+
+### source
+[[plugins]]
+repo = 'Shougo/ddc-source-nvim-lsp'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
-repo = 'Shougo/ddc-around'
+repo = 'Shougo/ddc-source-around'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
-repo = 'Shougo/ddc-matcher_head'
+repo = 'Shougo/ddc-source-copilot'
+depends = ['denops.vim', 'ddc.vim', 'copilot.vim']
+
+[[plugins]]
+repo = 'LumaKernel/ddc-tabnine' # 動くかなあ
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
@@ -170,17 +188,16 @@ repo = 'tani/ddc-fuzzy'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
-repo = 'Shougo/ddc-sorter_rank'
+repo = 'ttak0422/ddc-source-nvim-obsidian'
+
+### filter
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_rank'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
-repo = 'LumaKernel/ddc-file'
+repo = 'Shougo/ddc-filter-matcher_head'
 depends = ['denops.vim', 'ddc.vim']
-
-### ui
-[[plugins]]
-repo = 'Shougo/ddc-ui-pum'
-depends = ['denops.vim', 'ddc.vim', 'pum.vim']
 
 ## ddu
 [[plugins]]
@@ -301,7 +318,6 @@ repo = 'lambdalisue/fern-hijack.vim'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
-# other
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -326,15 +342,16 @@ repo = 'cohama/lexima.vim'
 [[plugins]]
 repo = 'mbbill/undotree'
 
+# statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
-depends = ['nvim-web-devicons']    # optional
+depends = ['nvim-web-devicons']
 
 [[plugins]]
-repo = 'arkav/lualine-lsp-progress' # module
+repo = 'arkav/lualine-lsp-progress'
 depends = ['lualine.nvim']
 
-# comment out
+# comment
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
 
@@ -342,6 +359,7 @@ repo = 'tomtom/tcomment_vim'
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
 
+# Open README.md
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
 
@@ -361,9 +379,9 @@ repo = 'alvan/vim-closetag'
 repo = 'tomasr/molokai'
 
 # snippets
+# なんか別のやつ使ってみてもいいかも
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
-# repo = 'Shougo/deoppet.nvim'
 
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
