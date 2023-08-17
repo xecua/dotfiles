@@ -38,9 +38,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  pattern = { 'neosnippet' },
+  pattern = { 'snippets' },
   callback = function()
-    -- neosnippet.vim/ftplugin/neosnippet.vimで上書きしてしまっている
     vim.opt_local.expandtab = false
     vim.opt_local.softtabstop = -1
     vim.opt_local.shiftwidth = 0

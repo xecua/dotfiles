@@ -6,13 +6,13 @@ vim.fn['ddc#custom#patch_global']('ui', 'pum')
 local text_completor = vim.fn['copilot#Call']('checkStatus', vim.empty_dict())['user'] ~= nil and 'copilot' or 'tabnine'
 
 vim.fn['ddc#custom#patch_global']('sources', {
+  'vsnip',
   'nvim-lsp',
-  -- "neosnippet",
-  'around',
   'file',
   'skkeleton',
   'nvim-obsidian',
   'nvim-obsidian-new',
+  'around',
   text_completor,
 })
 vim.fn['ddc#custom#patch_global']({
@@ -28,12 +28,13 @@ vim.fn['ddc#custom#patch_global']({
       sorters = { 'sorter_fuzzy' },
       converters = { 'converter_fuzzy' },
     },
-    neosnippet = {
+    vsnip = {
       mark = 'snip',
       dup = 'keep',
     },
     ['nvim-lsp'] = {
       mark = 'LSP',
+      dup = 'keep',
       matchers = { 'matcher_fuzzy' },
       sorters = { 'sorter_fuzzy' },
       converters = { 'converter_fuzzy' },
@@ -70,6 +71,9 @@ vim.fn['ddc#custom#patch_global']({
   },
   sourceParams = {
     ['nvim-lsp'] = {
+      snippetEngine = vim.fn['denops#callback#register'](function(body)
+        vim.fn['vsnip#anonymous'](body)
+      end),
       enableResolveItem = true,
       enableAdditionalTextEdit = true,
       confirmBehavior = 'replace',
@@ -98,9 +102,8 @@ vim.fn['ddc#custom#patch_filetype']({ 'ps1', 'dosbatch', 'autohotkey', 'registry
 })
 
 vim.keymap.set('i', '<Tab>', function()
-  if vim.fn['neosnippet#expandable_or_jumpable']() == 1 then
-    -- <Plug>にmapするとremapがついて<Tab>に飛ばせなくなるので直接呼んじゃう
-    return vim.fn['neosnippet#mappings#expand_or_jump_impl']()
+  if vim.fn['vsnip#jumpable'](1) == 1 then
+    return '<Plug>(vsnip-jump-next)'
   elseif vim.fn['pum#visible']() then
     return '<Cmd>call pum#map#insert_relative(1)<CR>'
   end

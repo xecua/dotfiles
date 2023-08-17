@@ -190,6 +190,9 @@ depends = ['denops.vim', 'ddc.vim']
 [[plugins]]
 repo = 'ttak0422/ddc-source-nvim-obsidian'
 
+[[plugins]]
+repo = 'uga-rosa/ddc-source-vsnip'
+
 ### filter
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
@@ -379,12 +382,11 @@ repo = 'alvan/vim-closetag'
 repo = 'tomasr/molokai'
 
 # snippets
-# なんか別のやつ使ってみてもいいかも
 [[plugins]]
-repo = 'Shougo/neosnippet.vim'
+repo = 'hrsh7th/vim-vsnip'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'rafamadriz/friendly-snippets'
 
 # Template
 [[plugins]]

@@ -23,7 +23,7 @@ vim.g.terminal_color_14 = '#99faf2'
 vim.g.terminal_color_15 = '#ffffff'
 
 -- plugin configuration by variable
-vim.g['neosnippet#snippets_directory'] = vim.fn.stdpath('config') .. '/mysnippets'
+vim.g['vsnip_snippet_dir'] = vim.fn.stdpath('config') .. '/mysnippets'
 
 vim.g.loaded_matchparen = 1 -- disable default settings
 vim.g['readme_viewer#plugin_manager'] = 'dein.vim'

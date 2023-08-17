@@ -1,7 +1,4 @@
-snippet     base
-abbr        LaTeX template
-alias       doc jlreq ltjsarticle jsarticle beamer
-options      head
+snippet base LaTeX template
 	\documentclass{jlreq}
 	% \documentclass[a4j,uplatex]{jsarticle} % upLaTeX
 	% \documentclass[a4j]{ltjsarticle} % LuaTeX
@@ -69,18 +66,13 @@ options      head
 	%\printbibliography[title=参考文献]
 	\end{document}
 
-snippet     textpos
-abbr        textblock* environment
-alias       textpos textblock
-options      head
+snippet textpos textblock* environment
 	\begin{textblock*}{0.4\linewidth}(230pt, 100pt)
 		\centering
 		\includegraphics[width=\linewidth]{${1:./figure.png}}
 	\end{textblock*}
 
-snippet     indent
-abbr        indentation environment
-options     head
+snippet indent indentation environment
 	\begin{indentation}{1em}{0em}
 		$0
 	\end{indentation}
