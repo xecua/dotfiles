@@ -19,6 +19,7 @@ mason_lspconfig.setup({
     'tsserver',
     'vimls',
     'html',
+    'efm',
     'gopls',
     'kotlin_language_server',
     'intelephense',
@@ -147,6 +148,20 @@ mason_lspconfig.setup_handlers({
       init_options = {
         provideFormatter = false,
       },
+    })
+  end,
+  efm = function()
+    local languages = require('xecua.plugins.efmls')
+    lspconfig.efm.setup({
+      filetypes = vim.tbl_keys(languages),
+      init_options = {
+        documentFormatting = true,
+        documentRangeFormatting = true
+      },
+      settings = {
+        rootMarkers = { '.git' },
+        languages = languages
+      }
     })
   end,
   tsserver = function()

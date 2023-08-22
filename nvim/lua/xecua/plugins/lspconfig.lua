@@ -147,7 +147,5 @@ nlspsettings.setup({
 })
 
 require("xecua.plugins.mason")
-require("xecua.plugins.efmls")
-
 
 return M

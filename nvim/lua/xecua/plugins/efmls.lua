@@ -1,54 +1,38 @@
-local efmls = require("efmls-configs")
-
-local prettier = require("efmls-configs.formatters.prettier_d")
-local stylua = vim.tbl_extend("force", require("efmls-configs.formatters.stylua"), {
+local prettier = require('efmls-configs.formatters.prettier_d')
+local stylua = vim.tbl_extend('force', require('efmls-configs.formatters.stylua'), {
   formatCommand = string.format(
-    "%s ${--indent-width:tabSize} ${--range-start:charStart} ${--range-end:charEnd} --color Never --quote-style AutoPreferSingle -",
+    '%s ${--indent-width:tabSize} ${--range-start:charStart} ${--range-end:charEnd} --color Never --quote-style AutoPreferSingle -',
     -- インデントスタイルの設定はefmでは現状不可なので.editorconfigで。PR投げる?
-    require("efmls-configs.fs").executable("stylua")
+    require('efmls-configs.fs').executable('stylua')
   ),
-  rootMarkers = { "stylua.toml", ".stylua.toml", ".editorconfig" },
+  rootMarkers = { 'stylua.toml', '.stylua.toml', '.editorconfig' },
 })
 
-efmls.init({
-  init_options = {
-    documentFormatting = true,
-  },
-})
-
-efmls.setup({
-  html = { formatter = prettier },
-  css = { formatter = prettier },
-  sass = { formatter = prettier },
-  scss = { formatter = prettier },
-  less = { formatter = prettier },
-  javascript = { formatter = prettier },
-  javascriptreact = { formatter = prettier },
-  json = { formatter = prettier },
-  markdown = { formatter = prettier },
-  typescript = { formatter = prettier },
-  typescriptreact = { formatter = prettier },
-  vue = { formatter = prettier },
+return {
+  html = { prettier },
+  css = { prettier },
+  sass = { prettier },
+  scss = { prettier },
+  less = { prettier },
+  javascript = { prettier },
+  javascriptreact = { prettier },
+  json = { prettier },
+  markdown = { prettier },
+  typescript = { prettier },
+  typescriptreact = { prettier },
+  vue = { prettier },
   go = {
-    linter = require("efmls-configs.linters.golangci_lint"),
+    require('efmls-configs.linters.golangci_lint'),
   },
   lua = {
-    linter = require("efmls-configs.linters.luacheck"),
-    formatter = stylua,
+    require('efmls-configs.linters.luacheck'),
+    stylua,
   },
   php = {
-    linter = require("efmls-configs.linters.phpcs"),
-    formatter = require("efmls-configs.formatters.phpcbf"),
+    require('efmls-configs.linters.phpcs'),
+    require('efmls-configs.formatters.phpcbf'),
   },
   python = {
-    formatter = require("efmls-configs.formatters.yapf"),
-    -- (pyrightがそこそこやってくれる説ないか?)
-    -- linters = require("efmls-configs.linters.flake8")
+    require('efmls-configs.formatters.yapf'),
   },
-  ruby = {
-    linter = require("efmls-configs.linters.reek"),
-  },
-  vim = {
-    linter = require("efmls-configs.linters.vint"),
-  },
-})
+}

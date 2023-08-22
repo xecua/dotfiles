@@ -103,7 +103,7 @@ require('obsidian').setup({
     folder = 'DairyNote',
     date_format = '%Y-%m-%d',
   },
-  finder = 'fzf.vim',
+  disable_frontmatter = true,
 })
 
 vim.fn['popup_preview#enable']()
