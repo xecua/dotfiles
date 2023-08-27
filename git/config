@@ -26,9 +26,9 @@
 	b = branch
 	j = jump
 	d = diff
-	l = log
-	ls = log --stat
-	lp = log -p
+	l = log --date=iso-local
+	ls = log --date=iso-local --stat
+	lp = log --date=iso-local -p
 	g = log --graph --date=short --decorate=short --oneline
 	ri = rebase -i
 	rs = restore
