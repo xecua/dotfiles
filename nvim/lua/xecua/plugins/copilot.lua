@@ -5,5 +5,5 @@ vim.g.copilot_filetypes = {
   ['ddu*'] = false,
 }
 
-vim.keymap.set('i', '<C-k>', 'copilot#Accept("<C-k>")', { replace_keycodes = false, silent = true, expr = true })
+vim.keymap.set('i', '<C-l>', 'copilot#Accept("<C-l>")', { replace_keycodes = false, silent = true, expr = true })
 vim.g.copilot_no_tab_map = true

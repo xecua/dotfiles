@@ -6,13 +6,13 @@ vim.fn['ddc#custom#patch_global']('ui', 'pum')
 local text_completor = vim.fn['copilot#Call']('checkStatus', vim.empty_dict())['user'] ~= nil and 'copilot' or 'tabnine'
 
 vim.fn['ddc#custom#patch_global']('sources', {
-  'vsnip',
   'nvim-lsp',
   'file',
   'skkeleton',
   'nvim-obsidian',
   'nvim-obsidian-new',
   'around',
+  'vsnip',
   text_completor,
 })
 vim.fn['ddc#custom#patch_global']({
@@ -63,11 +63,11 @@ vim.fn['ddc#custom#patch_global']({
       isVolatile = true,
     },
     ['nvim-obsidian'] = {
-      mark = 'obs'
+      mark = 'obs',
     },
     ['nvim-obsidian-new'] = {
-      mark = 'obs'
-    }
+      mark = 'obs',
+    },
   },
   sourceParams = {
     ['nvim-lsp'] = {
@@ -79,11 +79,11 @@ vim.fn['ddc#custom#patch_global']({
       confirmBehavior = 'replace',
     },
     ['nvim-obsidian'] = {
-      dir = require('xecua.utils').get_local_config().obsidian_dir
+      dir = require('xecua.utils').get_local_config().obsidian_dir,
     },
     ['nvim-obsidian-new'] = {
-      dir = require('xecua.utils').get_local_config().obsidian_dir
-    }
+      dir = require('xecua.utils').get_local_config().obsidian_dir,
+    },
   },
 })
 
@@ -118,11 +118,17 @@ end, {
   desc = 'Select next entry or start completion. At the head of line, feed <tab>',
 })
 vim.keymap.set('i', '<S-Tab>', function()
-  if vim.fn['pum#visible']() then
+  if vim.fn['vsnip#jumpable'](-1) == 1 then
+    return '<Plug>(vsnip-jump-prev)'
+  elseif vim.fn['pum#visible']() then
     return '<Cmd>call pum#map#insert_relative(-1)<CR>'
-  else
+  end
+  local _, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local current_char = string.sub(vim.api.nvim_get_current_line(), 0, col)
+  if string.match(current_char, '^%s*$') ~= nil then
     return '<C-h>'
   end
+  return vim.fn['ddc#map#manual_complete']()
 end, { expr = true, desc = 'Select previous entry, or feed <C-h>' })
 
 vim.keymap.set('i', '<C-n>', function()

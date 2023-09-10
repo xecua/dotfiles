@@ -20,6 +20,7 @@ return {
   markdown = { prettier },
   typescript = { prettier },
   typescriptreact = { prettier },
+  yaml = { prettier },
   vue = { prettier },
   go = {
     require('efmls-configs.linters.golangci_lint'),
