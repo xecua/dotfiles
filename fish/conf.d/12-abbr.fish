@@ -16,6 +16,31 @@ abbr --add nvim --function expand_vim
 abbr --add vim --function expand_vim
 abbr --add vi --function expand_vim
 
+function broot_vim
+  set -l vim_command (expand_vim)
+  set -l broot_result (brf)
+  if [ -z $broot_result ]
+    return 1
+  end
+  echo $vim_command $broot_result
+end
+abbr --add brv --function broot_vim
+
+function broot_cat
+  set -l cat_command ''
+  if type -q bat
+    set cat_command bat
+  else
+    set cat_command cat
+  end
+  set -l broot_result (brf)
+  if [ -z $broot_result ]
+    return 1
+  end
+  echo $cat_command $broot_result
+end
+abbr --add brc --function broot_cat
+
 abbr --add g git
 abbr --add gti git
 

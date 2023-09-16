@@ -1,7 +1,7 @@
-local notify = require("notify")
+local notify = require('notify')
 
-vim.fn["ddu#custom#patch_global"]({
-  ui = "ff",
+vim.fn['ddu#custom#patch_global']({
+  ui = 'ff',
   uiOptions = {
     filer = {
       toggle = true,
@@ -10,133 +10,135 @@ vim.fn["ddu#custom#patch_global"]({
   uiParams = {
     ff = {
       previewWidth = 80,
-      previewSplit = "vertical",
-      filterSplitDirection = "botright",
+      previewSplit = 'vertical',
+      filterSplitDirection = 'botright',
       startAutoAction = true,
-      autoAction = { name = "preview", sync = false },
+      autoAction = { name = 'preview', sync = false },
       startFilter = true,
     },
     filer = {
       winWidth = vim.o.columns / 6,
-      split = "vertical",
-      splitDirection = "topleft",
+      split = 'vertical',
+      splitDirection = 'topleft',
     },
   },
-  sources = { { name = "file_fd" } },
+  sources = { { name = 'file_fd' } },
   sourceParams = {
-    file_fd = { args = { "-tf", "-H", "-E", ".git" } },
+    file_fd = { args = { '-tf', '-H', '-E', '.git' } },
   },
   sourceOptions = {
-    _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
-    source = { defaultAction = "execute" },
+    _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
+    source = { defaultAction = 'execute' },
   },
   filterParams = {
-    matcher_fzf = { highlightMatched = "Search" },
-    matcher_substring = { highlightMatched = "Search" },
+    matcher_fzf = { highlightMatched = 'Search' },
+    matcher_substring = { highlightMatched = 'Search' },
   },
   kindOptions = {
-    file = { defaultAction = "open" },
-    word = { defaultAction = "append" },
-    action = { defaultAction = "do" },
-    command_history = { defaultAction = "edit" },
-    help = { defaultAction = "open" },
-    readme_viewer = { defaultAction = "open" },
+    file = { defaultAction = 'open' },
+    word = { defaultAction = 'append' },
+    action = { defaultAction = 'do' },
+    command_history = { defaultAction = 'edit' },
+    help = { defaultAction = 'open' },
+    readme_viewer = { defaultAction = 'open' },
   },
 })
 
 vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
-vim.api.nvim_create_user_command("DduRg", function(opts)
+vim.api.nvim_create_user_command('DduRg', function(opts)
   local source = {}
-  if opts.args ~= "" then
-    source = { name = "rg", params = { input = opts.args } }
+  if opts.args ~= '' then
+    source = { name = 'rg', params = { input = opts.args } }
   else
-    source = { name = "rg", options = { volatile = true, matchers = {} } }
+    source = { name = 'rg', options = { volatile = true, matchers = {} } }
   end
-  vim.fn["ddu#start"]({
+  vim.fn['ddu#start']({
     sources = { source },
     uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
   })
-end, { nargs = "?" })
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_fd<CR>")
-vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
-vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRg<CR>")
-vim.keymap.set("n", "<C-S-p>", "<Cmd>Ddu command<CR>")
+end, { nargs = '?' })
+vim.keymap.set('n', '<Leader>fd', '<Cmd>Ddu file_fd<CR>')
+vim.keymap.set('n', '<Leader>fb', '<Cmd>Ddu buffer<CR>')
+vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRg<CR>')
+vim.keymap.set('n', '<C-S-p>', '<Cmd>Ddu command<CR>')
 
-local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
+local ddu_group_id = vim.api.nvim_create_augroup('DduMyCnf', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
   group = ddu_group_id,
-  pattern = "ddu-ff",
+  pattern = 'ddu-ff',
   callback = function()
     local opts = { buffer = true, silent = true }
-    vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
-    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
-    vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
-    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
-    vim.keymap.set("n", "e", "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
-    vim.keymap.set("n", "w", function()
+    vim.keymap.set('n', '<CR>', "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
+    vim.keymap.set('n', 'a', "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+    vim.keymap.set('n', '/', "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
+    vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
+    vim.keymap.set('n', ',', "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
+    vim.keymap.set('n', 't', "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
+    vim.keymap.set('n', 'f', "<Cmd>call ddu#ui#do_action('quickfix')<CR>", opts)
+    vim.keymap.set('n', 'q', "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
+    vim.keymap.set('n', 'e', "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
+    vim.keymap.set('n', 'w', function()
       -- toggle converter_display_word
-      local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
+      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
       local converters = current
-          and current["sourceOptions"]
-          and current["sourceOptions"]["_"]
-          and current["sourceOptions"]["_"]["converters"]
-          or {}
+          and current['sourceOptions']
+          and current['sourceOptions']['_']
+          and current['sourceOptions']['_']['converters']
+        or {}
       if #converters == 0 then
-        vim.fn["ddu#ui#do_action"](
-          "updateOptions",
-          { sourceOptions = { _ = { converters = { "converter_display_word" } } } }
+        vim.fn['ddu#ui#do_action'](
+          'updateOptions',
+          { sourceOptions = { _ = { converters = { 'converter_display_word' } } } }
         )
-        notify("Display word included.")
+        notify('Display word included.')
       else
-        vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = { _ = { converters = {} } } })
-        notify("Display word excluded.")
+        vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { converters = {} } } })
+        notify('Display word excluded.')
       end
     end, opts)
-    vim.keymap.set("n", "s", function()
+    vim.keymap.set('n', 's', function()
       -- toggle fuzzy/substring search
-      local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
-      local options = current and current["sourceOptions"] and current["sourceOptions"]["_"] or {}
-      local sorters = options["sorters"] or {}
+      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
+      local options = current and current['sourceOptions'] and current['sourceOptions']['_'] or {}
+      local sorters = options['sorters'] or {}
       if #sorters == 0 then
-        vim.fn["ddu#ui#do_action"]("updateOptions", {
+        vim.fn['ddu#ui#do_action']('updateOptions', {
           sourceOptions = {
-            _ = { sorters = { "sorter_fzf" }, matchers = { "matcher_fzf" } },
+            _ = { sorters = { 'sorter_fzf' }, matchers = { 'matcher_fzf' } },
           },
         })
-        notify("Search mode switched to Fuzzy.")
+        notify('Search mode switched to Fuzzy.')
       else
-        vim.fn["ddu#ui#do_action"]("updateOptions", {
+        vim.fn['ddu#ui#do_action']('updateOptions', {
           sourceOptions = {
-            _ = { sorters = {}, matchers = { "matcher_substring" } },
+            _ = { sorters = {}, matchers = { 'matcher_substring' } },
           },
         })
-        notify("Search Mode switched to Substring.")
+        notify('Search Mode switched to Substring.')
       end
     end, opts)
   end,
 })
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd('FileType', {
   group = ddu_group_id,
-  pattern = "ddu-ff-filter",
+  pattern = 'ddu-ff-filter',
   callback = function()
     local opts = { buffer = true, silent = true }
-    vim.keymap.set({ "n" }, "q", "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
-    vim.keymap.set({ "i", "n" }, "<CR>", "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
+    vim.keymap.set({ 'n' }, 'q', "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
+    vim.keymap.set({ 'i', 'n' }, '<CR>', "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
   end,
 })
 
 -- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
-vim.api.nvim_create_user_command("DduFiler", function()
-  vim.fn["ddu#start"]({
-    ui = "filer",
+vim.api.nvim_create_user_command('DduFiler', function()
+  vim.fn['ddu#start']({
+    ui = 'filer',
     sources = {
       {
-        name = "file",
+        name = 'file',
         params = {},
         options = {
-          columns = { "icon_filename" },
+          columns = { 'icon_filename' },
         },
       },
     },
@@ -146,52 +148,52 @@ vim.api.nvim_create_user_command("DduFiler", function()
   })
 end, {})
 
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd('FileType', {
   group = ddu_group_id,
-  pattern = "ddu-filer",
+  pattern = 'ddu-filer',
   callback = function()
     local opts = { buffer = true, silent = true }
     local opts_with_desc = function(desc)
-      return { buffer = true, silent = true, desc = "ddu-filer: " .. desc }
+      return { buffer = true, silent = true, desc = 'ddu-filer: ' .. desc }
     end
 
-    vim.keymap.set("n", "<CR>", function()
-      if vim.fn["ddu#ui#get_item"]()["isTree"] == true then
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
+    vim.keymap.set('n', '<CR>', function()
+      if vim.fn['ddu#ui#get_item']()['isTree'] == true then
+        vim.fn['ddu#ui#do_action']('itemAction', { name = 'narrow' })
       else
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
+        vim.fn['ddu#ui#do_action']('itemAction', { name = 'open' })
       end
-    end, opts_with_desc("Narrow(tree), Open(file)"))
-    vim.keymap.set("n", "<BS>", function()
-      vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
-    end, opts_with_desc("Narrow"))
-    vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
-    vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
-    vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
-    vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
-    vim.keymap.set("n", "o", "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
-    vim.keymap.set("n", "n", "<Cmd>call ddu#ui#do_action('newFile')<CR>", opts)
-    vim.keymap.set("n", "r", "<Cmd>call ddu#ui#do_action('rename')<CR>", opts)
-    vim.keymap.set("n", "y", "<Cmd>call ddu#ui#do_action('copy')<CR>", opts)
-    vim.keymap.set("n", "m", "<Cmd>call ddu#ui#do_action('move')<CR>", opts)
-    vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('paste')<CR>", opts)
-    vim.keymap.set("n", "<Space>", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
+    end, opts_with_desc('Narrow(tree), Open(file)'))
+    vim.keymap.set('n', '<BS>', function()
+      vim.fn['ddu#ui#do_action']('itemAction', { name = 'narrow', params = { path = '..' } })
+    end, opts_with_desc('Narrow'))
+    vim.keymap.set('n', 'a', "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+    vim.keymap.set('n', 'q', "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
+    vim.keymap.set('n', 'l', "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
+    vim.keymap.set('n', 'h', "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
+    vim.keymap.set('n', 'o', "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
+    vim.keymap.set('n', 'n', "<Cmd>call ddu#ui#do_action('newFile')<CR>", opts)
+    vim.keymap.set('n', 'r', "<Cmd>call ddu#ui#do_action('rename')<CR>", opts)
+    vim.keymap.set('n', 'y', "<Cmd>call ddu#ui#do_action('copy')<CR>", opts)
+    vim.keymap.set('n', 'm', "<Cmd>call ddu#ui#do_action('move')<CR>", opts)
+    vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('paste')<CR>", opts)
+    vim.keymap.set('n', '<Space>', "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
     -- toggle hidden files
-    vim.keymap.set("n", "!", function()
-      local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
+    vim.keymap.set('n', '!', function()
+      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
       local matchers = current
-          and current["sourceOptions"]
-          and current["sourceOptions"]["_"]
-          and current["sourceOptions"]["_"]["matchers"]
-          or {}
-      local new_matchers = (#matchers == 0) and { "matcher_hidden" } or {}
-      vim.fn["ddu#ui#do_action"]("updateOptions", {
+          and current['sourceOptions']
+          and current['sourceOptions']['_']
+          and current['sourceOptions']['_']['matchers']
+        or {}
+      local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
+      vim.fn['ddu#ui#do_action']('updateOptions', {
         sourceOptions = {
           _ = {
             matchers = new_matchers,
           },
         },
       })
-    end, opts_with_desc("Toggle hidden files"))
+    end, opts_with_desc('Toggle hidden files'))
   end,
 })
