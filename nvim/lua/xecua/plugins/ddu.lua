@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
     vim.keymap.set('n', ',', "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
     vim.keymap.set('n', 't', "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
-    vim.keymap.set('n', 'f', "<Cmd>call ddu#ui#do_action('quickfix')<CR>", opts)
+    vim.keymap.set('n', 'f', "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'quickfix' })<CR>", opts)
     vim.keymap.set('n', 'q', "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
     vim.keymap.set('n', 'e', "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
     vim.keymap.set('n', 'w', function()

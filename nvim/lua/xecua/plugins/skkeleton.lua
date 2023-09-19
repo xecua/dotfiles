@@ -692,4 +692,6 @@ vim.fn['skkeleton#config']({
   globalDictionaries = require('xecua.utils').get_local_config().skkeleton_dictionaries,
 })
 
+vim.fn['skkeleton#initialize']()
+
 return M
