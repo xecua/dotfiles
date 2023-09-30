@@ -44,7 +44,6 @@ require('xecua.plugins.dein')
 require('xecua.plugins.lspconfig')
 require('xecua.plugins.dap')
 require('xecua.plugins.dial')
-require('xecua.plugins.skkeleton')
 require('xecua.plugins.ddc')
 require('xecua.plugins.ddu')
 require('xecua.plugins.lualine')
@@ -57,7 +56,6 @@ require('xecua.plugins.surround')
 require('xecua.plugins.deol')
 require('xecua.plugins.startify')
 require('xecua.plugins.lexima')
-require('xecua.plugins.copilot')
 
 -- tabnine
 -- require("tabnine").setup({

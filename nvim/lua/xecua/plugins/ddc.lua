@@ -1,3 +1,6 @@
+require('xecua.plugins.skkeleton')
+require('xecua.plugins.copilot')
+
 vim.g['ddc_tabnine#storage_dir'] = vim.fn.stdpath('cache') .. '/ddc-tabnine'
 
 vim.fn['ddc#custom#patch_global']('ui', 'pum')
@@ -61,6 +64,7 @@ vim.fn['ddc#custom#patch_global']({
       mark = 'copilot',
       matchers = {},
       isVolatile = true,
+      enabledIf = 'copilot#Enabled()',
     },
     ['nvim-obsidian'] = {
       mark = 'obs',

@@ -1,46 +1,44 @@
 local function fileformat()
   -- lualine's fileformat only shows icon *or* text
   -- when nvim-web-devicons becomes to have this, then replace with it.
-  return vim.bo.fileformat .. " " .. vim.fn.WebDevIconsGetFileFormatSymbol()
+  return vim.bo.fileformat .. ' ' .. vim.fn.WebDevIconsGetFileFormatSymbol()
 end
 
 local function shiftwidth()
   -- インデントがタブかどうか、タブ幅はどうか(expandtabとtabstopしかいじらないようにしてるのでその2つで判別可能)
-  local indentation = vim.o.expandtab and "Space" or "Tab"
+  local indentation = vim.o.expandtab and 'Space' or 'Tab'
   local width = vim.o.tabstop
-  return indentation .. ":" .. width
+  return indentation .. ':' .. width
 end
 
-require("lualine").setup({
+require('lualine').setup({
   options = {
-    theme = "wombat",
+    theme = 'wombat',
     globalstatus = true,
     disabled_filetypes = {
-      winbar = { "dap-repl" },
+      winbar = { 'dap-repl' },
     },
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = { 'mode' },
     lualine_b = {
-      { "branch", icon = { "" } }, -- 0xe702 (devicons)
+      { 'branch', icon = { '' } }, -- 0xe702 (devicons)
     },
     lualine_c = {
       -- arkav/lualine-lsp-progress
-      "lsp_progress",
-      "diagnostics",
+      'lsp_progress',
+      'diagnostics',
       -- codota/tabnine-nvim
-      "tabnine",
+      'tabnine',
     },
-    lualine_x = {
-      "searchcount",
-    },
-    lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
-    lualine_z = { "location", "skkeleton" },
+    lualine_x = {},
+    lualine_y = { fileformat, shiftwidth, 'encoding', 'filetype' },
+    lualine_z = { 'location', 'skkeleton' },
   },
   tabline = {
     lualine_a = {
       {
-        "tabs",
+        'tabs',
         max_length = function()
           return vim.o.columns * 2 / 3
         end,
@@ -52,15 +50,15 @@ require("lualine").setup({
         -- 'create new tabpage' component
         '""', -- 0xf067 (Font Awesome)
         on_click = function(args)
-          vim.cmd("tabnew")
+          vim.cmd('tabnew')
         end,
       },
     },
     lualine_y = { '" " .. os.date("%H:%M")' },
   },
   winbar = {
-    lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
-    lualine_c = { "navic" },
+    lualine_b = { { 'filename', path = 1, symbols = { readonly = '[readonly]' } } },
+    lualine_c = { 'navic' },
     lualine_z = {
       {
         '""', -- 0xf00d (Font Awesome)
@@ -72,7 +70,7 @@ require("lualine").setup({
   },
   inactive_winbar = {
     -- dduとかではdisableにしたい
-    lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
+    lualine_b = { { 'filename', path = 1, symbols = { readonly = '[readonly]' } } },
     -- lualine_c = { "navic" },
     -- lualine_z = {
     --   {
@@ -84,5 +82,5 @@ require("lualine").setup({
     --   },
     -- },
   },
-  extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
+  extensions = { 'fern', 'man', 'quickfix', 'trouble', 'nvim-dap-ui', 'fugitive', 'symbols-outline' },
 })

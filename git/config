@@ -17,6 +17,7 @@
 	pl = pull --prune
 	f = fetch --prune
 	m = merge
+	mt = mergetool
 	mas = !git show-ref --quiet refs/heads/master && git switch master || git switch main
 	s = status
 	c = commit -am
@@ -25,6 +26,7 @@
 	sw = switch
 	b = branch
 	j = jump
+	jm = jump merge
 	d = diff
 	l = log --date=iso-local
 	ls = log --date=iso-local --stat
@@ -55,6 +57,10 @@
 	line-numbers = true
 [interactive]
 	diffFilter = delta --color-only
+[merge]
+	tool = nvimdiff
+[mergetool]
+	keepBackup = false
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
