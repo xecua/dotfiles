@@ -55,6 +55,8 @@
 	minus-style = normal "#340001"
 	syntax-theme = Monokai Extended
 	line-numbers = true
+[diff]
+	algorithm = histogram
 [interactive]
 	diffFilter = delta --color-only
 [merge]

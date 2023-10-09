@@ -95,14 +95,16 @@ require('illuminate').configure({
 require('flutter-tools').setup({})
 
 -- obsidian
-require('obsidian').setup({
-  dir = require('xecua.utils').get_local_config().obsidian_dir,
-  daily_notes = {
-    folder = 'DairyNote',
-    date_format = '%Y-%m-%d',
-  },
-  disable_frontmatter = true,
-})
+if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
+  require('obsidian').setup({
+    dir = require('xecua.utils').get_local_config().obsidian_dir,
+    daily_notes = {
+      folder = 'DairyNote',
+      date_format = '%Y-%m-%d',
+    },
+    disable_frontmatter = true,
+  })
+end
 
 vim.fn['popup_preview#enable']()
 vim.fn['signature_help#enable']()

@@ -41,10 +41,12 @@ make_symlink(home / '.zshrc', script_dir / '.zshrc')
 make_symlink(home / '.mutagen.yml', script_dir / '.mutagen.yml')
 make_symlink(home / '.clang-format', script_dir / '.clang-format')
 
+make_symlink(config_home / 'broot', script_dir / 'broot')
 make_symlink(config_home / 'nvim', script_dir / 'nvim')
 make_symlink(config_home / 'ideavim', script_dir / 'ideavim')
 make_symlink(config_home / 'git', script_dir / 'git')
 make_symlink(config_home / 'tig', script_dir / 'tig')
+make_symlink(config_home / 'fd', script_dir / 'fd')
 make_symlink(config_home / 'picom', script_dir / 'picom')
 make_symlink(config_home / 'ripgrep', script_dir / 'ripgrep')
 make_symlink(config_home / 'i3', script_dir / 'i3')
@@ -60,6 +62,7 @@ make_symlink(config_home / 'latexmk' / 'latexmkrc',
              script_dir / 'latexmk' / 'latexmkrc')
 make_symlink(config_home / 'tmux' / 'tmux.conf',
              script_dir / 'tmux' / 'tmux.conf')
+make_symlink(config_home / 'wezterm', script_dir / 'wezterm')
 
 make_symlink(config_home / 'ranger' / 'rc.conf',
              script_dir / 'ranger' / 'rc.conf')
@@ -78,6 +81,10 @@ make_symlink(config_home / 'fontconfig', script_dir / 'fontconfig')
 make_symlink(config_home / 'zathura', script_dir / 'zathura')
 make_symlink(config_home / 'libskk' / 'rules',
              script_dir / 'skk' / 'libskk' / 'rules')
+
+for p in (script_dir / 'systemd' / 'user').iterdir():
+    base_name = p.name
+    make_symlink(config_home / 'systemd' / 'user' / base_name, p.resolve())
 
 if not (config_home / 'rofi').exists():
     rofi_path = script_dir / 'rofi'

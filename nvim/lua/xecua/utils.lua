@@ -24,19 +24,38 @@ function M.get_os_string()
   return os_string
 end
 
----@class LocalConfig
-local default_local_config = {
-  obsidian_dir = '~/obsidian',
-  skkeleton_dictionaries = { '/usr/share/skk/SKK-JISYO.L' },
-}
-
----@return LocalConfig
+---@return { obsidian_dir: string, skkeleton_dictionaries: array<string> }
 function M.get_local_config()
+  local dein = require('dein')
+  local skkdict_path = dein.get('dict').path
+  local emoji_jisyo_path = dein.get('skk-emoji-jisyo').path
+
+  local skkeleton_dictionaries = {
+    skkdict_path .. '/SKK-JISYO.L',
+    skkdict_path .. '/SKK-JISYO.jinmei',
+    skkdict_path .. '/SKK-JISYO.geo',
+    skkdict_path .. '/SKK-JISYO.station',
+    skkdict_path .. '/SKK-JISYO.propernoun',
+    skkdict_path .. '/SKK-JISYO.itaiji',
+    skkdict_path .. '/SKK-JISYO.itaiji.JIS3_4',
+    skkdict_path .. '/SKK-JISYO.JIS2004',
+    skkdict_path .. '/SKK-JISYO.JIS2',
+    skkdict_path .. '/SKK-JISYO.JIS3_4',
+    emoji_jisyo_path .. '/SKK-JISYO.emoji.utf8',
+  }
+
   local ok, config = pcall(require, 'xecua.local')
   if ok then
-    return vim.tbl_extend('force', default_local_config, config)
+    vim.list_extend(skkeleton_dictionaries, config.skkeleton_directories or {})
+
+    return {
+      obidian_dir = config.obsidian_dir,
+      skkeleton_dictionaries = skkeleton_dictionaries,
+    }
   else
-    return default_local_config
+    return {
+      skkeleton_dictionaries = skkeleton_dictionaries,
+    }
   end
 end
 

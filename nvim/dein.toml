@@ -141,17 +141,24 @@ repo = 'Shougo/pum.vim'
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
-# repo = 'vim-skk/skkeleton'
-repo = 'xecua/skkeleton'
-depends = ['denops.vim']
-
-[[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 depends = ['denops.vim']
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
+
+## SKK
+[[plugins]]
+# repo = 'vim-skk/skkeleton'
+repo = 'xecua/skkeleton'
+depends = ['denops.vim']
+
+[[plugins]]
+repo = 'skk-dev/dict'
+
+[[plugins]]
+repo = 'uasi/skk-emoji-jisyo'
 
 ## ddc
 [[plugins]]
