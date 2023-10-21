@@ -1,3 +1,4 @@
+vim.opt_local.formatoptions = 'jonqr'
 vim.opt_local.comments = ""
 for _, marker in ipairs({ "+", "-", "*", "1." }) do
   vim.opt_local.comments:prepend({

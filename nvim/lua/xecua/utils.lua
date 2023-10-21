@@ -49,7 +49,7 @@ function M.get_local_config()
     vim.list_extend(skkeleton_dictionaries, config.skkeleton_directories or {})
 
     return {
-      obidian_dir = config.obsidian_dir,
+      obsidian_dir = config.obsidian_dir,
       skkeleton_dictionaries = skkeleton_dictionaries,
     }
   else
