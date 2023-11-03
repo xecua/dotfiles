@@ -40,4 +40,12 @@ if status is-interactive
   if type -q batman
     alias man=batman
   end
+
+  if type -q gsed
+    alias sed=gsed
+  end
+
+  if type -q gawk
+    alias awk=gawk
+  end
 end

@@ -243,6 +243,9 @@ repo = 'Shougo/ddu-filter-converter_display_word'
 repo = 'yuki-yano/ddu-filter-fzf'
 depends = ['denops.vim', 'ddu.vim']
 
+[[plugins]]
+repo = 'Shougo/ddu-filter-sorter_alpha'
+
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'

@@ -4,6 +4,7 @@ set clipboard=unnamed
 set ignorecase
 set smartcase
 set wrapscan
+set incsearch
 set whichwrap=b,s,<,>,[,]
 set noerrorbells
 set visualbell
