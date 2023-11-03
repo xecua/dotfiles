@@ -1,4 +1,4 @@
-local prettier = require('efmls-configs.formatters.prettier_d')
+local prettier = require('efmls-configs.formatters.prettier')
 local stylua = vim.tbl_extend('force', require('efmls-configs.formatters.stylua'), {
   formatCommand = string.format(
     '%s ${--indent-width:tabSize} ${--range-start:charStart} ${--range-end:charEnd} --color Never --quote-style AutoPreferSingle -',

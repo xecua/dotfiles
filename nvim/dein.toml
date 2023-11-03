@@ -426,6 +426,9 @@ repo = 'lambdalisue/vim-backslash'
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
 
+[[plugins]]
+repo = 'preservim/vim-indent-guides'
+
 # Syntax Highlighting
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
