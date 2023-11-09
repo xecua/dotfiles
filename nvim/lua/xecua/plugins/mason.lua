@@ -17,6 +17,7 @@ mason_lspconfig.setup({
     'pyright',
     'rust_analyzer',
     'clangd',
+    'denols',
     'tsserver',
     'vimls',
     'html',
@@ -47,7 +48,7 @@ mason_lspconfig.setup_handlers({
   end,
   denols = function()
     lspconfig.denols.setup({
-      root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
+      root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc', 'denops', 'dpp.ts'),
     })
   end,
   eslint = function()
