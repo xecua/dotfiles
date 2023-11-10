@@ -551,8 +551,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
 repo = 'nvim-treesitter/playground'
 depends = ['nvim-treesitter']
 
-[[plugins]]
-repo = 'HiPhish/nvim-ts-rainbow2'
+# deprecated. TODO: replace to https://gitlab.com/HiPhish/rainbow-delimiters.nvim
+# [[plugins]]
+# repo = 'HiPhish/nvim-ts-rainbow2'
 
 ## fish
 [[plugins]]
