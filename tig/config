@@ -3,3 +3,5 @@ bind generic G move-last-line
 bind main    R !git rebase -i %(commit)
 bind diff    R !git rebase -i %(commit)
 set ignore-case = smart-case
+set mouse = true
+set main-view-id = true

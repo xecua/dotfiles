@@ -38,6 +38,12 @@ vim.api.nvim_create_user_command(
   {}
 )
 
+if vim.g.neovide ~= nil then
+  vim.api.nvim_create_user_command('NeovideToggleFullscreen', function()
+    vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
+  end, {})
+end
+
 -- plugin manager
 require('xecua.plugins.dein')
 -- plugin configurations
