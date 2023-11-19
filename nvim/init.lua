@@ -63,11 +63,6 @@ require('xecua.plugins.deol')
 require('xecua.plugins.startify')
 require('xecua.plugins.lexima')
 
--- tabnine
--- require("tabnine").setup({
---   accept_keymap = "<C-k>",
--- })
-
 -- outline
 require('symbols-outline').setup({
   auto_preview = true,

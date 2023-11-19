@@ -28,8 +28,6 @@ require('lualine').setup({
       -- arkav/lualine-lsp-progress
       'lsp_progress',
       'diagnostics',
-      -- codota/tabnine-nvim
-      'tabnine',
     },
     lualine_x = {},
     lualine_y = { fileformat, shiftwidth, 'encoding', 'filetype' },

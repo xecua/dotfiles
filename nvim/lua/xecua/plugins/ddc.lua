@@ -1,12 +1,7 @@
 require('xecua.plugins.skkeleton')
 require('xecua.plugins.copilot')
 
-vim.g['ddc_tabnine#storage_dir'] = vim.fn.stdpath('cache') .. '/ddc-tabnine'
-
 vim.fn['ddc#custom#patch_global']('ui', 'pum')
-
--- copilotがつかえるならそっち
-local text_completor = vim.fn['copilot#Call']('checkStatus', vim.empty_dict())['user'] ~= nil and 'copilot' or 'tabnine'
 
 vim.fn['ddc#custom#patch_global']('sources', {
   'nvim-lsp',
@@ -16,7 +11,7 @@ vim.fn['ddc#custom#patch_global']('sources', {
   'nvim-obsidian-new',
   'around',
   'vsnip',
-  text_completor,
+  'copilot',
 })
 vim.fn['ddc#custom#patch_global']({
   sourceOptions = {
@@ -54,10 +49,6 @@ vim.fn['ddc#custom#patch_global']({
       mark = 'skk',
       matchers = { 'skkeleton' },
       sorters = {},
-      isVolatile = true,
-    },
-    tabnine = {
-      mark = 'TN',
       isVolatile = true,
     },
     copilot = {

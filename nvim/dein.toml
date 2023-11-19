@@ -184,9 +184,6 @@ repo = 'Shougo/ddc-source-copilot'
 depends = ['denops.vim', 'ddc.vim', 'copilot.vim']
 
 [[plugins]]
-repo = 'LumaKernel/ddc-tabnine' # 動くかなあ
-
-[[plugins]]
 repo = 'LumaKernel/ddc-source-file'
 depends = ['denops.vim', 'ddc.vim']
 
