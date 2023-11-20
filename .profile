@@ -30,6 +30,7 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export POETRY_HOME="$XDG_DATA_HOME/poetry"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
+export BUN_INSTALL="$XDG_DATA_HOME/bun"
 
 export FZF_DEFAULT_OPTS="--reverse"
 
@@ -61,6 +62,7 @@ PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" # GNU tar installed with Home
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$XDG_CONFIG_HOME/rofi/bin:$PATH" # scripts from https://github.com/adi1090x/rofi (v1.7)
 PATH="$XDG_CONFIG_HOME/rofi/scripts:$PATH" # scripts from https://github.com/adi1090x/rofi (master)
+PATH="$BUN_INSTALL/bin:$PATH"
 
 # set by command
 if command -v ruby >/dev/null; then
