@@ -11,10 +11,9 @@ if status --is-interactive
     starship init fish | source
   end
 
-  # uncomment after sys-apps/bat-extras updated
-  # if type -q batpipe
-  #   eval (batpipe)
-  # end
+  if type -q batpipe
+    eval (batpipe)
+  end
 
   # enable vi mode
   fish_vi_key_bindings
