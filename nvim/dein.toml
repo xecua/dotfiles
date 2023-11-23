@@ -192,9 +192,6 @@ repo = 'tani/ddc-fuzzy'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]
-repo = 'ttak0422/ddc-source-nvim-obsidian'
-
-[[plugins]]
 repo = 'uga-rosa/ddc-source-vsnip'
 
 ### filter

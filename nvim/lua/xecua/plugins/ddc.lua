@@ -7,8 +7,6 @@ vim.fn['ddc#custom#patch_global']('sources', {
   'nvim-lsp',
   'file',
   'skkeleton',
-  'nvim-obsidian',
-  'nvim-obsidian-new',
   'around',
   'vsnip',
   'copilot',
@@ -57,12 +55,6 @@ vim.fn['ddc#custom#patch_global']({
       isVolatile = true,
       enabledIf = 'copilot#Enabled()',
     },
-    ['nvim-obsidian'] = {
-      mark = 'obs',
-    },
-    ['nvim-obsidian-new'] = {
-      mark = 'obs',
-    },
   },
   sourceParams = {
     ['nvim-lsp'] = {
@@ -72,12 +64,6 @@ vim.fn['ddc#custom#patch_global']({
       enableResolveItem = true,
       enableAdditionalTextEdit = true,
       confirmBehavior = 'replace',
-    },
-    ['nvim-obsidian'] = {
-      dir = require('xecua.utils').get_local_config().obsidian_dir,
-    },
-    ['nvim-obsidian-new'] = {
-      dir = require('xecua.utils').get_local_config().obsidian_dir,
     },
   },
 })
