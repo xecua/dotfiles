@@ -1,13 +1,7 @@
 -- neovide: use ui
 local M = {}
 
-function M.should_use_skkeleton()
-  return vim.g.neovide ~= nil or vim.env.DISPLAY == nil
-end
-
-if M.should_use_skkeleton() then
-  vim.keymap.set({ 'i', 'c', 'l' }, '<C-j>', '<Plug>(skkeleton-enable)')
-end
+vim.keymap.set({ 'i', 'c', 'l' }, '<C-j>', '<Plug>(skkeleton-enable)')
 
 -- TODO: 一般的なazikの挙動に寄せる
 vim.fn['skkeleton#register_keymap']('input', "'", 'henkanPoint') -- 暫定処置としてsticky keyを使うといいのでは?
