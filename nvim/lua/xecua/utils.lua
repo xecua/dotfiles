@@ -27,9 +27,9 @@ end
 ---@return { obsidian_dir: string, skkeleton_dictionaries: array<string> }
 ---must have been finished sourcing dein.vim
 function M.get_local_config()
-  local dein = require('dein')
-  local skkdict_path = dein.get('dict').path
-  local emoji_jisyo_path = dein.get('skk-emoji-jisyo').path
+  local dict_func_name = vim.fn.exists('*dein#get') == 1 and 'dein#get' or 'dpp#get'
+  local skkdict_path = vim.fn[dict_func_name]('dict').path
+  local emoji_jisyo_path = vim.fn[dict_func_name]('skk-emoji-jisyo').path
 
   local skkeleton_dictionaries = {
     skkdict_path .. '/SKK-JISYO.L',

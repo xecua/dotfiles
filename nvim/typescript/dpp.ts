@@ -26,13 +26,14 @@ export class Config extends BaseConfig {
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
+    const config_base = await args.denops.call("stdpath", "config");
     const tomls = [
       (await args.dpp.extAction(args.denops, context, options, "toml", "load", {
-        path: "$BASE_DIR/dein.toml",
+        path: `${config_base}/dein.toml`,
         options: { lazy: false },
       })) as TomlLoadResult,
       (await args.dpp.extAction(args.denops, context, options, "toml", "load", {
-        path: "$BASE_DIR/dein_lazy.toml",
+        path: `${config_base}/dein_lazy.toml`,
         options: { lazy: true },
       })) as TomlLoadResult,
     ];
@@ -60,6 +61,7 @@ export class Config extends BaseConfig {
       }
     }
 
+    // for lazy loading plugins
     const { plugins, stateLines } = (await args.dpp.extAction(
       args.denops,
       context,

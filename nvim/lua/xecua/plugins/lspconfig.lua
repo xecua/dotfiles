@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 -- lua_post_source {{{
+=======
+>>>>>>> d2ceb59 (make state)
 local M = {}
+local nlspsettings = require('nlspsettings')
 
 -- wrapper: https://zenn.dev/ryoppippi/articles/8aeedded34c914
 local augroup = vim.api.nvim_create_augroup('LspConfig', {})
