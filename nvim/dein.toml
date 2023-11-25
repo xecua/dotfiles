@@ -1,6 +1,6 @@
 # plugin manager
 [[plugins]]
-repo = 'Shougo/dein.vim'
+repo = 'Shougo/dpp.vim'
 
 # terminal
 [[plugins]]

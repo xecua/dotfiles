@@ -45,7 +45,6 @@ if vim.g.neovide ~= nil then
 end
 
 -- plugin manager
--- require('xecua.plugins.dein')
 require('xecua.plugins.dpp')
 
 vim.cmd('filetype plugin on')

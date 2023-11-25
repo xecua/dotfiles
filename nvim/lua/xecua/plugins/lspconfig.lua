@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 -- lua_post_source {{{
-=======
->>>>>>> d2ceb59 (make state)
 local M = {}
 local nlspsettings = require('nlspsettings')
 
