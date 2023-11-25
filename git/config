@@ -41,6 +41,7 @@
 	stp = stash pop
 	std = stash drop
 	cf = cat-file -p
+	cbcopy = !printf "$1" | cbcopy
 [commit]
 	gpgsign = true
 [rerere]
@@ -76,6 +77,7 @@
 	generic = g move-first-line
 	generic = G move-last-line
 	main = R !git rebase -i %(commit)
+	main = C !@git cbcopy %(commit)
 	diff = R !git rebase -i %(commit)
 [include]
 	path = ~/.gitconfig.local
