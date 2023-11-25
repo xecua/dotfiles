@@ -29,7 +29,7 @@ vim.fn['ddu#custom#patch_global']({
   sourceOptions = {
     _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
     source = { defaultAction = 'execute' },
-    rg = { sorters = { 'sorter_alpha' } }
+    rg = { sorters = { 'sorter_alpha' } },
   },
   filterParams = {
     matcher_fzf = { highlightMatched = 'Search' },
@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['converters']
-          or {}
+        or {}
       if #converters == 0 then
         vim.fn['ddu#ui#do_action'](
           'updateOptions',
@@ -186,7 +186,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['matchers']
-          or {}
+        or {}
       local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
       vim.fn['ddu#ui#do_action']('updateOptions', {
         sourceOptions = {

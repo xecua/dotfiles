@@ -1,4 +1,4 @@
-local utils = require("xecua.utils")
+local utils = require('xecua.utils')
 
 vim.g.mapleader = vim.api.nvim_replace_termcodes('<Space>', true, true, true)
 
