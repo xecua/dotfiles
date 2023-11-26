@@ -1,3 +1,4 @@
+-- lua_post_source {{{
 local function fileformat()
   -- lualine's fileformat only shows icon *or* text
   -- when nvim-web-devicons becomes to have this, then replace with it.
@@ -82,3 +83,4 @@ require('lualine').setup({
   },
   extensions = { 'fern', 'man', 'quickfix', 'trouble', 'nvim-dap-ui', 'fugitive', 'symbols-outline' },
 })
+-- }}}

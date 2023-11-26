@@ -1,4 +1,7 @@
-; なんか動かねえ……
+((comment) @injection.content
+  (#set! injection.language "comment")
+)
+
 (pair
   (bare_key) @bare_key
   (#any-of? @bare_key

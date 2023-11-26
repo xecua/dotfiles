@@ -5,6 +5,7 @@ repo = 'Shougo/dein.vim'
 # terminal
 [[plugins]]
 repo = 'Shougo/deol.nvim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/deol.lua'
 
 ## open new tabpage instead of start nested instance
 [[plugins]]
@@ -17,6 +18,7 @@ repo = 'nvim-lua/plenary.nvim'
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 
 # Preview
 [[plugins]]
@@ -26,14 +28,34 @@ depends = ['open-browser.vim'] # optional
 # open URL
 [[plugins]]
 repo = 'tyru/open-browser.vim'
+lua_add = """ -- "
+vim.keymap.set({ 'n', 'v' }, '<Leader>b', '<Plug>(openbrowser-open)')
+"""
 
 # nonsense animation
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
+lua_add = """ -- "
+vim.keymap.set('n', '<Leader>cr', '<Cmd>CellularAutomaton make_it_rain<CR>')
+vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
+"""
 
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary.nvim']
+lua_post_source = """ -- "
+if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
+  require('obsidian').setup({
+    dir = require('xecua.utils').get_local_config().obsidian_dir,
+    daily_notes = {
+      folder = 'DairyNote',
+      date_format = '%Y-%m-%d',
+    },
+    disable_frontmatter = true,
+  })
+end
+
+"""
 
 # Window resize mode
 [[plugins]]
@@ -46,6 +68,7 @@ build = 'make'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/quickrun.lua'
 
 # quickfix
 [[plugins]]
@@ -58,9 +81,16 @@ repo = 'kevinhwang91/nvim-bqf'
 [[plugins]]
 repo = 'folke/trouble.nvim'
 depends = ['nvim-web-devicons'] # optional
+lua_post_source = """ -- "
+require('trouble').setup({})
+vim.keymap.set('n', '<Leader>t', '<Cmd>TroubleToggle<CR>')
+"""
 
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
+lua_post_source = """ -- "
+require('todo-comments').setup({})
+"""
 
 # popup notification
 [[plugins]]
@@ -81,10 +111,12 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 # Machine Learning-based completion
 [[plugins]]
 repo = 'github/copilot.vim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 
 ## Installer
 [[plugins]]
@@ -96,6 +128,18 @@ depends = ['nvim-lspconfig', 'mason.nvim']
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
+lua_post_source = """ -- "
+require('nlspsettings').setup({
+  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
+  local_settings_dir = '.nlsp-settings',
+  local_settings_root_markers_fallback = { '.git' },
+  append_default_schemas = true,
+  loader = 'json',
+  nvim_notify = {
+    enable = true,
+  },
+})
+"""
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
@@ -103,6 +147,7 @@ repo = 'mfussenegger/nvim-jdtls'
 ## DAP
 [[plugins]]
 repo = 'mfussenegger/nvim-dap'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dap.lua'
 
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
@@ -111,10 +156,24 @@ depends = ['nvim-dap']
 ## outliner
 [[plugins]]
 repo = 'simrat39/symbols-outline.nvim'
+lua_add = """ -- "
+vim.keymap.set('n', '<Leader>o', '<Cmd>SymbolsOutline<CR>')
+"""
+lua_post_source = """ -- "
+require('symbols-outline').setup({
+    auto_preview = true,
+    autofold_depth = 1
+})
+"""
 
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
 depends = ['nvim-lspconfig']
+lua_post_source = """ -- "
+require('nvim-navic').setup({
+  lsp = { auto_attach = true },
+})
+"""
 
 ## tsserver integration
 [[plugins]]
@@ -131,6 +190,9 @@ repo = 'simrat39/rust-tools.nvim'
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
+lua_post_source = """ -- "
+require('flutter-tools').setup({})
+"""
 
 # Popup
 [[plugins]]
@@ -143,16 +205,23 @@ repo = 'vim-denops/denops.vim'
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 depends = ['denops.vim']
+hook_post_source = """
+call popup_preview#enable()
+"""
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
+hook_post_source = """
+call signature_help#enable()
+"""
 
 ## SKK
 [[plugins]]
 # repo = 'vim-skk/skkeleton'
 repo = 'xecua/skkeleton'
 depends = ['denops.vim']
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 
 [[plugins]]
 repo = 'skk-dev/dict'
@@ -164,6 +233,7 @@ repo = 'uasi/skk-emoji-jisyo'
 [[plugins]]
 repo = 'Shougo/ddc.vim'
 depends = ['denops.vim']
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddc.lua'
 
 ### ui
 [[plugins]]
@@ -207,6 +277,7 @@ depends = ['denops.vim', 'ddc.vim']
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = ['denops.vim']
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddu.lua'
 
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'
@@ -310,6 +381,7 @@ depends = ['denops.vim', 'ddu.vim']
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 rev = 'main'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/fern.lua'
 
 [[plugins]]
 repo = 'lambdalisue/fern-renderer-nerdfont.vim'
@@ -331,11 +403,19 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
+lua_post_source = """ -- "
+require('gitsigns').setup({
+  signcolumn = false,
+  numhl = true,
+  current_line_blame = true,
+})
+"""
 
 # parenthesis control
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
 depends = ['vim-operator-user']
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/surround.lua'
 
 ## dependency
 [[plugins]]
@@ -344,15 +424,21 @@ repo = 'kana/vim-operator-user'
 # autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lexima.lua'
 
 # undo
 [[plugins]]
 repo = 'mbbill/undotree'
+lua_add = """ -- "
+vim.g.undotree_SetFocusWhenToggle = 1
+vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
+"""
 
 # statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons']
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lualine.lua'
 
 [[plugins]]
 repo = 'arkav/lualine-lsp-progress'
@@ -361,6 +447,7 @@ depends = ['lualine.nvim']
 # comment
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tcomment.lua'
 
 # helpの日本語化
 [[plugins]]
@@ -369,6 +456,9 @@ repo = 'vim-jp/vimdoc-ja'
 # Open README.md
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
+hook_add = """
+let g:readme_viewer#plugin_manager = 'dein.vim'
+"""
 
 # ペースト時にpasteモードに
 [[plugins]]
@@ -377,6 +467,10 @@ repo = 'ConradIrwin/vim-bracketed-paste'
 # show underscore for matching parenthesis
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
+hook_add = """
+" disable default settings
+let g:loaded_matchparen = 1
+"""
 
 [[plugins]]
 repo = 'alvan/vim-closetag'
@@ -388,6 +482,9 @@ repo = 'tomasr/molokai'
 # snippets
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
+hook_add = """
+let g:snip_snippet_dir = stdpath('config') .. '/mysnippets'
+"""
 
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
@@ -399,19 +496,37 @@ repo = 'thinca/vim-template'
 # cursor
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
+lua_add = """ -- "
+vim.keymap.set('n', 'j', '<Plug>(accelerated_jk_gj)')
+vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
+"""
 
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
+lua_add = """ -- "
+vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
+"""
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
+lua_add = """ -- "
+vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')
+"""
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dial.lua'
 
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
+lua_post_source = """ -- "
+require('illuminate').configure({
+  filetype_overrides = {
+    toml = { providers = { 'regex' } },
+  },
+})
+"""
 
 # indentation
 [[plugins]]
@@ -426,10 +541,12 @@ repo = 'preservim/vim-indent-guides'
 # Syntax Highlighting
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_update = 'TSUpdate'
+hook_post_update = "TSUpdate"
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
 
 [[plugins]]
 repo = 'nvim-treesitter/playground'
+depends = ['nvim-treesitter']
 
 [[plugins]]
 repo = 'HiPhish/nvim-ts-rainbow2'

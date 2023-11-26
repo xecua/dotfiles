@@ -1,3 +1,4 @@
+-- lua_post_source {{{
 local map = require('dial.map')
 local config = require('dial.config')
 local augend = require('dial.augend')
@@ -32,3 +33,4 @@ config.augends:register_group({
     augend.constant.alias.ja_weekday_full,
   },
 })
+-- }}}

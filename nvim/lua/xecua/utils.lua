@@ -25,6 +25,7 @@ function M.get_os_string()
 end
 
 ---@return { obsidian_dir: string, skkeleton_dictionaries: array<string> }
+---must have been finished sourcing dein.vim
 function M.get_local_config()
   local dein = require('dein')
   local skkdict_path = dein.get('dict').path

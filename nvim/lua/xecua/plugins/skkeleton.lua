@@ -1,3 +1,4 @@
+-- lua_post_source {{{
 -- neovide: use ui
 local M = {}
 
@@ -689,3 +690,4 @@ vim.fn['skkeleton#config']({
 vim.fn['skkeleton#initialize']()
 
 return M
+-- }}}

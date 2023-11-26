@@ -22,12 +22,6 @@ vim.g.terminal_color_13 = '#a47de9'
 vim.g.terminal_color_14 = '#99faf2'
 vim.g.terminal_color_15 = '#ffffff'
 
--- plugin configuration by variable
-vim.g['vsnip_snippet_dir'] = vim.fn.stdpath('config') .. '/mysnippets'
-
-vim.g.loaded_matchparen = 1 -- disable default settings
-vim.g['readme_viewer#plugin_manager'] = 'dein.vim'
-
 if utils.get_os_string() == 'WSL' then
   -- :h g:clipboard
   vim.g.clipboard = {

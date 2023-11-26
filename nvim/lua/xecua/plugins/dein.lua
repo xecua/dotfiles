@@ -33,4 +33,11 @@ if dein.check_install() then
   dein.install()
 end
 
+vim.api.nvim_create_user_command('DeinUpdate', 'call dein#update()', {})
+vim.api.nvim_create_user_command('DeinRecache', 'call dein#recache_runtimepath()', {})
 vim.api.nvim_create_user_command('DeinClean', "call map(dein#check_clean(), { _, val -> delete(val, 'rf') })", {})
+
+vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+  pattern = { '*' },
+  command = "call dein#call_hook('post_source')",
+})

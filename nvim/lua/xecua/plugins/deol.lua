@@ -1,3 +1,4 @@
+-- lua_add {{{
 vim.g['deol#floating_border'] = 'single'
 vim.g['deol#custom_map'] = {
   next_prompt = '<C-j>',
@@ -9,3 +10,4 @@ vim.keymap.set('n', '<Leader>p', function()
   local width = math.floor(vim.o.columns / 2)
   vim.cmd('Deol -toggle -split=floating -winheight=' .. height .. ' -winwidth=' .. width)
 end)
+-- }}}

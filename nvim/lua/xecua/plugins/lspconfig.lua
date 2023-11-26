@@ -1,4 +1,4 @@
-local nlspsettings = require('nlspsettings')
+-- lua_post_source {{{
 local M = {}
 
 -- wrapper: https://zenn.dev/ryoppippi/articles/8aeedded34c914
@@ -134,18 +134,5 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
   silent = true,
 })
 
--- local configuration file
-nlspsettings.setup({
-  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-  local_settings_dir = '.nlsp-settings',
-  local_settings_root_markers_fallback = { '.git' },
-  append_default_schemas = true,
-  loader = 'json',
-  nvim_notify = {
-    enable = true,
-  },
-})
-
-require('xecua.plugins.mason')
-
 return M
+-- }}}

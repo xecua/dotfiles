@@ -1,51 +1,6 @@
-local notify = require('notify')
-
-vim.fn['ddu#custom#patch_global']({
-  ui = 'ff',
-  uiOptions = {
-    filer = {
-      toggle = true,
-    },
-  },
-  uiParams = {
-    ff = {
-      previewWidth = 80,
-      previewSplit = 'vertical',
-      filterSplitDirection = 'botright',
-      startAutoAction = true,
-      autoAction = { name = 'preview', sync = false },
-      startFilter = true,
-    },
-    filer = {
-      winWidth = vim.o.columns / 6,
-      split = 'vertical',
-      splitDirection = 'topleft',
-    },
-  },
-  sources = { { name = 'file_fd' } },
-  sourceParams = {
-    file_fd = { args = { '-tf', '-H', '-E', '.git' } },
-  },
-  sourceOptions = {
-    _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
-    source = { defaultAction = 'execute' },
-    rg = { sorters = { 'sorter_alpha' } },
-  },
-  filterParams = {
-    matcher_fzf = { highlightMatched = 'Search' },
-    matcher_substring = { highlightMatched = 'Search' },
-  },
-  kindOptions = {
-    file = { defaultAction = 'open' },
-    word = { defaultAction = 'append' },
-    action = { defaultAction = 'do' },
-    command_history = { defaultAction = 'edit' },
-    help = { defaultAction = 'open' },
-    readme_viewer = { defaultAction = 'open' },
-  },
-})
-
+-- lua_add {{{
 vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
+
 vim.api.nvim_create_user_command('DduRg', function(opts)
   local source = {}
   if opts.args ~= '' then
@@ -91,10 +46,10 @@ vim.api.nvim_create_autocmd('FileType', {
           'updateOptions',
           { sourceOptions = { _ = { converters = { 'converter_display_word' } } } }
         )
-        notify('Display word included.')
+        require('notify')('Display word included.')
       else
         vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { converters = {} } } })
-        notify('Display word excluded.')
+        require('notify')('Display word excluded.')
       end
     end, opts)
     vim.keymap.set('n', 's', function()
@@ -108,14 +63,14 @@ vim.api.nvim_create_autocmd('FileType', {
             _ = { sorters = { 'sorter_fzf' }, matchers = { 'matcher_fzf' } },
           },
         })
-        notify('Search mode switched to Fuzzy.')
+        require('notify')('Search mode switched to Fuzzy.')
       else
         vim.fn['ddu#ui#do_action']('updateOptions', {
           sourceOptions = {
             _ = { sorters = {}, matchers = { 'matcher_substring' } },
           },
         })
-        notify('Search Mode switched to Substring.')
+        require('notify')('Search Mode switched to Substring.')
       end
     end, opts)
   end,
@@ -198,3 +153,50 @@ vim.api.nvim_create_autocmd('FileType', {
     end, opts_with_desc('Toggle hidden files'))
   end,
 })
+-- }}}
+-- lua_post_source {{{
+vim.fn['ddu#custom#patch_global']({
+  ui = 'ff',
+  uiOptions = {
+    filer = {
+      toggle = true,
+    },
+  },
+  uiParams = {
+    ff = {
+      previewWidth = 80,
+      previewSplit = 'vertical',
+      filterSplitDirection = 'botright',
+      startAutoAction = true,
+      autoAction = { name = 'preview', sync = false },
+      startFilter = true,
+    },
+    filer = {
+      winWidth = vim.o.columns / 6,
+      split = 'vertical',
+      splitDirection = 'topleft',
+    },
+  },
+  sources = { { name = 'file_fd' } },
+  sourceParams = {
+    file_fd = { args = { '-tf', '-H', '-E', '.git' } },
+  },
+  sourceOptions = {
+    _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
+    source = { defaultAction = 'execute' },
+    rg = { sorters = { 'sorter_alpha' } },
+  },
+  filterParams = {
+    matcher_fzf = { highlightMatched = 'Search' },
+    matcher_substring = { highlightMatched = 'Search' },
+  },
+  kindOptions = {
+    file = { defaultAction = 'open' },
+    word = { defaultAction = 'append' },
+    action = { defaultAction = 'do' },
+    command_history = { defaultAction = 'edit' },
+    help = { defaultAction = 'open' },
+    readme_viewer = { defaultAction = 'open' },
+  },
+})
+-- }}}

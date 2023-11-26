@@ -1,3 +1,4 @@
+-- lua_post_source {{{
 -- Debugging
 local dap = require('dap')
 local dap_ui = require('dapui')
@@ -114,3 +115,4 @@ dap.configurations.php = {
     port = '9003',
   },
 }
+-- }}}

@@ -47,53 +47,6 @@ end
 -- plugin manager
 require('xecua.plugins.dein')
 -- plugin configurations
-require('xecua.plugins.lspconfig')
-require('xecua.plugins.dap')
-require('xecua.plugins.dial')
-require('xecua.plugins.ddc')
-require('xecua.plugins.ddu')
-require('xecua.plugins.lualine')
-require('xecua.plugins.quickrun')
-require('xecua.plugins.treesitter')
-require('xecua.plugins.tcomment')
-require('xecua.plugins.fern')
-require('xecua.plugins.undotree')
-require('xecua.plugins.surround')
-require('xecua.plugins.deol')
-require('xecua.plugins.startify')
-require('xecua.plugins.lexima')
-
--- outline
-require('symbols-outline').setup({
-  auto_preview = true,
-  autofold_depth = 1,
-})
-
--- breadcrumb
-require('nvim-navic').setup({
-  lsp = { auto_attach = true },
-})
-
--- git
-require('gitsigns').setup({
-  signcolumn = false,
-  numhl = true,
-  current_line_blame = true,
-})
-
--- Diagnostics
-require('trouble').setup({})
-require('todo-comments').setup({})
-
--- Cursor highlight
-require('illuminate').configure({
-  filetype_overrides = {
-    toml = { providers = { 'regex' } },
-  },
-})
-
--- flutter
-require('flutter-tools').setup({})
 
 -- obsidian
 if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
@@ -106,9 +59,6 @@ if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
     disable_frontmatter = true,
   })
 end
-
-vim.fn['popup_preview#enable']()
-vim.fn['signature_help#enable']()
 
 vim.cmd('colorscheme molokai')
 vim.cmd('filetype plugin on')

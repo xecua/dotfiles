@@ -1,3 +1,4 @@
+-- lua_post_source {{{
 local registry = require('mason-registry')
 local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
@@ -229,3 +230,4 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
     })
   end,
 })
+-- }}}

@@ -1,3 +1,4 @@
+-- lua_add {{{
 vim.g['fern#renderer'] = 'nerdfont'
 
 vim.keymap.set('n', '<C-n>', '<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>')
@@ -20,3 +21,4 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'v', '<Plug>(fern-action-open:vsplit)', { buffer = true })
   end,
 })
+-- }}}
