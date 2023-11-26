@@ -47,5 +47,4 @@ end
 -- plugin manager
 require('xecua.plugins.dein')
 
-vim.cmd('colorscheme molokai')
 vim.cmd('filetype plugin on')

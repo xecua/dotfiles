@@ -478,6 +478,9 @@ repo = 'alvan/vim-closetag'
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
+hook_post_source = """
+colorscheme molokai
+"""
 
 # snippets
 [[plugins]]
