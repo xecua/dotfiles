@@ -46,19 +46,6 @@ end
 
 -- plugin manager
 require('xecua.plugins.dein')
--- plugin configurations
-
--- obsidian
-if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
-  require('obsidian').setup({
-    dir = require('xecua.utils').get_local_config().obsidian_dir,
-    daily_notes = {
-      folder = 'DairyNote',
-      date_format = '%Y-%m-%d',
-    },
-    disable_frontmatter = true,
-  })
-end
 
 vim.cmd('colorscheme molokai')
 vim.cmd('filetype plugin on')
