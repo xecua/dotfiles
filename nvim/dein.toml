@@ -1,5 +1,8 @@
 # plugin manager
 [[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
 repo = 'Shougo/dpp.vim'
 
 # terminal
@@ -121,6 +124,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 ## Installer
 [[plugins]]
 repo = 'williamboman/mason.nvim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/mason.lua'
 
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
@@ -478,7 +482,7 @@ repo = 'alvan/vim-closetag'
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
-hook_post_source = """
+hook_add = """
 colorscheme molokai
 """
 

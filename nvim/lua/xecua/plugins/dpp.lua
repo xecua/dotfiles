@@ -23,7 +23,7 @@ end
 
 local dpp = require('dpp')
 
-if dpp.load_state(dpp_base_dir) then
+if dpp.load_state(dpp_base_dir) == 1 then
   check_install('vim-denops/denops.vim')
 
   vim.api.nvim_create_autocmd('User', {
@@ -36,9 +36,8 @@ end
 
 vim.api.nvim_create_user_command('DppInstall', "call dpp#async_ext_action('installer', 'install')", {})
 vim.api.nvim_create_user_command('DppUpdate', "call dpp#async_ext_action('installer', 'update')", {})
-vim.api.nvim_create_user_command('DppRecache', "call dpp#async_ext_action('installer', 'recache')", {})
 
 vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
-  command = "call dpp#util#_call_hook('post_source')"
+  command = "call dpp#util#_call_hook('post_source')",
 })
