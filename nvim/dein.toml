@@ -95,6 +95,10 @@ lua_post_source = """ -- "
 require('todo-comments').setup({})
 """
 
+[[plugins]]
+repo = 'folke/which-key.nvim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
+
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
