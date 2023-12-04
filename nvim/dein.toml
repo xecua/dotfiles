@@ -250,7 +250,7 @@ depends = ['denops.vim', 'ddc.vim', 'pum.vim']
 
 ### source
 [[plugins]]
-repo = 'Shougo/ddc-source-nvim-lsp'
+repo = 'Shougo/ddc-source-lsp'
 depends = ['denops.vim', 'ddc.vim']
 
 [[plugins]]

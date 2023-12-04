@@ -51,7 +51,7 @@ vim.keymap.set('i', '<C-c>', '<Cmd>call pum#map#cancel()<CR>')
 vim.fn['ddc#custom#patch_global']('ui', 'pum')
 
 vim.fn['ddc#custom#patch_global']('sources', {
-  'nvim-lsp',
+  'lsp',
   'file',
   'skkeleton',
   'around',
@@ -75,7 +75,7 @@ vim.fn['ddc#custom#patch_global']({
       mark = 'snip',
       dup = 'keep',
     },
-    ['nvim-lsp'] = {
+    lsp = {
       mark = 'LSP',
       dup = 'keep',
       matchers = { 'matcher_fuzzy' },
@@ -104,7 +104,7 @@ vim.fn['ddc#custom#patch_global']({
     },
   },
   sourceParams = {
-    ['nvim-lsp'] = {
+    lsp = {
       snippetEngine = vim.fn['denops#callback#register'](function(body)
         vim.fn['vsnip#anonymous'](body)
       end),
