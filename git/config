@@ -40,6 +40,8 @@
 	sta = stash apply
 	stp = stash pop
 	std = stash drop
+	bl = blame
+	cp = cherry-pick
 	cf = cat-file -p
 	cbcopy = !printf "$1" | cbcopy
 [commit]
@@ -73,6 +75,7 @@
 	ignore-case = smart-case
 	mouse = true
 	main-view-id = true
+	refresh-mode = periodic
 [tig "bind"]
 	generic = g move-first-line
 	generic = G move-last-line
