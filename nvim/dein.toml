@@ -120,6 +120,16 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 repo = 'github/copilot.vim'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
+# Database client
+[[plugins]]
+repo = 'tpope/vim-dadbod'
+hook_add = """
+let g:db_ui_show_database_icon = 1
+"""
+
+[[plugins]]
+repo = 'kristijanhusak/vim-dadbod-ui'
+
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
