@@ -5,6 +5,18 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/dpp.vim'
 
+[[plugins]]
+repo = 'Shougo/dpp-ext-installer'
+
+[[plugins]]
+repo = 'Shougo/dpp-protocol-git'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-toml'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-lazy'
+
 # terminal
 [[plugins]]
 repo = 'Shougo/deol.nvim'
@@ -129,6 +141,9 @@ let g:db_ui_show_database_icon = 1
 
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
+lua_add = """--"
+vim.keymap.set("n", "<C-m>", "<Cmd>DBUIToggle<CR>")
+"""
 
 # LSP
 [[plugins]]

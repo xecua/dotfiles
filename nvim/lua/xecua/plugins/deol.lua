@@ -6,8 +6,11 @@ vim.g['deol#custom_map'] = {
 }
 
 vim.keymap.set('n', '<Leader>p', function()
-  local height = math.floor(vim.o.lines / 2)
-  local width = math.floor(vim.o.columns / 2)
-  vim.cmd('Deol -toggle -split=floating -winheight=' .. height .. ' -winwidth=' .. width)
+  vim.fn['deol#start']({
+    winwidth = math.floor(vim.o.columns * 8 / 9),
+    winheight = math.floor(vim.o.lines * 8 / 9),
+    toggle = true,
+    split = 'floating',
+  })
 end)
 -- }}}
