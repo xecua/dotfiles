@@ -43,14 +43,14 @@ depends = ['open-browser.vim'] # optional
 # open URL
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set({ 'n', 'v' }, '<Leader>b', '<Plug>(openbrowser-open)')
 """
 
 # nonsense animation
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set('n', '<Leader>cr', '<Cmd>CellularAutomaton make_it_rain<CR>')
 vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
 """
@@ -58,7 +58,7 @@ vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary.nvim']
-lua_post_source = """ -- "
+lua_post_source = """--"
 if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
   require('obsidian').setup({
     dir = require('xecua.utils').get_local_config().obsidian_dir,
@@ -96,14 +96,14 @@ repo = 'kevinhwang91/nvim-bqf'
 [[plugins]]
 repo = 'folke/trouble.nvim'
 depends = ['nvim-web-devicons'] # optional
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('trouble').setup({})
 vim.keymap.set('n', '<Leader>t', '<Cmd>TroubleToggle<CR>')
 """
 
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('todo-comments').setup({})
 """
 
@@ -114,6 +114,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
+lua_add = """--"
+vim.notify = require('notify')
+"""
 
 ## dependency
 [[plugins]]
@@ -137,6 +140,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 repo = 'tpope/vim-dadbod'
 hook_add = """
 let g:db_ui_show_database_icon = 1
+let g:db_ui_use_nvim_notify = 1
+let g:db_ui_auto_execute_table_helpers = 1
+let g:db_ui_use_nerd_fonts = 1
 """
 
 [[plugins]]
@@ -161,7 +167,7 @@ depends = ['nvim-lspconfig', 'mason.nvim']
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('nlspsettings').setup({
   config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
   local_settings_dir = '.nlsp-settings',
@@ -189,10 +195,10 @@ depends = ['nvim-dap']
 ## outliner
 [[plugins]]
 repo = 'simrat39/symbols-outline.nvim'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set('n', '<Leader>o', '<Cmd>SymbolsOutline<CR>')
 """
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('symbols-outline').setup({
     auto_preview = true,
     autofold_depth = 1
@@ -202,7 +208,7 @@ require('symbols-outline').setup({
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
 depends = ['nvim-lspconfig']
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('nvim-navic').setup({
   lsp = { auto_attach = true },
 })
@@ -223,7 +229,7 @@ repo = 'simrat39/rust-tools.nvim'
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('flutter-tools').setup({})
 """
 
@@ -436,7 +442,7 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('gitsigns').setup({
   signcolumn = false,
   numhl = true,
@@ -462,7 +468,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lexima.lua'
 # undo
 [[plugins]]
 repo = 'mbbill/undotree'
-lua_add = """ -- "
+lua_add = """--"
 vim.g.undotree_SetFocusWhenToggle = 1
 vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 """
@@ -532,20 +538,20 @@ repo = 'thinca/vim-template'
 # cursor
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set('n', 'j', '<Plug>(accelerated_jk_gj)')
 vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
 """
 
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
 """
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
-lua_add = """ -- "
+lua_add = """--"
 vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')
 """
 
@@ -556,7 +562,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dial.lua'
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
-lua_post_source = """ -- "
+lua_post_source = """--"
 require('illuminate').configure({
   filetype_overrides = {
     toml = { providers = { 'regex' } },

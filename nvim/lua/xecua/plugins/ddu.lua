@@ -1,15 +1,9 @@
 -- lua_add {{{
 vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 
-vim.api.nvim_create_user_command('DduRg', function(opts)
-  local source = {}
-  if opts.args ~= '' then
-    source = { name = 'rg', params = { input = opts.args } }
-  else
-    source = { name = 'rg', options = { volatile = true, matchers = {} } }
-  end
+vim.api.nvim_create_user_command('DduRgLive', function()
   vim.fn['ddu#start']({
-    sources = { source },
+    sources = { { name = 'rg', options = { volatile = true, matchers = {} } } },
     uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
   })
 end, { nargs = '?' })
@@ -40,7 +34,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['converters']
-        or {}
+          or {}
       if #converters == 0 then
         vim.fn['ddu#ui#do_action'](
           'updateOptions',
@@ -141,7 +135,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['matchers']
-        or {}
+          or {}
       local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
       vim.fn['ddu#ui#do_action']('updateOptions', {
         sourceOptions = {
