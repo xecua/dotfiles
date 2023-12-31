@@ -41,6 +41,11 @@ function broot_cat
 end
 abbr --add brc --function broot_cat
 
+function broot_fzf
+  echo (br --conf ~/.config/broot/fzf.hjson)
+end
+abbr --add brf --function broot_fzf
+
 abbr --add g git
 abbr --add gti git
 

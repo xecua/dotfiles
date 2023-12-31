@@ -21,6 +21,7 @@ vim.opt.switchbuf = { 'useopen', 'split' }
 vim.opt.laststatus = 3
 vim.opt.formatoptions = 'jonq'
 vim.opt.diffopt:append({ 'indent-heuristic', 'algorithm:histogram' })
+vim.opt.foldopen:remove({ 'search' })
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)

@@ -5,8 +5,6 @@ if status is-interactive
   alias :q=exit
   alias nvimdiff='nvim -d'
 
-  alias brf="echo (br --conf ~/.config/broot/fzf.hjson)"
-
   if [ (uname) = 'Darwin' ]
     alias sudoedit='sudo -e'
   end

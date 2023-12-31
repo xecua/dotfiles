@@ -138,17 +138,15 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 # Database client
 [[plugins]]
 repo = 'tpope/vim-dadbod'
-hook_add = """
-let g:db_ui_show_database_icon = 1
-let g:db_ui_use_nvim_notify = 1
-let g:db_ui_auto_execute_table_helpers = 1
-let g:db_ui_use_nerd_fonts = 1
-"""
 
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
 lua_add = """--"
-vim.keymap.set("n", "<C-m>", "<Cmd>DBUIToggle<CR>")
+vim.g.db_ui_show_database_icon = 1
+vim.g.db_ui_use_nvim_notify = 1
+vim.g.db_ui_auto_execute_table_helpers = 1
+vim.g.db_ui_use_nerd_fonts = 1
+vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 """
 
 # LSP
@@ -579,6 +577,10 @@ repo = 'hynek/vim-python-pep8-indent'
 
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
+hook_add = """
+let g:indent_guides_default_mapping = 0
+nmap <silent> <Leader>g <Plug>IndentGuidesToggle
+"""
 
 # Syntax Highlighting
 [[plugins]]

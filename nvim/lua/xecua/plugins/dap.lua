@@ -31,6 +31,7 @@ vim.keymap.set('n', '<Leader>ds', dap.step_over, opts_with_desc('Step over'))
 vim.keymap.set('n', '<Leader>di', dap.step_into, opts_with_desc('Step into'))
 vim.keymap.set('n', '<Leader>do', dap.step_out, opts_with_desc('Step out'))
 vim.keymap.set('n', '<Leader>db', dap.step_back, opts_with_desc('Step back'))
+vim.keymap.set('n', '<Leader>de', dap.set_exception_breakpoints, opts_with_desc('Set breakpoint on exceptions'))
 
 -- Rust: configured in ./lspconfig.lua (rust-tools offers better annotation)
 -- Some plugins(e.g. rust-tools) may be set dap.adapters, so setting whole dap.adapters is not preferred
