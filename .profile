@@ -33,6 +33,7 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export BUN_INSTALL="$XDG_DATA_HOME/bun"
 
 export FZF_DEFAULT_OPTS="--reverse"
+export LESS="-FRXM --shift 5"
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     export MOZ_ENABLE_WAYLAND=1

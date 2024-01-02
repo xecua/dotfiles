@@ -28,6 +28,7 @@
 	j = jump
 	jm = jump merge
 	d = diff
+	dft = difftool
 	l = log --date=iso-local
 	ls = log --date=iso-local --stat
 	lp = log --date=iso-local -p
@@ -60,6 +61,13 @@
 	line-numbers = true
 [diff]
 	algorithm = histogram
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true
 [interactive]
 	diffFilter = delta --color-only
 [merge]
