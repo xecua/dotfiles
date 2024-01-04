@@ -1,0 +1,6 @@
+[Unit]
+Description=Update man-db
+
+[Service]
+ExecStart=/etc/cron.daily/man-db
+Type=oneshot

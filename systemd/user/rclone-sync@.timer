@@ -1,0 +1,11 @@
+[Unit]
+Description=Rclone bisync (periodical)
+
+[Timer]
+OnCalendar=*:0/10
+OnBootSec=3min
+OnUnitActiveSec=5min
+Unit=rclone-sync@%i.service
+
+[Install]
+WantedBy=timers.target

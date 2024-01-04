@@ -1,0 +1,6 @@
+[Unit]
+Description=daily tree sync
+
+[Service]
+ExecStart=emaint sync -a
+Type=oneshot

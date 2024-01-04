@@ -1,0 +1,10 @@
+[Unit]
+Description=Update man-db
+Documentation=man:mandb(8)
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
