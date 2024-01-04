@@ -14,7 +14,6 @@ vim.opt.visualbell = true
 vim.opt.helplang = { 'ja', 'en' }
 vim.opt.updatetime = 300
 vim.opt.cmdheight = 1
-vim.opt.guifont = { 'UDEV Gothic 35NFLG:h10', 'Cica:h14', 'monospace:h12' }
 vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = '1'
 vim.opt.switchbuf = { 'useopen', 'split' }
@@ -44,4 +43,7 @@ if vim.g.neovide ~= nil then
   vim.opt.title = true
   vim.env.COLORTERM = 'truecolor'
   -- vim.g.neovide_transparency = 0.5
+
+  -- Neovide: オプションは最後にくっついて全部のフォントに適用される あと'monospace'は解決してくれない
+  vim.opt.guifont = 'UDEV Gothic 35NFLG:h8'
 end
