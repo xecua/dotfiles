@@ -18,7 +18,7 @@ abbr --add vi --function expand_vim
 
 function broot_vim
   set -l vim_command (expand_vim)
-  set -l broot_result (brf)
+  set -l broot_result (br --conf ~/.config/broot/fzf.hjson)
   if [ -z $broot_result ]
     return 1
   end
@@ -33,7 +33,7 @@ function broot_cat
   else
     set cat_command cat
   end
-  set -l broot_result (brf)
+  set -l broot_result (br --conf ~/.config/broot/fzf.hjson)
   if [ -z $broot_result ]
     return 1
   end
@@ -44,7 +44,8 @@ abbr --add brc --function broot_cat
 function broot_fzf
   echo (br --conf ~/.config/broot/fzf.hjson)
 end
-abbr --add brf --function broot_fzf
+
+abbr --add brf --position anywhere --function broot_fzf
 
 abbr --add g git
 abbr --add gti git

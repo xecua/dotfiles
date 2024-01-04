@@ -5,8 +5,6 @@ import {
   Plugin,
 } from "https://deno.land/x/dpp_vim@v0.0.7/types.ts";
 
-// TODO: configure https://zenn.dev/shougo/articles/dpp-vim-beta#typescript-%E8%A8%AD%E5%AE%9A%E9%83%A8%E5%88%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6
-
 type TomlLoadResult = {
   hooks_file?: string;
   ftplugins?: Record<string, string>;
