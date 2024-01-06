@@ -4,6 +4,7 @@ require('xecua.opt')
 require('xecua.var')
 require('xecua.map')
 require('xecua.autocmd')
+require('xecua.local')
 
 vim.cmd('runtime! ftplugin/man.vim')
 -- fzf.vim (when fzf was installed with Homebrew)
