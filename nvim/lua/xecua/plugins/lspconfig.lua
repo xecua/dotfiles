@@ -1,6 +1,5 @@
 -- lua_post_source {{{
 local M = {}
-local nlspsettings = require('nlspsettings')
 
 -- wrapper: https://zenn.dev/ryoppippi/articles/8aeedded34c914
 local augroup = vim.api.nvim_create_augroup('LspConfig', {})
@@ -65,19 +64,8 @@ M.on_attach(function(client, buffer)
     client.server_capabilities.documentRangeFormattingProvider = false
   end
   if client.name == 'rust_analyzer' then
-    vim.api.nvim_buf_create_user_command(
-      buffer,
-      'LspHoverActions',
-      'lua require("rust-tools").hover_actions.hover_actions()',
-      {}
-    )
+    vim.api.nvim_buf_create_user_command(buffer, 'LspHoverActions', 'RustLsp hover actions', {})
     vim.keymap.set('n', '<Leader>ih', '<Cmd>LspHoverActions<CR>', { buffer = buffer, silent = true })
-    vim.api.nvim_buf_create_user_command(
-      buffer,
-      'LspCodeAction',
-      'lua require("rust-tools").code_action_group.code_action_group()',
-      { force = true }
-    )
   end
   if client.name == 'jdtls' then
     vim.api.nvim_buf_create_user_command(buffer, 'LspOrganizeImports', 'lua require("jdtls").organize_imports()', {})
@@ -90,6 +78,10 @@ M.on_attach(function(client, buffer)
     vim.keymap.set('n', '<Leader>dm', '<Cmd>LspTestMethod<CR>', { buffer = buffer, silent = true })
 
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+  end
+
+  if client.server_capabilities.documetSymbolProvider then
+    require('nvim-navic').attach(client, buffer)
   end
 
   if client.server_capabilities.documentFormattingProvider then

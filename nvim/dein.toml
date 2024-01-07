@@ -207,11 +207,6 @@ require('symbols-outline').setup({
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
 depends = ['nvim-lspconfig']
-lua_post_source = """--"
-require('nvim-navic').setup({
-  lsp = { auto_attach = true },
-})
-"""
 
 ## tsserver integration
 [[plugins]]
@@ -223,7 +218,30 @@ repo = 'creativenull/efmls-configs-nvim'
 
 ## Rust tooltip
 [[plugins]]
-repo = 'simrat39/rust-tools.nvim'
+repo = 'mrcjkb/rustaceanvim'
+lua_add = """--"
+vim.g.rustaceanvim = function()
+  local config = {
+    tools = {
+      hover_actions = {
+        auto_focus = true
+      }
+    },
+  }
+
+  local registry = require('mason-registry')
+  if registry.is_installed('codelldb') then
+    local pkg_dir = registry.get_package('codelldb'):get_install_path()
+    config.dap = {
+      adapter = require('rustaceanvim.config').get_codelldb_adapter(
+        pkg_dir .. '/extension/adapter/codelldb',
+        pkg_dir .. '/extension/lldb/lib/liblldb.so'
+      ),
+    }
+  end
+  return config
+end
+"""
 
 ## Flutter integration
 [[plugins]]

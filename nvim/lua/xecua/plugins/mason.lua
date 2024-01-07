@@ -41,7 +41,7 @@ mason_lspconfig.setup({
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    local ignore_servers = List({ 'jdtls' })
+    local ignore_servers = List({ 'jdtls', 'rust_analyzer' })
     if not ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
@@ -66,25 +66,6 @@ mason_lspconfig.setup_handlers({
         globalStoragePath = vim.env.HOME .. '/.local/share/intelephense',
         licenceKey = vim.env.HOME .. '/.local/share/intelephense/licence.txt',
       },
-    })
-  end,
-  rust_analyzer = function()
-    local dap_config = {}
-    if registry.is_installed('codelldb') then
-      local pkg_dir = registry.get_package('codelldb'):get_install_path()
-      dap_config = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(
-          pkg_dir .. '/extension/adapter/codelldb',
-          pkg_dir .. '/extension/lldb/lib/liblldb.so'
-        ),
-      }
-    end
-    local rust_tools = require('rust-tools')
-    rust_tools.setup({
-      tools = {
-        hover_actions = { border = 'single', auto_focus = true },
-      },
-      dap = dap_config,
     })
   end,
   lua_ls = function()
