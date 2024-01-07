@@ -80,7 +80,7 @@ M.on_attach(function(client, buffer)
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
   end
 
-  if client.server_capabilities.documetSymbolProvider then
+  if client.server_capabilities.documentSymbolProvider then
     require('nvim-navic').attach(client, buffer)
   end
 
