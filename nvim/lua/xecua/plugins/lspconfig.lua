@@ -44,19 +44,19 @@ M.on_attach(function(client, buffer)
   -- Mappings.
   local opts = { buffer = buffer, silent = true }
 
-  -- LSP related: preceded by <Leader>i
-  vim.keymap.set({ 'n', 'v' }, '<Leader>if', '<Cmd>LspFormat<CR>', opts)
-  vim.keymap.set('n', '<Leader>ih', '<Cmd>LspSignatureHelp<CR>', opts)
-  vim.keymap.set('n', '<Leader>im', '<Cmd>LspHover<CR>', opts)
-  vim.keymap.set('n', '<Leader>ir', '<Cmd>LspReferences<CR>', opts)
-  vim.keymap.set('n', '<Leader>id', '<Cmd>LspDefinition<CR>', opts)
-  vim.keymap.set('n', '<Leader>it', '<Cmd>LspTypeDefinition<CR>', opts)
-  vim.keymap.set('n', '<Leader>ii', '<Cmd>LspImplementation<CR>', opts)
-  vim.keymap.set('n', '<Leader>i]', '<Cmd>LspNext<CR>', opts)
-  vim.keymap.set('n', '<Leader>i[', '<Cmd>LspPrev<CR>', opts)
-  vim.keymap.set('n', '<Leader>ia', '<Cmd>LspCodeAction<CR>', opts)
-  vim.keymap.set('n', '<Leader>ici', '<Cmd>LspIncomingCalls<CR>', opts)
-  vim.keymap.set('n', '<Leader>ico', '<Cmd>LspOutgoingCalls<CR>', opts)
+  -- LSP related: preceded by <Leader>l
+  vim.keymap.set({ 'n', 'v' }, '<Leader>lf', '<Cmd>LspFormat<CR>', opts)
+  vim.keymap.set('n', '<Leader>lh', '<Cmd>LspSignatureHelp<CR>', opts)
+  vim.keymap.set('n', '<Leader>lm', '<Cmd>LspHover<CR>', opts)
+  vim.keymap.set('n', '<Leader>lr', '<Cmd>LspReferences<CR>', opts)
+  vim.keymap.set('n', '<Leader>ld', '<Cmd>LspDefinition<CR>', opts)
+  vim.keymap.set('n', '<Leader>lt', '<Cmd>LspTypeDefinition<CR>', opts)
+  vim.keymap.set('n', '<Leader>li', '<Cmd>LspImplementation<CR>', opts)
+  vim.keymap.set('n', '<Leader>l]', '<Cmd>LspNext<CR>', opts)
+  vim.keymap.set('n', '<Leader>l[', '<Cmd>LspPrev<CR>', opts)
+  vim.keymap.set('n', '<Leader>la', '<Cmd>LspCodeAction<CR>', opts)
+  vim.keymap.set('n', '<Leader>lci', '<Cmd>LspIncomingCalls<CR>', opts)
+  vim.keymap.set('n', '<Leader>lco', '<Cmd>LspOutgoingCalls<CR>', opts)
   vim.keymap.set('n', '<F2>', '<Cmd>LspRename<CR>', opts)
 
   if client.name == 'tsserver' then
@@ -65,11 +65,11 @@ M.on_attach(function(client, buffer)
   end
   if client.name == 'rust_analyzer' then
     vim.api.nvim_buf_create_user_command(buffer, 'LspHoverActions', 'RustLsp hover actions', {})
-    vim.keymap.set('n', '<Leader>ih', '<Cmd>LspHoverActions<CR>', { buffer = buffer, silent = true })
+    vim.keymap.set('n', '<Leader>lh', '<Cmd>LspHoverActions<CR>', { buffer = buffer, silent = true })
   end
   if client.name == 'jdtls' then
     vim.api.nvim_buf_create_user_command(buffer, 'LspOrganizeImports', 'lua require("jdtls").organize_imports()', {})
-    vim.keymap.set('n', '<Leader>io', '<Cmd>LspOrganizeImports<CR>', { buffer = buffer, silent = true })
+    vim.keymap.set('n', '<Leader>lo', '<Cmd>LspOrganizeImports<CR>', { buffer = buffer, silent = true })
 
     vim.api.nvim_buf_create_user_command(buffer, 'LspTestClass', 'lua require("jdtls").test_class()', {})
     vim.keymap.set('n', '<Leader>dc', '<Cmd>LspTestClass<CR>', { buffer = buffer, silent = true })

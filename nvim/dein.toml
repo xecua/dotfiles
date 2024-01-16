@@ -456,6 +456,7 @@ repo = 'ryanoasis/vim-devicons'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/fugitive.lua'
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
@@ -596,10 +597,6 @@ repo = 'hynek/vim-python-pep8-indent'
 
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
-hook_add = """
-let g:indent_guides_default_mapping = 0
-nmap <silent> <Leader>g <Plug>IndentGuidesToggle
-"""
 
 # Syntax Highlighting
 [[plugins]]
