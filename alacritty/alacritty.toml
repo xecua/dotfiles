@@ -1,0 +1,7 @@
+import = ["/home/xecua/.alacritty.local.toml", "/home/xecua/.config/alacritty/theme/themes/iterm.toml"]
+
+[cursor.style]
+shape = "Beam"
+
+[window]
+startup_mode = "Maximized"
