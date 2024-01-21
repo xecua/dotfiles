@@ -1,11 +1,9 @@
 -- lua_post_source {{{
--- neovide: use ui
 local M = {}
 
 vim.keymap.set({ 'i', 'c', 'l' }, '<C-j>', '<Plug>(skkeleton-enable)')
 
 -- TODO: 一般的なazikの挙動に寄せる
-vim.fn['skkeleton#register_keymap']('input', "'", 'henkanPoint') -- 暫定処置としてsticky keyを使うといいのでは?
 -- + 半角カタカナモードで\を入力したらかなモードに移行する(azik/hankaku-katakana.json)
 -- + latin/wide-latinでC-jを入力したらかなモードに移行する(default/(wide-)?latin.json)
 --   + モード切り替えがハードコードなので、C-jがマップされたとしても↓には戻せない そうなると一旦disableする方が合理的なのかも(roadmapに直接入力モードあるのでやる気はあるのかもしれない)
@@ -685,6 +683,8 @@ vim.fn['skkeleton#config']({
   showCandidatesCount = 1,
   kanaTable = 'azik',
   globalDictionaries = require('xecua.utils').get_local_config().skkeleton_dictionaries,
+  databasePath = vim.fn.stdpath('cache') .. '/skkeleton.db',
+  sources = { 'deno_kv', 'skk_dictionary' },
 })
 
 vim.fn['skkeleton#initialize']()

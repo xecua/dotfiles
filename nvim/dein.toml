@@ -281,6 +281,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 
 [[plugins]]
 repo = 'skk-dev/dict'
+merged = false
 
 [[plugins]]
 repo = 'uasi/skk-emoji-jisyo'
