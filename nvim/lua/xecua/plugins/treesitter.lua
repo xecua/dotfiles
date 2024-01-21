@@ -4,6 +4,7 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()' -- fold block by treesitter
 -- }}}
 -- lua_post_source {{{
 local treesitter_parsers_dir = vim.fn.stdpath('cache') .. '/parsers'
+vim.opt.rtp:append(treesitter_parsers_dir)
 require('nvim-treesitter.configs').setup({
   parser_install_dir = treesitter_parsers_dir,
   highlight = {
@@ -24,5 +25,4 @@ require('nvim-treesitter.configs').setup({
   --   enable = true,
   -- },
 })
-vim.opt.rtp:append(treesitter_parsers_dir)
 -- }}}
