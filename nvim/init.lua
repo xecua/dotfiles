@@ -8,8 +8,8 @@ require('xecua.local')
 
 vim.cmd('runtime! ftplugin/man.vim')
 -- fzf.vim (when fzf was installed with Homebrew)
-if vim.fn.isdirectory('/usr/local/opt/fzf') == 1 then
-  vim.opt.rtp:append('/usr/local/opt/fzf')
+if vim.fn.isdirectory('/opt/homebrew/opt/fzf') == 1 then
+  vim.opt.rtp:append('/opt/homebrew/opt/fzf')
 end
 
 -- filetype

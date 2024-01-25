@@ -8,6 +8,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fern' },
   callback = function()
     vim.opt_local.list = false
+    vim.opt_local.wrap = false
 
     vim.keymap.set('n', '<LeftRelease>', function()
       return vim.fn['fern#smart#leaf'](
