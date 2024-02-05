@@ -62,9 +62,13 @@ lua_post_source = """--"
 if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
   require('obsidian').setup({
     dir = require('xecua.utils').get_local_config().obsidian_dir,
+    templates = {
+      subdir = 'templates'
+    },
     daily_notes = {
-      folder = 'DairyNote',
+      folder = 'dailynotes',
       date_format = '%Y-%m-%d',
+      template = 'dailynote.md',
     },
     disable_frontmatter = true,
     ui = { enable = false }
