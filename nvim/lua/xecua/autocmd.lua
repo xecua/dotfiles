@@ -32,9 +32,16 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  pattern = { 'gitconfig', 'go' },
+  pattern = { 'gitconfig', 'go', 'tsv' },
   callback = function()
     vim.opt_local.expandtab = false
+  end,
+})
+vim.api.nvim_create_autocmd('FileType', {
+  group = init_augroup_id,
+  pattern = { 'csv', 'tsv' },
+  callback = function()
+    vim.opt_local.wrap = false
   end,
 })
 vim.api.nvim_create_autocmd('FileType', {

@@ -1,5 +1,6 @@
 local dpp_base_dir = vim.fn.stdpath('cache') .. '/dpp'
 local dpp_config_path = vim.fn.stdpath('config') .. '/typescript/dpp.ts'
+local dpp_augroup = vim.api.nvim_create_augroup('DppConfig', { clear = true })
 
 local function add_plugin(plugin_name)
   local source_local = string.format('%s/repos/github.com/%s', dpp_base_dir, plugin_name)
@@ -15,6 +16,7 @@ vim.api.nvim_create_user_command('DppInstall', "call dpp#async_ext_action('insta
 vim.api.nvim_create_user_command('DppUpdate', "call dpp#async_ext_action('installer', 'update')", {})
 
 vim.api.nvim_create_autocmd('User', {
+  group = dpp_augroup,
   pattern = 'Dpp:makeStatePost',
   callback = function()
     -- load_stateすればいい感じになるっぽいんだよなあ ただし毎回するとまあまあめんどい
@@ -22,6 +24,7 @@ vim.api.nvim_create_autocmd('User', {
   end,
 })
 vim.api.nvim_create_autocmd('BufWritePost', {
+  group = dpp_augroup,
   pattern = { '*.lua', '*.toml', '*.ts', '*.vim' },
   command = 'call dpp#check_files()',
 })
@@ -48,6 +51,7 @@ if vim.v.vim_did_enter == 1 then
   vim.fn['dpp#util#_call_hook']('post_source')
 else
   vim.api.nvim_create_autocmd('VimEnter', {
+    group = dpp_augroup,
     pattern = '*',
     command = 'call dpp#util#_call_hook("post_source")',
   })

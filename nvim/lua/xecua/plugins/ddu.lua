@@ -10,7 +10,7 @@ end, { nargs = '?' })
 vim.keymap.set('n', '<Leader>fd', '<Cmd>Ddu file_fd<CR>')
 vim.keymap.set('n', '<Leader>fb', '<Cmd>Ddu buffer<CR>')
 vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRg<CR>')
-vim.keymap.set('n', '<C-S-p>', '<Cmd>Ddu command<CR>')
+vim.keymap.set('n', '<C-S-p>', '<Cmd>Ddu command<CR>') -- NOTE: これmacだといけるけど他の環境無理だねえ……
 
 local ddu_group_id = vim.api.nvim_create_augroup('DduMyCnf', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['converters']
-          or {}
+        or {}
       if #converters == 0 then
         vim.fn['ddu#ui#do_action'](
           'updateOptions',
@@ -135,7 +135,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['matchers']
-          or {}
+        or {}
       local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
       vim.fn['ddu#ui#do_action']('updateOptions', {
         sourceOptions = {
@@ -189,6 +189,7 @@ vim.fn['ddu#custom#patch_global']({
     word = { defaultAction = 'append' },
     action = { defaultAction = 'do' },
     command_history = { defaultAction = 'edit' },
+    command = { defaultAction = 'edit' },
     help = { defaultAction = 'open' },
     readme_viewer = { defaultAction = 'open' },
   },

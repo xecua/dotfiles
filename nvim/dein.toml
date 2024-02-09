@@ -261,6 +261,9 @@ repo = 'Shougo/pum.vim'
 # denops
 [[plugins]]
 repo = 'vim-denops/denops.vim'
+lua_add = """--"
+vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
+"""
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
@@ -471,6 +474,8 @@ require('gitsigns').setup({
   numhl = true,
   current_line_blame = true,
 })
+vim.keymap.set('n', '<Leader>g[', '<Cmd>Gitsigns prev_hunk<CR>')
+vim.keymap.set('n', '<Leader>g]', '<Cmd>Gitsigns next_hunk<CR>')
 """
 
 # parenthesis control
@@ -664,6 +669,17 @@ repo = 'ymyzk/vim-copl'
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
+lua_add = """--"
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'csv', 'tsv' },
+  callback = function()
+    vim.keymap.set('n', '<C-Down>', '<Cmd>RainbowCellGoDown<CR>', { buffer = true })
+    vim.keymap.set('n', '<C-Up>', '<Cmd>RainbowCellGoUp<CR>', { buffer = true })
+    vim.keymap.set('n', '<C-Right>', '<Cmd>RainbowCellGoRight<CR>', { buffer = true })
+    vim.keymap.set('n', '<C-Left>', '<Cmd>RainbowCellGoLeft<CR>', { buffer = true })
+  end,
+})
+"""
 
 ## Firestore Security Rule
 [[plugins]]
