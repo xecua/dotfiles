@@ -9,7 +9,16 @@ if status is-interactive
     alias sudoedit='sudo -e'
   end
 
-  if type -q exa
+  if type -q eza # actively maintained fork
+    set -l eza_command 'eza --header --git --time-style=iso --modified --created'
+    alias l="$eza_command"
+    alias ls="$eza_command --icons"
+    alias ll="$eza_command --icons --long"
+    alias la="$eza_command --icons --long --all"
+    alias lt="$eza_command --icons --tree --git-ignore"
+    alias llt="$eza_command --icons --tree --long"
+    alias lat="$eza_command --icons --tree --long --all"
+  else if type -q exa
     set -l exa_command 'exa --header --git --time-style=iso --modified --created'
     alias l="$exa_command"
     alias ls="$exa_command --icons"

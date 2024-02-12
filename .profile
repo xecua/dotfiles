@@ -7,7 +7,7 @@ export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
 export GHCUP_USE_XDG_DIRS=1
 export EDITOR=nvim
 
-export NEOVIDE_FRAME=buttonless
+# export NEOVIDE_FRAME=buttonless # for macOS (.profile.local)
 export NEOVIDE_TITLE_HIDDEN=1
 
 # Language related variables, using XDG Base Directories

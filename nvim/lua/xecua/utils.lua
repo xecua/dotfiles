@@ -46,18 +46,16 @@ function M.get_local_config()
   }
 
   local ok, config = pcall(require, 'xecua.local')
-  if ok then
-    vim.list_extend(skkeleton_dictionaries, config.skkeleton_dictionaries or {})
+  local local_config = {
+    skkeleton_dictionaries = skkeleton_dictionaries,
+  }
 
-    return {
-      obsidian_dir = config.obsidian_dir,
-      skkeleton_dictionaries = skkeleton_dictionaries,
-    }
-  else
-    return {
-      skkeleton_dictionaries = skkeleton_dictionaries,
-    }
+  if ok then
+    local_config.obsidian_dir = config.obsidian_dir
+    vim.list_extend(local_config.skkeleton_dictionaries, config.skkeleton_dictionaries or {})
   end
+
+  return local_config
 end
 
 return M

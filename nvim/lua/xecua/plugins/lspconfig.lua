@@ -63,7 +63,7 @@ M.on_attach(function(client, buffer)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   end
-  if client.name == 'rust_analyzer' then
+  if client.name == 'rust-analyzer' then
     vim.api.nvim_buf_create_user_command(buffer, 'LspHoverActions', 'RustLsp hover actions', {})
     vim.keymap.set('n', '<Leader>lh', '<Cmd>LspHoverActions<CR>', { buffer = buffer, silent = true })
   end
@@ -95,8 +95,12 @@ M.on_attach(function(client, buffer)
     })
   end
 
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable()
+  end
+
   if client.server_capabilities.hoverProvider then
-    vim.api.nvim_create_autocmd('CursorHoldI', {
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       group = augroup,
       buffer = buffer,
       callback = function()
@@ -106,7 +110,7 @@ M.on_attach(function(client, buffer)
       end,
       desc = 'LSP: Signature Help on Hold',
     })
-    vim.api.nvim_create_autocmd('CursorMovedI', {
+    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
       group = augroup,
       buffer = buffer,
       callback = function()
@@ -119,11 +123,13 @@ end)
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'single',
   focusable = false,
+  focus = false,
   silent = true,
 })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = 'single',
   focusable = false,
+  focus = false,
   silent = true,
 })
 

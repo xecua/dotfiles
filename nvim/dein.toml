@@ -74,7 +74,6 @@ if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
     ui = { enable = false }
   })
 end
-
 """
 
 # Window resize mode
@@ -226,11 +225,8 @@ repo = 'mrcjkb/rustaceanvim'
 lua_add = """--"
 vim.g.rustaceanvim = function()
   local config = {
-    tools = {
-      hover_actions = {
-        auto_focus = true
-      }
-    },
+    -- signature helpもかってにfocus持ってっちゃうんだよなあ……
+    -- tools = { hover_actions = { auto_focus = true } },
   }
 
   local registry = require('mason-registry')
@@ -261,8 +257,17 @@ repo = 'Shougo/pum.vim'
 # denops
 [[plugins]]
 repo = 'vim-denops/denops.vim'
-lua_add = """--"
-vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
+hook_add = """
+let g:denops#server#deno_args = [ '-q', '--no-lock', '-A', '--unstable-kv' ]
+"""
+
+[[plugins]]
+repo = 'vim-denops/denops-shared-server.vim'
+hook_add = """
+let g:denops_server_addr = '127.0.0.1:32123'
+"""
+hook_done_update = """
+call denops_shared_server#install()
 """
 
 [[plugins]]
@@ -540,7 +545,7 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
 hook_add = """
-let g:readme_viewer#plugin_manager = 'dein.vim'
+let g:readme_viewer#plugin_manager = 'dpp.vim'
 """
 
 # ペースト時にpasteモードに
@@ -634,9 +639,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
 repo = 'nvim-treesitter/playground'
 depends = ['nvim-treesitter']
 
-# deprecated. TODO: replace to https://gitlab.com/HiPhish/rainbow-delimiters.nvim
-# [[plugins]]
-# repo = 'HiPhish/nvim-ts-rainbow2'
+## color matching parenthesis
+[[plugins]]
+repo = 'hiphish/rainbow-delimiters.nvim'
 
 ## fish
 [[plugins]]
