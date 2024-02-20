@@ -12,7 +12,6 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '>-', lead = '･', multispace = '･', trail = '･', nbsp = '+' }
 vim.opt.visualbell = true
 vim.opt.helplang = { 'ja', 'en' }
-vim.opt.updatetime = 300
 vim.opt.cmdheight = 1
 vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = '1'
@@ -22,10 +21,10 @@ vim.opt.formatoptions = 'jonq'
 vim.opt.diffopt:append({ 'indent-heuristic', 'algorithm:histogram' })
 vim.opt.foldopen:remove({ 'search' })
 
-vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
-vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
-vim.opt.shiftwidth = 0 -- 改行・<</>>でのインデント量(0 => tabstop)
-vim.opt.tabstop = 4 -- tab文字の幅
+vim.opt.expandtab = true  -- tabstop個の連続したスペースをtabに変換しない
+vim.opt.softtabstop = -1  -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
+vim.opt.shiftwidth = 0    -- 改行・<</>>でのインデント量(0 => tabstop)
+vim.opt.tabstop = 4       -- tab文字の幅
 vim.opt.smartindent = true
 vim.g.vim_indent_cont = 4 -- 継続行のインデント量を固定
 
