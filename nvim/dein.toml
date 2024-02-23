@@ -213,7 +213,10 @@ depends = ['nvim-lspconfig']
 
 ## tsserver integration
 [[plugins]]
-repo = 'jose-elias-alvarez/typescript.nvim'
+repo = 'pmizio/typescript-tools.nvim'
+lua_post_source = """--"
+require("typescript-tools").setup({})
+"""
 
 ## efm-langserver presets
 [[plugins]]
@@ -317,10 +320,6 @@ depends = ['denops.vim', 'ddc.vim']
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 depends = ['denops.vim', 'ddc.vim']
-
-[[plugins]]
-repo = 'Shougo/ddc-source-copilot'
-depends = ['denops.vim', 'ddc.vim', 'copilot.vim']
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
@@ -478,6 +477,9 @@ require('gitsigns').setup({
   signcolumn = false,
   numhl = true,
   current_line_blame = true,
+  current_line_blame_opts = {
+      ignore_whitespace = true
+  }
 })
 vim.keymap.set('n', '<Leader>g[', '<Cmd>Gitsigns prev_hunk<CR>')
 vim.keymap.set('n', '<Leader>g]', '<Cmd>Gitsigns next_hunk<CR>')

@@ -56,7 +56,6 @@ vim.fn['ddc#custom#patch_global']('sources', {
   'skkeleton',
   'around',
   'vsnip',
-  'copilot',
 })
 vim.fn['ddc#custom#patch_global']({
   sourceOptions = {
@@ -95,12 +94,6 @@ vim.fn['ddc#custom#patch_global']({
       matchers = { 'skkeleton' },
       sorters = {},
       isVolatile = true,
-    },
-    copilot = {
-      mark = 'copilot',
-      matchers = {},
-      isVolatile = true,
-      enabledIf = 'copilot#Enabled()',
     },
   },
   sourceParams = {

@@ -41,7 +41,7 @@ mason_lspconfig.setup({
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    local ignore_servers = List({ 'jdtls', 'rust_analyzer' })
+    local ignore_servers = List({ 'jdtls', 'rust_analyzer', 'tsserver' })
     if not ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
@@ -133,19 +133,6 @@ mason_lspconfig.setup_handlers({
       settings = {
         rootMarkers = { '.git' },
         languages = languages,
-      },
-    })
-  end,
-  tsserver = function()
-    -- https://github.com/jose-elias-alvarez/typescript.nvim#setup
-    require('typescript').setup({
-      disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
-      go_to_source_definition = {
-        fallback = true, -- fall back to standard LSP definition on failure
-      },
-      server = {
-        root_dir = lspconfig.util.root_pattern('tsconfig.json', 'package.json'),
       },
     })
   end,
