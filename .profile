@@ -25,6 +25,7 @@ export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export COURSIER_INSTALL_DIR="$XDG_DATA_HOME/coursier/bin"
 export DENO_INSTALL="$XDG_DATA_HOME/deno"
+export DENO_INSTALL_ROOT="$HOME/.local" # `deno install`-ed scripts installed into $DENO_INSTALL_ROOT/bin
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GOPATH="$XDG_DATA_HOME/go"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
@@ -33,7 +34,6 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export POETRY_HOME="$XDG_DATA_HOME/poetry"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
-export BUN_INSTALL="$XDG_DATA_HOME/bun"
 
 export FZF_DEFAULT_OPTS="--reverse"
 export LESS="-FRXM --shift 5"
@@ -66,7 +66,6 @@ PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" # GNU tar installed with Home
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$XDG_CONFIG_HOME/rofi/bin:$PATH" # scripts from https://github.com/adi1090x/rofi (v1.7)
 PATH="$XDG_CONFIG_HOME/rofi/scripts:$PATH" # scripts from https://github.com/adi1090x/rofi (master)
-PATH="$BUN_INSTALL/bin:$PATH"
 
 # set by command
 if command -v ruby >/dev/null; then
