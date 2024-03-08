@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd(
   { 'BufWritePost', 'FileWritePost' },
   { group = init_augroup_id, pattern = { '*.saty', '*.tex' }, command = 'QuickRun' }
 )
-if vim.fn.executable('pdftotext') then
+if vim.fn.executable('pdftotext') == 1 then
   vim.api.nvim_create_autocmd({ 'BufRead' }, {
     group = init_augroup_id,
     pattern = { '*.pdf' },

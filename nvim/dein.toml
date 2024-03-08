@@ -215,7 +215,10 @@ depends = ['nvim-lspconfig']
 [[plugins]]
 repo = 'pmizio/typescript-tools.nvim'
 lua_post_source = """--"
-require("typescript-tools").setup({})
+require("typescript-tools").setup({
+    root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
+    single_file_support = false
+})
 """
 
 ## efm-langserver presets

@@ -59,7 +59,7 @@ M.on_attach(function(client, buffer)
   vim.keymap.set('n', '<Leader>lco', '<Cmd>LspOutgoingCalls<CR>', opts)
   vim.keymap.set('n', '<F2>', '<Cmd>LspRename<CR>', opts)
 
-  if client.name == 'tsserver' then
+  if client.name == 'typescript-tools' then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   end

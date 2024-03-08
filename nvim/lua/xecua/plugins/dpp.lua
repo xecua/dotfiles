@@ -30,7 +30,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 add_plugin('Shougo/dpp.vim')
-if require('dpp').load_state(dpp_base_dir) == 1 then
+if require('dpp').load_state(dpp_base_dir) then
   for _, ext in ipairs({
     'Shougo/dpp-protocol-git',
     'Shougo/dpp-ext-installer',
