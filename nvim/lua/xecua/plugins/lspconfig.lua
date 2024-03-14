@@ -80,11 +80,11 @@ M.on_attach(function(client, buffer)
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
   end
 
-  if client.server_capabilities.documentSymbolProvider then
+  if client.supports_method('textDocument/documentSymbol') then
     require('nvim-navic').attach(client, buffer)
   end
 
-  if client.server_capabilities.documentFormattingProvider then
+  if client.supports_method('textDocument/formatting') then
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
       buffer = buffer,
@@ -95,11 +95,11 @@ M.on_attach(function(client, buffer)
     })
   end
 
-  if client.server_capabilities.inlayHintProvider then
+  if client.supports_method('textDocument/inlayHint') then
     vim.lsp.inlay_hint.enable()
   end
 
-  if client.server_capabilities.hoverProvider then
+  if client.supports_method('textDocument/hover') then
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       group = augroup,
       buffer = buffer,

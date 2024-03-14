@@ -163,7 +163,6 @@ vim.fn['ddu#custom#patch_global']({
       filterSplitDirection = 'botright',
       startAutoAction = true,
       autoAction = { name = 'preview', sync = false },
-      startFilter = true,
     },
     filer = {
       winWidth = vim.o.columns / 6,

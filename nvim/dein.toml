@@ -634,6 +634,10 @@ repo = 'hynek/vim-python-pep8-indent'
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
 
+# markdown util
+[[plugin]]
+repo = 'mattn/vim-maketable'
+
 # Syntax Highlighting
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
