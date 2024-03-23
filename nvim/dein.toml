@@ -30,6 +30,9 @@ repo = 'lambdalisue/guise.vim'
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
+[[plugins]]
+repo = 'folke/neodev.nvim'
+
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
@@ -192,7 +195,10 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dap.lua'
 
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
-depends = ['nvim-dap']
+depends = ['nvim-dap', 'nvim-nio']
+
+[[plugins]]
+repo = 'nvim-neotest/nvim-nio'
 
 ## outliner
 [[plugins]]

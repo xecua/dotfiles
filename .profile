@@ -91,6 +91,10 @@ if [ -r "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
 
+# stargz(containerd snapshotter; fallback to overlayfs)
+if command -v stargz-store >/dev/null; then
+    export CONTAINERD_SNAPSHOTTER="stargz"
+fi
 
 # Describe machine specific configurations in ~/.profile.local
 ## example:
