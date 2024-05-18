@@ -45,7 +45,7 @@ make_symlink(config_home / 'broot', script_dir / 'broot')
 make_symlink(config_home / 'nvim', script_dir / 'nvim')
 make_symlink(config_home / 'ideavim', script_dir / 'ideavim')
 make_symlink(config_home / 'git', script_dir / 'git')
-make_symlink(config_home / 'tig', script_dir / 'tig')
+#make_symlink(config_home / 'tig', script_dir / 'tig')
 make_symlink(config_home / 'fd', script_dir / 'fd')
 make_symlink(config_home / 'picom', script_dir / 'picom')
 make_symlink(config_home / 'ripgrep', script_dir / 'ripgrep')
@@ -70,9 +70,9 @@ make_symlink(config_home / 'ranger' / 'rifle.conf',
              script_dir / 'ranger' / 'rifle.conf')
 
 make_symlink(config_home / 'alacritty', script_dir / 'alacritty')
-if not (home / '.alacritty.local.yml').exists():
+if not (home / '.alacritty.local.toml').exists():
     # create
-    (home / '.alacritty.local.yml').touch()
+    (home / '.alacritty.local.toml').touch()
 
 # Linux only
 make_symlink(config_home / 'xremap', script_dir / 'xremap')
@@ -91,14 +91,10 @@ if not (config_home / 'rofi').exists():
     setup_sh_path = rofi_path / 'setup.sh'
     setup_sh_path.chmod(0o755)
     subprocess.run(setup_sh_path, cwd=rofi_path)
-    (script_dir / 'rofi_scripts' / 'rofi_launcher').symlink_to(
-        home / '.local' / 'bin' / 'rofi_launcher')
-    (script_dir / 'rofi_scripts' / 'rofi_powermenu').symlink_to(
-        home / '.local' / 'bin' / 'rofi_powermenu')
-    (script_dir / 'rofi_scripts' / 'rofi_screenshot').symlink_to(
-        home / '.local' / 'bin' / 'rofi_scripts')
-    (script_dir / 'rofi_scripts' / 'rofi_volume').symlink_to(
-        home / '.local' / 'bin' / 'rofi_volume')
+    make_symlink( home / '.local' / 'bin' / 'rofi_launcher', script_dir / 'rofi_scripts' / 'rofi_launcher')
+    make_symlink( home / '.local' / 'bin' / 'rofi_powermenu', script_dir / 'rofi_scripts' / 'rofi_powermenu')
+    make_symlink( home / '.local' / 'bin' / 'rofi_scripts', script_dir / 'rofi_scripts' / 'rofi_screenshot')
+    make_symlink( home / '.local' / 'bin' / 'rofi_volume', script_dir / 'rofi_scripts' / 'rofi_volume')
 
 if not (config_home / 'wgetrc').exists():
     hsts_file_path = cache_home / 'wget-hsts'

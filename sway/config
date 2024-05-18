@@ -42,7 +42,7 @@ workspace_layout tabbed
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/xecua/Pictures/wallpaper7.png fill
+#output * bg /home/xecua/Pictures/wallpaper7.png fill
 
 #
 # Example configuration:
