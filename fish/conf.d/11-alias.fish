@@ -56,6 +56,10 @@ if status is-interactive
     alias awk=gawk
   end
 
+  if type -q lazygit
+    alias lg=lazygit
+  end
+
   if type -q pbcopy
     alias cbcopy='pbcopy'
     alias cbpaste='pbpaste'

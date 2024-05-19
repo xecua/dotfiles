@@ -25,6 +25,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/deol.lua'
 ## open new tabpage instead of start nested instance
 [[plugins]]
 repo = 'lambdalisue/guise.vim'
+hook_add = """
+let g:guise#disable_vim = 1
+"""
 
 # Utility
 [[plugins]]
@@ -62,7 +65,7 @@ vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
 repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary.nvim']
 lua_post_source = """--"
-if require('xecua.utils').get_local_config().obsidian_dir ~= nil then
+if require('xecua.utils').get_local_config().obsidian_dir == vim.fn.getcwd() then
   require('obsidian').setup({
     dir = require('xecua.utils').get_local_config().obsidian_dir,
     templates = {
@@ -292,8 +295,10 @@ call popup_preview#enable()
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
-hook_post_source = """
-call signature_help#enable()
+lua_post_sourcce = """
+vim.fn['signature_help#enable']({
+    contentsStyle = "currentLabel"
+})
 """
 
 ## SKK
@@ -302,6 +307,18 @@ call signature_help#enable()
 repo = 'xecua/skkeleton'
 depends = ['denops.vim']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
+
+[[plugins]]
+repo = 'delphinus/skkeleton_indicator.nvim'
+lua_post_source = """--"
+require('skkeleton_indicator').setup({
+    eijiText = "a",
+    hiraText = "あ",
+    kataText = "ア",
+    hankataText = "ｱ",
+    zenkakuText = "Ａ"
+})
+"""
 
 [[plugins]]
 repo = 'skk-dev/dict'
@@ -607,6 +624,14 @@ vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
 repo = 'skanehira/jumpcursor.vim'
 lua_add = """--"
 vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
+
+local jumpcursor_marks = {}
+for i = 0x61, 0x7a do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x41, 0x5a do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x21, 0x40 do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x5b, 0x60 do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x7b, 0x7e do table.insert(jumpcursor_marks, string.char(i)) end
+vim.g.jumpcursor_marks = jumpcursor_marks
 """
 
 [[plugins]]
@@ -641,7 +666,7 @@ repo = 'hynek/vim-python-pep8-indent'
 repo = 'preservim/vim-indent-guides'
 
 # markdown util
-[[plugin]]
+[[plugins]]
 repo = 'mattn/vim-maketable'
 
 # Syntax Highlighting
@@ -649,10 +674,6 @@ repo = 'mattn/vim-maketable'
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = "TSUpdate"
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
-
-[[plugins]]
-repo = 'nvim-treesitter/playground'
-depends = ['nvim-treesitter']
 
 ## color matching parenthesis
 [[plugins]]

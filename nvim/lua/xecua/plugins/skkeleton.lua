@@ -1,7 +1,7 @@
 -- lua_add {{{
 local augroup = vim.api.nvim_create_augroup('SkkeletonConfig', { clear = true })
 
-vim.keymap.set({ 'i', 'c', 'l' }, '<C-j>', '<Plug>(skkeleton-enable)')
+vim.keymap.set({ 'i', 'c', 'l', 't' }, '<C-j>', '<Plug>(skkeleton-enable)')
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'skkeleton-initialize-pre',

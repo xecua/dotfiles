@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'typescript',
     'typescriptreact',
     'json',
+    'jsonc',
     'markdown',
     'lua',
     'rst',
@@ -77,4 +78,10 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   group = init_augroup_id,
   pattern = { 'grep', 'vimgrep' },
   command = 'copen',
+})
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = init_augroup_id,
+  pattern = { '*' },
+  command = [[hi! CurSearch cterm=reverse gui=reverse]]
 })

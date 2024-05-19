@@ -61,8 +61,7 @@ PATH="$ANDROID_HOME/platform-tools:$PATH"
 PATH="$XDG_DATA_HOME/npm/bin:$PATH" # npm global bin (assuming properly configured)
 PATH="$XDG_DATA_HOME/yarn/bin:$PATH" # yarn global bin (assuming properly configured)
 PATH="$PNPM_HOME:$PATH"
-PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # GNU sed installed with Homebrew
-PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH" # GNU tar installed with Homebrew
+PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH" # unversioned python installed with Homebrew
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$XDG_CONFIG_HOME/rofi/bin:$PATH" # scripts from https://github.com/adi1090x/rofi (v1.7)
 PATH="$XDG_CONFIG_HOME/rofi/scripts:$PATH" # scripts from https://github.com/adi1090x/rofi (master)
@@ -72,6 +71,10 @@ if command -v ruby >/dev/null; then
     # user local gem path
     # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
     PATH="$(ruby -e "print Gem.user_dir")/bin:$PATH"
+fi
+
+if [ -r /opt/homebrew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 export PATH

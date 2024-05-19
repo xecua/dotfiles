@@ -32,7 +32,7 @@ require('lualine').setup({
     },
     lualine_x = {},
     lualine_y = { fileformat, shiftwidth, 'encoding', 'filetype' },
-    lualine_z = { 'location', 'skkeleton' },
+    lualine_z = { 'location' },
   },
   tabline = {
     lualine_a = {
