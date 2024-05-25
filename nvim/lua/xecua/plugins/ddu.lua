@@ -1,15 +1,29 @@
 -- lua_add {{{
 vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 
-vim.api.nvim_create_user_command('DduRgLive', function()
+vim.api.nvim_create_user_command('DduRg', function()
   vim.fn['ddu#start']({
     sources = { { name = 'rg', options = { volatile = true, matchers = {} } } },
-    uiParams = { ff = { ignoreEmpty = false, autoResize = false } },
+    uiParams = { ff = { ignoreEmpty = false } },
   })
-end, { nargs = '?' })
+end, {})
+vim.api.nvim_create_user_command('DduLspDocumentSymbol', function()
+  vim.fn['ddu#start']({
+    sources = { { name = 'lsp_documentSymbol' } },
+    uiParams = { ff = { ignoreEmpty = false, displayTree = true } }
+  })
+end, {})
+vim.api.nvim_create_user_command('DduLspWorkspaceSymbol', function()
+  vim.fn['ddu#start']({
+    sources = { { name = 'lsp_workspaceSymbol', options = { volatile = true } } },
+    uiParams = { ff = { ignoreEmpty = false, displayTree = true } }
+  })
+end, {})
 vim.keymap.set('n', '<Leader>fd', '<Cmd>Ddu file_fd<CR>')
 vim.keymap.set('n', '<Leader>fb', '<Cmd>Ddu buffer<CR>')
 vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRg<CR>')
+vim.keymap.set('n', '<Leader>fls', '<Cmd>DduLspDocumentSymbol<CR>')
+vim.keymap.set('n', '<Leader>flw', '<Cmd>DduLspWorkspaceSymbol<CR>')
 vim.keymap.set('n', '<C-S-p>', '<Cmd>Ddu command<CR>') -- NOTE: これmacだといけるけど他の環境無理だねえ……
 
 local ddu_group_id = vim.api.nvim_create_augroup('DduMyCnf', { clear = true })
@@ -34,7 +48,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['converters']
-        or {}
+          or {}
       if #converters == 0 then
         vim.fn['ddu#ui#do_action'](
           'updateOptions',
@@ -135,7 +149,7 @@ vim.api.nvim_create_autocmd('FileType', {
           and current['sourceOptions']
           and current['sourceOptions']['_']
           and current['sourceOptions']['_']['matchers']
-        or {}
+          or {}
       local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
       vim.fn['ddu#ui#do_action']('updateOptions', {
         sourceOptions = {
@@ -191,6 +205,8 @@ vim.fn['ddu#custom#patch_global']({
     command = { defaultAction = 'edit' },
     help = { defaultAction = 'open' },
     readme_viewer = { defaultAction = 'open' },
+    lsp = { defaultAction = 'open' },
+    lsp_codeAction = { defaultAction = 'apply' }
   },
 })
 -- }}}

@@ -26,10 +26,6 @@ M.on_attach(function(client, buffer)
     is_hovering = true
     vim.lsp.buf.signature_help()
   end, {})
-  vim.api.nvim_buf_create_user_command(buffer, 'LspHover', function()
-    is_hovering = true
-    vim.lsp.buf.hover()
-  end, {})
   vim.api.nvim_buf_create_user_command(buffer, 'LspReferences', 'lua vim.lsp.buf.references()', {})
   vim.api.nvim_buf_create_user_command(buffer, 'LspDefinition', 'lua vim.lsp.buf.definition()', {})
   vim.api.nvim_buf_create_user_command(buffer, 'LspTypeDefinition', 'lua vim.lsp.buf.type_definition()', {})
@@ -38,22 +34,16 @@ M.on_attach(function(client, buffer)
   vim.api.nvim_buf_create_user_command(buffer, 'LspIncomingCalls', 'lua vim.lsp.buf.incoming_calls()', {})
   vim.api.nvim_buf_create_user_command(buffer, 'LspOutgoingCalls', 'lua vim.lsp.buf.outgoing_calls()', {})
   vim.api.nvim_buf_create_user_command(buffer, 'LspRename', 'lua vim.lsp.buf.rename()', {})
-  vim.api.nvim_buf_create_user_command(buffer, 'LspNext', 'lua vim.diagnostic.goto_next()', {})
-  vim.api.nvim_buf_create_user_command(buffer, 'LspPrev', 'lua vim.diagnostic.goto_prev()', {})
 
   -- Mappings.
   local opts = { buffer = buffer, silent = true }
 
   -- LSP related: preceded by <Leader>l
-  vim.keymap.set({ 'n', 'v' }, '<Leader>lf', '<Cmd>LspFormat<CR>', opts)
-  vim.keymap.set('n', '<Leader>lh', '<Cmd>LspSignatureHelp<CR>', opts)
-  vim.keymap.set('n', '<Leader>lm', '<Cmd>LspHover<CR>', opts)
+  vim.keymap.set('n', '<Leader>ls', '<Cmd>LspSignatureHelp<CR>', opts)
   vim.keymap.set('n', '<Leader>lr', '<Cmd>LspReferences<CR>', opts)
   vim.keymap.set('n', '<Leader>ld', '<Cmd>LspDefinition<CR>', opts)
   vim.keymap.set('n', '<Leader>lt', '<Cmd>LspTypeDefinition<CR>', opts)
   vim.keymap.set('n', '<Leader>li', '<Cmd>LspImplementation<CR>', opts)
-  vim.keymap.set('n', '<Leader>l]', '<Cmd>LspNext<CR>', opts)
-  vim.keymap.set('n', '<Leader>l[', '<Cmd>LspPrev<CR>', opts)
   vim.keymap.set('n', '<Leader>la', '<Cmd>LspCodeAction<CR>', opts)
   vim.keymap.set('n', '<Leader>lci', '<Cmd>LspIncomingCalls<CR>', opts)
   vim.keymap.set('n', '<Leader>lco', '<Cmd>LspOutgoingCalls<CR>', opts)

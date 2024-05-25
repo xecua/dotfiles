@@ -79,6 +79,11 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   pattern = { 'grep', 'vimgrep' },
   command = 'copen',
 })
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+  group = init_augroup_id,
+  pattern = { 'lgrep', 'lvimgrep' },
+  command = 'lopen',
+})
 
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = init_augroup_id,

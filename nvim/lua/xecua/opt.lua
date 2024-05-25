@@ -1,6 +1,5 @@
 vim.opt.mouse = 'a'
 vim.opt.fileformats = { 'unix', 'dos', 'mac' }
-vim.opt.termguicolors = true -- t_8f, t_8bは消してみた: 必要なら https://vim-jp.org/vimdoc-ja/term.html#xterm-true-color
 vim.opt.fileencodings = { 'ucs-bom', 'utf-8', 'euc-jp', 'cp932' }
 vim.opt.swapfile = false
 vim.opt.autoread = true

@@ -18,15 +18,6 @@ if status is-interactive
     alias lt="$eza_command --icons --tree --git-ignore"
     alias llt="$eza_command --icons --tree --long"
     alias lat="$eza_command --icons --tree --long --all"
-  else if type -q exa
-    set -l exa_command 'exa --header --git --time-style=iso --modified --created'
-    alias l="$exa_command"
-    alias ls="$exa_command --icons"
-    alias ll="$exa_command --icons --long"
-    alias la="$exa_command --icons --long --all"
-    alias lt="$exa_command --icons --tree --git-ignore"
-    alias llt="$exa_command --icons --tree --long"
-    alias lat="$exa_command --icons --tree --long --all"
   else
     alias l='ls -C'
     alias ll='ls -alF'

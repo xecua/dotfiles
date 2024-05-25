@@ -1,8 +1,5 @@
 # plugin manager
 [[plugins]]
-repo = 'Shougo/dein.vim'
-
-[[plugins]]
 repo = 'Shougo/dpp.vim'
 
 [[plugins]]
@@ -44,14 +41,6 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 # Preview
 [[plugins]]
 repo = 'previm/previm'
-depends = ['open-browser.vim'] # optional
-
-# open URL
-[[plugins]]
-repo = 'tyru/open-browser.vim'
-lua_add = """--"
-vim.keymap.set({ 'n', 'v' }, '<Leader>b', '<Plug>(openbrowser-open)')
-"""
 
 # nonsense animation
 [[plugins]]
@@ -96,6 +85,21 @@ repo = 'thinca/vim-quickrun'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/quickrun.lua'
 
 # quickfix
+[[plugins]]
+repo = 'skanehira/qfopen.vim'
+hook_add = """
+augroup qfopen
+    function! s:qfopen_keymap() abort
+        nmap <buffer> a <Plug>(qfopen-action)
+        nmap <buffer> v <Plug>(qfopen-open-vsplit)
+        nmap <buffer> s <Plug>(qfopen-open-split)
+        nmap <buffer> t <Plug>(qfopen-opentab)
+    endfunction
+    au!
+    au FileType qf call s:qfopen_keymap()
+augroup END
+"""
+
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 
@@ -295,10 +299,11 @@ call popup_preview#enable()
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
-lua_post_sourcce = """
-vim.fn['signature_help#enable']({
+lua_post_sourcce = """--"
+vim.g.signature_help_config = {
     contentsStyle = "currentLabel"
-})
+}
+vim.fn['signature_help#enable']()
 """
 
 ## SKK
@@ -452,6 +457,9 @@ depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'kyoh86/ddu-source-command'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-source-lsp'
 
 ### Kinds
 [[plugins]]
