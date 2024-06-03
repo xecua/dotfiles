@@ -86,21 +86,6 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/quickrun.lua'
 
 # quickfix
 [[plugins]]
-repo = 'skanehira/qfopen.vim'
-hook_add = """
-augroup qfopen
-    function! s:qfopen_keymap() abort
-        nmap <buffer> a <Plug>(qfopen-action)
-        nmap <buffer> v <Plug>(qfopen-open-vsplit)
-        nmap <buffer> s <Plug>(qfopen-open-split)
-        nmap <buffer> t <Plug>(qfopen-opentab)
-    endfunction
-    au!
-    au FileType qf call s:qfopen_keymap()
-augroup END
-"""
-
-[[plugins]]
 repo = 'thinca/vim-qfreplace'
 
 [[plugins]]
@@ -108,15 +93,10 @@ repo = 'kevinhwang91/nvim-bqf'
 
 # diagnostics
 [[plugins]]
-repo = 'folke/trouble.nvim'
-depends = ['nvim-web-devicons'] # optional
-lua_post_source = """--"
-require('trouble').setup({})
-vim.keymap.set('n', '<Leader>t', '<Cmd>TroubleToggle<CR>')
-"""
-
-[[plugins]]
 repo = 'folke/todo-comments.nvim'
+lua_add = """--"
+vim.keymap.set('n', '<Leader>td', 'TodoQuickFix')
+"""
 lua_post_source = """--"
 require('todo-comments').setup({})
 """
@@ -299,7 +279,7 @@ call popup_preview#enable()
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
-lua_post_sourcce = """--"
+lua_post_source = """--"
 vim.g.signature_help_config = {
     contentsStyle = "currentLabel"
 }

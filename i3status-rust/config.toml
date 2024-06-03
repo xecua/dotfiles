@@ -10,7 +10,7 @@ end_separator = " "
 icons = "awesome5"
 
 [[block]]
-block = "xrandr"
+block = "backlight"
 
 [[block]]
 block = "cpu"

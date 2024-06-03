@@ -17,7 +17,11 @@ dap_ui.setup({})
 local opts_with_desc = function(desc)
   return { silent = true, desc = 'Debug Adapter: ' .. desc }
 end
-vim.keymap.set('n', '<Leader>dd', dap_ui.toggle, opts_with_desc('Toggle UI'))
+vim.keymap.set('n', '<Leader>dd', function()
+  dap_ui.toggle({
+    reset = true
+  })
+end, opts_with_desc('Toggle UI'))
 vim.keymap.set('n', '<Leader>dt', function()
   dap.toggle_breakpoint()
 end, opts_with_desc('Toggle breakpoint'))

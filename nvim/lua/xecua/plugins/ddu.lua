@@ -83,15 +83,6 @@ vim.api.nvim_create_autocmd('FileType', {
     end, opts)
   end,
 })
-vim.api.nvim_create_autocmd('FileType', {
-  group = ddu_group_id,
-  pattern = 'ddu-ff-filter',
-  callback = function()
-    local opts = { buffer = true, silent = true }
-    vim.keymap.set({ 'n' }, 'q', "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
-    vim.keymap.set({ 'i', 'n' }, '<CR>', "<Esc><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>", opts)
-  end,
-})
 
 -- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
 vim.api.nvim_create_user_command('DduFiler', function()
@@ -174,8 +165,8 @@ vim.fn['ddu#custom#patch_global']({
     ff = {
       previewWidth = 80,
       previewSplit = 'vertical',
-      filterSplitDirection = 'botright',
       startAutoAction = true,
+      statusline = false,
       autoAction = { name = 'preview', sync = false },
     },
     filer = {

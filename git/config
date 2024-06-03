@@ -17,6 +17,8 @@
 	pl = pull --prune
 	f = fetch --prune
 	m = merge
+	mc = merge --continue
+	ma = merge --abort
 	mt = mergetool
 	mas = !git show-ref --quiet refs/heads/master && git switch master || git switch main
 	s = status
@@ -34,6 +36,8 @@
 	lp = log --date=iso-local -p
 	g = log --graph --date=short --decorate=short --oneline
 	ri = rebase -i
+	rc = rebase --continue
+	ra = rebase --abort
 	rs = restore
 	rss = restore --staged
 	st = stash

@@ -1,4 +1,7 @@
 -- lua_post_source {{{
+local presets = require('which-key.plugins.presets')
+presets.operators.v = nil
+
 local wk = require('which-key')
 
 wk.setup({})

@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
   callback = function(args)
     local List = require('plenary.collections.py_list')
-    local operator_surround_disabled_buffer_types = List({ 'fern', 'ddu-ff', 'ddu-filer' })
+    local operator_surround_disabled_buffer_types = List({ 'fern', 'ddu-ff', 'ddu-filer', 'qf', 'fugitive' })
     if not operator_surround_disabled_buffer_types:contains(args.match) then
       vim.keymap.set('n', 'sa', '<Plug>(operator-surround-append)', { buffer = true })
       vim.keymap.set('n', 'sd', '<Plug>(operator-surround-delete)', { buffer = true })
