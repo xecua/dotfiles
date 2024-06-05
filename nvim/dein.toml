@@ -94,8 +94,8 @@ repo = 'kevinhwang91/nvim-bqf'
 # diagnostics
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
-lua_add = """--"
-vim.keymap.set('n', '<Leader>td', 'TodoQuickFix')
+Lua_add = """--"
+vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')
 """
 lua_post_source = """--"
 require('todo-comments').setup({})
@@ -295,6 +295,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
+rev = 'v2'
 lua_post_source = """--"
 require('skkeleton_indicator').setup({
     eijiText = "a",

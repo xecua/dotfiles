@@ -1,4 +1,4 @@
-import = ["/home/xecua/.alacritty.local.toml", "/home/xecua/.config/alacritty/theme/themes/iterm.toml"]
+import = ["~/.alacritty.local.toml", "~/.config/alacritty/theme/themes/iterm.toml"]
 
 [cursor.style]
 shape = "Beam"

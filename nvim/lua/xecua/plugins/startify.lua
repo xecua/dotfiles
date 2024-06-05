@@ -1,9 +1,12 @@
 -- lua_add {{{
 vim.g.startify_change_to_vcs_root = 1
 vim.g.startify_lists = {
-  { type = 'files', header = { '   MRU' } },
+  { type = 'files',     header = { '   MRU' } },
   { type = 'bookmarks', header = { '   Bookmarks' } },
-  { type = 'sessions', header = { '   Sessions' } },
+  { type = 'sessions',  header = { '   Sessions' } },
+}
+vim.g.startify_commands = {
+  { 'Open Daily Note', 'ObsidianToday' }
 }
 -- }}}
 -- lua_post_source {{{

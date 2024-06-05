@@ -180,9 +180,11 @@ vim.fn['ddu#custom#patch_global']({
     file_fd = { args = { '-tf', '-H', '-E', '.git' } },
   },
   sourceOptions = {
-    _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
-    source = { defaultAction = 'execute' },
-    rg = { sorters = { 'sorter_alpha' } },
+    _                   = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
+    source              = { defaultAction = 'execute' },
+    rg                  = { sorters = { 'sorter_alpha' } },
+    lsp_documentSymbol  = { converters = { 'converter_lsp_symbol' } },
+    lsp_workspaceSymbol = { converters = { 'converter_lsp_symbol' } }
   },
   filterParams = {
     matcher_fzf = { highlightMatched = 'Search' },
