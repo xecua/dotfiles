@@ -12,6 +12,8 @@ config.font = wezterm.font_with_fallback({
 })
 config.color_scheme = "Molokai"
 config.tab_bar_at_bottom = true
+config.native_macos_fullscreen_mode = true
+config.window_decorations = "RESIZE"
 config.keys = {
   { key = 'Enter', mods = 'CMD',        action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
   { key = '-',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },

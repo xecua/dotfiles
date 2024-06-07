@@ -94,7 +94,7 @@ repo = 'kevinhwang91/nvim-bqf'
 # diagnostics
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
-Lua_add = """--"
+lua_add = """--"
 vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')
 """
 lua_post_source = """--"
@@ -262,8 +262,9 @@ let g:denops#server#deno_args = [ '-q', '--no-lock', '-A', '--unstable-kv' ]
 
 [[plugins]]
 repo = 'vim-denops/denops-shared-server.vim'
-hook_add = """
-let g:denops_server_addr = '127.0.0.1:32123'
+lua_add = """
+vim.g.denops_server_addr = '127.0.0.1:32123'
+vim.api.nvim_create_user_command('DenopsRestart', 'call denops_shared_server#restart()', {})
 """
 hook_done_update = """
 call denops_shared_server#install()
