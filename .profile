@@ -37,7 +37,8 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 
 export FZF_DEFAULT_OPTS="--reverse"
-export LESS="-FRXM --shift 5"
+export LESS="-FRXM -j5 --shift 5"
+export LESSCHARSET="utf-8"
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     export MOZ_ENABLE_WAYLAND=1
@@ -106,7 +107,7 @@ fi
 # export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx
 #
-# export LANG=ja_JP.utf8
+# export LANG=ja_JP.UTF-8
 # export BROWSER=/usr/bin/vivaldi
 # export TERMINAL=/usr/bin/alacritty
 # export EDITOR=/usr/bin/nvim

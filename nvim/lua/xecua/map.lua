@@ -7,9 +7,11 @@ vim.keymap.set('n', '<Leader>tl', '<Cmd>lua vim.diagnostic.setloclist()<CR>')
 -- vimgrep under cursor in current file
 vim.keymap.set('n', '<Leader>v', ':<C-u>lv /<C-r><C-w>/j %<CR>')
 -- Always enable verymagic (a.k.a. ERE). see :h \v
-vim.keymap.set({ 'n', 'v' }, '/', '/\\v')
-vim.keymap.set({ 'n', 'v' }, '?', '?\\v')
+vim.keymap.set('n', '/', '/\\v')
+vim.keymap.set('n', '?', '?\\v')
+vim.keymap.set('v', '/', '<Esc>/\\%V\\v') -- \%V: previously selected range
+vim.keymap.set('v', '?', '<Esc>?\\%V\\v') -- \%V: previously selected range
 vim.keymap.set({ 'n', 'v' }, ':s/', ':s/\\v')
-vim.keymap.set({ 'n', 'v' }, ':%s/', ':%s/\\v')
+vim.keymap.set('n', ':%s/', ':%s/\\v')
 
 vim.keymap.set('t', '<C-]>', [[<C-\><C-n>]])

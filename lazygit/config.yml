@@ -1,3 +1,11 @@
+gui:
+  nerdFontsVersion: "3"
+  statusPanelView: allBranchesLog
+git:
+  branchLogCmd: log --graph --date=short --pretty=short-oneline
+  allBranchesLogCmd: log --all --graph --date=short --pretty=short-oneline
+  paging:
+    externalDiffCommand: 'difft --color=always --display=inline'
 keybinding:
   universal:
     quit: <c-c>

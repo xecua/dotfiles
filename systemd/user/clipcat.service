@@ -1,12 +1,12 @@
 [Unit]
-Description=clipcat - clipboard manager (fork)
-Documentation=https://github.com/Icelk/clipcat
+Description=clipcat - clipboard manager
+Documentation=https://github.com/xrelkd/clipcat
 BindsTo=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/share/cargo/bin/clipcatd --no-daemon
-Restart=always
+ExecStart=%h/.local/share/cargo/bin/clipcatd --no-daemon --replace
+Restart=on-failure
 
 [Install]
 WantedBy=i3-session.target sway-session.target

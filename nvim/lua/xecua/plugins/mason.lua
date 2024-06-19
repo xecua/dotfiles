@@ -17,7 +17,6 @@ mason_lspconfig.setup({
     'pyright',
     'rust_analyzer',
     'clangd',
-    'denols',
     'tsserver',
     'vimls',
     'html',

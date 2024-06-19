@@ -33,8 +33,8 @@
 	dft = difftool
 	l = log --date=iso-local
 	ls = log --date=iso-local --stat
-	lp = log --date=iso-local -p
-	g = log --graph --date=short --decorate=short --oneline
+	lp = log --date=iso-local --remerge-diff
+	g = log --graph --date=short --pretty=short-oneline
 	ri = rebase -i
 	rc = rebase --continue
 	ra = rebase --abort
@@ -49,6 +49,12 @@
 	cp = cherry-pick
 	cf = cat-file -p
 	cbcopy = !printf "$1" | cbcopy
+[pretty]
+	short-oneline = %C(auto)%h %Cblue%as%Cgreen%aN%Creset %s %C(auto)%d
+[merge]
+	autoStash = true
+[rebase]
+	autoStash = true
 [commit]
 	gpgsign = true
 [rerere]
