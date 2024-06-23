@@ -38,17 +38,14 @@ mason_lspconfig.setup({
   },
 })
 
+lspconfig.denols.setup({}) -- should have manually installed for denops
+
 mason_lspconfig.setup_handlers({
   function(server_name)
     local ignore_servers = List({ 'jdtls', 'rust_analyzer', 'tsserver' })
     if not ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
-  end,
-  denols = function()
-    lspconfig.denols.setup({
-      root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc', 'denops'),
-    })
   end,
   eslint = function()
     lspconfig.eslint.setup({

@@ -4,7 +4,6 @@
 	signingkey = 33A065F0
 [core]
 	editor = nvim
-	pager = (delta 2>/dev/null) || ${PAGER:-less}
 [init]
 	defaultBranch = main
 [color]
@@ -76,8 +75,6 @@
 	cmd = difft "$LOCAL" "$REMOTE"
 [pager]
 	difftool = true
-[interactive]
-	diffFilter = delta --color-only
 [merge]
 	tool = nvimdiff
 	autoStash = true
