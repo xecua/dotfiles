@@ -484,7 +484,10 @@ repo = 'ryanoasis/vim-devicons'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/fugitive.lua'
+lua_add = """--"
+vim.keymap.set('n', '<Leader>gl', '<Cmd>Git log -p %')
+vim.keymap.set('n', '<Leader>gs', '<Cmd>Git<CR>')
+"""
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
@@ -495,10 +498,23 @@ require('gitsigns').setup({
   current_line_blame = true,
   current_line_blame_opts = {
       ignore_whitespace = true
-  }
+  },
+  on_attach = function()
+    local gitsigns = require('gitsigns')
+
+    vim.keymap.set('n', '<Leader>gb', gitsigns.blame, { buffer = true })
+    vim.keymap.set('n', '<Leader>gd', gitsigns.diffthis, { buffer = true })
+    vim.keymap.set('n', '<Leader>g[', function() gitsigns.nav_hunk('prev') end, { buffer = true })
+    vim.keymap.set('n', '<Leader>g]', function() gitsigns.nav_hunk('next') end, { buffer = true })
+    vim.keymap.set('n', '<Leader>ga', gitsigns.stage_hunk, { buffer = true })
+    vim.keymap.set('v', '<Leader>ga', function() gitsigns.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { buffer = true })
+    vim.keymap.set('n', '<Leader>gA', gitsigns.stage_buffer, { buffer = true })
+    vim.keymap.set('n', '<Leader>gu', gitsigns.undo_stage_hunk, { buffer = true })
+    vim.keymap.set('n', '<Leader>gr', gitsigns.reset_hunk, { buffer = true })
+    vim.keymap.set('v', '<Leader>gr', function() gitsigns.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { buffer = true })
+    vim.keymap.set('n', '<Leader>gR', gitsigns.reset_buffer, { buffer = true })
+  end
 })
-vim.keymap.set('n', '<Leader>g[', '<Cmd>Gitsigns prev_hunk<CR>')
-vim.keymap.set('n', '<Leader>g]', '<Cmd>Gitsigns next_hunk<CR>')
 """
 
 # parenthesis control

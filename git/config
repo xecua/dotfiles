@@ -50,9 +50,7 @@
 	cf = cat-file -p
 	cbcopy = !printf "$1" | cbcopy
 [pretty]
-	short-oneline = %C(auto)%h %Cblue%as%Cgreen%aN%Creset %s %C(auto)%d
-[merge]
-	autoStash = true
+	short-oneline = %C(auto)%h %Cblue%as %Cgreen%aN%Creset %s %C(auto)%d
 [rebase]
 	autoStash = true
 [commit]
@@ -82,6 +80,7 @@
 	diffFilter = delta --color-only
 [merge]
 	tool = nvimdiff
+	autoStash = true
 [mergetool]
 	keepBackup = false
 [filter "lfs"]
