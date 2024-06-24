@@ -485,7 +485,7 @@ repo = 'ryanoasis/vim-devicons'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 lua_add = """--"
-vim.keymap.set('n', '<Leader>gl', '<Cmd>Git log -p %')
+vim.keymap.set('n', '<Leader>gl', '<Cmd>Git log -p %<CR>')
 vim.keymap.set('n', '<Leader>gs', '<Cmd>Git<CR>')
 """
 
