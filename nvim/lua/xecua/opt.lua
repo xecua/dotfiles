@@ -16,10 +16,11 @@ vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = '1'
 vim.opt.switchbuf = { 'useopen', 'split' }
 vim.opt.laststatus = 3
-vim.opt.formatoptions = 'jonq'
+vim.opt.formatoptions = 'jonqr'
 vim.opt.diffopt:append({ 'indent-heuristic', 'algorithm:histogram' })
 vim.opt.foldopen:remove({ 'search' })
 vim.opt.scrolloff = 2
+vim.opt.sidescrolloff = 2
 
 vim.opt.expandtab = true  -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1  -- <Tab>・<BS>での移動幅(-1 => shiftwidth)

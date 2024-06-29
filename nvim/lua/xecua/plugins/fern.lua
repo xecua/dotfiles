@@ -1,5 +1,7 @@
 -- lua_add {{{
 vim.g['fern#renderer'] = 'nerdfont'
+vim.g['fern#disable_auto_buffer_delete'] = true
+vim.g['fern#disable_auto_buffer_rename'] = true
 
 vim.keymap.set('n', '<C-n>', '<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>')
 

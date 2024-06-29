@@ -71,9 +71,10 @@ if require('xecua.utils').get_local_config().obsidian_dir == vim.fn.getcwd() the
 end
 """
 
-# Window resize mode
+# Submode
 [[plugins]]
-repo = 'sedm0784/vim-resize-mode'
+repo = 'kana/vim-submode'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/submode.lua'
 
 # task runner
 [[plugins]]

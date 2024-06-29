@@ -25,6 +25,7 @@
 	amend = commit -a --amend
 	co = checkout
 	sw = switch
+	swf = !"git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf | xargs git switch"
 	b = branch
 	j = jump
 	jm = jump merge

@@ -13,6 +13,7 @@ config.font = wezterm.font_with_fallback({
 config.color_scheme = "Molokai"
 config.tab_bar_at_bottom = true
 config.native_macos_fullscreen_mode = true
+config.leader = { key = 'q', mods = 'CTRL' }
 config.keys = {
   { key = 'Enter', mods = 'CMD',        action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
   { key = '-',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
@@ -20,6 +21,9 @@ config.keys = {
   { key = '=',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
   { key = '+',     mods = 'CTRL|SHIFT', action = wezterm.action.DisableDefaultAssignment },
   { key = '0',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
+  { key = 'q',     mods = 'LEADER',     action = wezterm.action.SendKey(config.leader) },
+  { key = '|',     mods = 'LEADER',     action = wezterm.action.SplitHorizontal },
+  { key = '-',     mods = 'LEADER',     action = wezterm.action.SplitVertical },
 }
 
 if utils.get_os() == "Darwin" then
