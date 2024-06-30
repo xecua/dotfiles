@@ -78,7 +78,6 @@ if not (home / '.alacritty.local.toml').exists():
 # Linux only
 make_symlink(config_home / 'xremap', script_dir / 'xremap')
 make_symlink(config_home / 'kanshi', script_dir / 'kanshi')
-make_symlink(config_home / 'systemd' / 'user' / 'kanshi.service', script_dir / 'kanshi' / 'kanshi.service')
 make_symlink(config_home / 'fontconfig', script_dir / 'fontconfig')
 make_symlink(config_home / 'zathura', script_dir / 'zathura')
 make_symlink(config_home / 'libskk' / 'rules',

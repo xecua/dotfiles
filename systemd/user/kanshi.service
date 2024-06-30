@@ -1,8 +1,8 @@
 [Unit]
 Description=kanshi
 Documentation=https://sr.ht/~emersion/kanshi
-BindsTo=sway-session.target
-After=sway-session.target
+BindsTo=wayland-session.target
+After=wayland-session.target
 
 [Service]
 KillMode=process
@@ -12,4 +12,4 @@ Type=simple
 Restart=always
 
 [Install]
-WantedBy=sway-session.target
+WantedBy=wayland-session.target

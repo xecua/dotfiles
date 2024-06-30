@@ -9,4 +9,4 @@ ExecStart=%h/.local/share/cargo/bin/clipcatd --no-daemon --replace
 Restart=on-failure
 
 [Install]
-WantedBy=i3-session.target sway-session.target
+WantedBy=i3-session.target wayland-session.target

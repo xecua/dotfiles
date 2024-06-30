@@ -1,0 +1,14 @@
+[Unit]
+Description=xremap
+BindsTo=wayland-session.target
+After=wayland-session.target
+
+[Service]
+KillMode=process
+ExecStart=xremap %h/.config/xremap/config.yml
+ExecStop=/usr/bin/killall xremap
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=wayland-session.target

@@ -1,6 +1,5 @@
 [Unit]
-Description=sway session target
+Description=wayland session target
 BindsTo=graphical-session.target
 After=graphical-session-pre.target
 Wants=graphical-session-pre.target xdg-desktop-autostart.target
-ConditionEnvironment=XDG_SESSION_DESKTOP=sway
