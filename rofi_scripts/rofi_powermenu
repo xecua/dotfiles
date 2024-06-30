@@ -69,6 +69,8 @@ run_cmd() {
 				i3-msg exit
 			elif [[ "$XDG_SESSION_DESKTOP" == "sway" ]]; then
 				swaymsg exit
+			elif [[ "$XDG_SESSION_DESKTOP" == "hyprland" ]]; then
+				hyprctl dispatch exit
 			fi
 		fi
 	else
@@ -95,6 +97,10 @@ case ${chosen} in
 		elif [[ "$XDG_SESSION_DESKTOP" == "sway" ]]; then
 			if [[ -x '/usr/bin/swaylock' ]]; then
 				swaylock
+			fi
+		elif [[ "$XDG_SESSION_DESKTOP" == "hyprland" ]]
+			if [[ -x '/usr/bin/hyprlock' ]]; then
+				hyprlock
 			fi
 		fi
 		;;
