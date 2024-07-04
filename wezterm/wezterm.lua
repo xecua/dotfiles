@@ -15,15 +15,19 @@ config.tab_bar_at_bottom = true
 config.native_macos_fullscreen_mode = true
 config.leader = { key = 'q', mods = 'CTRL' }
 config.keys = {
-  { key = 'Enter', mods = 'CMD',        action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
-  { key = '-',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
-  { key = '_',     mods = 'CTRL|SHIFT', action = wezterm.action.DisableDefaultAssignment },
-  { key = '=',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
-  { key = '+',     mods = 'CTRL|SHIFT', action = wezterm.action.DisableDefaultAssignment },
-  { key = '0',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
-  { key = 'q',     mods = 'LEADER',     action = wezterm.action.SendKey(config.leader) },
-  { key = '|',     mods = 'LEADER',     action = wezterm.action.SplitHorizontal },
-  { key = '-',     mods = 'LEADER',     action = wezterm.action.SplitVertical },
+  { key = 'Enter', mods = 'CMD',         action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
+  { key = '-',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
+  { key = '_',     mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment },
+  { key = '=',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
+  { key = '+',     mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment },
+  { key = '0',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
+  { key = 'q',     mods = 'LEADER|CTRL', action = wezterm.action.SendKey(config.leader) },
+  { key = '|',     mods = 'LEADER',      action = wezterm.action.SplitHorizontal },
+  { key = '-',     mods = 'LEADER',      action = wezterm.action.SplitVertical },
+  { key = 'c',     mods = 'LEADER',      action = wezterm.action.SpawnTab('CurrentPaneDomain') },
+  { key = 'd',     mods = 'LEADER',      action = wezterm.action.DetachDomain('CurrentPaneDomain') },
+  { key = 'n',     mods = 'LEADER',      action = wezterm.action.ActivateTabRelative(1) },
+  { key = 'p',     mods = 'LEADER',      action = wezterm.action.ActivateTabRelative(-1) },
 }
 
 if utils.get_os() == "Darwin" then

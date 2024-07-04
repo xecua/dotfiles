@@ -1,13 +1,13 @@
 gui:
   nerdFontsVersion: "3"
   statusPanelView: allBranchesLog
-  timeFormat: '2006-01-02T15:04:05Z07:00'
-  shortTimeFormat: '15:04'
+  timeFormat: "2006-01-02T15:04:05Z07:00"
+  shortTimeFormat: "15:04"
 git:
-  branchLogCmd: git log --graph --date=short --pretty=short-oneline
-  allBranchesLogCmd: git log --all --graph --date=short --pretty=short-oneline
+  branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
+  allBranchesLogCmd: git log --all --graph --date=short --pretty=short-oneline --color=always
   paging:
-    externalDiffCommand: 'difft --color=always --display=inline'
+    externalDiffCommand: "difft --color=always --display=inline"
 keybinding:
   universal:
     quit: <c-c>

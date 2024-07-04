@@ -98,7 +98,7 @@ case ${chosen} in
 			if [[ -x '/usr/bin/swaylock' ]]; then
 				swaylock
 			fi
-		elif [[ "$XDG_SESSION_DESKTOP" == "hyprland" ]]
+		elif [[ "$XDG_SESSION_DESKTOP" == "hyprland" ]]; then
 			if [[ -x '/usr/bin/hyprlock' ]]; then
 				hyprlock
 			fi
