@@ -1,0 +1,12 @@
+height = 16
+font = "monospace 9"
+command = "i3status-rs"
+
+backgroun = "38383800"
+color = "#000000ff"
+tag_focused_fg = "#1d2021ff"
+tag_focused_bg = "#28782866"
+tag_fg = "#1d2021ff"
+tag_bg = "#28782833"
+tags_padding = 10
+tags_r = 5
