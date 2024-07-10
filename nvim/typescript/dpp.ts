@@ -27,12 +27,7 @@ export class Config extends BaseConfig {
     const config_base = await args.denops.call("stdpath", "config");
     const tomls = [
       (await args.dpp.extAction(args.denops, context, options, "toml", "load", {
-        path: `${config_base}/dein.toml`,
-        options: { lazy: false },
-      })) as TomlLoadResult,
-      (await args.dpp.extAction(args.denops, context, options, "toml", "load", {
-        path: `${config_base}/dein_lazy.toml`,
-        options: { lazy: true },
+        path: `${config_base}/plugins.toml`,
       })) as TomlLoadResult,
     ];
 

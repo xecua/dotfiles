@@ -740,3 +740,21 @@ repo = 'vim-skk/skkdict.vim'
 ## astro.build
 [[plugins]]
 repo = 'wuelnerdotexe/vim-astro'
+
+# Go utility
+[[plugins]]
+repo = 'fatih/vim-go'
+lazy = true
+on_ft = ['go']
+
+# Haxe
+[[plugins]]
+repo = 'jdonaldson/vaxe'
+lazy = true
+on_ft = ['haxe']
+
+# Swift
+[[plugins]]
+repo = 'keith/swift.vim'
+lazy = true
+on_ft = ['swift']
