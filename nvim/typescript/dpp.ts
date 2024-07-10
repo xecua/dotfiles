@@ -3,7 +3,8 @@ import {
   ConfigArguments,
   ConfigReturn,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.0.7/types.ts";
+} from "https://deno.land/x/dpp_vim@v0.3.0/types.ts";
+import { existsSync } from "jsr:@std/fs@0.229.3";
 
 type TomlLoadResult = {
   hooks_file?: string;
@@ -30,6 +31,21 @@ export class Config extends BaseConfig {
         path: `${config_base}/plugins.toml`,
       })) as TomlLoadResult,
     ];
+
+    if (existsSync(`${config_base}/local.toml`)) {
+      tomls.push(
+        (await args.dpp.extAction(
+          args.denops,
+          context,
+          options,
+          "toml",
+          "load",
+          {
+            path: `${config_base}/local.toml`,
+          },
+        )) as TomlLoadResult,
+      );
+    }
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};

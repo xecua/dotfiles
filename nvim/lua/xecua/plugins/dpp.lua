@@ -12,8 +12,9 @@ local function add_plugin(plugin_name)
   vim.opt.rtp:prepend(source_local)
 end
 
-vim.api.nvim_create_user_command('DppClearState', "call dpp#clear_state()", {})
-vim.api.nvim_create_user_command('DppMakeState', "call dpp#make_state()", {})
+vim.api.nvim_create_user_command('DppClearState', 'call dpp#clear_state()', {})
+vim.api.nvim_create_user_command('DppMakeState', 'call dpp#make_state()', {})
+vim.api.nvim_create_user_command('DppClean', "call map(dpp#check_clean(), { _, val -> delete(val, 'rf') })", {})
 vim.api.nvim_create_user_command('DppInstall', "call dpp#async_ext_action('installer', 'install')", {})
 vim.api.nvim_create_user_command('DppUpdate', "call dpp#async_ext_action('installer', 'update')", {})
 
