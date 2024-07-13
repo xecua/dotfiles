@@ -26,10 +26,6 @@ if vim.g.neovide ~= nil then
 end
 
 -- plugin manager
-if vim.fn.has('nvim-0.10') == 1 then
-  require('xecua.plugins.dpp')
-else
-  require('xecua.plugins.dein')
-end
+require('xecua.plugins.dpp')
 
 vim.cmd('filetype plugin on')

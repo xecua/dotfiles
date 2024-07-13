@@ -128,6 +128,8 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 # Machine Learning-based completion
 [[plugins]]
 repo = 'github/copilot.vim'
+on_if = "get(g:, 'use_copilot', v:false)"
+lazy = true
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
 # Database client

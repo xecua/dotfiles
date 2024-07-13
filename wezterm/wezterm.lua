@@ -12,6 +12,7 @@ config.font = wezterm.font_with_fallback({
 })
 config.color_scheme = "Molokai"
 config.tab_bar_at_bottom = true
+config.scrollback_lines = 8192
 config.native_macos_fullscreen_mode = true
 config.leader = { key = 'q', mods = 'CTRL' }
 config.keys = {

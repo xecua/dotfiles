@@ -54,10 +54,10 @@ vim.api.nvim_create_autocmd('FileType', {
           'updateOptions',
           { sourceOptions = { _ = { converters = { 'converter_display_word' } } } }
         )
-        require('notify')('Display word included.')
+        vim.notify('Display word included.')
       else
         vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { converters = {} } } })
-        require('notify')('Display word excluded.')
+        vim.notify('Display word excluded.')
       end
     end, opts)
     vim.keymap.set('n', 's', function()
@@ -71,14 +71,14 @@ vim.api.nvim_create_autocmd('FileType', {
             _ = { sorters = { 'sorter_fzf' }, matchers = { 'matcher_fzf' } },
           },
         })
-        require('notify')('Search mode switched to Fuzzy.')
+        vim.notify('Search mode switched to Fuzzy.')
       else
         vim.fn['ddu#ui#do_action']('updateOptions', {
           sourceOptions = {
             _ = { sorters = {}, matchers = { 'matcher_substring' } },
           },
         })
-        require('notify')('Search Mode switched to Substring.')
+        vim.notify('Search Mode switched to Substring.')
       end
     end, opts)
   end,
