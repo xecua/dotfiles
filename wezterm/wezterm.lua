@@ -14,6 +14,7 @@ config.color_scheme = "Molokai"
 config.tab_bar_at_bottom = true
 config.scrollback_lines = 8192
 config.native_macos_fullscreen_mode = true
+config.use_fancy_tab_bar = false
 config.leader = { key = 'q', mods = 'CTRL' }
 config.keys = {
   { key = 'Enter', mods = 'CMD',         action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
@@ -39,6 +40,23 @@ if utils.get_os() == "Darwin" then
     window:gui_window():toggle_fullscreen()
   end)
 end
+
+local function add_space(txt)
+  return ' ' .. txt .. ' '
+end
+
+-- config.status_update_interval = 10 * 1000
+wezterm.on('update-right-status', function(window, _pane)
+  local _, w, _ = wezterm.run_child_process({'w'})
+  local las = w:match('load averages?: ([0-9,. ]+)')
+  local la = add_space('LA: ' .. string.gsub(las, ',', ''))
+  local date = add_space(wezterm.strftime('%Y-%m-%d %H:%M:%S'))
+  local separator = wezterm.nerdfonts.pl_right_soft_divider
+  window:set_right_status(wezterm.format({
+    { Text = la .. separator .. date }
+  }))
+end)
+
 
 
 local ok, local_config = pcall(require, 'local')
