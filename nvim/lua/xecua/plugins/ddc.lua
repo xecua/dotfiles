@@ -91,7 +91,7 @@ vim.fn['ddc#custom#patch_global']({
     },
     skkeleton = {
       mark = 'skk',
-      matchers = { 'skkeleton' },
+      matchers = {},
       sorters = {},
       isVolatile = true,
     },
