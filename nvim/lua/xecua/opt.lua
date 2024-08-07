@@ -1,6 +1,6 @@
 vim.opt.mouse = 'a'
 vim.opt.fileformats = { 'unix', 'dos', 'mac' }
-vim.opt.fileencodings = { 'ucs-bom', 'utf-8', 'euc-jp', 'cp932' }
+vim.opt.fileencodings = { 'ucs-bom', 'utf-8', 'euc-jp', 'cp932', 'sjis', 'euc-jis-2004', 'iso-2022-jp' }
 vim.opt.swapfile = false
 vim.opt.autoread = true
 vim.opt.hidden = true

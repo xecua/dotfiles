@@ -24,7 +24,7 @@ vim.keymap.set('n', '<Leader>fb', '<Cmd>Ddu buffer<CR>')
 vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRg<CR>')
 vim.keymap.set('n', '<Leader>fls', '<Cmd>DduLspDocumentSymbol<CR>')
 vim.keymap.set('n', '<Leader>flw', '<Cmd>DduLspWorkspaceSymbol<CR>')
-vim.keymap.set('n', '<C-S-p>', '<Cmd>Ddu command<CR>') -- NOTE: これmacだといけるけど他の環境無理だねえ……
+vim.keymap.set('n', '<Leader>c', '<Cmd>Ddu command<CR>')
 
 local ddu_group_id = vim.api.nvim_create_augroup('DduMyCnf', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {

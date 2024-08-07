@@ -684,6 +684,7 @@ vim.api.nvim_create_autocmd('User', {
       immediatelyCancel = false,
       showCandidatesCount = 1,
       kanaTable = 'azik',
+      setUndoPoint = false,
       globalDictionaries = require('xecua.utils').get_local_config().skkeleton_dictionaries,
       databasePath = vim.fn.stdpath('cache') .. '/skkeleton.db',
       sources = { 'deno_kv', 'skk_dictionary' },

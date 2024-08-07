@@ -14,26 +14,18 @@ config.color_scheme = "Molokai"
 config.tab_bar_at_bottom = true
 config.scrollback_lines = 8192
 config.native_macos_fullscreen_mode = true
-config.use_fancy_tab_bar = false
-config.leader = { key = 'q', mods = 'CTRL' }
+config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
+config.status_update_interval = 10 * 1000
 config.keys = {
-  { key = 'Enter', mods = 'CMD',         action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
-  { key = '-',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
-  { key = '_',     mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment },
-  { key = '=',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
-  { key = '+',     mods = 'CTRL|SHIFT',  action = wezterm.action.DisableDefaultAssignment },
-  { key = '0',     mods = 'CTRL',        action = wezterm.action.DisableDefaultAssignment },
-  { key = 'q',     mods = 'LEADER|CTRL', action = wezterm.action.SendKey(config.leader) },
-  { key = '|',     mods = 'LEADER',      action = wezterm.action.SplitHorizontal },
-  { key = '-',     mods = 'LEADER',      action = wezterm.action.SplitVertical },
-  { key = 'c',     mods = 'LEADER',      action = wezterm.action.SpawnTab('CurrentPaneDomain') },
-  { key = 'd',     mods = 'LEADER',      action = wezterm.action.DetachDomain('CurrentPaneDomain') },
-  { key = 'n',     mods = 'LEADER',      action = wezterm.action.ActivateTabRelative(1) },
-  { key = 'p',     mods = 'LEADER',      action = wezterm.action.ActivateTabRelative(-1) },
+  { key = 'Enter', mods = 'CMD',        action = wezterm.action.ToggleFullScreen }, -- would work only for macOS
+  { key = '-',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
+  { key = '_',     mods = 'CTRL|SHIFT', action = wezterm.action.DisableDefaultAssignment },
+  { key = '=',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
+  { key = '+',     mods = 'CTRL|SHIFT', action = wezterm.action.DisableDefaultAssignment },
+  { key = '0',     mods = 'CTRL',       action = wezterm.action.DisableDefaultAssignment },
 }
 
 if utils.get_os() == "Darwin" then
-  config.window_decorations = "RESIZE"
   -- fullscreen on startup (on macOS)
   wezterm.on('gui-startup', function(cmd)
     local _, _, window = wezterm.mux.spawn_window(cmd or {})
@@ -41,23 +33,36 @@ if utils.get_os() == "Darwin" then
   end)
 end
 
-local function add_space(txt)
-  return ' ' .. txt .. ' '
+local function icon(name)
+  return '　' .. wezterm.nerdfonts[name] .. '　'
 end
 
--- config.status_update_interval = 10 * 1000
-wezterm.on('update-right-status', function(window, _pane)
-  local _, w, _ = wezterm.run_child_process({'w'})
-  local las = w:match('load averages?: ([0-9,. ]+)')
-  local la = add_space('LA: ' .. string.gsub(las, ',', ''))
-  local date = add_space(wezterm.strftime('%Y-%m-%d %H:%M:%S'))
-  local separator = wezterm.nerdfonts.pl_right_soft_divider
-  window:set_right_status(wezterm.format({
-    { Text = la .. separator .. date }
-  }))
+wezterm.on('update-right-status', function(window, pane)
+  local text = ''
+
+  local _, w, _ = wezterm.run_child_process({ 'w' })
+  text = text .. icon('md_speedometer') .. string.gsub(w:match('load averages?: ([0-9,. ]+)'), ',', '')
+
+  local batteries = ''
+  for _, b in ipairs(wezterm.battery_info()) do
+    local bi = b.state == 'Full' and icon('md_battery_full')
+        or b.state == 'Charging' and icon('md_battery_charging')
+        or b.state == 'Empty' and icon('md_battery_outline')
+        or b.state == 'Discharging' and icon('md_battery' .. (math.floor(b.state_of_charge * 10) * 10))
+        or ''
+    if bi ~= '' then
+      batteries = batteries .. bi .. string.format('%.0f%%', b.state_of_charge * 100)
+    end
+  end
+  text = text .. batteries
+
+  text = text .. icon('md_calendar') .. wezterm.strftime('%Y-%m-%d (%W)')
+  text = text .. icon('md_clock') .. wezterm.strftime('%H:%M:%S')
+
+  window:set_right_status(
+    wezterm.format({ { Text = text .. '　' } })
+  )
 end)
-
-
 
 local ok, local_config = pcall(require, 'local')
 if ok then

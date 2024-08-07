@@ -46,8 +46,8 @@ repo = 'previm/previm'
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
 lua_add = """--"
-vim.keymap.set('n', '<Leader>cr', '<Cmd>CellularAutomaton make_it_rain<CR>')
-vim.keymap.set('n', '<Leader>cl', '<Cmd>CellularAutomaton game_of_life<CR>')
+vim.keymap.set('n', '<Leader>mr', '<Cmd>CellularAutomaton make_it_rain<CR>')
+vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
 """
 
 [[plugins]]
@@ -611,7 +611,7 @@ colorscheme molokai
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip'
 hook_add = """
-let g:snip_snippet_dir = stdpath('config') .. '/mysnippets'
+let g:vsnip_snippet_dir = stdpath('config') .. '/mysnippets'
 """
 
 [[plugins]]

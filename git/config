@@ -47,6 +47,8 @@
 	std = stash drop
 	bl = blame
 	cp = cherry-pick
+	cpa = cherry-pick --abort
+	cpc = cherry-pick --continue
 	cf = cat-file -p
 	cbcopy = !printf "$1" | cbcopy
 [pretty]
