@@ -1,14 +1,24 @@
 local M = {}
 local wezterm = require('wezterm')
 
-function M.get_os()
-  if wezterm.target_triple:find("linux") ~= nil then
-    return "Linux"
-  elseif wezterm.target_triple:find("darwin") ~= nil then
-    return "Darwin"
-  elseif wezterm.target_triple:find("windows") ~= nil then
-    return "Windows"
+function M.split(s, sep)
+  local fields = {}
+  sep = sep or ''
+  local pattern = string.format('([^%s]+)', sep)
+  string.gsub(s, pattern, function(c)
+    fields[#fields + 1] = c
+  end)
+
+  return fields
+end
+
+function M.join(t, sep)
+  local s = ''
+  sep = sep or ''
+  for i, v in ipairs(t) do
+    s = s .. v .. (i == #t and '' or sep)
   end
+  return s
 end
 
 return M
