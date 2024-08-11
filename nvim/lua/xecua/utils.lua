@@ -33,6 +33,7 @@ function M.get_local_config()
     skkdict_path .. '/SKK-JISYO.L',
     skkdict_path .. '/SKK-JISYO.jinmei',
     skkdict_path .. '/SKK-JISYO.geo',
+    skkdict_path .. '/SKK-JISYO.law',
     skkdict_path .. '/SKK-JISYO.station',
     skkdict_path .. '/SKK-JISYO.propernoun',
     skkdict_path .. '/SKK-JISYO.itaiji',

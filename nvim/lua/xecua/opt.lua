@@ -21,6 +21,7 @@ vim.opt.diffopt:append({ 'indent-heuristic', 'algorithm:histogram' })
 vim.opt.foldopen:remove({ 'search' })
 vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 2
+vim.opt.title = true
 
 vim.opt.expandtab = true  -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1  -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
