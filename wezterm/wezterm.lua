@@ -32,7 +32,7 @@ config.keys = {
   { key = '0', mods = 'CTRL', action = wezterm.action.DisableDefaultAssignment },
 }
 
-if utils.get_os() == 'Darwin' then
+if wezterm.GLOBAL.os == 'Darwin' then
   -- fullscreen on startup (on macOS)
   wezterm.on('gui-startup', function(cmd)
     local _, _, window = wezterm.mux.spawn_window(cmd or {})
