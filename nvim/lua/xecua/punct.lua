@@ -11,10 +11,10 @@ vim.api.nvim_create_user_command('PunctSubEnable', function()
 end, {})
 vim.api.nvim_create_user_command('PunctSubDisable', function()
   for _, autocmd in
-  pairs(vim.api.nvim_get_autocmds({
-    group = punct_sub_augroup_id,
-    buffer = 0,
-  }))
+    pairs(vim.api.nvim_get_autocmds({
+      group = punct_sub_augroup_id,
+      buffer = 0,
+    }))
   do
     vim.api.nvim_del_autocmd(autocmd.id)
   end

@@ -2,6 +2,7 @@
 vim.g.copilot_filetypes = {
   ['*'] = true,
   ['dap-repl'] = false,
+  markdown = false,
   dapui_watches = false,
   dapui_scopes = false,
   dapui_console = false,

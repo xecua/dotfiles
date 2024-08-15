@@ -13,16 +13,13 @@ local function shiftwidth()
 end
 
 local function ddu()
-  if vim.o.ft:find("^ddu") == nil then
-    return ""
+  if vim.o.ft:find('^ddu') == nil then
+    return ''
   end
 
   local status = vim.w.ddu_ui_ff_status -- { name = "default", input = "aaa", done = true, maxItems = 30 }
 
-  return string.format(
-    "[%s-%s] %d/%d",
-    vim.o.ft, status.name, vim.fn.line('$'), status.maxItems
-  )
+  return string.format('[%s-%s] %d/%d', vim.o.ft, status.name, vim.fn.line('$'), status.maxItems)
 end
 
 require('lualine').setup({

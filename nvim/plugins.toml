@@ -198,8 +198,8 @@ vim.keymap.set('n', '<Leader>o', '<Cmd>SymbolsOutline<CR>')
 """
 lua_post_source = """--"
 require('symbols-outline').setup({
-    auto_preview = true,
-    autofold_depth = 1
+  auto_preview = true,
+  autofold_depth = 1
 })
 """
 
@@ -212,8 +212,8 @@ depends = ['nvim-lspconfig']
 repo = 'pmizio/typescript-tools.nvim'
 lua_post_source = """--"
 require("typescript-tools").setup({
-    root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
-    single_file_support = false
+  root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
+  single_file_support = false
 })
 """
 
@@ -285,7 +285,7 @@ repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
 lua_post_source = """--"
 vim.g.signature_help_config = {
-    contentsStyle = "currentLabel"
+  contentsStyle = "currentLabel"
 }
 vim.fn['signature_help#enable']()
 """
@@ -302,11 +302,11 @@ repo = 'delphinus/skkeleton_indicator.nvim'
 rev = 'v2'
 lua_post_source = """--"
 require('skkeleton_indicator').setup({
-    eijiText = "a",
-    hiraText = "あ",
-    kataText = "ア",
-    hankataText = "ｱ",
-    zenkakuText = "Ａ"
+  eijiText = "a",
+  hiraText = "あ",
+  kataText = "ア",
+  hankataText = "ｱ",
+  zenkakuText = "Ａ"
 })
 """
 
@@ -719,17 +719,6 @@ repo = 'ymyzk/vim-copl'
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
-lua_add = """--"
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'csv', 'tsv' },
-  callback = function()
-    vim.keymap.set('n', '<C-Down>', '<Cmd>RainbowCellGoDown<CR>', { buffer = true })
-    vim.keymap.set('n', '<C-Up>', '<Cmd>RainbowCellGoUp<CR>', { buffer = true })
-    vim.keymap.set('n', '<C-Right>', '<Cmd>RainbowCellGoRight<CR>', { buffer = true })
-    vim.keymap.set('n', '<C-Left>', '<Cmd>RainbowCellGoLeft<CR>', { buffer = true })
-  end,
-})
-"""
 
 ## Firestore Security Rule
 [[plugins]]

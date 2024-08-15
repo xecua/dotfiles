@@ -19,7 +19,7 @@ config.font = wezterm.font_with_fallback({
 })
 config.color_scheme = 'Molokai'
 config.tab_bar_at_bottom = true
-config.scrollback_lines = 8192
+config.scrollback_lines = 16384
 config.native_macos_fullscreen_mode = true
 config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
 config.status_update_interval = 10 * 1000

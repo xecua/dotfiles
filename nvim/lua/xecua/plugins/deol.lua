@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'i', '<Plug>(deol_start_insert)', { buffer = true })
     vim.keymap.set('n', 'A', '<Plug>(deol_start_append_last)', { buffer = true })
     vim.keymap.set('n', 'I', '<Plug>(deol_start_insert_first)', { buffer = true })
-  end
+  end,
 })
 
 vim.keymap.set('n', '<Leader>p', function()
@@ -19,7 +19,7 @@ vim.keymap.set('n', '<Leader>p', function()
     winheight = math.floor(vim.o.lines * 8 / 9),
     toggle = true,
     split = 'floating',
-    floating_border = 'single'
+    floating_border = 'single',
   })
 end)
 -- }}}
