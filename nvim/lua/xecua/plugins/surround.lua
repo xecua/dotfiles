@@ -1,9 +1,28 @@
 -- lua_add {{{
 vim.g['operator#surround#blocks'] = {
   ['-'] = {
-    { block = { '（', '）' }, motionwise = { 'char', 'line', 'block' }, keys = { 'P' } }, -- parenthesis. 全角だと入力しにくいので
-    { block = { '「', '」' }, motionwise = { 'char', 'line', 'block' }, keys = { 'B' } }, -- blackets.
-    { block = { '『', '』' }, motionwise = { 'char', 'line', 'block' }, keys = { 'D' } }, -- double blackets.
+    -- なんか知らんが効かん
+    { block = { '（', '）' }, motionwise = { 'char', 'line', 'block' }, keys = { 'fP' } },
+    { block = { '「', '」' }, motionwise = { 'char', 'line', 'block' }, keys = { 'fB' } },
+    { block = { '『', '』' }, motionwise = { 'char', 'line', 'block' }, keys = { 'fD' } },
+  },
+  javascript = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
+  },
+  typescript = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
+  },
+  javascriptreact = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
+  },
+  typescriptreact = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
+  },
+  astro = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
+  },
+  vue = {
+    { block = { '/', '/' }, motionwise = { 'char', 'line', 'block' }, keys = { '/' } },
   },
 }
 

@@ -6,10 +6,8 @@ vim.api.nvim_create_autocmd(
 )
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  callback = function()
-    vim.opt_local.tabstop = 2
-  end,
   pattern = {
+    'astro',
     'c',
     'cpp',
     'dart',
@@ -17,6 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'css',
     'html',
     'javascript',
+    'javascriptreact',
     'typescript',
     'typescriptreact',
     'json',
@@ -30,6 +29,27 @@ vim.api.nvim_create_autocmd('FileType', {
     'xml',
     'yaml',
   },
+  callback = function()
+    vim.opt_local.tabstop = 2
+  end,
+})
+vim.api.nvim_create_autocmd('FileType', {
+  group = init_augroup_id,
+  pattern = {
+    'astro',
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'vue',
+  },
+  callback = function()
+    -- regex string as text object
+    vim.keymap.set('o', 'i/', '<Cmd>normal! T/vt/<CR>')
+    vim.keymap.set('o', 'a/', '<Cmd>normal! F/vf/<CR>')
+    vim.keymap.set('v', 'i/', '<Cmd>normal! T/ot/<CR>')
+    vim.keymap.set('v', 'a/', '<Cmd>normal! F/of/<CR>')
+  end,
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
