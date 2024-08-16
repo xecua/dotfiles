@@ -1,7 +1,7 @@
 -- lua_add {{{
-vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
+-- vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 
-vim.api.nvim_create_user_command('DduRg', function()
+vim.api.nvim_create_user_command('DduRgLive', function()
   vim.fn['ddu#start']({
     sources = { { name = 'rg', options = { volatile = true, matchers = {} } } },
     uiParams = { ff = { ignoreEmpty = false } },
@@ -21,7 +21,7 @@ vim.api.nvim_create_user_command('DduLspWorkspaceSymbol', function()
 end, {})
 vim.keymap.set('n', '<Leader>fd', '<Cmd>Ddu file_fd<CR>')
 vim.keymap.set('n', '<Leader>fb', '<Cmd>Ddu buffer<CR>')
-vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRg<CR>')
+vim.keymap.set('n', '<Leader>fg', '<Cmd>DduRgLive<CR>')
 vim.keymap.set('n', '<Leader>fls', '<Cmd>DduLspDocumentSymbol<CR>')
 vim.keymap.set('n', '<Leader>flw', '<Cmd>DduLspWorkspaceSymbol<CR>')
 vim.keymap.set('n', '<Leader>c', '<Cmd>Ddu command<CR>')
@@ -35,132 +35,53 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<CR>', "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
     vim.keymap.set('n', 'a', "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
     vim.keymap.set('n', '/', "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
-    vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
+    vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('togglePreview')<CR>", opts)
     vim.keymap.set('n', ',', "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
     vim.keymap.set('n', 't', "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
     vim.keymap.set('n', 'f', "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'quickfix' })<CR>", opts)
     vim.keymap.set('n', 'q', "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
-    vim.keymap.set('n', 'e', "<Cmd>call ddu#ui#do_action('edit')<CR>", opts)
+
+    -- ↓2つはmatcherが高々2つであることを仮定してる
+    local converter_display_word = 'converter_display_word'
+    local matcher_fzf = 'matcher_fzf'
+    local matcher_substring = 'matcher_substring'
     vim.keymap.set('n', 'w', function()
-      -- toggle converter_display_word
-      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
-      local converters = current
-          and current['sourceOptions']
-          and current['sourceOptions']['_']
-          and current['sourceOptions']['_']['converters']
-        or {}
-      if #converters == 0 then
-        vim.fn['ddu#ui#do_action'](
-          'updateOptions',
-          { sourceOptions = { _ = { converters = { 'converter_display_word' } } } }
-        )
-        vim.notify('Display word included.')
-      else
-        vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { converters = {} } } })
+      local matchers = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)['sourceOptions']['_']['matchers']
+
+      if matchers[1] == converter_display_word then
+        table.remove(matchers, 1)
         vim.notify('Display word excluded.')
+      else
+        table.insert(matchers, 1, converter_display_word)
+        vim.notify('Display word included.')
       end
+
+      vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { matchers = matchers } } })
+      vim.fn['ddu#ui#do_action']('redraw', { method = 'refreshItems' })
     end, opts)
     vim.keymap.set('n', 's', function()
       -- toggle fuzzy/substring search
-      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
-      local options = current and current['sourceOptions'] and current['sourceOptions']['_'] or {}
-      local sorters = options['sorters'] or {}
-      if #sorters == 0 then
-        vim.fn['ddu#ui#do_action']('updateOptions', {
-          sourceOptions = {
-            _ = { sorters = { 'sorter_fzf' }, matchers = { 'matcher_fzf' } },
-          },
-        })
-        vim.notify('Search mode switched to Fuzzy.')
+      local matchers = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)['sourceOptions']['_']['matchers']
+
+      local idx = matchers[1] == converter_display_word and 2 or 1
+      if matchers[idx] == matcher_substring then
+        matchers[idx] = matcher_fzf
+        vim.notify('Search mode switched to fuzzy.')
       else
-        vim.fn['ddu#ui#do_action']('updateOptions', {
-          sourceOptions = {
-            _ = { sorters = {}, matchers = { 'matcher_substring' } },
-          },
-        })
-        vim.notify('Search Mode switched to Substring.')
+        matchers[idx] = matcher_substring
+        vim.notify('Search mode switched to substring.')
       end
+      vim.fn['ddu#ui#do_action']('updateOptions', { sourceOptions = { _ = { matchers = matchers } } })
+      vim.fn['ddu#ui#do_action']('redraw', { method = 'refreshItems' })
     end, opts)
   end,
 })
 
--- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
-vim.api.nvim_create_user_command('DduFiler', function()
-  vim.fn['ddu#start']({
-    ui = 'filer',
-    sources = {
-      {
-        name = 'file',
-        params = {},
-        options = {
-          columns = { 'icon_filename' },
-        },
-      },
-    },
-    actionOptions = {
-      narrow = { quit = false },
-    },
-  })
-end, {})
-
-vim.api.nvim_create_autocmd('FileType', {
-  group = ddu_group_id,
-  pattern = 'ddu-filer',
-  callback = function()
-    local opts = { buffer = true, silent = true }
-    local opts_with_desc = function(desc)
-      return { buffer = true, silent = true, desc = 'ddu-filer: ' .. desc }
-    end
-
-    vim.keymap.set('n', '<CR>', function()
-      if vim.fn['ddu#ui#get_item']()['isTree'] == true then
-        vim.fn['ddu#ui#do_action']('itemAction', { name = 'narrow' })
-      else
-        vim.fn['ddu#ui#do_action']('itemAction', { name = 'open' })
-      end
-    end, opts_with_desc('Narrow(tree), Open(file)'))
-    vim.keymap.set('n', '<BS>', function()
-      vim.fn['ddu#ui#do_action']('itemAction', { name = 'narrow', params = { path = '..' } })
-    end, opts_with_desc('Narrow'))
-    vim.keymap.set('n', 'a', "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
-    vim.keymap.set('n', 'q', "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
-    vim.keymap.set('n', 'l', "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
-    vim.keymap.set('n', 'h', "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
-    vim.keymap.set('n', 'o', "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>", opts)
-    vim.keymap.set('n', 'n', "<Cmd>call ddu#ui#do_action('newFile')<CR>", opts)
-    vim.keymap.set('n', 'r', "<Cmd>call ddu#ui#do_action('rename')<CR>", opts)
-    vim.keymap.set('n', 'y', "<Cmd>call ddu#ui#do_action('copy')<CR>", opts)
-    vim.keymap.set('n', 'm', "<Cmd>call ddu#ui#do_action('move')<CR>", opts)
-    vim.keymap.set('n', 'p', "<Cmd>call ddu#ui#do_action('paste')<CR>", opts)
-    vim.keymap.set('n', '<Space>', "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
-    -- toggle hidden files
-    vim.keymap.set('n', '!', function()
-      local current = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
-      local matchers = current
-          and current['sourceOptions']
-          and current['sourceOptions']['_']
-          and current['sourceOptions']['_']['matchers']
-        or {}
-      local new_matchers = (#matchers == 0) and { 'matcher_hidden' } or {}
-      vim.fn['ddu#ui#do_action']('updateOptions', {
-        sourceOptions = {
-          _ = {
-            matchers = new_matchers,
-          },
-        },
-      })
-    end, opts_with_desc('Toggle hidden files'))
-  end,
-})
 -- }}}
+
 -- lua_post_source {{{
 vim.fn['ddu#custom#patch_global']({
   ui = 'ff',
-  uiOptions = {
-    filer = {
-      toggle = true,
-    },
-  },
   uiParams = {
     ff = {
       previewWidth = 80,
@@ -168,11 +89,6 @@ vim.fn['ddu#custom#patch_global']({
       startAutoAction = true,
       statusline = false,
       autoAction = { name = 'preview', sync = false },
-    },
-    filer = {
-      winWidth = vim.o.columns / 6,
-      split = 'vertical',
-      splitDirection = 'topleft',
     },
   },
   sources = { { name = 'file_fd' } },
@@ -182,7 +98,6 @@ vim.fn['ddu#custom#patch_global']({
   sourceOptions = {
     _ = { matchers = { 'matcher_fzf' }, sorters = { 'sorter_fzf' } },
     source = { defaultAction = 'execute' },
-    rg = { sorters = { 'sorter_alpha' } },
     lsp_documentSymbol = { converters = { 'converter_lsp_symbol' } },
     lsp_workspaceSymbol = { converters = { 'converter_lsp_symbol' } },
   },

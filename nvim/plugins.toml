@@ -79,7 +79,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/submode.lua'
 # task runner
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-build = 'make'
+extAttrs = { installerBuild = 'make' }
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -110,7 +110,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
 lua_add = """--"
-vim.notify = require('notify')
+local notify = require('notify')
+notify.setup({})
+vim.notify = notify
 """
 
 ## dependency
@@ -164,19 +166,15 @@ depends = ['nvim-lspconfig', 'mason.nvim']
 repo = 'tamago324/nlsp-settings.nvim'
 lua_post_source = """--"
 require('nlspsettings').setup({
-  config_home = vim.fn.stdpath('config') .. '/nlsp-settings',
-  local_settings_dir = '.nlsp-settings',
-  local_settings_root_markers_fallback = { '.git' },
   append_default_schemas = true,
-  loader = 'json',
-  nvim_notify = {
-    enable = true,
-  },
+  nvim_notify = { enable = true },
 })
 """
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
+lazy = true
+on_lua = 'jdtls'
 
 ## DAP
 [[plugins]]
@@ -206,6 +204,8 @@ require('symbols-outline').setup({
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
 depends = ['nvim-lspconfig']
+on_lua = 'nvim-navic'
+lazy = true
 
 ## tsserver integration
 [[plugins]]
@@ -372,10 +372,6 @@ depends = ['denops.vim', 'ddu.vim']
 repo = 'Shougo/ddu-ui-ff'
 depends = ['denops.vim', 'ddu.vim']
 
-[[plugins]]
-repo = 'Shougo/ddu-ui-filer'
-depends = ['denops.vim', 'ddu.vim']
-
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
@@ -442,6 +438,9 @@ depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'kyoh86/ddu-source-command'
+lua_add = """--"
+vim.cmd[[language message en_US.UTF-8]]
+"""
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
@@ -719,6 +718,7 @@ repo = 'ymyzk/vim-copl'
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/rainbow_csv.lua'
 
 ## Firestore Security Rule
 [[plugins]]

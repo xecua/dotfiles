@@ -62,10 +62,10 @@ wezterm.on('update-right-status', function(window, pane)
   local batteries = ''
   for _, b in ipairs(wezterm.battery_info()) do
     local bi = ''
-    if b.state == 'Charing' then
+    if b.state == 'Charging' then
       bi = b.state_of_charge < 0.1 and icon('md_battery_charging_outline')
         or icon('md_battery_charging_' .. (math.floor(b.state_of_charge * 10) * 10))
-    elseif b.state ~= 'Unkown' then
+    elseif b.state ~= 'Unknown' then
       bi = b.state_of_charge == 1 and icon('md_battery')
         or b.state_of_charge < 0.1 and icon('md_battery_outline')
         or icon('md_battery_' .. (math.floor(b.state_of_charge * 10) * 10))
