@@ -67,6 +67,7 @@ PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH" # unversioned python installe
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$XDG_CONFIG_HOME/rofi/bin:$PATH" # scripts from https://github.com/adi1090x/rofi (v1.7)
 PATH="$XDG_CONFIG_HOME/rofi/scripts:$PATH" # scripts from https://github.com/adi1090x/rofi (master)
+PATH="$HOME/.dotnet/tools:$PATH"
 
 # set by command
 if command -v ruby >/dev/null; then

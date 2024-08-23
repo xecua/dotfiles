@@ -16,7 +16,7 @@ vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = '1'
 vim.opt.switchbuf = { 'useopen', 'split' }
 vim.opt.laststatus = 3
-vim.opt.formatoptions = 'jonqr'
+vim.opt.formatoptions = 'jonqrB'
 vim.opt.diffopt:append({ 'indent-heuristic', 'algorithm:histogram' })
 vim.opt.foldopen:remove({ 'search' })
 vim.opt.scrolloff = 2

@@ -1,7 +1,7 @@
 -- lua_add {{{
 vim.keymap.set('i', '<Tab>', function()
-  if vim.fn['vsnip#jumpable'](1) == 1 then
-    return '<Plug>(vsnip-jump-next)'
+  if vim.fn['denippet#jumpable'](1) then
+    return '<Plug>(denippet-jump-next)'
   elseif vim.fn['pum#visible']() then
     return '<Cmd>call pum#map#insert_relative(1)<CR>'
   end
@@ -16,8 +16,8 @@ end, {
   desc = 'Select next entry or start completion. At the head of line, feed <tab>',
 })
 vim.keymap.set('i', '<S-Tab>', function()
-  if vim.fn['vsnip#jumpable'](-1) == 1 then
-    return '<Plug>(vsnip-jump-prev)'
+  if vim.fn['denippet#jumpable'](-1) then
+    return '<Plug>(denippet-jump-prev)'
   elseif vim.fn['pum#visible']() then
     return '<Cmd>call pum#map#insert_relative(-1)<CR>'
   end
@@ -55,7 +55,7 @@ vim.fn['ddc#custom#patch_global']('sources', {
   'file',
   'skkeleton',
   'around',
-  'vsnip',
+  'denippet',
 })
 vim.fn['ddc#custom#patch_global']({
   sourceOptions = {
@@ -70,7 +70,7 @@ vim.fn['ddc#custom#patch_global']({
       sorters = { 'sorter_fuzzy' },
       converters = { 'converter_fuzzy' },
     },
-    vsnip = {
+    denippet = {
       mark = 'snip',
       dup = 'keep',
     },
@@ -99,7 +99,7 @@ vim.fn['ddc#custom#patch_global']({
   sourceParams = {
     lsp = {
       snippetEngine = vim.fn['denops#callback#register'](function(body)
-        vim.fn['vsnip#anonymous'](body)
+        vim.fn['denippet#anonymous'](body)
       end),
       enableResolveItem = true,
       enableAdditionalTextEdit = true,

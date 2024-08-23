@@ -51,6 +51,10 @@ if status is-interactive
     alias lg=lazygit
   end
 
+  if type -q lazysql
+    alias lq=lazysql
+  end
+
   if type -q pbcopy
     alias cbcopy='pbcopy'
     alias cbpaste='pbpaste'

@@ -1,5 +1,5 @@
 local dpp_base_dir = vim.fn.stdpath('cache') .. '/dpp'
-local dpp_config_path = vim.fn.stdpath('config') .. '/typescript/dpp.ts'
+local dpp_config_path = vim.fn.stdpath('config') .. '/dpp.ts'
 local dpp_augroup = vim.api.nvim_create_augroup('DppConfig', { clear = true })
 
 local function add_plugin(plugin_name)

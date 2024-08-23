@@ -3,8 +3,8 @@ import {
   ConfigArguments,
   ConfigReturn,
   Plugin,
-} from "https://deno.land/x/dpp_vim@v0.3.0/types.ts";
-import { existsSync } from "jsr:@std/fs@0.229.3";
+} from "jsr:@shougo/dpp-vim@2.3.0/types";
+import { existsSync } from "jsr:@std/fs@1.0.1";
 
 type TomlLoadResult = {
   hooks_file?: string;

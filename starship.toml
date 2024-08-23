@@ -18,19 +18,10 @@ disabled = true
 fish_style_pwd_dir_length = 1
 
 [time]
-disabled = false
-format = "🕙[$time]($style) "
-time_format = "%R"
+disabled = true
 
 [battery]
-discharging_symbol = '󰂃 '
-charging_symbol = '󰂄 '
-unknown_symbol = '󰁽 '
-empty_symbol = '󰂎 '
-
-[[battery.display]]
-threshold = 100
-style = "bold green"
+disabled = true
 
 [hg_branch]
 disabled = false
