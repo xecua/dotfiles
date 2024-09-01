@@ -69,15 +69,10 @@ make_symlink(config_home / 'tmux' / 'tmux.conf',
              script_dir / 'tmux' / 'tmux.conf')
 make_symlink(config_home / 'wezterm')
 
-make_symlink(config_home / 'ranger' / 'rc.conf',
-             script_dir / 'ranger' / 'rc.conf')
-make_symlink(config_home / 'ranger' / 'rifle.conf',
-             script_dir / 'ranger' / 'rifle.conf')
-
 make_symlink(config_home / 'alacritty')
-if not (home / '.alacritty.local.toml').exists():
+if not (alacritty_local_config := home / '.alacritty.local.toml').exists():
     # create
-    (home / '.alacritty.local.toml').touch()
+    alacritty_local_config.touch()
 
 # Linux only
 make_symlink(config_home / 'xremap')
@@ -86,7 +81,7 @@ make_symlink(config_home / 'fontconfig')
 make_symlink(config_home / 'zathura')
 make_symlink(config_home / 'libskk' / 'rules',
              script_dir / 'skk' / 'libskk' / 'rules')
-make_symlink(config_home / 'libcskk' / 'rules',
+make_symlink(data_home / 'libcskk' / 'rules',
              script_dir / 'skk' / 'libcskk' / 'rules')
 
 for p in (script_dir / 'systemd' / 'user').iterdir():

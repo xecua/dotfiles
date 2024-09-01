@@ -610,7 +610,7 @@ lua_post_source = """--"
 for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.*', true, true)) do
     vim.fn['denippet#load'](snip)
 end
-for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '*.*', true, true)) do
+for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
     vim.fn['denippet#load'](snip)
 end
 """

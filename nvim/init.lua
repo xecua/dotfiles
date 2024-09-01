@@ -4,7 +4,7 @@ require('xecua.opt')
 require('xecua.var')
 require('xecua.map')
 require('xecua.autocmd')
-require('xecua.local')
+pcall(require, 'xecua.local') -- ないならないで
 
 vim.cmd('runtime! ftplugin/man.vim')
 -- fzf.vim (when fzf was installed with Homebrew)
@@ -20,6 +20,20 @@ vim.api.nvim_create_user_command(
 )
 
 if vim.g.neovide ~= nil then
+  vim.g.neovide_input_ime = false
+  vim.g.neovide_scale_factor = 1.0
+  local function change_scale_factor(delta)
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+  end
+  vim.keymap.set('n', '<C-0>', function()
+    change_scale_factor(1 / vim.g.neovide_scale_factor)
+  end)
+  vim.keymap.set('n', '<C-+>', function()
+    change_scale_factor(1.25)
+  end)
+  vim.keymap.set('n', '<C-=>', function()
+    change_scale_factor(1 / 1.25)
+  end)
   vim.api.nvim_create_user_command('NeovideToggleFullscreen', function()
     vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen
   end, {})

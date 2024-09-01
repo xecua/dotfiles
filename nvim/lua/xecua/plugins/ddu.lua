@@ -76,6 +76,25 @@ vim.api.nvim_create_autocmd('FileType', {
     end, opts)
   end,
 })
+-- vim.api.nvim_create_autocmd('VimResized', {
+--   group = ddu_group_id,
+--   callback = function()
+--     vim.fn['ddu#custom#patch_global']({
+--       uiParams = {
+--         ff = {
+--           winCol = vim.o.columns / 4,
+--           winRow = vim.o.lines / 8,
+--           winWidth = vim.o.columns / 2,
+--           winHeight = math.floor(vim.o.lines / 2) - 2,
+--           previewCol = vim.o.columns / 4,
+--           previewRow = vim.o.lines * 3 / 4 + 1,
+--           previewWidth = vim.o.columns / 2,
+--           previewHeight = math.floor(vim.o.lines / 8),
+--         },
+--       },
+--     })
+--   end,
+-- })
 
 -- }}}
 
@@ -86,6 +105,18 @@ vim.fn['ddu#custom#patch_global']({
     ff = {
       previewWidth = 80,
       previewSplit = 'vertical',
+      -- split = 'floating',
+      -- floatingBorder = 'rounded',
+      -- previewFloating = true,
+      -- previewFloatingBorder = 'rounded',
+      -- winCol = vim.o.columns / 4,
+      -- winRow = vim.o.lines / 8,
+      -- winWidth = vim.o.columns / 2,
+      -- winHeight = math.floor(vim.o.lines / 2) - 2,
+      -- previewCol = vim.o.columns / 4,
+      -- previewRow = vim.o.lines * 3 / 4 + 1,
+      -- previewWidth = vim.o.columns / 2,
+      -- previewHeight = math.floor(vim.o.lines / 8),
       startAutoAction = true,
       statusline = false,
       autoAction = { name = 'preview', sync = false },

@@ -1,6 +1,7 @@
 -- lua_add {{{
 vim.g.submode_timeout = false
 vim.g.submode_always_show_submode = true
+vim.g.submode_keep_leaving_key = true
 -- }}}
 
 -- lua_post_source {{{
