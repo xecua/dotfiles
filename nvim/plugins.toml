@@ -204,8 +204,6 @@ require('symbols-outline').setup({
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
 depends = ['nvim-lspconfig']
-on_lua = 'nvim-navic'
-lazy = true
 
 ## tsserver integration
 [[plugins]]
@@ -584,14 +582,6 @@ let g:readme_viewer#plugin_manager = 'dpp.vim'
 # ペースト時にpasteモードに
 [[plugins]]
 repo = 'ConradIrwin/vim-bracketed-paste'
-
-# show underscore for matching parenthesis
-[[plugins]]
-repo = 'itchyny/vim-parenmatch'
-hook_add = """
-" disable default settings
-let g:loaded_matchparen = 1
-"""
 
 [[plugins]]
 repo = 'alvan/vim-closetag'

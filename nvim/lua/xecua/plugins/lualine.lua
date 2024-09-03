@@ -68,7 +68,7 @@ require('lualine').setup({
   },
   winbar = {
     lualine_b = { { 'filename', path = 1, symbols = { readonly = '[readonly]' } } },
-    lualine_c = { 'navic' },
+    lualine_c = { { 'navic', navic_opts = { lazy_update_context = true } } },
     lualine_z = {
       {
         '""', -- 0xf00d (Font Awesome)
