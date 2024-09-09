@@ -110,3 +110,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = { '*' },
   command = [[hi! CurSearch cterm=reverse gui=reverse]],
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = init_augroup_id,
+  pattern = { 'dbui' },
+  command = 'setl number',
+})

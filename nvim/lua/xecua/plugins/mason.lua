@@ -17,7 +17,7 @@ mason_lspconfig.setup({
     'pyright',
     'rust_analyzer',
     'clangd',
-    'tsserver',
+    'ts_ls',
     'vimls',
     'html',
     'efm',
@@ -44,7 +44,7 @@ lspconfig.denols.setup({
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    local ignore_servers = List({ 'jdtls', 'rust_analyzer', 'tsserver' })
+    local ignore_servers = List({ 'jdtls', 'rust_analyzer', 'ts_ls' })
     if not ignore_servers:contains(server_name) then
       lspconfig[server_name].setup({})
     end
