@@ -68,6 +68,12 @@ if require('xecua.utils').get_local_config().obsidian_dir == vim.fn.getcwd() the
     },
     disable_frontmatter = true,
   })
+
+  vim.keymap.set('n', '<Leader>bt', '<Cmd>ObsidianToday<CR>')
+  vim.keymap.set('n', '<Leader>bm', '<Cmd>ObsidianTomorrow<CR>')
+  vim.keymap.set('n', '<Leader>by', '<Cmd>ObsidianYesterday<CR>')
+  vim.keymap.set('n', '<Leader>bs', '<Cmd>ObsidianQuickSwitch<CR>')
+  vim.keymap.set('n', '<Leader>bo', '<Cmd>ObsidianOpen<CR>')
 end
 """
 
@@ -334,6 +340,18 @@ depends = ['denops.vim', 'ddc.vim']
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
 depends = ['denops.vim', 'ddc.vim']
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline-history'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-line'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-input'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'

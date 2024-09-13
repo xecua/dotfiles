@@ -1,7 +1,6 @@
 -- autocommands
 local init_augroup_id = vim.api.nvim_create_augroup('Init', { clear = true })
-vim.api.nvim_create_autocmd(
-  { 'BufWritePre' },
+vim.api.nvim_create_autocmd('BufWritePre',
   { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = 'Remove redundant lines' }
 )
 vim.api.nvim_create_autocmd('FileType', {
@@ -67,7 +66,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  pattern = { 'snippets' },
+  pattern = 'snippets',
   callback = function()
     vim.opt_local.expandtab = false
     vim.opt_local.softtabstop = -1
@@ -77,7 +76,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  pattern = { 'tex' },
+  pattern = 'tex',
   callback = function()
     vim.opt_local.makeprg = 'latexmk'
   end,
@@ -89,7 +88,7 @@ vim.api.nvim_create_autocmd(
 if vim.fn.executable('pdftotext') == 1 then
   vim.api.nvim_create_autocmd({ 'BufRead' }, {
     group = init_augroup_id,
-    pattern = { '*.pdf' },
+    pattern = '*.pdf',
     command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
   })
 end
@@ -107,12 +106,24 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = init_augroup_id,
-  pattern = { '*' },
+  pattern = '*',
   command = [[hi! CurSearch cterm=reverse gui=reverse]],
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   group = init_augroup_id,
-  pattern = { 'dbui' },
+  pattern = 'dbui',
   command = 'setl number',
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  group = init_augroup_id,
+  pattern = '*',
+  callback = function()
+    local path = string.gsub(vim.fn.expand('%:p'), '^' .. vim.fn.expand('$HOME'), '~')
+    if path == '' then
+      path = vim.fn.getcwd()
+    end
+    vim.opt.titlestring = 'nvim: ' .. vim.fn.pathshorten(path)
+  end
 })
