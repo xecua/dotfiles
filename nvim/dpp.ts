@@ -1,10 +1,10 @@
+import { type Plugin } from "jsr:@shougo/dpp-vim@3.0.0/types";
 import {
   BaseConfig,
-  ConfigArguments,
-  ConfigReturn,
-  Plugin,
-} from "jsr:@shougo/dpp-vim@2.3.0/types";
-import { existsSync } from "jsr:@std/fs@1.0.1";
+  type ConfigArguments,
+  type ConfigReturn,
+} from "jsr:@shougo/dpp-vim@3.0.0/config";
+import { existsSync } from "jsr:@std/fs@1.0.3";
 
 type TomlLoadResult = {
   hooks_file?: string;

@@ -39,9 +39,9 @@ require('lualine').setup({
       -- arkav/lualine-lsp-progress
       ddu,
       'lsp_progress',
-      'diagnostics',
+      { 'navic', navic_opts = { lazy_update_context = true } }
     },
-    lualine_x = {},
+    lualine_x = { 'diagnostics', },
     lualine_y = { fileformat, shiftwidth, 'encoding', 'filetype' },
     lualine_z = { 'location' },
   },
@@ -68,7 +68,6 @@ require('lualine').setup({
   },
   winbar = {
     lualine_b = { { 'filename', path = 1, symbols = { readonly = '[readonly]' } } },
-    lualine_c = { { 'navic', navic_opts = { lazy_update_context = true } } },
     lualine_z = {
       {
         '""', -- 0xf00d (Font Awesome)
@@ -81,7 +80,6 @@ require('lualine').setup({
   inactive_winbar = {
     -- dduとかではdisableにしたい
     lualine_b = { { 'filename', path = 1, symbols = { readonly = '[readonly]' } } },
-    -- lualine_c = { "navic" },
     -- lualine_z = {
     --   {
     --     '""', -- 0xf00d (Font Awesome)
