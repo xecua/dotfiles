@@ -52,6 +52,7 @@ make_symlink(config_home / 'lazygit' / 'config.yml', script_dir / 'lazygit' / 'c
 make_symlink(config_home / 'fd')
 make_symlink(config_home / 'ripgrep')
 make_symlink(config_home / 'i3status-rust')
+make_symlink(config_home / 'zed')
 make_symlink(config_home / 'i3bar-river')
 make_symlink(config_home / 'dunst')
 make_symlink(config_home / 'sway')
