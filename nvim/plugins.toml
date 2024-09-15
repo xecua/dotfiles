@@ -140,6 +140,13 @@ on_if = "get(g:, 'use_copilot', v:false)"
 lazy = true
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
+[[plugins]]
+repo = 'codota/tabnine-nvim'
+on_if = "get(g:, 'use_tabnine', v:false)"
+lazy = true
+extAttrs = { installerBuild = './dl_binaries.sh' }
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tabnine.lua'
+
 # Database client
 [[plugins]]
 repo = 'tpope/vim-dadbod'
