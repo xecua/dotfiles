@@ -2,7 +2,7 @@
 require('tabnine').setup({
   accept_keymap = false,
   dismiss_keymap = false,
-  suggestion_color = { gui = '#555555', cterm = 8 }, -- same as copilot.vim
+  codelens_enabled = false,
   exclude_filetypes = {
     'dap-repl',
     'markdown',
@@ -10,6 +10,12 @@ require('tabnine').setup({
     'dapui_scopes',
     'dapui_console',
   },
+})
+
+-- copied from https://github.com/codota/tabnine-nvim/blob/master/lua/tabnine/auto_commands.lua#L24, which doesn't work because triggered by VimEnter/ColorScheme event
+vim.api.nvim_set_hl(0, require('tabnine.consts').tabnine_hl_group, {
+  fg = '#808080',
+  ctermfg = 244
 })
 
 vim.keymap.set('i', '<C-l>', function()

@@ -57,6 +57,8 @@ else
   vim.api.nvim_create_autocmd('VimEnter', {
     group = dpp_augroup,
     pattern = '*',
-    command = 'call dpp#util#_call_hook("post_source")',
+    callback = function()
+      vim.fn['dpp#util#_call_hook']('post_source')
+    end
   })
 end
