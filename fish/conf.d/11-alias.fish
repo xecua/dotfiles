@@ -56,11 +56,14 @@ if status is-interactive
   end
 
   if type -q pbcopy
-    alias cbcopy='pbcopy'
-    alias cbpaste='pbpaste'
+    alias cbcopy=pbcopy
+    alias cbpaste=pbpaste
   else if type -q xsel
     alias cbcopy='xsel -ib'
     alias cbpaste='xsel -ob'
+  else if type -q wl-copy
+    alias cbcopy=wl-copy
+    alias cbpaste=wl-paste
   else if type -q win32yank.exe
     alias cbcopy='win32yank.exe -i'
     alias cbpaste='win32yank.exe -o'
