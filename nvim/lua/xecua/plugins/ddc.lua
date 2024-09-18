@@ -59,43 +59,31 @@ vim.fn['ddc#custom#patch_global']({
   },
   sourceOptions = {
     _ = {
-      matchers = { 'matcher_head' },
-      sorters = { 'sorter_rank' },
-      ignoreCase = true,
-    },
-    around = {
-      mark = 'A',
       matchers = { 'matcher_fuzzy' },
       sorters = { 'sorter_fuzzy' },
       converters = { 'converter_fuzzy' },
+      ignoreCase = true,
     },
-    denippet = {
-      mark = 'snip',
-      dup = 'keep',
-    },
+    around = { mark = 'A', },
+    denippet = { mark = 'snip', dup = 'keep', },
     lsp = {
       mark = 'LSP',
       dup = 'keep',
-      matchers = { 'matcher_fuzzy' },
-      sorters = { 'sorter_fuzzy' },
-      converters = { 'converter_fuzzy' },
       forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
     },
     file = {
       mark = 'file',
-      matchers = { 'matcher_fuzzy' },
-      sorters = { 'sorter_fuzzy' },
-      converters = { 'converter_fuzzy' },
       forceCompletionPattern = [[\S/\S*]],
     },
     cmdline = { mark = 'cmd' },
-    ['cmdline-history'] = { mark = 'cmd-hist' },
+    ['cmdline-history'] = { mark = 'cmd-hist', matchers = { 'matcher_head' }, sorters = { 'sorter_rank' }, converters = {} },
     input = { mark = 'input', isVolatile = true },
     line = { mark = 'line' },
     skkeleton = {
       mark = 'skk',
       matchers = {},
       sorters = {},
+      minAutoCompleteLength = 1,
       isVolatile = true,
     },
   },
@@ -136,10 +124,20 @@ vim.fn['ddc#custom#patch_filetype']({ 'ps1', 'dosbatch', 'autohotkey', 'registry
 })
 
 vim.keymap.set('n', ':', function()
-  vim.keymap.set('c', '<Tab>', '<Cmd>call pum#map#insert_relative(+1)<CR>')
-  vim.keymap.set('c', '<S-Tab>', '<Cmd>call pum#map#insert_relative(-1)<CR>')
-  vim.keymap.set('c', '<C-n>', '<Cmd>call pum#map#insert_relative(+1)<CR>')
-  vim.keymap.set('c', '<C-p>', '<Cmd>call pum#map#insert_relative(-1)<CR>')
+  local function insert_relative_or_manual_complete(delta)
+    return function()
+      if vim.fn['pum#visible']() then
+        vim.fn['pum#map#insert_relative'](delta, 'loop')
+      else
+        vim.fn['ddc#map#manual_complete']()
+      end
+    end
+  end
+
+  vim.keymap.set('c', '<Tab>', insert_relative_or_manual_complete(1))
+  vim.keymap.set('c', '<S-Tab>', insert_relative_or_manual_complete(-1))
+  vim.keymap.set('c', '<C-n>', insert_relative_or_manual_complete(1))
+  vim.keymap.set('c', '<C-p>', insert_relative_or_manual_complete(-1))
   vim.keymap.set('c', '<C-y>', '<Cmd>call pum#map#confirm()<CR>')
   vim.keymap.set('c', '<C-e>', '<Cmd>call pum#map#cancel()<CR>')
   vim.fn['pum#set_option']('reversed', true)
