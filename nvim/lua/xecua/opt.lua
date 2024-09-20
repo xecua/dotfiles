@@ -39,12 +39,3 @@ vim.opt.showtabline = 2
 vim.opt.showmode = false
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath('cache') .. '/undo'
-
-if vim.g.neovide ~= nil then
-  -- 通常のターミナルでやろうとするとめんどくさい(失敗するとバッファ上に表示されて鬱陶しい)
-  vim.env.COLORTERM = 'truecolor'
-  -- vim.g.neovide_transparency = 0.5
-
-  -- Neovide: オプションは最後にくっついて全部のフォントに適用される あと'monospace'は解決してくれない
-  vim.opt.guifont = 'UDEV Gothic 35NFLG:h8'
-end

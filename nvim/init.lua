@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command(
   {}
 )
 
-require('xecua.editors.neovide')
+if vim.g.neovide ~= nil then require('xecua.editors.neovide') end
 
 -- plugin manager
 require('xecua.plugins.dpp')
