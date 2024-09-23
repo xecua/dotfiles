@@ -1,4 +1,5 @@
 local prettier = require('efmls-configs.formatters.prettier')
+local deno_fmt = require('efmls-configs.formatters.deno_fmt')
 local stylua = vim.tbl_extend('force', require('efmls-configs.formatters.stylua'), {
   formatCommand = string.format(
     '%s ${--indent-width:tabSize} ${--range-start:charStart} ${--range-end:charEnd} --color Never --quote-style AutoPreferSingle -',
@@ -14,12 +15,12 @@ return {
   sass = { prettier },
   scss = { prettier },
   less = { prettier },
-  javascript = { prettier },
-  javascriptreact = { prettier },
-  json = { prettier },
-  markdown = { prettier },
-  typescript = { prettier },
-  typescriptreact = { prettier },
+  javascript = { prettier, deno_fmt },
+  javascriptreact = { prettier, deno_fmt },
+  json = { prettier, deno_fmt },
+  markdown = { prettier, deno_fmt },
+  typescript = { prettier, deno_fmt },
+  typescriptreact = { prettier, deno_fmt },
   yaml = { prettier },
   vue = { prettier },
   go = {

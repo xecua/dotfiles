@@ -129,6 +129,17 @@ mason_lspconfig.setup_handlers({
       settings = {
         rootMarkers = { '.git' },
         languages = languages,
+        -- deno fmtとprettierの使い分け https://zenn.dev/vim_jp/articles/526a35a96f0a52
+        tools = {
+          deno_fmt = {
+            ['require-marker'] = true,
+            ['root-markers'] = { 'deno.json', 'deno.jsonc' }
+          },
+          prettier = {
+            ['require-marker'] = true,
+            ['root-markers'] = { '.prettierrc', '.prettierrc.json', '.prettierrc.js' }
+          }
+        }
       },
     })
   end,
