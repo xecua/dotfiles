@@ -1,3 +1,3 @@
 return {
-  satysfi = 'xecua.mason-registry.satysfi',
+    satysfi = "xecua.mason-registry.satysfi",
 }
