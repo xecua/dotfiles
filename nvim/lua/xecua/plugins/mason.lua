@@ -71,9 +71,8 @@ mason_lspconfig.setup_handlers({
         lspconfig.lua_ls.setup({
             settings = {
                 Lua = {
-                    runtime = {
-                        version = "LuaJIT",
-                    },
+                    runtime = { version = "LuaJIT" },
+                    format = { enable = false },
                 },
             },
         })

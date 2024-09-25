@@ -24,7 +24,7 @@ function M.get_os_string()
     return os_string
 end
 
----@return { obsidian_dir: string, skkeleton_dictionaries: array<string> }
+---@return { obsidian_dir: string, skkeleton_dictionaries: table<string> }
 function M.get_local_config()
     local skkdict_path = vim.fn["dpp#get"]("dict").path
     local emoji_jisyo_path = vim.fn["dpp#get"]("skk-emoji-jisyo").path

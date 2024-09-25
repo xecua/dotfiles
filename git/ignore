@@ -25,3 +25,6 @@
 # fd and rg's ignore file
 **/.fdignore
 **/.rgignore
+
+# neovim nlsp-settings
+**/.nlsp-settings

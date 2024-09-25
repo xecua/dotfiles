@@ -21,7 +21,13 @@ M.on_attach(function(client, buffer)
     local is_hovering = false
 
     -- commands
-    vim.api.nvim_buf_create_user_command(buffer, "LspFormat", "lua vim.lsp.buf.format()", {})
+    vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
+        vim.lsp.buf.format({
+            filter = function(c)
+                return c.name ~= "typescript-tools" and c.name ~= "lua_ls"
+            end,
+        })
+    end, {})
     vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
         is_hovering = true
         vim.lsp.buf.signature_help()
@@ -49,10 +55,6 @@ M.on_attach(function(client, buffer)
     vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
     vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
 
-    if client.name == "typescript-tools" then
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-    end
     if client.name == "rust-analyzer" then
         vim.api.nvim_buf_create_user_command(buffer, "LspHoverActions", "RustLsp hover actions", {})
         vim.keymap.set("n", "<Leader>lh", "<Cmd>LspHoverActions<CR>", { buffer = buffer, silent = true })
@@ -83,9 +85,7 @@ M.on_attach(function(client, buffer)
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
             buffer = buffer,
-            callback = function()
-                vim.lsp.buf.format()
-            end,
+            command = "LspFormat",
             desc = "LSP: Format on save",
         })
     end
