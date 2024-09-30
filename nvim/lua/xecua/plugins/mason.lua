@@ -30,6 +30,7 @@ mason_lspconfig.setup({
         "stylelint_lsp",
         "eslint",
         "lua_ls",
+        "sqls",
         -- "satysfi-ls",
         "lemminx",
         "yamlls",

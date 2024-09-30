@@ -32,6 +32,8 @@ repo = 'nvim-lua/plenary.nvim'
 
 [[plugins]]
 repo = 'folke/neodev.nvim'
+lazy = true
+on_lua = 'neodev'
 
 # startup
 [[plugins]]
@@ -115,7 +117,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-lua_add = """--"
+lua_post_source = """--"
 local notify = require('notify')
 notify.setup({})
 vim.notify = notify
@@ -166,6 +168,10 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 repo = 'neovim/nvim-lspconfig'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 
+[[plugins]]
+repo = 'SmiteshP/nvim-navic'
+depends = ['nvim-lspconfig']
+
 ## Installer
 [[plugins]]
 repo = 'williamboman/mason.nvim'
@@ -200,23 +206,8 @@ depends = ['nvim-dap', 'nvim-nio']
 
 [[plugins]]
 repo = 'nvim-neotest/nvim-nio'
-
-## outliner
-[[plugins]]
-repo = 'simrat39/symbols-outline.nvim'
-lua_add = """--"
-vim.keymap.set('n', '<Leader>o', '<Cmd>SymbolsOutline<CR>')
-"""
-lua_post_source = """--"
-require('symbols-outline').setup({
-  auto_preview = true,
-  autofold_depth = 1
-})
-"""
-
-[[plugins]]
-repo = 'SmiteshP/nvim-navic'
-depends = ['nvim-lspconfig']
+lazy = true
+on_lua = 'nio'
 
 ## tsserver integration
 [[plugins]]

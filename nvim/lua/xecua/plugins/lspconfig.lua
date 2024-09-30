@@ -24,7 +24,7 @@ M.on_attach(function(client, buffer)
     vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
         vim.lsp.buf.format({
             filter = function(c)
-                return c.name ~= "typescript-tools" and c.name ~= "lua_ls"
+                return c.name ~= "typescript-tools" and c.name ~= "lua_ls" and c.name ~= "sqls"
             end,
         })
     end, {})

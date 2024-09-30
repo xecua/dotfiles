@@ -39,4 +39,7 @@ return {
     python = {
         require("efmls-configs.formatters.yapf"),
     },
+    sql = {
+        require("efmls-configs.formatters.sql-formatter"),
+    },
 }

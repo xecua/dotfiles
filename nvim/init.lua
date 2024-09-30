@@ -4,7 +4,6 @@ require("xecua.opt")
 require("xecua.var")
 require("xecua.map")
 require("xecua.autocmd")
-pcall(require, "xecua.local") -- ないならないで
 
 vim.cmd("runtime! ftplugin/man.vim")
 -- fzf.vim (when fzf was installed with Homebrew)
@@ -25,5 +24,7 @@ end
 
 -- plugin manager
 require("xecua.plugins.dpp")
+
+pcall(require, "xecua.local") -- ないならないで
 
 vim.cmd("filetype plugin on")
