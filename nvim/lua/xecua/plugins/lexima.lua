@@ -19,7 +19,7 @@ vim.keymap.set("i", "<CR>", function()
     if vim.fn["pum#entered"]() then
         return "<Cmd>call pum#map#confirm()<CR>"
     else
-        return '<C-r>=lexima#expand("<LT><CR>", "i")<CR>'
+        return '<C-r>=lexima#expand("<LT>CR>", "i")<CR>'
     end
 end, { expr = true, silent = true })
 

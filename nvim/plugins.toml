@@ -99,6 +99,8 @@ repo = 'thinca/vim-qfreplace'
 
 [[plugins]]
 repo = 'kevinhwang91/nvim-bqf'
+lazy = true
+on_ft = ['qf']
 
 # diagnostics
 [[plugins]]

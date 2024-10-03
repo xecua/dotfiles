@@ -8,12 +8,15 @@ vim.filetype.add({
         vert = "glsl",
     },
     pattern = {
-        [".*/git/config.*"] = { "gitconfig", { priority = 10 } },
-        -- [".*/git/ignore.*"] = { "gitignore", { priority = 10 } }, -- cause error?
-        ["%.gitconfig.*"] = { "gitconfig", { priority = 10 } },
-        [".*/git/attributes.*"] = { "gitattributes", { priority = 10 } },
-        [".*/nvim/template/.*"] = { "vim", { priority = 10 } },
-        [".textlintrc"] = { "json", { priority = 10 } },
-        [".*/hypr/.*%.conf"] = { "hyprlang", { priority = 10 } },
+        [".*/git/config.*"] = "gitconfig",
+        -- [".*/git/ignore.*"] =  "gitignore",  -- cause error?
+        ["%.gitconfig.*"] = "gitconfig",
+        [".*/git/attributes.*"] = "gitattributes",
+        [".textlintrc"] = "json",
+        [".*/hypr/.*%.conf"] = "hyprlang",
+        ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
+        ["compose%.ya?ml"] = "yaml.docker-compose",
+        ["openapi.*%.ya?ml"] = "yaml.openapi",
+        ["openapi.*%.json"] = "json.openapi",
     },
 })
