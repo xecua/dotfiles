@@ -76,8 +76,13 @@
         "spacing": 10
     },
     "clock": {
+        "format": "　{:%Y/%m/%d %H:%M}",
+        "format-alt": "　{:%Y/%m/%d %H:%M:%S}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "actions": {
+          "on-scroll-up": "shift_down",
+          "on-scroll-down": "shift_up"
+        }
     },
     "cpu": {
         "format": "　 {usage}%",
@@ -132,7 +137,7 @@
     "wireplumber": {
         "format": "{icon}　{volume}%",
         "format-muted": "",
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol-qt",
         "format-icons": ["", "", ""]
     },
     "custom/media": {
