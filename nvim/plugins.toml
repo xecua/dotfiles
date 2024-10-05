@@ -395,7 +395,12 @@ repo = 'Shougo/ddu-filter-matcher_hidden'
 depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
+repo = 'mityu/ddu-filter-matcher_multi_regex'
+depends = ['denops.vim', 'ddu.vim']
+
+[[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
+depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
@@ -403,6 +408,7 @@ depends = ['denops.vim', 'ddu.vim']
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
+depends = ['denops.vim', 'ddu.vim']
 
 ### Sources
 [[plugins]]

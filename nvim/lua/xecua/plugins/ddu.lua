@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
         uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
     })
 end, {})
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_fd<CR>")
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
 vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
@@ -43,38 +43,69 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
         vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 
-        -- ↓2つはmatcherが高々2つであることを仮定してる
         local converter_display_word = "converter_display_word"
+        -- _はマーカーとして使う。実際には各sourceのオプションに反映しないといけない
+        vim.keymap.set("n", "w", function()
+            local current = vim.fn["ddu#custom#get_current"]()
+            local new_source_options = current.sourceOptions
+            local matchers = new_source_options._.matchers
+
+            -- converter_display_wordは最初にいるはず
+            if matchers[1] ~= converter_display_word then
+                vim.notify("Display word included.")
+                table.insert(matchers, 1, converter_display_word)
+            else
+                vim.notify("Display word excluded.")
+                table.remove(matchers, 1)
+            end
+            for _, source in ipairs(current.sources) do
+                -- 変更されているはずなのでそのままコピー。
+                new_source_options[source.name].matchers = matchers
+            end
+
+            vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = new_source_options })
+            vim.fn["ddu#redraw"](vim.b.ddu_ui_name, { method = "refreshItems" })
+        end, opts)
+
         local matcher_fzf = "matcher_fzf"
         local matcher_substring = "matcher_substring"
-        vim.keymap.set("n", "w", function()
-            local matchers = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)["sourceOptions"]["_"]["matchers"]
+        local matcher_regex = "matcher_multi_regex"
+        local sorter_alpha = "sorter_alpha"
+        local sorter_fzf = "sorter_fzf"
+        vim.keymap.set("n", "m", function()
+            -- switch matching mode
+            local current = vim.fn["ddu#custom#get_current"]()
+            local new_source_options = current.sourceOptions
+            local matchers = new_source_options._.matchers
+            local sorters = new_source_options._.sorters
 
-            if matchers[1] == converter_display_word then
-                table.remove(matchers, 1)
-                vim.notify("Display word excluded.")
-            else
-                table.insert(matchers, 1, converter_display_word)
-                vim.notify("Display word included.")
+            -- converter_display_wordがある可能性がある
+            for i, m in ipairs(matchers) do
+                if m == matcher_fzf then
+                    vim.notify("Changing matcher to substring.")
+                    matchers[i] = matcher_substring
+                    sorters = { sorter_alpha }
+                    break
+                elseif m == matcher_substring then
+                    vim.notify("Changing matcher to regex.")
+                    matchers[i] = matcher_regex
+                    break
+                elseif m == matcher_regex then
+                    vim.notify("Changing matcher to fuzzy.")
+                    matchers[i] = matcher_fzf
+                    sorters = { sorter_fzf }
+                    break
+                end
             end
 
-            vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = { _ = { matchers = matchers } } })
-            vim.fn["ddu#ui#do_action"]("redraw", { method = "refreshItems" })
-        end, opts)
-        vim.keymap.set("n", "s", function()
-            -- toggle fuzzy/substring search
-            local matchers = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)["sourceOptions"]["_"]["matchers"]
-
-            local idx = matchers[1] == converter_display_word and 2 or 1
-            if matchers[idx] == matcher_substring then
-                matchers[idx] = matcher_fzf
-                vim.notify("Search mode switched to fuzzy.")
-            else
-                matchers[idx] = matcher_substring
-                vim.notify("Search mode switched to substring.")
+            for _, source in ipairs(current.sources) do
+                new_source_options[source.name].matchers = matchers
+                new_source_options[source.name].sorters = sorters
             end
-            vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = { _ = { matchers = matchers } } })
-            vim.fn["ddu#ui#do_action"]("redraw", { method = "refreshItems" })
+
+            vim.fn["ddu#ui#do_action"]("updateOptions", { sourceOptions = new_source_options })
+
+            vim.fn["ddu#redraw"](vim.b.ddu_ui_name, { method = "refreshItems" })
         end, opts)
     end,
 })
