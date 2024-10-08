@@ -34,9 +34,11 @@ mason_lspconfig.setup({
         "lua_ls",
         "sqls",
         -- "satysfi-ls",
+        -- "termux-language-server",
         "lemminx",
         "yamlls",
         "taplo",
+        "typos_lsp",
         -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
     },
 })
@@ -44,6 +46,7 @@ mason_lspconfig.setup({
 lspconfig.denols.setup({
     root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "denops"),
 }) -- should have manually installed for denops
+lspconfig.sourcekit.setup({}) -- bundled with swift toolchain
 
 mason_lspconfig.setup_handlers({
     function(server_name)
