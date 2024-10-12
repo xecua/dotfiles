@@ -63,8 +63,7 @@ if require('xecua.utils').get_local_config().obsidian_dir == vim.fn.getcwd() the
     templates = {
       subdir = 'templates'
     },
-    daily_notes = {
-      folder = 'dailynotes',
+    daily_notes = { folder = 'dailynotes',
       date_format = '%Y-%m-%d',
       template = 'dailynote.md',
     },
@@ -733,6 +732,9 @@ repo = 'vim-skk/skkdict.vim'
 ## astro.build
 [[plugins]]
 repo = 'wuelnerdotexe/vim-astro'
+
+[[plugins]]
+repo = 'direnv/direnv.vim'
 
 # Go utility
 [[plugins]]
