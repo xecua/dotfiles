@@ -1,5 +1,5 @@
 -- lua_add {{{
-vim.g["fern#renderer"] = "nerdfont"
+vim.g["fern#renderer"] = "nvim-web-devicons"
 vim.g["fern#disable_auto_buffer_delete"] = true
 vim.g["fern#disable_auto_buffer_rename"] = true
 
@@ -11,6 +11,8 @@ vim.api.nvim_create_autocmd("FileType", {
     callback = function()
         vim.opt_local.list = false
         vim.opt_local.wrap = false
+
+        vim.fn["glyph_palette#apply"]()
 
         vim.keymap.set("n", "<LeftRelease>", function()
             return vim.fn["fern#smart#leaf"](

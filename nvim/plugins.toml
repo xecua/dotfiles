@@ -473,19 +473,17 @@ depends = ['denops.vim', 'ddu.vim']
 
 # filer
 [[plugins]]
-repo = 'lambdalisue/fern.vim'
-rev = 'main'
+repo = 'lambdalisue/vim-fern'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/fern.lua'
 
 [[plugins]]
-repo = 'lambdalisue/fern-renderer-nerdfont.vim'
-depends = ['nerdfont.vim']
+repo = 'lambdalisue/vim-glyph-palette'
 
 [[plugins]]
-repo = 'lambdalisue/nerdfont.vim'
+repo = 'lambdalisue/vim-fern-hijack'
 
 [[plugins]]
-repo = 'lambdalisue/fern-hijack.vim'
+repo = 'TheLeoP/fern-renderer-web-devicons.nvim'
 
 # for good appearance
 [[plugins]]
@@ -741,6 +739,9 @@ repo = 'direnv/direnv.vim'
 repo = 'fatih/vim-go'
 lazy = true
 on_ft = ['go']
+lua_add = """--
+vim.g.go_doc_keywordprg_enabled = 0
+"""
 
 # Haxe
 [[plugins]]
