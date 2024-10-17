@@ -47,7 +47,7 @@ repo = 'previm/previm'
 # nonsense animation
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
-lua_add = """--"
+lua_add = """
 vim.keymap.set('n', '<Leader>mr', '<Cmd>CellularAutomaton make_it_rain<CR>')
 vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
 """
@@ -55,7 +55,7 @@ vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary.nvim']
-lua_post_source = """--"
+lua_post_source = """
 if require('xecua.utils').get_local_config().obsidian_dir == vim.fn.getcwd() then
   vim.opt.conceallevel = 1
   require('obsidian').setup({
@@ -104,10 +104,10 @@ on_ft = ['qf']
 # diagnostics
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
-lua_add = """--"
+lua_add = """
 vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')
 """
-lua_post_source = """--"
+lua_post_source = """
 require('todo-comments').setup({})
 """
 
@@ -118,7 +118,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-lua_post_source = """--"
+lua_post_source = """
 local notify = require('notify')
 notify.setup({})
 vim.notify = notify
@@ -161,7 +161,7 @@ repo = 'tpope/vim-dadbod'
 
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
-lua_add = """--"
+lua_add = """
 vim.g.db_ui_show_database_icon = 1
 vim.g.db_ui_use_nvim_notify = 1
 vim.g.db_ui_auto_execute_table_helpers = 1
@@ -189,7 +189,7 @@ depends = ['nvim-lspconfig', 'mason.nvim']
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
-lua_post_source = """--"
+lua_post_source = """
 require('nlspsettings').setup({
   append_default_schemas = true,
   nvim_notify = { enable = true },
@@ -218,7 +218,7 @@ on_lua = 'nio'
 ## tsserver integration
 [[plugins]]
 repo = 'pmizio/typescript-tools.nvim'
-lua_post_source = """--"
+lua_post_source = """
 require("typescript-tools").setup({
   root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
   single_file_support = false
@@ -232,7 +232,7 @@ repo = 'creativenull/efmls-configs-nvim'
 ## Rust tooltip
 [[plugins]]
 repo = 'mrcjkb/rustaceanvim'
-lua_add = """--"
+lua_add = """
 vim.g.rustaceanvim = function()
   local config = {
     -- signature helpもかってにfocus持ってっちゃうんだよなあ……
@@ -256,7 +256,7 @@ end
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
-lua_post_source = """--"
+lua_post_source = """
 require('flutter-tools').setup({})
 """
 
@@ -291,7 +291,7 @@ call popup_preview#enable()
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = ['denops.vim']
-lua_post_source = """--"
+lua_post_source = """
 vim.g.signature_help_config = {
   contentsStyle = "currentLabel"
 }
@@ -308,7 +308,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
 rev = 'v2'
-lua_post_source = """--"
+lua_post_source = """
 require('skkeleton_indicator').setup({
   eijiText = "a",
   hiraText = "あ",
@@ -497,14 +497,14 @@ repo = 'ryanoasis/vim-devicons'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-lua_add = """--"
+lua_add = """
 vim.keymap.set('n', '<Leader>gl', '<Cmd>Git log -p %<CR>')
 vim.keymap.set('n', '<Leader>gs', '<Cmd>Git<CR>')
 """
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-lua_post_source = """--"
+lua_post_source = """
 require('gitsigns').setup({
   signcolumn = false,
   numhl = true,
@@ -548,7 +548,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lexima.lua'
 # undo
 [[plugins]]
 repo = 'mbbill/undotree'
-lua_add = """--"
+lua_add = """
 vim.g.undotree_SetFocusWhenToggle = 1
 vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 """
@@ -566,7 +566,7 @@ depends = ['lualine.nvim']
 # comment
 [[plugins]]
 repo = 'numToStr/Comment.nvim'
-lua_post_source = """--"
+lua_post_source = """
 require('Comment').setup({
   ignore = '^$',
   mappings = {
@@ -612,7 +612,7 @@ colorscheme molokai
 # snippets
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
-lua_post_source = """--"
+lua_post_source = """
 for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.*', true, true)) do
     vim.fn['denippet#load'](snip)
 end
@@ -627,14 +627,14 @@ repo = 'rafamadriz/friendly-snippets'
 # cursor
 [[plugins]]
 repo = 'rhysd/accelerated-jk'
-lua_add = """--"
+lua_add = """
 vim.keymap.set('n', 'j', '<Plug>(accelerated_jk_gj)')
 vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
 """
 
 [[plugins]]
 repo = 'skanehira/jumpcursor.vim'
-lua_add = """--"
+lua_add = """
 vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
 
 local jumpcursor_marks = {}
@@ -648,7 +648,7 @@ vim.g.jumpcursor_marks = jumpcursor_marks
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
-lua_add = """--"
+lua_add = """
 vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')
 """
 
@@ -659,7 +659,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dial.lua'
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
-lua_post_source = """--"
+lua_post_source = """
 require('illuminate').configure({
   filetype_overrides = {
     toml = { providers = { 'regex' } },
@@ -744,7 +744,7 @@ repo = 'direnv/direnv.vim'
 repo = 'fatih/vim-go'
 lazy = true
 on_ft = ['go']
-lua_add = """--
+lua_add = """
 vim.g.go_doc_keywordprg_enabled = 0
 """
 
