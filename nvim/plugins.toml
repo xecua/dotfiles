@@ -35,6 +35,14 @@ repo = 'folke/neodev.nvim'
 lazy = true
 on_lua = 'neodev'
 
+[[plugins]]
+repo = 'folke/snacks.nvim'
+lua_post_source = """
+require('snacks').setup({
+    notifier = { enabled = false }
+})
+"""
+
 # http client
 [[plugins]]
 repo = 'mistweaverco/kulala.nvim'
