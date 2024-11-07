@@ -13,6 +13,22 @@ function randomstring
   cat /dev/urandom | base64 | fold -w $argv[1] | head -1
 end
 
+# get user confirmatino with given message or fallback message, and return 0 if y or Y given
+function get_confirm
+  set -l message "$argv[1]"
+  if [ -z "$argv[1]" ]
+    set message "Are you sure?"
+  end
+
+  set message (string join '' $message "[y/N] ")
+  read -l answer -P "$message"
+  if [ "$answer" = "y" -o "$answer" = "Y" ]
+    return 0
+  else
+    return 1
+  end
+end
+
 function go-update
   # https://zenn.dev/kyoh86/articles/291618538dcf0d
   pushd $HOME

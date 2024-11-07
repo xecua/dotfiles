@@ -12,7 +12,7 @@
 	cl = clone
 	a = add
 	p = push
-	pf = push --force-with-lease --force-if-includes
+	pf = !fish -c get_confirm && git push --force-with-lease --force-if-includes
 	pl = pull --prune
 	f = fetch --prune
 	m = merge
