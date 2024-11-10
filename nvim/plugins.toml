@@ -37,11 +37,7 @@ on_lua = 'neodev'
 
 [[plugins]]
 repo = 'folke/snacks.nvim'
-lua_post_source = """
-require('snacks').setup({
-    notifier = { enabled = false }
-})
-"""
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/snacks.lua'
 
 # http client
 [[plugins]]

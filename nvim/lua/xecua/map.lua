@@ -14,7 +14,7 @@ vim.keymap.set("v", "?", "<Esc>?\\%V\\v") -- \%V: previously selected range
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
 vim.keymap.set("n", ":%s/", ":%s/\\v")
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
-vim.keymap.set("n", "gf", "<Cmd>e %:p:h/<cfile><CR>")
+vim.keymap.set("n", "gf", "<Cmd>e <cfile><CR>")
 
 vim.keymap.set("t", "<C-]>", [[<C-\><C-n>]])
 
