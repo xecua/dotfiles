@@ -8,5 +8,6 @@ vim.keymap.set("n", "<Leader>gg", '<Cmd>lua require("snacks").lazygit()<CR>')
 -- lua_post_source {{{
 require("snacks").setup({
     notifier = { enabled = false },
+    words = { enabled = false },
 })
 -- }}}
