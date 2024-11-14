@@ -9,5 +9,11 @@ vim.keymap.set("n", "<Leader>gg", '<Cmd>lua require("snacks").lazygit()<CR>')
 require("snacks").setup({
     notifier = { enabled = false },
     words = { enabled = false },
+    win = { wo = { winhighlight = "" } },
+    -- 色が変……
+    lazygit = {
+        configure = false,
+        config = { os = { editPreset = "nvim-remote" }, gui = { nerdFontsVersion = "3" } },
+    },
 })
 -- }}}

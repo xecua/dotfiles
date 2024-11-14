@@ -108,7 +108,10 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 vim.api.nvim_create_autocmd("ColorScheme", {
     group = init_augroup_id,
     pattern = "*",
-    command = [[hi! CurSearch cterm=reverse gui=reverse]],
+    command = [[
+        hi! CurSearch cterm=reverse gui=reverse
+        hi link NormalFloat Normal
+    ]],
 })
 
 vim.api.nvim_create_autocmd("FileType", {

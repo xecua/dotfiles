@@ -1,7 +1,6 @@
-import = ["~/.alacritty.local.toml", "~/.config/alacritty/theme/themes/iterm.toml"]
-
-[cursor.style]
-shape = "Beam"
-
-[window]
-startup_mode = "Maximized"
+[general]
+import = [
+    "alacritty.common.toml",
+    "alacritty.local.toml",
+    "~/.config/alacritty/theme/themes/iterm.toml",
+]

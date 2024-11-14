@@ -66,11 +66,7 @@ make_symlink(config_home / 'latexmk' / 'latexmkrc',
 make_symlink(config_home / 'tmux' / 'tmux.conf',
              script_dir / 'tmux' / 'tmux.conf')
 make_symlink(config_home / 'wezterm')
-
 make_symlink(config_home / 'alacritty')
-if not (alacritty_local_config := home / '.alacritty.local.toml').exists():
-    # create
-    alacritty_local_config.touch()
 
 # Linux only
 make_symlink(config_home / 'xremap')

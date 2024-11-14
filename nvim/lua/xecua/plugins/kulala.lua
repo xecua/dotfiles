@@ -19,45 +19,45 @@ vim.api.nvim_create_autocmd("FileType", {
             "n",
             "<CR>",
             '<Cmd>lua require("kulala").run()<CR>',
-            { silent = true, desc = "Execute the request" }
+            { silent = true, buffer = true, desc = "Execute the request" }
         )
 
         vim.keymap.set(
             "n",
             "[",
             '<Cmd>lua require("kulala").jump_prev()<CR>',
-            { silent = true, desc = "Jump to the previous request" }
+            { silent = true, buffer = true, desc = "Jump to the previous request" }
         )
         vim.keymap.set(
             "n",
             "]",
             '<Cmd>lua require("kulala").jump_next()<CR>',
-            { silent = true, desc = "Jump to the next request" }
+            { silent = true, buffer = true, desc = "Jump to the next request" }
         )
 
         vim.keymap.set(
             "n",
             "<Leader>ki",
             '<Cmd>lua require("kulala").inspect()<CR>',
-            { silent = true, desc = "Insert current request" }
+            { silent = true, buffer = true, desc = "Insert current request" }
         )
         vim.keymap.set(
             "n",
             "<Leader>kt",
             '<Cmd>lua require("kulala").toggle_view()<CR>',
-            { silent = true, desc = "Toggle between body and headers" }
+            { silent = true, buffer = true, desc = "Toggle between body and headers" }
         )
         vim.keymap.set(
             "n",
             "<Leader>kc",
             '<Cmd>lua require("kulala").copy()<CR>',
-            { silent = true, desc = "Copy current request as curl command" }
+            { silent = true, buffer = true, desc = "Copy current request as curl command" }
         )
         vim.keymap.set(
             "n",
             "<Leader>kp",
             '<Cmd>lua require("kulala").from_curl()<CR>',
-            { silent = true, desc = "Paste from curl command in current clipboard" }
+            { silent = true, buffer = true, desc = "Paste from curl command in current clipboard" }
         )
     end,
 })

@@ -78,6 +78,17 @@ function mkcd
   eval "cd" $argv[1]
 end
 
+function lscolors
+  set_color -c
+  for i in (seq 0 255)
+    set -l color_code (printf "%03d" $i)
+    printf "\e[48;5;"$i"m\e[38;5;15m "$color_code" "
+    printf "\e[33;5;0m\e[38;5;"$i"m "$color_code" "
+    set_color normal
+    test (math $i % 8) = 7; and echo
+  end
+end
+
 function test-echo
   if [ (eval "$argv[1]") ]
     echo ok
