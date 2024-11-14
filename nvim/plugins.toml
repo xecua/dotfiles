@@ -66,6 +66,25 @@ repo = 'epwalsh/obsidian.nvim'
 depends = ['plenary.nvim']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/obsidian.lua'
 
+[[plugins]]
+repo = 'MeanderingProgrammer/render-markdown.nvim'
+lazy = true
+on_ft = ['markdown']
+lua_post_source = """
+require('render-markdown').setup({
+  checkbox = {
+    custom = {
+      cancel = { raw = '[~]', rendered = "󰰱" , highlight ="ObsidianTilde" },
+      important = { raw = '[!]', rendered = "", highlight = "ObsidianImportant" },
+      working = { raw = '[>]', rendered = "", highlight = "ObsidianRightArrow" }
+    }
+  },
+  link = {
+    web = { pattern = '^http[s]?://', icon = '󰖟 ', highlight = 'RenderMarkdownLink' },
+  }
+})
+"""
+
 # Submode
 [[plugins]]
 repo = 'kana/vim-submode'

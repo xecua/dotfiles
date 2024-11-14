@@ -11,6 +11,7 @@ if require("xecua.utils").get_local_config().obsidian_dir == vim.fn.getcwd() the
         follow_url_func = function(url)
             vim.ui.open(url)
         end,
+        ui = { enable = false },
     })
 
     vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
