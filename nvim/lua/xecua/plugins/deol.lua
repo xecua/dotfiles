@@ -11,7 +11,31 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+local buf = nil
+local win = nil
+
 vim.keymap.set("n", "<Leader>p", function()
+    -- darken background
+    if buf == nil then
+        buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
+        win = vim.api.nvim_open_win(buf, true, {
+            relative = "editor",
+            width = vim.o.columns,
+            height = vim.o.lines,
+            col = 0,
+            row = 0,
+            focusable = false,
+            style = "minimal",
+        })
+        vim.api.nvim_win_set_option(win, "winblend", 50)
+    else
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.api.nvim_win_close(win, true)
+        win = nil
+        buf = nil
+    end
+
     vim.fn["deol#start"]({
         wincol = vim.o.columns / 18,
         winwidth = vim.o.columns * 8 / 9,
