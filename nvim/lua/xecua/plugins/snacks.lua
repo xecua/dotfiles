@@ -7,8 +7,9 @@ vim.keymap.set("n", "<Leader>gg", '<Cmd>lua require("snacks").lazygit()<CR>')
 
 -- lua_post_source {{{
 require("snacks").setup({
-    notifier = { enabled = false },
-    words = { enabled = false },
+    bigfile = { enabled = true },
+    quickfile = { enabled = true },
+    statuscolumn = { enabled = true },
     win = { wo = { winhighlight = "" } },
     -- 色が変……
     lazygit = {

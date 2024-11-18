@@ -1,5 +1,0 @@
-###
-### sub-rule.desc -- 補助変換ルール説明ファイル
-###
-
-azik-custom.rule azik.conf 拡張ローマ字入力「AZIK」のカスタム版を使用

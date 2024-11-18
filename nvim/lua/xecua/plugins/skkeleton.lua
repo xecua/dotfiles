@@ -17,7 +17,6 @@ vim.api.nvim_create_autocmd("User", {
             ["/"] = "abbrev",
             ["<s-l>"] = "zenkaku",
             [";"] = { "っ" },
-            [":"] = "upper-;",
             ["["] = "katakana",
             ["x["] = { "「" },
             [","] = { "、" },
@@ -683,6 +682,7 @@ vim.api.nvim_create_autocmd("User", {
             globalDictionaries = require("xecua.utils").get_local_config().skkeleton_dictionaries,
             databasePath = vim.fn.stdpath("cache") .. "/skkeleton.db",
             sources = { "deno_kv", "skk_dictionary" },
+            lowercaseMap = { [":"] = ";" },
         })
     end,
 })

@@ -21,7 +21,6 @@ vim.api.nvim_create_autocmd("FileType", {
         "typespec",
         "json",
         "jsonc",
-        "markdown",
         "rst",
         "satysfi",
         "vim",

@@ -28,10 +28,9 @@ vim.keymap.set("n", "<Leader>p", function()
             focusable = false,
             style = "minimal",
         })
-        vim.api.nvim_win_set_option(win, "winblend", 50)
+        vim.api.nvim_set_option_value("winblend", 50, { scope = "local", win = win })
     else
-        ---@diagnostic disable-next-line: param-type-mismatch
-        vim.api.nvim_win_close(win, true)
+        pcall(vim.api.nvim_win_close, win, true)
         win = nil
         buf = nil
     end

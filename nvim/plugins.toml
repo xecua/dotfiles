@@ -74,9 +74,9 @@ lua_post_source = """
 require('render-markdown').setup({
   checkbox = {
     custom = {
-      cancel = { raw = '[~]', rendered = "󰰱" , highlight ="ObsidianTilde" },
-      important = { raw = '[!]', rendered = "", highlight = "ObsidianImportant" },
-      working = { raw = '[>]', rendered = "", highlight = "ObsidianRightArrow" }
+      cancel = { raw = '[~]', rendered = "󰰱" , highlight ="RenderMarkdownError" },
+      important = { raw = '[!]', rendered = "", highlight = "RenderMarkdownWarn" },
+      working = { raw = '[>]', rendered = "", highlight = "RenderMarkdownHint" }
     }
   },
   link = {
@@ -274,15 +274,18 @@ repo = 'Shougo/pum.vim'
 # denops
 [[plugins]]
 repo = 'vim-denops/denops.vim'
-hook_add = """
-let g:denops#server#deno_args = [ '-q', '--no-lock', '-A', '--unstable-kv' ]
+lua_add = """
+vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
+vim.api.nvim_create_user_command('DenopsFixCache', 'call denops#cache#update(#{reload: v:true})', {})
 """
+
 
 [[plugins]]
 repo = 'vim-denops/denops-shared-server.vim'
 lua_add = """
 vim.g.denops_server_addr = '127.0.0.1:32123'
 vim.api.nvim_create_user_command('DenopsRestart', 'call denops_shared_server#restart()', {})
+vim.api.nvim_create_user_command('DenopUninstall', 'call denops_shared_server#uninstall()', {})
 """
 hook_done_update = """
 call denops_shared_server#install()
@@ -307,8 +310,7 @@ vim.fn['signature_help#enable']()
 
 ## SKK
 [[plugins]]
-# repo = 'vim-skk/skkeleton'
-repo = 'xecua/skkeleton'
+repo = 'vim-skk/skkeleton'
 depends = ['denops.vim']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 
