@@ -64,7 +64,6 @@ require("lualine").setup({
                 end,
             },
         },
-        lualine_y = { '" " .. os.date("%H:%M")' },
     },
     winbar = {
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },

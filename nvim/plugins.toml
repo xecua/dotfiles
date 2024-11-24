@@ -35,10 +35,6 @@ repo = 'folke/neodev.nvim'
 lazy = true
 on_lua = 'neodev'
 
-[[plugins]]
-repo = 'folke/snacks.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/snacks.lua'
-
 # http client
 [[plugins]]
 repo = 'mistweaverco/kulala.nvim'

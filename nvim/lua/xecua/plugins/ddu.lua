@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
         uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
     })
 end, {})
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu<CR>")
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_fd<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu deol<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
@@ -128,6 +128,15 @@ vim.api.nvim_create_autocmd("FileType", {
 --     })
 --   end,
 -- })
+vim.api.nvim_create_autocmd("User", {
+    pattern = "Ddu:ui:ff:openFilterWindow",
+    command = 'call pum#set_option("reversed", v:true)',
+})
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "Ddu:ui:ff:closeFilterWindow",
+    command = 'call pum#set_option("reversed", v:false)',
+})
 
 -- }}}
 
