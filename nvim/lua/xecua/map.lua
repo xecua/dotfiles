@@ -18,6 +18,7 @@ vim.keymap.set("n", "gf", function()
     local cfile = vim.fs.normalize(vim.fn.expand("<cfile>"))
     if string.match(cfile, "^/") then
         vim.cmd.edit(cfile)
+        return
     end
     local file_dir = vim.fn.expand("%:h")
     vim.cmd.edit(vim.fs.normalize(vim.fs.joinpath(file_dir, cfile)))

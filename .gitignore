@@ -2,3 +2,4 @@ broot/launcher
 nvim/lua/xecua/local.lua
 nvim/local.toml
 wezterm/local.lua
+alacritty/alacritty.local.toml
