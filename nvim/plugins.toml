@@ -394,6 +394,10 @@ depends = ['denops.vim', 'ddu.vim']
 repo = 'Shougo/ddu-ui-ff'
 depends = ['denops.vim', 'ddu.vim']
 
+[[plugins]]
+repo = 'Shougo/ddu-ui-filer'
+depends = ['denops.vim', 'ddu.vim']
+
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'

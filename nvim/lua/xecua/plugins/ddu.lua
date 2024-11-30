@@ -2,6 +2,7 @@
 -- vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 
 vim.api.nvim_create_user_command("DduRgLive", function()
+    -- actionOptionsでquitをfalseにすれば閉じなくなる(Filer参照)が、openでwincmdを噛ませるように変更する必要がある
     vim.fn["ddu#start"]({
         sources = { { name = "rg", options = { volatile = true, matchers = {} } } },
         uiParams = { ff = { ignoreEmpty = false } },
@@ -26,6 +27,19 @@ vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
 vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
 vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
 
+vim.api.nvim_create_user_command("DduFiler", function()
+    vim.fn["ddu#start"]({
+        ui = "filer",
+        sources = { { name = "file" } },
+        sourceOptions = { file = { columns = { "icon_filename" } } },
+        actionOptions = {
+            narrow = { quit = false },
+            open = { quit = false },
+        },
+    })
+end, {})
+-- vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
+
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = ddu_group_id,
@@ -38,7 +52,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('togglePreview')<CR>", opts)
         vim.keymap.set("n", ",", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
         vim.keymap.set("n", "t", "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
-        vim.keymap.set("n", "f", "<Cmd>call ddu#ui#do_action('itemAction', { 'name': 'quickfix' })<CR>", opts)
+        vim.keymap.set("n", "f", "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>", opts)
         vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
         vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
         vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
@@ -138,6 +152,85 @@ vim.api.nvim_create_autocmd("User", {
     command = 'call pum#set_option("reversed", v:false)',
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    group = ddu_group_id,
+    pattern = "ddu-filer",
+    callback = function()
+        -- TODO: 開いたときに現在のファイルにカーソルが移動するやつとウィンドウ選んでファイルを開けるやつ
+        vim.opt_local.number = true
+        local opts = { buffer = true, silent = true }
+        vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+        vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
+        vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
+        vim.keymap.set("n", "N", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newFile' })<CR>", opts)
+        vim.keymap.set("n", "K", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newDirectory' })<CR>", opts)
+        vim.keymap.set("n", "R", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'rename' })<CR>", opts)
+        vim.keymap.set("n", "y", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'yank' })<CR>", opts)
+        vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'paste' })<CR>", opts)
+
+        vim.keymap.set("n", "s", function()
+            local isTree = vim.fn["ddu#ui#get_item"]()["isTree"] or false
+            if not isTree then
+                vim.fn["ddu#ui#do_action"](
+                    "itemAction",
+                    { name = "open", params = { command = "wincmd p|wincmd s|drop" } }
+                )
+            end
+        end)
+        vim.keymap.set("n", "v", function()
+            local isTree = vim.fn["ddu#ui#get_item"]()["isTree"] or false
+            if not isTree then
+                vim.fn["ddu#ui#do_action"](
+                    "itemAction",
+                    { name = "open", params = { command = "wincmd p|wincmd v|drop" } }
+                )
+            end
+        end)
+        vim.keymap.set("n", "l", function()
+            local isTree = vim.fn["ddu#ui#get_item"]()["isTree"] or false
+            if isTree then
+                vim.fn["ddu#ui#do_action"]("expandItem", { isInTree = true })
+            else
+                vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
+            end
+        end, opts)
+
+        vim.keymap.set("n", "<CR>", function()
+            local isTree = vim.fn["ddu#ui#get_item"]()["isTree"] or false
+            if isTree then
+                vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
+            else
+                vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
+            end
+        end, opts)
+
+        vim.keymap.set(
+            "n",
+            "<BS>",
+            "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'narrow', params: #{ path: '..' } })<CR>",
+            opts
+        )
+
+        vim.keymap.set("n", "!", function()
+            -- これdocに記載されてるやり方だから↑のヒントになりそう
+            local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
+            local matchers = ((current["sourceOptions"] or {})["file"] or {})["matchers"] or {}
+            if #matchers == 0 then
+                matchers = { "matcher_hidden" }
+            else
+                matchers = {}
+            end
+
+            vim.print(current["sourceOptions"])
+
+            vim.fn["ddu#ui#do_action"]("updateOptions", {
+                sourceOptions = { file = { matchers = matchers } },
+            })
+            vim.fn["ddu#ui#do_action"]("redraw", { method = "refreshItems" })
+        end, opts)
+    end,
+})
+
 -- }}}
 
 -- lua_post_source {{{
@@ -163,14 +256,21 @@ vim.fn["ddu#custom#patch_global"]({
             statusline = false,
             autoAction = { name = "preview", sync = false },
         },
+        filer = {
+            split = "vertical",
+            winWidth = vim.o.columns / 6,
+        },
     },
-    sources = { { name = "file_fd" } },
+    uiOptions = {
+        filer = { toggle = true },
+    },
     sourceParams = {
         file_fd = { args = { "-tf", "-H", "-E", ".git" } },
     },
     sourceOptions = {
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
         source = { defaultAction = "execute" },
+        file = { matchers = { "matcher_hidden" }, sorters = {} }, -- filerでしか使ってない
         lsp_documentSymbol = { converters = { "converter_lsp_symbol" } },
         lsp_workspaceSymbol = { converters = { "converter_lsp_symbol" } },
     },
