@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("FileType", {
             "ddu-filer",
             "qf",
             "fugitive",
-            "gitsigns.blame",
+            "gitsigns-blame",
         })
         if not operator_surround_disabled_buffer_types:contains(args.match) then
             vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)", { buffer = true })

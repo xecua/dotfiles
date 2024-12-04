@@ -75,6 +75,7 @@ vim.fn["ddc#custom#patch_global"]({
         lsp = {
             mark = "LSP",
             dup = "keep",
+            sorters = { "sorter_fuzzy", "sorter_lsp-kind" },
             forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
         },
         file = {
@@ -138,7 +139,7 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
     },
 })
 
-vim.keymap.set("n", ":", function()
+vim.keymap.set({ "n", "v" }, ":", function()
     vim.fn["pum#set_option"]("reversed", true)
 
     vim.api.nvim_create_autocmd("User", {
