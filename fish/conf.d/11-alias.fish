@@ -31,7 +31,9 @@ if status is-interactive
     end
   end
 
-  if type -q htop
+  if type -q btm
+    alias top="btm -b"
+  else if type -q htop
     alias top=htop
   end
 

@@ -192,7 +192,7 @@ vim.fn["ddu#custom#patch_global"]({
         file = { -- filerでしか使ってないのでそれ用に調整してしまう
             columns = { "icon_filename" },
             matchers = { "matcher_hidden" },
-            sorters = { "sorter_alpha" },
+            sorters = { "sorter_alpha", "sorter_treefirst" },
         },
         lsp_documentSymbol = { converters = { "converter_lsp_symbol" } },
         lsp_workspaceSymbol = { converters = { "converter_lsp_symbol" } },

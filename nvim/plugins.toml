@@ -423,6 +423,10 @@ depends = ['denops.vim', 'ddu.vim']
 repo = 'Shougo/ddu-filter-sorter_alpha'
 depends = ['denops.vim', 'ddu.vim']
 
+[[plugins]]
+repo = 'xecua/ddu-filter-sorter_treefirst'
+depends = ['denops.vim', 'ddu.vim']
+
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
