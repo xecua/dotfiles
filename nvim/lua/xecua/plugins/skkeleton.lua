@@ -7,11 +7,6 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-initialize-pre",
     group = augroup,
     callback = function()
-        -- TODO: 一般的なazikの挙動に寄せる
-        -- + 半角カタカナモードで\を入力したらかなモードに移行する(azik/hankaku-katakana.json)
-        -- + latin/wide-latinでC-jを入力したらかなモードに移行する(default/(wide-)?latin.json)
-        --   + モード切り替えがハードコードなので、C-jがマップされたとしても↓には戻せない そうなると一旦disableする方が合理的なのかも(roadmapに直接入力モードあるのでやる気はあるのかもしれない)
-        --   + insert-charもそうだけど、関数にも引数を与えたい (というPRあるいはissueを立てるのはアリかも?)
         vim.fn["skkeleton#register_kanatable"]("azik", {
             [" "] = "henkanFirst",
             ["/"] = "abbrev",

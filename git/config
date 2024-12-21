@@ -41,6 +41,7 @@
 	rs = restore
 	rss = restore --staged
 	st = stash
+	sts = stash show
 	stl = stash list
 	sta = stash apply
 	stp = stash pop
@@ -64,6 +65,8 @@
 	autoSetupRemote = true
 [pull]
 	rebase = true
+[stash]
+	showPatch = true
 [delta]
 	plus-style = syntax "#012800"
 	minus-style = normal "#340001"

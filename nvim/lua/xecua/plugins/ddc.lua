@@ -45,9 +45,9 @@ vim.keymap.set({ "i", "c" }, "<C-p>", function()
 end, { desc = "Select previous entry or start completion" })
 vim.keymap.set({ "i", "c" }, "<C-y>", "<Cmd>call pum#map#confirm()<CR>")
 vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
-
 -- }}}
--- lua_post_source {{{
+
+-- lua_source {{{
 vim.fn["ddc#custom#patch_global"]({
     ui = "pum",
     sources = {

@@ -9,7 +9,7 @@ vim.filetype.add({
     },
     pattern = {
         [".*/git/config.*"] = "gitconfig",
-        -- [".*/git/ignore.*"] =  "gitignore",  -- cause error?
+        [".*/git/ignore.*"] = "gitignore",  -- cause error?
         ["%.gitconfig.*"] = "gitconfig",
         [".*/git/attributes.*"] = "gitattributes",
         [".textlintrc"] = "json",

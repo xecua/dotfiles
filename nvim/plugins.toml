@@ -32,7 +32,6 @@ repo = 'nvim-lua/plenary.nvim'
 
 [[plugins]]
 repo = 'folke/neodev.nvim'
-lazy = true
 on_lua = 'neodev'
 
 # http client
@@ -48,10 +47,12 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 # Preview
 [[plugins]]
 repo = 'previm/previm'
+on_ft = ['markdown', 'rst', 'textile']
 
 # nonsense animation
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'
+on_cmd = 'CellularAutomaton'
 lua_add = """
 vim.keymap.set('n', '<Leader>mr', '<Cmd>CellularAutomaton make_it_rain<CR>')
 vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
@@ -59,13 +60,12 @@ vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
 
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
-depends = ['plenary.nvim']
+depends = 'plenary.nvim'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/obsidian.lua'
 
 [[plugins]]
 repo = 'MeanderingProgrammer/render-markdown.nvim'
-lazy = true
-on_ft = ['markdown']
+on_ft = 'markdown'
 lua_post_source = """
 require('render-markdown').setup({
   checkbox = {
@@ -98,11 +98,11 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/quickrun.lua'
 # quickfix
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
+on_ft = 'qf'
 
 [[plugins]]
 repo = 'kevinhwang91/nvim-bqf'
-lazy = true
-on_ft = ['qf']
+on_ft = 'qf'
 
 # diagnostics
 [[plugins]]
@@ -142,21 +142,18 @@ repo = 'gamoutatsumi/dps-ghosttext.vim'
 # Machine Learning-based completion
 [[plugins]]
 repo = 'github/copilot.vim'
-on_if = "get(g:, 'use_copilot', v:false)"
-lazy = true
+# on_if = "get(g:, 'use_copilot', v:false)"
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
 [[plugins]]
 repo = 'CopilotC-Nvim/CopilotChat.nvim'
-on_if = "get(g:, 'use_copilot', v:false)"
-lazy = true
+# on_if = "get(g:, 'use_copilot', v:false)"
 
-[[plugins]]
-repo = 'codota/tabnine-nvim'
-on_if = "get(g:, 'use_tabnine', v:false)"
-lazy = true
-extAttrs = { installerBuild = './dl_binaries.sh' }
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tabnine.lua'
+# [[plugins]]
+# repo = 'codota/tabnine-nvim'
+# on_if = "get(g:, 'use_tabnine', v:false)"
+# extAttrs = { installerBuild = './dl_binaries.sh' }
+# hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tabnine.lua'
 
 # Database client
 [[plugins]]
@@ -201,7 +198,6 @@ require('nlspsettings').setup({
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
-lazy = true
 on_lua = 'jdtls'
 
 ## DAP
@@ -215,7 +211,6 @@ depends = ['nvim-dap', 'nvim-nio']
 
 [[plugins]]
 repo = 'nvim-neotest/nvim-nio'
-lazy = true
 on_lua = 'nio'
 
 ## tsserver integration
@@ -275,7 +270,6 @@ vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
 vim.api.nvim_create_user_command('DenopsFixCache', 'call denops#cache#update(#{reload: v:true})', {})
 """
 
-
 [[plugins]]
 repo = 'vim-denops/denops-shared-server.vim'
 lua_add = """
@@ -289,14 +283,14 @@ call denops_shared_server#install()
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
-depends = ['denops.vim']
-hook_post_source = """
-call popup_preview#enable()
+depends = 'denops.vim'
+lua_post_source = """
+vim.fn['popup_preview#enable']()
 """
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
-depends = ['denops.vim']
+depends = 'denops.vim'
 lua_post_source = """
 vim.g.signature_help_config = {
   contentsStyle = "currentLabel"
@@ -307,7 +301,7 @@ vim.fn['signature_help#enable']()
 ## SKK
 [[plugins]]
 repo = 'vim-skk/skkeleton'
-depends = ['denops.vim']
+depends = 'denops.vim'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 
 [[plugins]]
@@ -329,165 +323,174 @@ merged = false
 
 [[plugins]]
 repo = 'uasi/skk-emoji-jisyo'
+merged = false
 
 ## ddc
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-depends = ['denops.vim']
+depends = 'denops.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddc.lua'
 
 ### ui
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
-depends = ['denops.vim', 'ddc.vim', 'pum.vim']
+depends = ['ddc.vim', 'pum.vim']
+on_source = 'ddc.vim'
 
 ### source
 [[plugins]]
 repo = 'Shougo/ddc-source-lsp'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline-history'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-input'
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 ### filter
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
-depends = ['denops.vim', 'ddc.vim']
+on_source = 'ddc.vim'
 
 ## ddu
 [[plugins]]
 repo = 'Shougo/ddu.vim'
-depends = ['denops.vim']
+depends = 'denops.vim'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddu.lua'
 
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'
-depends = ['denops.vim', 'ddu.vim']
+on_cmd = 'Ddu'
+depends = 'ddu.vim'
 
 ### UI
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'mityu/ddu-filter-matcher_multi_regex'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'xecua/ddu-filter-sorter_treefirst'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-man'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = '4513ECHO/ddu-source-source'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'nabezokodaikon/ddu-source-file_fd'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-buffer'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
+on_source = 'ddu.vim'
 
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 ### column
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'ryota2357/ddu-column-icon_filename'
-depends = ['denops.vim', 'ddu.vim']
+on_source = 'ddu.vim'
 
 # filer
 [[plugins]]
@@ -546,7 +549,7 @@ require('gitsigns').setup({
 # parenthesis control
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
-depends = ['vim-operator-user']
+depends = 'vim-operator-user'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/surround.lua'
 
 ## dependency
@@ -569,12 +572,12 @@ vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 # statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
-depends = ['nvim-web-devicons']
+depends = 'nvim-web-devicons'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lualine.lua'
 
 [[plugins]]
 repo = 'arkav/lualine-lsp-progress'
-depends = ['lualine.nvim']
+on_source = 'lualine.nvim'
 
 # comment
 [[plugins]]
@@ -636,6 +639,7 @@ end
 
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
+merged = false
 
 # cursor
 [[plugins]]
@@ -683,9 +687,11 @@ require('illuminate').configure({
 # indentation
 [[plugins]]
 repo = 'lambdalisue/vim-backslash'
+on_ft = 'vim'
 
 [[plugins]]
 repo = 'hynek/vim-python-pep8-indent'
+on_ft = 'python'
 
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
@@ -714,6 +720,7 @@ repo = 'dag/vim-fish'
 ## .gitignore file
 [[plugins]]
 repo = 'benknoble/gitignore-vim'
+on_ft = 'gitignore'
 
 ## SATySFi
 [[plugins]]
@@ -726,6 +733,7 @@ repo = 'ionide/Ionide-vim'
 ## Brewfile
 [[plugins]]
 repo = 'bfontaine/Brewfile.vim'
+on_ft = 'Brewfile'
 
 ## ebuild etc
 [[plugins]]
@@ -738,11 +746,13 @@ repo = 'ymyzk/vim-copl'
 ## CSV (Rainbow and SQL-like query)
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
+on_ft = 'csv'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/rainbow_csv.lua'
 
 ## Firestore Security Rule
 [[plugins]]
 repo = 'delphinus/vim-firestore'
+on_ft = 'firestore'
 
 ## skk-jisyo
 [[plugins]]
@@ -758,8 +768,7 @@ repo = 'direnv/direnv.vim'
 # Go utility
 [[plugins]]
 repo = 'fatih/vim-go'
-lazy = true
-on_ft = ['go']
+on_ft = 'go'
 lua_add = """
 vim.g.go_doc_keywordprg_enabled = 0
 """
@@ -767,11 +776,8 @@ vim.g.go_doc_keywordprg_enabled = 0
 # Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
-lazy = true
-on_ft = ['haxe']
 
 # Swift
 [[plugins]]
 repo = 'keith/swift.vim'
-lazy = true
-on_ft = ['swift']
+on_ft = 'swift'

@@ -16,6 +16,7 @@ vim.g.copilot_no_tab_map = true
 local select = require("CopilotChat.select")
 
 require("CopilotChat").setup({
+    chat_autocomplete = false,
     prompts = {
         Explain = {
             prompt = "/COPILOT_EXPLAIN 選択されたコードの説明を段落をつけて書いてください。",
