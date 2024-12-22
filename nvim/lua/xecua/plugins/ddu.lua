@@ -164,7 +164,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- }}}
 
--- lua_post_source {{{
+-- lua_source {{{
 vim.fn["ddu#custom#patch_global"]({
     ui = "ff",
     uiParams = {

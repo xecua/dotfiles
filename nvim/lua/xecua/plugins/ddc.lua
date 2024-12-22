@@ -154,5 +154,5 @@ vim.keymap.set({ "n", "v" }, ":", function()
     return ":"
 end, { expr = true })
 
-vim.fn["ddc#enable"]()
+vim.fn["ddc#enable"]({ context_filetype = "treesitter" })
 -- }}}

@@ -275,7 +275,8 @@ repo = 'vim-denops/denops-shared-server.vim'
 lua_add = """
 vim.g.denops_server_addr = '127.0.0.1:32123'
 vim.api.nvim_create_user_command('DenopsRestart', 'call denops_shared_server#restart()', {})
-vim.api.nvim_create_user_command('DenopUninstall', 'call denops_shared_server#uninstall()', {})
+vim.api.nvim_create_user_command('DenopsInstall', 'call denops_shared_server#install()', {})
+vim.api.nvim_create_user_command('DenopsUninstall', 'call denops_shared_server#uninstall()', {})
 """
 hook_done_update = """
 call denops_shared_server#install()
@@ -394,103 +395,103 @@ depends = 'ddu.vim'
 ### UI
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-on_source = 'ddu.vim'
+# # on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-on_source = 'ddu.vim'
+# # on_source = 'ddu.vim'
 
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'mityu/ddu-filter-matcher_multi_regex'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'xecua/ddu-filter-sorter_treefirst'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-man'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = '4513ECHO/ddu-source-source'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file_rec'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'nabezokodaikon/ddu-source-file_fd'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-buffer'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 ### column
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'ryota2357/ddu-column-icon_filename'
-on_source = 'ddu.vim'
+# on_source = 'ddu.vim'
 
 # filer
 [[plugins]]
