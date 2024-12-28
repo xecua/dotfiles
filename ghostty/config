@@ -4,3 +4,4 @@ font-feature = -glib
 font-size = 12
 theme = Molokai
 gtk-titlebar = false
+window-inherit-working-directory = true
