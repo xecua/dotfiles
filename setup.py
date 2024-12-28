@@ -58,6 +58,7 @@ make_symlink(config_home / 'sway')
 make_symlink(config_home / 'swaylock')
 make_symlink(config_home / 'hypr')
 make_symlink(config_home / 'starship.toml')
+make_symlink(config_home / 'ghostty')
 
 make_symlink(home / '.satysfi' / 'local' / 'packages',
              script_dir / 'satysfi' / 'packages')
