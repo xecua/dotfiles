@@ -64,12 +64,22 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:ui:ff:openFilterWindow",
-    command = 'call pum#set_option("reversed", v:true)',
+    callback = function()
+        vim.fn["pum#set_option"]({
+            reversed = true,
+            direction = "above",
+        })
+    end,
 })
 
 vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:ui:ff:closeFilterWindow",
-    command = 'call pum#set_option("reversed", v:false)',
+    callback = function()
+        vim.fn["pum#set_option"]({
+            reversed = false,
+            direction = "auto",
+        })
+    end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

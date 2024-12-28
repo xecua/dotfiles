@@ -140,13 +140,19 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
 })
 
 vim.keymap.set({ "n", "v" }, ":", function()
-    vim.fn["pum#set_option"]("reversed", true)
+    vim.fn["pum#set_option"]({
+        reversed = true,
+        direction = "above",
+    })
 
     vim.api.nvim_create_autocmd("User", {
         pattern = "DDCCmdlineLeave",
         once = true,
         callback = function()
-            vim.fn["pum#set_option"]("reversed", false)
+            vim.fn["pum#set_option"]({
+                reversed = false,
+                direction = "auto",
+            })
         end,
     })
 
