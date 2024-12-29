@@ -141,8 +141,9 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
-        "format": "{icon}　{volume}%",
-        "format-muted": "",
+        "format": "　{icon}　{volume}%",
+        "format-muted": "",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click": "pavucontrol-qt",
         "format-icons": ["", "", ""]
     },

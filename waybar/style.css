@@ -8,7 +8,8 @@
 
 * {
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  /* Symbols Nerd Font for icons(only). https://github.com/Alexays/Waybar/issues/215#issuecomment-2099830546 */
+  font-family: "Symbols Nerd Font", sans-serif;
   font-size: 12px;
   border-radius: 1rem;
 }

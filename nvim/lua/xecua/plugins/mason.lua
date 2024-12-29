@@ -14,6 +14,7 @@ require("mason").setup({
 
 mason_lspconfig.setup({
     ensure_installed = {
+        "astro",
         "pyright",
         "rust_analyzer",
         "clangd",
@@ -28,7 +29,6 @@ mason_lspconfig.setup({
         "jsonls",
         "texlab",
         "tsp_server",
-        "vacuum",
         "stylelint_lsp",
         "eslint",
         "lua_ls",
