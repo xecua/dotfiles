@@ -18,6 +18,15 @@ vim.api.nvim_create_user_command(
     {}
 )
 
+vim.diagnostic.config({
+    virtual_text = {
+        source = true,
+        suffix = function(diagnostic)
+            return diagnostic.code and string.format(" [%s]", diagnostic.code) or ""
+        end,
+    },
+})
+
 if vim.g.neovide ~= nil then
     require("xecua.editors.neovide")
 end
