@@ -18,7 +18,6 @@ end
 M.on_attach(function(client, buffer)
     -- Enable completion triggered by <c-x><c-o>
     -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local is_hovering = false
 
     -- commands
     vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
@@ -29,7 +28,6 @@ M.on_attach(function(client, buffer)
         })
     end, {})
     vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
-        is_hovering = true
         vim.lsp.buf.signature_help()
     end, {})
     vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
@@ -92,26 +90,6 @@ M.on_attach(function(client, buffer)
 
     if client.supports_method("textDocument/inlayHint") then
         vim.lsp.inlay_hint.enable()
-    end
-
-    if client.supports_method("textDocument/hover") then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            group = augroup,
-            buffer = buffer,
-            callback = function()
-                if not is_hovering then
-                    vim.lsp.buf.hover()
-                end
-            end,
-            desc = "LSP: Signature Help on Hold",
-        })
-        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            group = augroup,
-            buffer = buffer,
-            callback = function()
-                is_hovering = false
-            end,
-        })
     end
 end)
 
