@@ -731,6 +731,7 @@ repo = 'qnighy/satysfi.vim'
 ## F#
 [[plugins]]
 repo = 'ionide/Ionide-vim'
+on_ft = 'fsharp'
 
 ## Brewfile
 [[plugins]]

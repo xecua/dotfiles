@@ -15,6 +15,10 @@ if status --is-interactive
     eval (batpipe)
   end
 
+  if type -q gibo
+    gibo completion fish | source
+  end
+
   # enable vi mode
   fish_vi_key_bindings
 end
