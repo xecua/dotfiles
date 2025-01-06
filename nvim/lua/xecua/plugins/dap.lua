@@ -39,13 +39,13 @@ vim.keymap.set("n", "<Leader>de", dap.set_exception_breakpoints, opts_with_desc(
 
 dap.adapters.python = {
     type = "executable",
-    command = vim.fn.exepath("debugpy-adapter"), -- mason
+    command = "debugpy-adapter",
 }
 dap.adapters.codelldb = {
     type = "server",
     port = "${port}",
     executable = {
-        command = vim.fn.exepath("codelldb"),
+        command = "codelldb",
         args = { "--port", "${port}" },
     },
 }
@@ -59,7 +59,12 @@ dap.adapters.go = {
 }
 dap.adapters.php = {
     type = "executable",
-    command = "php-debug-adapter", -- mason
+    command = "php-debug-adapter",
+}
+dap.adapters.coreclr = {
+    type = "executable",
+    command = "netcoredbg",
+    args = { "--interpreter=vscode" },
 }
 
 local lldb_config = {
@@ -72,6 +77,17 @@ local lldb_config = {
         end,
         cwd = "${workspaceFolder}",
         stopOnEntry = true,
+    },
+}
+
+local netcore_config = {
+    {
+        type = "coreclr",
+        name = "launch - netcoredbg",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+        end,
     },
 }
 
@@ -118,4 +134,6 @@ dap.configurations.php = {
         port = "9003",
     },
 }
+dap.configurations.cs = netcore_config
+dap.configurations.fsharp = netcore_config
 -- }}}
