@@ -142,7 +142,7 @@
     <key name="affix" value="&lt;|>" />
     <key name="nextcand" value="\x20|\cn" />
     <key name="prevcand" value="x|\cp" />
-    <key name="purgedic" value="X|\cx" />
+    <key name="purgedic" value="&lt;|\cx" />
     <key name="nextcomp" value="\ci" />
     <key name="prevcomp" value="\cu" />
     <key name="compcand" value="\cc" />
