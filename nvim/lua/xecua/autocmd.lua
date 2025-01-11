@@ -113,9 +113,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     ]],
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("User", {
     group = init_augroup_id,
-    pattern = "dbui",
+    pattern = "DBUIOpened",
     command = "setl number",
 })
 

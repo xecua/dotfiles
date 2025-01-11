@@ -668,6 +668,9 @@ vim.api.nvim_create_autocmd("User", {
             ["zz"] = { "ざん" },
         }, true)
 
+        vim.fn["skkeleton#register_keymap"]("henkan", "<S-x>", "")
+        vim.fn["skkeleton#register_keymap"]("henkan", "<", "purgeCandidate")
+
         vim.fn["skkeleton#config"]({
             eggLikeNewline = true,
             immediatelyCancel = false,
@@ -684,5 +687,6 @@ vim.api.nvim_create_autocmd("User", {
 -- }}}
 
 -- lua_post_source {{{
+
 vim.fn["skkeleton#initialize"]()
 -- }}}
