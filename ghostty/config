@@ -3,11 +3,15 @@ font-family = "UDEV Gothic 35NFLG"
 font-feature = -glib
 font-size = 12
 theme = Molokai
-# window-decoration = false # linux
 window-inherit-working-directory = true
 
+# linux only
+# window-decoration = false
+
+# macOS only
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
 # disable (almost) all default keybinds
-keybind = ctrl+alt+t=toggle_quick_terminal
 keybind = ctrl+shift+t=unbind
 keybind = super+ctrl+shift+up=unbind
 keybind = super+ctrl+shift+equal=unbind
