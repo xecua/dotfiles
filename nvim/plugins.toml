@@ -351,6 +351,7 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
+rev = '4003bc995e0c34a859a5abbfe1f78e43674822e4'
 on_source = 'ddc.vim'
 
 [[plugins]]

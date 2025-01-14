@@ -668,6 +668,8 @@ vim.api.nvim_create_autocmd("User", {
             ["zz"] = { "ざん" },
         }, true)
 
+        vim.fn["skkeleton#register_keymap"]("input", "'", "henkanPoint")
+
         vim.fn["skkeleton#register_keymap"]("henkan", "<S-x>", "")
         vim.fn["skkeleton#register_keymap"]("henkan", "<", "purgeCandidate")
 

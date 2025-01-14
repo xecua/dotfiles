@@ -1,9 +1,16 @@
 -- autocommands
 local init_augroup_id = vim.api.nvim_create_augroup("Init", { clear = true })
-vim.api.nvim_create_autocmd(
-    "BufWritePre",
-    { group = init_augroup_id, command = [[silent! %s#\($\n\s*\)\+\%$##]], desc = "Remove redundant lines" }
-)
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = init_augroup_id,
+    callback = function()
+        local pos = vim.api.nvim_win_get_cursor(0)
+        vim.cmd([[silent! %s#\s\+$##e]])
+        vim.cmd([[silent! %s#\($\n\s*\)\+\%$##e]])
+        pos[1] = math.min(pos[1], vim.api.nvim_buf_line_count(0))
+        vim.api.nvim_win_set_cursor(0, pos)
+    end,
+    desc = "Remove redundant lines",
+})
 vim.api.nvim_create_autocmd("FileType", {
     group = init_augroup_id,
     pattern = {
