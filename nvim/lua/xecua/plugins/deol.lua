@@ -1,4 +1,8 @@
 -- lua_add {{{
+
+local buf = nil
+local win = nil
+
 local deol_group_id = vim.api.nvim_create_augroup("DeolMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = deol_group_id,
@@ -10,9 +14,6 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "I", "<Plug>(deol_start_insert_first)", { buffer = true })
     end,
 })
-
-local buf = nil
-local win = nil
 
 vim.keymap.set("n", "<Leader>p", function()
     -- darken background
@@ -29,10 +30,15 @@ vim.keymap.set("n", "<Leader>p", function()
             style = "minimal",
         })
         vim.api.nvim_set_option_value("winblend", 50, { scope = "local", win = win })
-    else
-        pcall(vim.api.nvim_win_close, win, true)
-        win = nil
-        buf = nil
+
+        vim.api.nvim_create_autocmd("BufLeave", {
+            buffer = buf,
+            callback = function()
+                pcall(vim.api.nvim_win_close, win, true)
+                buf = nil
+                win = nil
+            end,
+        })
     end
 
     vim.fn["deol#start"]({

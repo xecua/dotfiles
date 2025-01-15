@@ -30,10 +30,6 @@ let g:guise#disable_vim = 1
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
-[[plugins]]
-repo = 'folke/neodev.nvim'
-on_lua = 'neodev'
-
 # http client
 [[plugins]]
 repo = 'mistweaverco/kulala.nvim'
@@ -173,20 +169,19 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+depends = ['mason.nvim', 'mason-lspconfig.nvim', 'nvim-navic']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 
+## breadcrumbs
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
-depends = ['nvim-lspconfig']
 
 ## Installer
 [[plugins]]
 repo = 'williamboman/mason.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/mason.lua'
 
 [[plugins]]
 repo = 'williamboman/mason-lspconfig.nvim'
-depends = ['nvim-lspconfig', 'mason.nvim']
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
@@ -575,7 +570,7 @@ vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 # statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
-depends = 'nvim-web-devicons'
+depends = ['nvim-web-devicons', 'nvim-navic']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lualine.lua'
 
 [[plugins]]
