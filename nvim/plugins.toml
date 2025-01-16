@@ -22,9 +22,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/deol.lua'
 ## open new tabpage instead of start nested instance
 [[plugins]]
 repo = 'lambdalisue/guise.vim'
-hook_add = """
-let g:guise#disable_vim = 1
-"""
+hook_add = "let g:guise#disable_vim = 1"
 
 # Utility
 [[plugins]]
@@ -104,12 +102,8 @@ on_ft = 'qf'
 # diagnostics
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
-lua_add = """
-vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')
-"""
-lua_post_source = """
-require('todo-comments').setup({})
-"""
+lua_add = "vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')"
+lua_post_source = "require('todo-comments').setup({})"
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
@@ -215,7 +209,12 @@ repo = 'pmizio/typescript-tools.nvim'
 lua_post_source = """
 require("typescript-tools").setup({
   root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
-  single_file_support = false
+  single_file_support = false,
+  init_options = {
+      preferences = {
+          includeCompletionsWithInsertText = false
+      }
+  }
 })
 """
 
@@ -250,9 +249,7 @@ end
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
-lua_post_source = """
-require('flutter-tools').setup({})
-"""
+lua_post_source = "require('flutter-tools').setup({})"
 
 # Popup
 [[plugins]]
@@ -274,26 +271,17 @@ vim.api.nvim_create_user_command('DenopsRestart', 'call denops_shared_server#res
 vim.api.nvim_create_user_command('DenopsInstall', 'call denops_shared_server#install()', {})
 vim.api.nvim_create_user_command('DenopsUninstall', 'call denops_shared_server#uninstall()', {})
 """
-hook_done_update = """
-call denops_shared_server#install()
-"""
+hook_done_update = "call denops_shared_server#install()"
 
 [[plugins]]
 repo = 'matsui54/denops-popup-preview.vim'
 depends = 'denops.vim'
-lua_post_source = """
-vim.fn['popup_preview#enable']()
-"""
+hook_post_source = "call popup_preview#enable()"
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = 'denops.vim'
-lua_post_source = """
-vim.g.signature_help_config = {
-  contentsStyle = "currentLabel"
-}
-vim.fn['signature_help#enable']()
-"""
+hook_post_source = "call signature_help#enable()"
 
 ## SKK
 [[plugins]]
@@ -605,9 +593,7 @@ repo = 'vim-jp/vimdoc-ja'
 # Open README.md
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
-hook_add = """
-let g:readme_viewer#plugin_manager = 'dpp.vim'
-"""
+hook_add = "let g:readme_viewer#plugin_manager = 'dpp.vim'"
 
 # ペースト時にpasteモードに
 [[plugins]]
@@ -619,9 +605,7 @@ repo = 'alvan/vim-closetag'
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
-hook_add = """
-colorscheme molokai
-"""
+hook_add = "colorscheme molokai"
 
 # snippets
 [[plugins]]
@@ -663,9 +647,7 @@ vim.g.jumpcursor_marks = jumpcursor_marks
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
-lua_add = """
-vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')
-"""
+lua_add = "vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')"
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
@@ -768,9 +750,7 @@ repo = 'direnv/direnv.vim'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
-lua_add = """
-vim.g.go_doc_keywordprg_enabled = 0
-"""
+hook_add = "let g:go_doc_keywordprg_enabled = 0"
 
 # Haxe
 [[plugins]]

@@ -43,7 +43,7 @@ require("mason-lspconfig").setup({
 -- (lspconfig.*.setupは中でlsp.startを呼んでいるみたい)
 
 -- nvim-lspconfigが0.11仕様になるまではどっちにしろvim.lsp.enableに移行できないかも。それでもconfig()でhandlerを上書きするのは必要
-local configured_servers = {
+local servers = {
     "denols",
     "eslint",
     "intelephense",
@@ -51,8 +51,7 @@ local configured_servers = {
     "texlab",
     "jsonls",
     "efm",
-}
-local default_servers = {
+
     "sourcekit",
     "astro",
     "pyright",
@@ -90,11 +89,13 @@ else
     })
 end
 
-for _, server in ipairs(configured_servers) do
-    lspconfig[server].setup(require("xecua.lsp." .. server))
-end
-for _, server in ipairs(default_servers) do
-    lspconfig[server].setup({})
+for _, server in ipairs(servers) do
+    local ok, config = pcall(require, "xecua.lsp." .. server)
+    if ok then
+        lspconfig[server].setup(config)
+    else
+        lspconfig[server].setup({})
+    end
 end
 -- end
 
@@ -197,7 +198,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- LSP related: preceded by <Leader>l
         vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", opts)
-        vim.keymap.set("n", "<Leader>ls", "<Cmd>LspSignatureHelp<CR>", opts)
+        vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", opts)
         vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", opts)
         vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", opts)
         vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", opts)
@@ -207,10 +208,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
         vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
 
-        if client.name == "rust-analyzer" then
-            vim.api.nvim_buf_create_user_command(buffer, "LspHoverActions", "RustLsp hover actions", {})
-            vim.keymap.set("n", "<Leader>lh", "<Cmd>LspHoverActions<CR>", { buffer = buffer, silent = true })
-        end
         if client.name == "jdtls" then
             vim.api.nvim_buf_create_user_command(
                 buffer,

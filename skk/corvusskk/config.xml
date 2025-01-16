@@ -289,6 +289,7 @@
       <row ro="nh" hi="ぬう" ka="ヌウ" an="ﾇｳ" so="0" />
       <row ro="nw" hi="ねい" ka="ネイ" an="ﾈｲ" so="0" />
       <row ro="np" hi="のう" ka="ノウ" an="ﾉｳ" so="0" />
+      <row ro="nm" hi="のみ" ka="ノミ" an="ﾉﾐ" so="0" />
       <row ro="ha" hi="は" ka="ハ" an="ﾊ" so="0" />
       <row ro="hi" hi="ひ" ka="ヒ" an="ﾋ" so="0" />
       <row ro="hu" hi="ふ" ka="フ" an="ﾌ" so="0" />
@@ -415,6 +416,7 @@
       <row ro="dh" hi="づう" ka="ヅウ" an="ﾂﾞｳ" so="0" />
       <row ro="dw" hi="でい" ka="デイ" an="ﾃﾞｲ" so="0" />
       <row ro="dp" hi="どう" ka="ドウ" an="ﾄﾞｳ" so="0" />
+      <row ro="dr" hi="だら" ka="ダラ" an="ﾀﾞﾗ" so="0" />
       <row ro="ba" hi="ば" ka="バ" an="ﾊﾞ" so="0" />
       <row ro="bi" hi="び" ka="ビ" an="ﾋﾞ" so="0" />
       <row ro="bu" hi="ぶ" ka="ブ" an="ﾌﾞ" so="0" />
