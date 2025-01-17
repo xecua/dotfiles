@@ -281,7 +281,12 @@ hook_post_source = "call popup_preview#enable()"
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = 'denops.vim'
-hook_post_source = "call signature_help#enable()"
+# lua_post_source = """
+# vim.g.signature_help_config = {
+#     contentsStyle = "currentLabel"
+# }
+# vim.fn["signature_help#enable"]()
+# """
 
 ## SKK
 [[plugins]]

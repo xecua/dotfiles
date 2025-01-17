@@ -99,8 +99,10 @@ for _, server in ipairs(servers) do
 end
 -- end
 
+local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
+    group = augroup,
     callback = function()
         -- setting up jdtls (this does not work when called in setup_handlers)
         local pkg_dir = registry.get_package("jdtls"):get_install_path()
@@ -149,15 +151,11 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
-local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
-        -- Enable completion triggered by <c-x><c-o>
-        -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
         -- commands
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
@@ -167,7 +165,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end, {})
         vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
-            -- 0.11 takes options
+            -- 0.11 takes options. 0.10 simply ignores.
             vim.lsp.buf.hover({
                 border = "single",
                 focusable = false,
@@ -207,6 +205,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
         vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
         vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
+        vim.keymap.set("i", "<C-s>", function()
+            -- 0.11 takes options. 0.10 simply ignores.
+            vim.lsp.buf.signature_help({
+                border = "single",
+                focusable = false,
+                focus = false,
+                silent = true,
+            })
+        end, opts)
 
         if client.name == "jdtls" then
             vim.api.nvim_buf_create_user_command(
@@ -248,6 +255,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
             if client:supports_method("textDocument/inlayHint") then
                 vim.lsp.inlay_hint.enable()
             end
+
+            if client:supports_method("textDocument/signatureHelp") then
+                vim.api.nvim_create_autocmd("CursorHoldI", {
+                    group = augroup,
+                    buffer = buffer,
+                    command = "LspSignatureHelp",
+                    desc = "LSP: Signature Help while Typing.",
+                })
+            end
         else
             if client.supports_method("textDocument/documentSymbol") then
                 require("nvim-navic").attach(client, buffer)
@@ -264,6 +280,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             if client.supports_method("textDocument/inlayHint") then
                 vim.lsp.inlay_hint.enable()
+            end
+
+            if client.supports_method("textDocument/signatureHelp") then
+                vim.api.nvim_create_autocmd("CursorHoldI", {
+                    group = augroup,
+                    buffer = buffer,
+                    command = "LspSignatureHelp",
+                    desc = "LSP: Signature Help while Typing.",
+                })
             end
         end
     end,

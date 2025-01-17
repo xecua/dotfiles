@@ -1,4 +1,5 @@
 vim.cmd("filetype plugin indent off")
+vim.cmd("nnoremap <nowait> gr gr") -- disable special map created by neovim
 
 require("xecua.opt")
 require("xecua.var")

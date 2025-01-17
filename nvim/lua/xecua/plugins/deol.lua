@@ -12,6 +12,15 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "i", "<Plug>(deol_start_insert)", { buffer = true })
         vim.keymap.set("n", "A", "<Plug>(deol_start_append_last)", { buffer = true })
         vim.keymap.set("n", "I", "<Plug>(deol_start_insert_first)", { buffer = true })
+
+        vim.api.nvim_create_autocmd("BufLeave", {
+            buffer = vim.t.deol.bufnr,
+            callback = function()
+                pcall(vim.api.nvim_win_close, win, true)
+                buf = nil
+                win = nil
+            end,
+        })
     end,
 })
 
@@ -30,15 +39,6 @@ vim.keymap.set("n", "<Leader>p", function()
             style = "minimal",
         })
         vim.api.nvim_set_option_value("winblend", 50, { scope = "local", win = win })
-
-        vim.api.nvim_create_autocmd("BufLeave", {
-            buffer = buf,
-            callback = function()
-                pcall(vim.api.nvim_win_close, win, true)
-                buf = nil
-                win = nil
-            end,
-        })
     end
 
     vim.fn["deol#start"]({
