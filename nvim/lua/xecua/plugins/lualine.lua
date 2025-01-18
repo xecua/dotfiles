@@ -89,6 +89,6 @@ require("lualine").setup({
         --   },
         -- },
     },
-    extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "symbols-outline" },
+    extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive" },
 })
 -- }}}

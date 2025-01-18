@@ -38,11 +38,6 @@ require("mason-lspconfig").setup({
     },
 })
 
--- NOTE: nvim-0.11があるならvim.lsp.enableを各LSPに対して呼ぶ。lsp/*.luaは勝手に読んでくれる
--- ないならlspconfig.*.setupを各LSPに対して呼ぶ。lsp/*.luaはrequireする
--- (lspconfig.*.setupは中でlsp.startを呼んでいるみたい)
-
--- nvim-lspconfigが0.11仕様になるまではどっちにしろvim.lsp.enableに移行できないかも。それでもconfig()でhandlerを上書きするのは必要
 local servers = {
     "denols",
     "eslint",
@@ -69,25 +64,9 @@ local servers = {
     "typos_lsp",
 }
 
-if vim.fn.has("nvim-0.11") == 1 then
-    -- vim.lsp.config("*", {})
-
-    -- vim.lsp.enable(configured_servers)
-    -- vim.lsp.enable(default_servers)
-else
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = "single",
-        focusable = false,
-        focus = false,
-        silent = true,
-    })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = "single",
-        focusable = false,
-        focus = false,
-        silent = true,
-    })
-end
+-- NOTE: nvim-lspconfigが0.11仕様になったらvim.lsp.enableにしてlua/xecua/lspは消す
+-- vim.lsp.config("*", {})
+-- vim.lsp.enable(servers)
 
 for _, server in ipairs(servers) do
     local ok, config = pcall(require, "xecua.lsp." .. server)
@@ -97,7 +76,6 @@ for _, server in ipairs(servers) do
         lspconfig[server].setup({})
     end
 end
--- end
 
 local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -156,7 +134,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
-        -- commands
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
@@ -165,7 +142,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end, {})
         vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
-            -- 0.11 takes options. 0.10 simply ignores.
             vim.lsp.buf.hover({
                 border = "single",
                 focusable = false,
@@ -174,7 +150,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end, {})
         vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
-            -- 0.11 takes options
             vim.lsp.buf.signature_help({
                 border = "single",
                 focusable = false,
@@ -205,15 +180,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
         vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
         vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
-        vim.keymap.set("i", "<C-s>", function()
-            -- 0.11 takes options. 0.10 simply ignores.
-            vim.lsp.buf.signature_help({
-                border = "single",
-                focusable = false,
-                focus = false,
-                silent = true,
-            })
-        end, opts)
+        vim.keymap.set("i", "<C-s>", "<Cmd>LspSignatureHelp<CR>", opts)
 
         if client.name == "jdtls" then
             vim.api.nvim_buf_create_user_command(
@@ -238,58 +205,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
             require("jdtls").setup_dap({ hotcodereplace = "auto" })
         end
 
-        if vim.fn.has("nvim-0.11") == 1 then
-            if client:supports_method("textDocument/documentSymbol") then
-                require("nvim-navic").attach(client, buffer)
-            end
+        if client:supports_method("textDocument/documentSymbol") then
+            require("nvim-navic").attach(client, buffer)
+        end
 
-            if client:supports_method("textDocument/formatting") then
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = augroup,
-                    buffer = buffer,
-                    command = "LspFormat",
-                    desc = "LSP: Format on save",
-                })
-            end
+        if client:supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = buffer,
+                command = "LspFormat",
+                desc = "LSP: Format on save",
+            })
+        end
 
-            if client:supports_method("textDocument/inlayHint") then
-                vim.lsp.inlay_hint.enable()
-            end
+        if client:supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable()
+        end
 
-            if client:supports_method("textDocument/signatureHelp") then
-                vim.api.nvim_create_autocmd("CursorHoldI", {
-                    group = augroup,
-                    buffer = buffer,
-                    command = "LspSignatureHelp",
-                    desc = "LSP: Signature Help while Typing.",
-                })
-            end
-        else
-            if client.supports_method("textDocument/documentSymbol") then
-                require("nvim-navic").attach(client, buffer)
-            end
-
-            if client.supports_method("textDocument/formatting") then
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = augroup,
-                    buffer = buffer,
-                    command = "LspFormat",
-                    desc = "LSP: Format on save",
-                })
-            end
-
-            if client.supports_method("textDocument/inlayHint") then
-                vim.lsp.inlay_hint.enable()
-            end
-
-            if client.supports_method("textDocument/signatureHelp") then
-                vim.api.nvim_create_autocmd("CursorHoldI", {
-                    group = augroup,
-                    buffer = buffer,
-                    command = "LspSignatureHelp",
-                    desc = "LSP: Signature Help while Typing.",
-                })
-            end
+        if client:supports_method("textDocument/signatureHelp") then
+            vim.api.nvim_create_autocmd("CursorHoldI", {
+                group = augroup,
+                buffer = buffer,
+                command = "LspSignatureHelp",
+                desc = "LSP: Signature Help while Typing.",
+            })
         end
     end,
 })
