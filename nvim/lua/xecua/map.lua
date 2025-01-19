@@ -23,6 +23,13 @@ vim.keymap.set("n", "gf", function()
     local file_dir = vim.fn.expand("%:h")
     vim.cmd.edit(vim.fs.normalize(vim.fs.joinpath(file_dir, cfile)))
 end)
+vim.keymap.set("n", "<Leader>h", function()
+    -- Show hlgroup under cursor
+    -- https://stackoverflow.com/questions/9464844/how-to-get-group-name-of-highlighting-under-cursor-in-vim/37040415#37040415
+    local pos = vim.fn.getpos(".")
+    local symbol_id = vim.fn.synID(pos[2], pos[3], 1)
+    vim.print(vim.fn.synIDattr(symbol_id, "name") .. " -> " .. vim.fn.synIDattr(vim.fn.synIDtrans(symbol_id), "name"))
+end)
 
 vim.keymap.set("t", "<C-]>", [[<C-\><C-n>]])
 
