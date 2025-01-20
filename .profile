@@ -43,15 +43,13 @@ export LESSCHARSET="utf-8"
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     export MOZ_ENABLE_WAYLAND=1
 fi
-if [ "$XDG_SESSION_DESKTOP" = "sway" ]; then
-    # https://github.com/swaywm/sway/issues/595
-    export _JAVA_AWT_WM_NONREPARENTING=1
-fi
-if [ "$XDG_SESSION_DESKTOP" = "berry" ]; then
-    sxhkd -c $HOME/.config/berry/sxhkdrc &
-fi
 
 # Update PATH
+# Homebrewってどっちかというとシステムのものっぽさ
+if [ -r /opt/homebrew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 PATH="$HOME/.local/bin:$PATH"
 PATH="$GOPATH/bin:$PATH"
 PATH="$CARGO_HOME/bin:$PATH"
@@ -74,10 +72,6 @@ if command -v ruby >/dev/null; then
     # user local gem path
     # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
     PATH="$(ruby -e "print Gem.user_dir")/bin:$PATH"
-fi
-
-if [ -r /opt/homebrew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 export PATH
