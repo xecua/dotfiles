@@ -3,6 +3,8 @@
 local dap = require("dap")
 local dap_ui = require("dapui")
 
+require("dap.ext.vscode").json_decode = require("json5").parse
+
 -- local ensure_installed = {
 --   "codelldb",
 --   "debugpy",
@@ -37,103 +39,36 @@ vim.keymap.set("n", "<Leader>do", dap.step_out, opts_with_desc("Step out"))
 vim.keymap.set("n", "<Leader>db", dap.step_back, opts_with_desc("Step back"))
 vim.keymap.set("n", "<Leader>de", dap.set_exception_breakpoints, opts_with_desc("Set breakpoint on exceptions"))
 
-dap.adapters.python = {
-    type = "executable",
-    command = "debugpy-adapter",
-}
-dap.adapters.codelldb = {
-    type = "server",
-    port = "${port}",
-    executable = {
-        command = "codelldb",
-        args = { "--port", "${port}" },
+dap.adapters = {
+    python = {
+        type = "executable",
+        command = "debugpy-adapter",
     },
-}
-dap.adapters.go = {
-    type = "server",
-    port = "${port}",
-    executable = {
-        command = "dlv",
-        args = { "dap", "-l", "127.0.0.1:${port}" },
+    codelldb = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "codelldb",
+            args = { "--port", "${port}" },
+        },
     },
-}
-dap.adapters.php = {
-    type = "executable",
-    command = "php-debug-adapter",
-}
-dap.adapters.coreclr = {
-    type = "executable",
-    command = "netcoredbg",
-    args = { "--interpreter=vscode" },
-}
-
-local lldb_config = {
-    {
-        name = "Launch file",
-        type = "codelldb",
-        request = "launch",
-        program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        stopOnEntry = true,
+    go = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "dlv",
+            args = { "dap", "-l", "127.0.0.1:${port}" },
+        },
+    },
+    php = {
+        type = "executable",
+        command = "php-debug-adapter",
+    },
+    coreclr = {
+        type = "executable",
+        command = "netcoredbg",
+        args = { "--interpreter=vscode" },
     },
 }
 
-local netcore_config = {
-    {
-        type = "coreclr",
-        name = "launch - netcoredbg",
-        request = "launch",
-        program = function()
-            return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-        end,
-    },
-}
-
--- As same reason as above, configure for each languages
-dap.configurations.c = lldb_config
-dap.configurations.cpp = lldb_config
--- dap.configurations.rust = lldb_config
-dap.configurations.python = {
-    {
-        type = "python",
-        request = "launch",
-        name = "Launch file",
-        program = "${file}",
-    },
-}
-dap.configurations.go = {
-    {
-        type = "delve",
-        name = "Debug",
-        request = "launch",
-        program = "${file}",
-    },
-    {
-        type = "delve",
-        name = "Debug test", -- configuration for debugging test files
-        request = "launch",
-        mode = "test",
-        program = "${file}",
-    },
-    -- works with go.mod packages and sub packages
-    {
-        type = "delve",
-        name = "Debug test (go.mod)",
-        request = "launch",
-        mode = "test",
-        program = "./${relativeFileDirname}",
-    },
-}
-dap.configurations.php = {
-    {
-        type = "php",
-        request = "launch",
-        name = "Listen for Xdebug",
-        port = "9003",
-    },
-}
-dap.configurations.cs = netcore_config
-dap.configurations.fsharp = netcore_config
 -- }}}

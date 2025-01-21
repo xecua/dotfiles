@@ -77,6 +77,13 @@ for _, server in ipairs(servers) do
     end
 end
 
+-- _default.lua
+vim.keymap.del("n", "grn")
+vim.keymap.del({ "n", "x" }, "gra")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "gO")
+
 local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
@@ -180,7 +187,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
         vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
         vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
-        vim.keymap.set("i", "<C-s>", "<Cmd>LspSignatureHelp<CR>", opts)
+        vim.keymap.set({ "i", "s" }, "<C-s>", "<Cmd>LspSignatureHelp<CR>", opts)
 
         if client.name == "jdtls" then
             vim.api.nvim_buf_create_user_command(

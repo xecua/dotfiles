@@ -9,7 +9,7 @@ vim.filetype.add({
     },
     pattern = {
         [".*/git/config.*"] = "gitconfig",
-        [".*/git/ignore.*"] = "gitignore",  -- cause error?
+        [".*/git/ignore.*"] = "gitignore", -- cause error?
         ["%.gitconfig.*"] = "gitconfig",
         [".*/git/attributes.*"] = "gitattributes",
         [".textlintrc"] = "json",
@@ -18,5 +18,6 @@ vim.filetype.add({
         ["compose%.ya?ml"] = "yaml.docker-compose",
         ["openapi.*%.ya?ml"] = "yaml.openapi",
         ["openapi.*%.json"] = "json.openapi",
+        [".*/%.vscode/.*%.json"] = "jsonc",
     },
 })

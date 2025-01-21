@@ -28,6 +28,10 @@ hook_add = "let g:guise#disable_vim = 1"
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
 
+[[plugins]]
+repo = 'Joakker/lua-json5'
+extAttrs = { installerBuild = './install.sh' }
+
 # http client
 [[plugins]]
 repo = 'mistweaverco/kulala.nvim'
@@ -37,6 +41,15 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/kulala.lua'
 [[plugins]]
 repo = 'mhinz/vim-startify'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
+
+[[plugins]]
+repo = 'rmagatti/auto-session'
+lua_post_source = """
+require("auto-session").setup({
+    -- suppressed_dirs = {"~/", "~/Downloads", "/"},
+    session_lens = { load_on_setup = false }
+})
+"""
 
 # Preview
 [[plugins]]
