@@ -176,7 +176,6 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-depends = ['mason.nvim', 'mason-lspconfig.nvim', 'nvim-navic']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 
 ## breadcrumbs
@@ -192,12 +191,6 @@ repo = 'williamboman/mason-lspconfig.nvim'
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
-lua_post_source = """
-require('nlspsettings').setup({
-  append_default_schemas = true,
-  nvim_notify = { enable = true },
-})
-"""
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'

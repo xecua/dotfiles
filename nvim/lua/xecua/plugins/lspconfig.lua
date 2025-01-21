@@ -38,6 +38,10 @@ require("mason-lspconfig").setup({
     },
 })
 
+require("nlspsettings").setup({
+    nvim_notify = { enable = true },
+})
+
 local servers = {
     "denols",
     "eslint",
