@@ -125,10 +125,14 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
+lua_post_source = "vim.notify = require('notify')"
+
+[[plugins]]
+repo = 'ibhagwan/fzf-lua'
 lua_post_source = """
-local notify = require('notify')
-notify.setup({})
-vim.notify = notify
+local fzf_lua = require('fzf-lua')
+fzf_lua.setup({'fzf-vim'})
+fzf_lua.register_ui_select()
 """
 
 ## dependency
@@ -332,50 +336,39 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddc.lua'
 [[plugins]]
 repo = 'Shougo/ddc-ui-pum'
 depends = ['ddc.vim', 'pum.vim']
-on_source = 'ddc.vim'
 
 ### source
 [[plugins]]
 repo = 'Shougo/ddc-source-lsp'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-around'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline'
 rev = '4003bc995e0c34a859a5abbfe1f78e43674822e4'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline-history'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-input'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'LumaKernel/ddc-source-file'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'tani/ddc-fuzzy'
-on_source = 'ddc.vim'
 
 ### filter
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_rank'
-on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
-on_source = 'ddc.vim'
 
 ## ddu
 [[plugins]]
@@ -391,103 +384,82 @@ depends = 'ddu.vim'
 ### UI
 [[plugins]]
 repo = 'Shougo/ddu-ui-ff'
-# # on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-# # on_source = 'ddu.vim'
 
 ### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_substring'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'mityu/ddu-filter-matcher_multi_regex'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-converter_display_word'
-# on_source = 'ddu.vim'
+
+[[plugins]]
+repo = 'kyoh86/ddu-filter-converter_hl_dir'
+
+[[plugins]]
+repo = 'uga-rosa/ddu-filter-converter_devicon'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-filter-sorter_alpha'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'xecua/ddu-filter-sorter_treefirst'
-# on_source = 'ddu.vim'
 
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-help'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'matsui54/ddu-source-man'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = '4513ECHO/ddu-source-source'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-file'
-# on_source = 'ddu.vim'
 
 [[plugins]]
-repo = 'Shougo/ddu-source-file_rec'
-# on_source = 'ddu.vim'
-
-[[plugins]]
-repo = 'nabezokodaikon/ddu-source-file_fd'
-# on_source = 'ddu.vim'
+repo = 'matsui54/ddu-source-file_external'
 
 [[plugins]]
 repo = 'shun/ddu-source-buffer'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-source-register'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'uga-rosa/ddu-source-lsp'
-# on_source = 'ddu.vim'
 
 ### Kinds
 [[plugins]]
 repo = 'Shougo/ddu-kind-file'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'Shougo/ddu-kind-word'
-# on_source = 'ddu.vim'
 
 ### column
 [[plugins]]
 repo = 'Shougo/ddu-column-filename'
-# on_source = 'ddu.vim'
 
 [[plugins]]
 repo = 'ryota2357/ddu-column-icon_filename'
-# on_source = 'ddu.vim'
 
 # filer
 [[plugins]]

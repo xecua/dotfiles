@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
         uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
     })
 end, {})
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_fd<CR>")
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu deol<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
@@ -194,10 +194,14 @@ vim.fn["ddu#custom#patch_global"]({
         filer = { toggle = true },
     },
     sourceParams = {
-        file_fd = { args = { "-tf", "-H", "-E", ".git" } },
+        file_external = { cmd = { "fd", ".", "-t", "f", "-H", "-E", ".git" } },
+        rg = { args = { "--json" } },
     },
     sourceOptions = {
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
+        file_external = { converters = { "converter_hl_dir", "converter_devicon" } },
+        buffer = { converters = { "converter_hl_dir", "converter_devicon" } },
+        rg = { converters = { "converter_devicon" } },
         source = { defaultAction = "execute" },
         file = { -- filerでしか使ってないのでそれ用に調整してしまう
             columns = { "icon_filename" },
