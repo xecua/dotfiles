@@ -199,9 +199,9 @@ vim.fn["ddu#custom#patch_global"]({
     },
     sourceOptions = {
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
-        file_external = { converters = { "converter_hl_dir", "converter_devicon" } },
-        buffer = { converters = { "converter_hl_dir", "converter_devicon" } },
-        rg = { converters = { "converter_devicon" } },
+        file_external = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
+        buffer = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
+        rg = { matchers = {}, sorters = {} },
         source = { defaultAction = "execute" },
         file = { -- filerでしか使ってないのでそれ用に調整してしまう
             columns = { "icon_filename" },
@@ -213,7 +213,6 @@ vim.fn["ddu#custom#patch_global"]({
     },
     filterParams = {
         matcher_fzf = { highlightMatched = "Search" },
-        matcher_substring = { highlightMatched = "Search" },
     },
     kindOptions = {
         file = { defaultAction = "open" },
@@ -225,6 +224,7 @@ vim.fn["ddu#custom#patch_global"]({
         readme_viewer = { defaultAction = "open" },
         lsp = { defaultAction = "open" },
         lsp_codeAction = { defaultAction = "apply" },
+        ui_select = { defaultAction = "select" },
     },
 })
 -- }}}

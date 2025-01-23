@@ -19,6 +19,10 @@ if status --is-interactive
     gibo completion fish | source
   end
 
+  if type -q fzf
+    fzf --fish | source
+  end
+
   # enable vi mode
   fish_vi_key_bindings
 end

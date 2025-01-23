@@ -32,11 +32,6 @@ repo = 'nvim-lua/plenary.nvim'
 repo = 'Joakker/lua-json5'
 extAttrs = { installerBuild = './install.sh' }
 
-# http client
-[[plugins]]
-repo = 'mistweaverco/kulala.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/kulala.lua'
-
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
@@ -129,11 +124,7 @@ lua_post_source = "vim.notify = require('notify')"
 
 [[plugins]]
 repo = 'ibhagwan/fzf-lua'
-lua_post_source = """
-local fzf_lua = require('fzf-lua')
-fzf_lua.setup({'fzf-vim'})
-fzf_lua.register_ui_select()
-"""
+lua_post_source = "require('fzf-lua').setup({'fzf-vim'})"
 
 ## dependency
 [[plugins]]
@@ -388,10 +379,10 @@ repo = 'Shougo/ddu-ui-ff'
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
 
-### Matcher
 [[plugins]]
-repo = 'Shougo/ddu-filter-matcher_substring'
+repo = 'matsui54/ddu-vim-ui-select'
 
+### Matcher
 [[plugins]]
 repo = 'Shougo/ddu-filter-matcher_hidden'
 
@@ -403,9 +394,6 @@ repo = 'Shougo/ddu-filter-converter_display_word'
 
 [[plugins]]
 repo = 'kyoh86/ddu-filter-converter_hl_dir'
-
-[[plugins]]
-repo = 'uga-rosa/ddu-filter-converter_devicon'
 
 [[plugins]]
 repo = 'yuki-yano/ddu-filter-fzf'
