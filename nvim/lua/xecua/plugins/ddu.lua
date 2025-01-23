@@ -175,6 +175,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- }}}
 
 -- lua_source {{{
+vim.fn["ddu#custom#alias"]("default", "column", "icon_filename_ff", "icon_filename")
 vim.fn["ddu#custom#patch_global"]({
     ui = "ff",
     uiParams = {
@@ -225,6 +226,16 @@ vim.fn["ddu#custom#patch_global"]({
         lsp = { defaultAction = "open" },
         lsp_codeAction = { defaultAction = "apply" },
         ui_select = { defaultAction = "select" },
+    },
+    columnParams = {
+        icon_filename = {
+            defaultIcon = { icon = "" },
+        },
+        icon_filename_for_ff = {
+            defaultIcon = { icon = "" },
+            padding = 0,
+            pathDisplayOption = "relative",
+        },
     },
 })
 -- }}}

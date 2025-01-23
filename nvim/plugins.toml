@@ -444,9 +444,6 @@ repo = 'Shougo/ddu-kind-word'
 
 ### column
 [[plugins]]
-repo = 'Shougo/ddu-column-filename'
-
-[[plugins]]
 repo = 'ryota2357/ddu-column-icon_filename'
 
 # filer
