@@ -124,7 +124,11 @@ lua_post_source = "vim.notify = require('notify')"
 
 [[plugins]]
 repo = 'ibhagwan/fzf-lua'
-lua_post_source = "require('fzf-lua').setup({'fzf-vim'})"
+lua_post_source = """
+local fzf_lua = require('fzf-lua')
+fzf_lua.setup({'fzf-vim'})
+fzf_lua.register_ui_select()
+"""
 
 ## dependency
 [[plugins]]
@@ -378,9 +382,6 @@ repo = 'Shougo/ddu-ui-ff'
 
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
-
-[[plugins]]
-repo = 'matsui54/ddu-vim-ui-select'
 
 ### Matcher
 [[plugins]]

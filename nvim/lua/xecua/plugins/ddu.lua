@@ -231,7 +231,7 @@ vim.fn["ddu#custom#patch_global"]({
         icon_filename = {
             defaultIcon = { icon = "" },
         },
-        icon_filename_for_ff = {
+        icon_filename_ff = {
             defaultIcon = { icon = "" },
             padding = 0,
             pathDisplayOption = "relative",
