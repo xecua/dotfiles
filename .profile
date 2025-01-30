@@ -37,7 +37,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 
 export FZF_DEFAULT_OPTS="--reverse"
-export LESS="-FRXM -j5 --shift 5"
+export LESS="-FRXMS -j5 --shift 5"
 export LESSCHARSET="utf-8"
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
