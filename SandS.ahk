@@ -53,4 +53,4 @@ $*Space up:: {
 }
 
 ; スペース押しっぱなしが欲しいときのために RShift で代用する
-$RShift::Space
+; $RShift::Space
