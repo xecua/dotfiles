@@ -45,7 +45,6 @@ packages:
   # - dev-java/openjdk-bin:11
   # - dev-java/openjdk-bin:17
   # - dev-perl/rename
-  # - dev-python/i3ipc
   # - dev-python/neovim-remote
   # - dev-python/pip
   # - dev-python/pynvim
@@ -128,21 +127,14 @@ packages:
   # - x11-apps/xwininfo
   # - x11-base/xorg-server
   # - x11-drivers/nvidia-drivers
-  # - x11-libs/i3ipc-glib
   # - x11-misc/clipcat
   # - x11-misc/dex
   # - x11-misc/dunst
-  # - x11-misc/i3-workspace-names-daemon
-  # - x11-misc/i3blocks
-  # - x11-misc/i3lock-color
-  # - x11-misc/i3status-rust
   # - x11-misc/lightdm
   # - x11-misc/lightdm-slick-greeter
   # - x11-misc/picom
   # - x11-misc/rofi
   # - x11-misc/shutter
   # - x11-misc/spacefm
-  # - x11-terms/alacritty
   # - x11-misc/xdg-utils
   # - x11-misc/xss-lock
-  # - x11-wm/i3-gaps

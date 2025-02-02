@@ -64,8 +64,6 @@ make_symlink(config_home / 'latexmk' / 'latexmkrc',
              script_dir / 'latexmk' / 'latexmkrc')
 make_symlink(config_home / 'tmux' / 'tmux.conf',
              script_dir / 'tmux' / 'tmux.conf')
-make_symlink(config_home / 'wezterm')
-make_symlink(config_home / 'alacritty')
 
 # Linux only
 make_symlink(config_home / 'xremap')

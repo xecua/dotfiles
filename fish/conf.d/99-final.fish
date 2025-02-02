@@ -3,7 +3,6 @@ if [ -z $TMUX ] && status --is-interactive && type -q tmux
   # むしろホワイトリスト方式?
   if test -n "$SSH_CONNECTION" # SSH
     or test -n "$WT_SESSION" # Windows Terminal
-    or test "$TERM" = "alacritty" # Alacritty
     or test "$TERM" = "xterm-ghostty" # Ghostty
     or test -n "$START_TMUX_ON_START" # local env
     attach_tmux_session_if_needed

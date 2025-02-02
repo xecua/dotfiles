@@ -105,7 +105,7 @@ fi
 #
 # export LANG=ja_JP.UTF-8
 # export BROWSER=/usr/bin/vivaldi
-# export TERMINAL=/usr/bin/alacritty
+# export TERMINAL=/usr/bin/ghostty
 # export EDITOR=/usr/bin/nvim
 # export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 if [ -e "$HOME/.profile.local" ]; then

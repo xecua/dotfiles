@@ -1,8 +1,0 @@
-[font]
-builtin_box_drawing = false
-
-[cursor.style]
-shape = "Beam"
-
-[window]
-startup_mode = "Maximized"

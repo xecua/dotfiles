@@ -1,6 +1,0 @@
-[general]
-import = [
-    "alacritty.common.toml",
-    "alacritty.local.toml",
-    "~/.config/alacritty/theme/themes/iterm.toml",
-]
