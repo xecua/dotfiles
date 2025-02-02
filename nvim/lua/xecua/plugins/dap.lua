@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 -- Debugging
 local dap = require("dap")
 local dap_ui = require("dapui")

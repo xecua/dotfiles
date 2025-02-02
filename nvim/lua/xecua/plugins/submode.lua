@@ -4,7 +4,7 @@ vim.g.submode_always_show_submode = true
 vim.g.submode_keep_leaving_key = true
 -- }}}
 
--- lua_post_source {{{
+-- lua_source {{{
 local function nmap_enter(mode, key)
     vim.fn["submode#enter_with"](mode, "n", "", key, key)
 end

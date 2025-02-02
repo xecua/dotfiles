@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 if require("xecua.utils").get_local_config().obsidian_dir == vim.fn.getcwd() then
     vim.opt.conceallevel = 1
     require("obsidian").setup({

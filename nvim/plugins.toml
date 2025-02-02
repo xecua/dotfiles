@@ -39,9 +39,9 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 
 [[plugins]]
 repo = 'rmagatti/auto-session'
-lua_post_source = """
+lua_source = """
 require("auto-session").setup({
-    -- suppressed_dirs = {"~/", "~/Downloads", "/"},
+    allowed_dirs = { "~/Documents" },
     session_lens = { load_on_setup = false }
 })
 """
@@ -68,7 +68,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/obsidian.lua'
 [[plugins]]
 repo = 'MeanderingProgrammer/render-markdown.nvim'
 on_ft = 'markdown'
-lua_post_source = """
+lua_source = """
 require('render-markdown').setup({
   checkbox = {
     checked = { icon = "" },
@@ -111,7 +111,7 @@ on_ft = 'qf'
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 lua_add = "vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')"
-lua_post_source = "require('todo-comments').setup({})"
+lua_source = "require('todo-comments').setup({})"
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
@@ -120,11 +120,11 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-lua_post_source = "vim.notify = require('notify')"
+lua_source = "vim.notify = require('notify')"
 
 [[plugins]]
 repo = 'ibhagwan/fzf-lua'
-lua_post_source = """
+lua_source = """
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({'fzf-vim'})
 fzf_lua.register_ui_select()
@@ -211,7 +211,7 @@ on_lua = 'nio'
 ## tsserver integration
 [[plugins]]
 repo = 'pmizio/typescript-tools.nvim'
-lua_post_source = """
+lua_source = """
 require("typescript-tools").setup({
   root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'package.json'),
   single_file_support = false,
@@ -254,7 +254,7 @@ end
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
-lua_post_source = "require('flutter-tools').setup({})"
+lua_source = "require('flutter-tools').setup({})"
 
 # Popup
 [[plugins]]
@@ -286,7 +286,7 @@ hook_post_source = "call popup_preview#enable()"
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
 depends = 'denops.vim'
-# lua_post_source = """
+# lua_source = """
 # vim.g.signature_help_config = {
 #     contentsStyle = "currentLabel"
 # }
@@ -302,7 +302,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
 rev = 'v2'
-lua_post_source = """
+lua_source = """
 require('skkeleton_indicator').setup({
   eijiText = "a",
   hiraText = "あ",
@@ -344,7 +344,7 @@ repo = 'Shougo/ddc-source-cmdline'
 rev = '4003bc995e0c34a859a5abbfe1f78e43674822e4'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-cmdline-history'
+repo = 'Shougo/ddc-source-cmdline_history'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'
@@ -475,7 +475,7 @@ vim.keymap.set('n', '<Leader>gs', '<Cmd>Git<CR>')
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-lua_post_source = """
+lua_source = """
 require('gitsigns').setup({
   signcolumn = false,
   numhl = true,
@@ -537,7 +537,7 @@ on_source = 'lualine.nvim'
 # comment
 [[plugins]]
 repo = 'numToStr/Comment.nvim'
-lua_post_source = """
+lua_source = """
 require('Comment').setup({
   ignore = '^$',
   mappings = {
@@ -579,7 +579,7 @@ hook_add = "colorscheme molokai"
 # snippets
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
-lua_post_source = """
+lua_source = """
 for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.*', true, true)) do
     vim.fn['denippet#load'](snip)
 end
@@ -625,7 +625,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dial.lua'
 # Highlight under cursor
 [[plugins]]
 repo = 'RRethy/vim-illuminate'
-lua_post_source = """
+lua_source = """
 require('illuminate').configure({
   filetype_overrides = {
     toml = { providers = { 'regex' } },

@@ -689,7 +689,6 @@ vim.api.nvim_create_autocmd("User", {
 })
 -- }}}
 
--- lua_post_source {{{
-
+-- lua_source {{{
 vim.fn["skkeleton#initialize"]()
 -- }}}

@@ -9,8 +9,6 @@ vim.g.startify_lists = {
 vim.g.startify_commands = {
     { "Open Daily Note", "ObsidianToday" },
 }
--- }}}
--- lua_post_source {{{
 vim.g.startify_bookmarks = {
     "~",
     "~/.config/nvim",

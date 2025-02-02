@@ -17,7 +17,7 @@ vim.g.quickrun_config = {
 vim.keymap.set("n", "<F5>", "<Cmd>QuickRun -mode n<CR>", { silent = true })
 vim.keymap.set("v", "<F5>", "<Cmd>QuickRun -mode v<CR>", { silent = true })
 -- }}}
--- lua_post_source {{{
+-- lua_source {{{
 vim.fn["quickrun#module#register"]({
     name = "close_quickfix_on_success",
     kind = "hook",

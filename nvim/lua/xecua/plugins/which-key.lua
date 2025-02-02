@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 local presets = require("which-key.plugins.presets")
 presets.operators.v = nil
 

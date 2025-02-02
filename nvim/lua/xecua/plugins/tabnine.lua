@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 require("tabnine").setup({
     accept_keymap = false,
     dismiss_keymap = false,

@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
 

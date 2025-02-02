@@ -1,4 +1,4 @@
--- lua_post_source {{{
+-- lua_source {{{
 vim.fn["lexima#add_rule"]({ char = "(", at = [[\\\%#]], input_after = "\\)", filetype = "tex" })
 vim.fn["lexima#add_rule"]({ char = "<BS>", at = [[\\(\%#\\)]], delete = 2, input = "<BS><BS>", filetype = "tex" })
 vim.fn["lexima#add_rule"]({ char = "[", at = [[\\\%#]], input_after = "\\]", filetype = "tex" })

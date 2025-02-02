@@ -4,7 +4,7 @@ vim.keymap.set({ "n", "i", "v" }, "<C-_><C-_>", "<Plug>TComment_<c-_><c-_>")
 vim.keymap.set({ "n", "i", "v" }, "<C-_>b", "<Plug>TComment_<c-_>b")
 -- }}}
 
--- lua_post_source {{{
+-- lua_source {{{
 vim.fn["tcomment#type#Define"]("satysfi", "%% %s")
 vim.fn["tcomment#type#Define"]("glsl", "// %s")
 vim.fn["tcomment#type#Define"]("kotlin", "// %s")
