@@ -36,7 +36,7 @@ export POETRY_HOME="$XDG_DATA_HOME/poetry"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 
-export FZF_DEFAULT_OPTS="--reverse"
+export FZF_DEFAULT_OPTS="--reverse --tmux 80% --no-scrollbar --preview-window='border-left' --margin=1"
 export LESS="-FRXMS -j5 --shift 5"
 export LESSCHARSET="utf-8"
 

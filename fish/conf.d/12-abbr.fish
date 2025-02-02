@@ -16,36 +16,29 @@ abbr --add nvim --function expand_vim
 abbr --add vim --function expand_vim
 abbr --add vi --function expand_vim
 
-function broot_vim
-  set -l vim_command (expand_vim)
-  set -l broot_result (br --conf ~/.config/broot/fzf.hjson)
-  if [ -z $broot_result ]
+function fzf_vim
+  set -f vim_command (expand_vim)
+  set -f target (fzf --preview 'fzf-preview.sh {}')
+  if [ -z $target ]
     return 1
   end
-  echo $vim_command $broot_result
+  echo $vim_command $target
 end
-abbr --add brv --function broot_vim
+abbr --add fv --function fzf_vim
 
-function broot_cat
-  set -l cat_command ''
+function fzf_cat
   if type -q bat
-    set cat_command bat
+    set -f cat_command bat
   else
-    set cat_command cat
+    set -f cat_command cat
   end
-  set -l broot_result (br --conf ~/.config/broot/fzf.hjson)
-  if [ -z $broot_result ]
+  set -f target (fzf --preview 'fzf-preview.sh {}')
+  if [ -z $target ]
     return 1
   end
-  echo $cat_command $broot_result
+  echo $cat_command $target
 end
-abbr --add brc --function broot_cat
-
-function broot_fzf
-  echo (br --conf ~/.config/broot/fzf.hjson)
-end
-
-abbr --add brf --position anywhere --function broot_fzf
+abbr --add fc --function fzf_cat
 
 abbr --add g git
 abbr --add gti git

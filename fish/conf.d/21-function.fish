@@ -1,5 +1,6 @@
-function brcd
-  set -l destination (br --only-folders --conf ~/.config/broot/fzd.hjson)
+function fcd
+  set -fx FZF_DEFAULT_COMMAND 'fd -t d'
+  set -f destination (fzf)
   if [ -n "$destination" ]
     cd "$destination"
   end

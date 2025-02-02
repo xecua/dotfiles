@@ -12,6 +12,7 @@ home = Path.home()
 config_home = Path(os.getenv("XDG_CONFIG_HOME", home / '.config'))
 cache_home = Path(os.getenv("XDG_CACHE_HOME", home / '.cache'))
 data_home = Path(os.getenv("XDG_DATA_HOME", home / '.local' / 'share'))
+binary_path = home / '.local' / 'bin'
 # TODO: Windows(cause error below?)
 # TODO: macOS(AquaSKK, Brewfile, yabai, skhd)
 uname = os.uname().sysname
@@ -44,11 +45,13 @@ make_symlink(home / '.zshrc')
 make_symlink(home / '.mutagen.yml')
 make_symlink(home / '.clang-format')
 
-make_symlink(config_home / 'broot')
+make_symlink(binary_path / 'fzf-preview.sh')
+
 make_symlink(config_home / 'nvim')
 make_symlink(config_home / 'ideavim')
 make_symlink(config_home / 'git')
-make_symlink(config_home / 'lazygit' / 'config.yml', script_dir / 'lazygit' / 'config.yml')
+make_symlink(config_home / 'lazygit' / 'config.yml',
+             script_dir / 'lazygit' / 'config.yml')
 make_symlink(config_home / 'fd')
 make_symlink(config_home / 'ripgrep')
 make_symlink(config_home / 'zed')
@@ -84,10 +87,14 @@ if not (config_home / 'rofi').exists():
     setup_sh_path = rofi_path / 'setup.sh'
     setup_sh_path.chmod(0o755)
     subprocess.run(setup_sh_path, cwd=rofi_path)
-    make_symlink( home / '.local' / 'bin' / 'rofi_launcher', script_dir / 'rofi_scripts' / 'rofi_launcher')
-    make_symlink( home / '.local' / 'bin' / 'rofi_powermenu', script_dir / 'rofi_scripts' / 'rofi_powermenu')
-    make_symlink( home / '.local' / 'bin' / 'rofi_scripts', script_dir / 'rofi_scripts' / 'rofi_screenshot')
-    make_symlink( home / '.local' / 'bin' / 'rofi_volume', script_dir / 'rofi_scripts' / 'rofi_volume')
+    make_symlink(binary_path / 'rofi_launcher',
+                 script_dir / 'rofi_scripts' / 'rofi_launcher')
+    make_symlink(binary_path / 'rofi_powermenu',
+                 script_dir / 'rofi_scripts' / 'rofi_powermenu')
+    make_symlink(binary_path / 'rofi_scripts',
+                 script_dir / 'rofi_scripts' / 'rofi_screenshot')
+    make_symlink(binary_path / 'rofi_volume',
+                 script_dir / 'rofi_scripts' / 'rofi_volume')
 
 if not (config_home / 'wgetrc').exists():
     hsts_file_path = cache_home / 'wget-hsts'
