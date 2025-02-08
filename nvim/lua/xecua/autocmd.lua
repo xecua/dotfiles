@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
-vim.api.nvim_create_autocmd("FocusGained", {
+vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter" }, {
     group = init_augroup_id,
     pattern = "*",
     callback = function()
@@ -175,7 +175,7 @@ vim.api.nvim_create_autocmd("FocusGained", {
         end
     end,
 })
-vim.api.nvim_create_autocmd("FocusLost", {
+vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
     group = init_augroup_id,
     pattern = "*",
     callback = function()
