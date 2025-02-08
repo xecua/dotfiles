@@ -1,0 +1,10 @@
+# vim
+--no-input
+--bind 'j:down,k:up'
+--bind 'i,/:show-input+unbind(j,k,i,/)'
+--no-input
+--bind 'j:down,k:up,g:top,G:last,b:page-up,u:half-page-up,f:page-down,d:half-page-down,q:abort'
+--bind 'i,/:show-input+unbind(j,k,g,G,b,u,f,d,i,/,q)'
+--bind 'esc:transform:[ "$FZF_INPUT_STATE" = "enabled" ] && echo "hide-input+rebind(j,k,g,G,b,u,f,d,i,/,q)" || echo ""'
+--bind 'ctrl-c:transform:[ "$FZF_INPUT_STATE" = "enabled" ] && echo "hide-input+rebind(j,k,g,G,b,u,f,d,i,/,q)" || echo abort'
+--bind 'enter:transform:[ "$FZF_INPUT_STATE" = "enabled" ] && echo "hide-input+rebind(j,k,g,G,b,u,f,d,i,/,q)" || echo accept'

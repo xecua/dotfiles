@@ -46,6 +46,7 @@ make_symlink(home / '.mutagen.yml')
 make_symlink(home / '.clang-format')
 
 make_symlink(binary_path / 'fzf-preview.sh')
+make_symlink(config_home / 'fzfrc')
 
 make_symlink(config_home / 'nvim')
 make_symlink(config_home / 'ideavim')

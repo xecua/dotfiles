@@ -4,6 +4,7 @@
 vim.api.nvim_create_user_command("DduRgLive", function()
     vim.fn["ddu#start"]({
         sources = { { name = "rg", options = { volatile = true, matchers = {} } } },
+        sourceOptions = { rg = { matchers = {}, sorters = {} } },
         uiParams = { ff = { ignoreEmpty = false } },
     })
 end, {})
@@ -23,6 +24,7 @@ vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu deol<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
+vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
 vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
 
@@ -202,7 +204,6 @@ vim.fn["ddu#custom#patch_global"]({
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
         file_external = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
         buffer = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
-        rg = { matchers = {}, sorters = {} },
         source = { defaultAction = "execute" },
         file = { -- filerでしか使ってないのでそれ用に調整してしまう
             columns = { "icon_filename" },

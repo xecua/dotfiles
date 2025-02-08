@@ -21,8 +21,6 @@ if status --is-interactive
 
   if type -q fzf
     fzf --fish | source
+    alias fcd fzf-cd-widget
   end
-
-  # enable vi mode
-  fish_vi_key_bindings
 end

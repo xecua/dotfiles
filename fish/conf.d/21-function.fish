@@ -1,9 +1,28 @@
-function fcd
-  set -fx FZF_DEFAULT_COMMAND 'fd -t d'
-  set -f destination (fzf)
-  if [ -n "$destination" ]
-    cd "$destination"
+function frg
+  rm -f /tmp/rg-fzf-{r,f}
+  set -f rg_command "rg --column --line-number --no-heading --color=always --smart-case "
+  set -f initial_query $argv
+  fzf --ansi --disabled --query "$initial_query"
+  --bind "start:reload:$rg_command {q}"
+  --bind "change:reload:sleep 0.1; $rg_command {q} || true"
+  --bind 'ctrl-t:transform:
+  [ "$FZF_PROMPT" = "2. fzf> " ] &&
+  echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo {q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
+  echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo {q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"'
+  --color "hl:-1:underline,hl+:-1:underline:reverse"
+  --prompt '1. ripgrep> '
+  --delimiter :
+  --header 'CTRL-T: Switch between ripgrep/fzf'
+  --preview 'fzf-preview.sh {1}:{2}'
+  --bind 'enter:become($EDITOR {1} +{2})'
+end
+
+function fzf-git-switch -w 'git switch'
+  set -f branch $argv[1]
+  if [ -z "$branch" ]
+    set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf)
   end
+  git switch $branch
 end
 
 function randomstring
@@ -14,8 +33,8 @@ function randomstring
   cat /dev/urandom | base64 | fold -w $argv[1] | head -1
 end
 
-# get user confirmatino with given message or fallback message, and return 0 if y or Y given
-function get_confirm
+# get user confirmation with given message or fallback message, and return 0 if y or Y given
+function get-confirmation
   set -l message "$argv[1]"
   if [ -z "$argv[1]" ]
     set message "Are you sure?"
@@ -23,11 +42,7 @@ function get_confirm
 
   set message (string join '' $message "[y/N] ")
   read -l answer -P "$message"
-  if [ "$answer" = "y" -o "$answer" = "Y" ]
-    return 0
-  else
-    return 1
-  end
+  test "$answer" = "y" -o "$answer" = "Y"
 end
 
 function go-update
