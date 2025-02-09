@@ -24,7 +24,7 @@ function M.get_os_string()
     return os_string
 end
 
----@return { obsidian_dir: string, skkeleton_dictionaries: table<string> }
+---@return { obsidian_dir: string, skkeleton_dictionaries: table<string>, create_auto_session: boolean|function }
 function M.get_local_config()
     local skkdict_path = vim.fn["dpp#get"]("dict").path
     local emoji_jisyo_path = vim.fn["dpp#get"]("skk-emoji-jisyo").path
@@ -44,17 +44,22 @@ function M.get_local_config()
         emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
     }
 
-    local ok, config = pcall(require, "xecua.local")
-    local local_config = {
+    local ok, local_config = pcall(require, "xecua.local")
+    local config = {
+        obsidian_dir = "/dev/null",
         skkeleton_dictionaries = skkeleton_dictionaries,
+        create_auto_session = function()
+            return false
+        end,
     }
 
     if ok then
-        local_config.obsidian_dir = config.obsidian_dir
-        vim.list_extend(local_config.skkeleton_dictionaries, config.skkeleton_dictionaries or {})
+        config.obsidian_dir = local_config.obsidian_dir or config.obsidian_dir
+        config.create_auto_session = local_config.create_auto_session or config.create_auto_session
+        vim.list_extend(config.skkeleton_dictionaries, local_config.skkeleton_dictionaries or {})
     end
 
-    return local_config
+    return config
 end
 
 return M

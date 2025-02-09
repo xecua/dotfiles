@@ -41,7 +41,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 repo = 'rmagatti/auto-session'
 lua_source = """
 require("auto-session").setup({
-    allowed_dirs = { "~/Documents" },
+    auto_create = require('xecua.utils').get_local_config().create_auto_session(),
     session_lens = { load_on_setup = false }
 })
 """
