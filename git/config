@@ -24,7 +24,7 @@
 	c = commit -am
 	amend = commit -a --amend
 	co = checkout
-	sw = swf
+	sw = switch
 	swf = !fish -c fzf-git-switch # 補完を入れられるならswと統合したい
 	b = branch
 	j = jump
