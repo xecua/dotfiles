@@ -123,7 +123,7 @@ fzf_lua.register_ui_select()
 
 ## dependency
 [[plugins]]
-repo = 'kyazdani42/nvim-web-devicons'
+repo = 'nvim-tree/nvim-web-devicons'
 
 # Grammar check
 [[plugins]]
@@ -133,7 +133,7 @@ repo = 'rhysd/vim-grammarous'
 [[plugins]]
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 
-# Machine Learning-based completion
+# LLM
 [[plugins]]
 repo = 'github/copilot.vim'
 on_if = "get(g:, 'use_copilot', v:false)"
@@ -148,6 +148,21 @@ repo = 'codota/tabnine-nvim'
 on_if = "get(g:, 'use_tabnine', v:false)"
 extAttrs = { installerBuild = './dl_binaries.sh' }
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tabnine.lua'
+
+# ## integration
+[[plugins]]
+repo = 'yetone/avante.nvim'
+# mergeするとダメらしい
+merged = false
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/avante.lua'
+depends = ['dressing.nvim', 'plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
+extAttrs = { installerBuild = 'make' }
+
+[[plugins]]
+repo = 'stevearc/dressing.nvim'
+
+[[plugins]]
+repo = 'MunifTanjim/nui.nvim'
 
 # Database client
 [[plugins]]
