@@ -37,15 +37,6 @@ extAttrs = { installerBuild = './install.sh' }
 repo = 'mhinz/vim-startify'
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
 
-[[plugins]]
-repo = 'rmagatti/auto-session'
-lua_source = """
-require("auto-session").setup({
-    auto_create = require('xecua.utils').get_local_config().create_auto_session(),
-    session_lens = { load_on_setup = false }
-})
-"""
-
 # Preview
 [[plugins]]
 repo = 'previm/previm'
