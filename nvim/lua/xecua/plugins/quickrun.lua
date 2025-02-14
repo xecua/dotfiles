@@ -14,8 +14,8 @@ vim.g.quickrun_config = {
     rust = { type = "rust/cargo" },
 }
 
-vim.keymap.set("n", "<F5>", "<Cmd>QuickRun -mode n<CR>", { silent = true })
-vim.keymap.set("v", "<F5>", "<Cmd>QuickRun -mode v<CR>", { silent = true })
+-- vim.keymap.set("n", "<F5>", "<Cmd>QuickRun -mode n<CR>", { silent = true })
+-- vim.keymap.set("v", "<F5>", "<Cmd>QuickRun -mode v<CR>", { silent = true })
 -- }}}
 -- lua_source {{{
 vim.fn["quickrun#module#register"]({
