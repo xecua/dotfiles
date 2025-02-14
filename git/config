@@ -30,7 +30,9 @@
 	j = jump
 	jm = jump merge
 	d = diff
-	dft = difftool
+	dft = -c diff.external=difft diff
+	ds = -c diff.external=difft show --ext-diff
+	dl = -c diff.external=difft log -p --ext-diff
 	l = log --date=iso-local
 	ls = log --date=iso-local --stat
 	lp = log --date=iso-local --remerge-diff
@@ -67,18 +69,13 @@
 	rebase = true
 [stash]
 	showPatch = true
-[delta]
-	plus-style = syntax "#012800"
-	minus-style = normal "#340001"
-	syntax-theme = Monokai Extended
-	line-numbers = true
 [diff]
 	algorithm = histogram
 	tool = difftastic
 [difftool]
 	prompt = false
 [difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
+	cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
 [pager]
 	difftool = true
 [merge]

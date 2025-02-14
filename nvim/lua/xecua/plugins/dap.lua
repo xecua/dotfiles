@@ -23,6 +23,8 @@ vim.keymap.set("n", "<Leader>dd", function()
     dap_ui.toggle({
         reset = true,
     })
+
+    -- TODO: ストローク数多すぎ問題
 end, opts_with_desc("Toggle UI"))
 vim.keymap.set("n", "<Leader>dt", function()
     dap.toggle_breakpoint()

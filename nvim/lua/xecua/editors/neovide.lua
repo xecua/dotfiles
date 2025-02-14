@@ -1,5 +1,6 @@
 vim.g.neovide_input_ime = false
 vim.g.neovide_scale_factor = 1.0
+vim.g.neovide_input_macos_option_key_is_meta = true
 vim.g.neovide_cursor_vfx_mode = "torpedo"
 local function change_scale_factor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
