@@ -735,3 +735,8 @@ repo = 'jdonaldson/vaxe'
 [[plugins]]
 repo = 'keith/swift.vim'
 on_ft = 'swift'
+
+# Typst
+[[plugins]]
+repo = 'kaarmu/typst.vim'
+on_ft = 'typst'
