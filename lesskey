@@ -1,0 +1,7 @@
+h left-scroll
+H left-scroll
+l right-scroll
+0 no-scroll
+$ end-scroll
+\e\e undo-hilite
+:h help

@@ -41,6 +41,7 @@ make_symlink(home / '.bashrc')
 make_symlink(home / '.bash_profile')
 make_symlink(home / '.zprofile')
 make_symlink(home / '.zshrc')
+make_symlink(home / '.myclirc')
 
 make_symlink(home / '.mutagen.yml')
 make_symlink(home / '.clang-format')
@@ -61,6 +62,7 @@ make_symlink(config_home / 'dunst')
 make_symlink(config_home / 'hypr')
 make_symlink(config_home / 'starship.toml')
 make_symlink(config_home / 'ghostty')
+make_symlink(config_home / 'lesskey')
 
 make_symlink(home / '.satysfi' / 'local' / 'packages',
              script_dir / 'satysfi' / 'packages')

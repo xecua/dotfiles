@@ -486,6 +486,7 @@ require('gitsigns').setup({
   signcolumn = false,
   numhl = true,
   current_line_blame = true,
+  current_line_blame_formatter = "<author>, <author_time> (<author_time:%R>) - <summary>",
   current_line_blame_opts = {
       ignore_whitespace = true
   },
