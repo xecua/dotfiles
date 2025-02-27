@@ -38,4 +38,5 @@ vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.showtabline = 2
 vim.opt.showmode = false
 vim.opt.undofile = true
+vim.opt.shortmess:append("c")
 vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"

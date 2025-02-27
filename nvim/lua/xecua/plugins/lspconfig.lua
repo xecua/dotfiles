@@ -34,6 +34,7 @@ require("mason-lspconfig").setup({
         "yamlls",
         "taplo",
         "typos_lsp",
+        -- for *.nix, nil_ls should be installed. but it can't be installed without nix in system.
         -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
     },
 })
