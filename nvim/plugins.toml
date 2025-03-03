@@ -754,3 +754,4 @@ on_ft = 'typst'
 # Nix
 [[plugins]]
 repo = 'LnL7/vim-nix'
+on_ft = 'nix'

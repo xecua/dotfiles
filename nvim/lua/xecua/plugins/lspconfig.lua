@@ -20,6 +20,7 @@ require("mason-lspconfig").setup({
         "html",
         "efm",
         "gopls",
+        "nil_ls",
         "kotlin_language_server",
         "intelephense",
         "jdtls",
@@ -33,8 +34,7 @@ require("mason-lspconfig").setup({
         "lemminx",
         "yamlls",
         "taplo",
-        "typos_lsp",
-        -- for *.nix, nil_ls should be installed. but it can't be installed without nix in system.
+        -- "typos_lsp",
         -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
     },
 })
@@ -53,6 +53,7 @@ local servers = {
     "efm",
 
     "sourcekit",
+    "nil_ls",
     "astro",
     "pyright",
     "clangd",
@@ -66,7 +67,7 @@ local servers = {
     "lemminx",
     "yamlls",
     "taplo",
-    "typos_lsp",
+    -- "typos_lsp",
 }
 
 -- NOTE: nvim-lspconfigが0.11仕様になったらvim.lsp.enableにしてlua/xecua/lspは消す

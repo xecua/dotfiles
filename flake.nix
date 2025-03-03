@@ -14,69 +14,42 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, ... }@inputs: {
-    nixosConfigurations = {
-      # NixOS on WSL
-      wsl = inputs.nixos.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          inputs.nixos-wsl.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          ({ lib, pkgs, ... } : {
-            system = {
-              configurationRevision = self.rev or self.dirtyRev or null;
-              stateVersion = "24.05";
-            };
-            nix.settings.experimental-features = [ "nix-command" "flakes" ];
-            environment.systemPackages = with pkgs; [
-              gcc git llvm gnupg mold
-            ];
-            wsl = {
-              enable = true;
-              defaultUser = "xecua";
-            };
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.xecua = {
-                home = {
-                  stateVersion = "24.05";
-                  packages = with pkgs; [
-                    inputs.neovim-nightly-overlay.packages.${system}.default
-                    fish deno rustup nodejs go
-                    tmux unzip direnv difftastic
-                    eza fd ripgrep fzf lazygit tig lnav fastfetch jnv jaq
-                    unar hexyl bat starship skktools
-                    bat-extras.prettybat bat-extras.batpipe bat-extras.batman
-                    sccache radare2 typst bottom temurin-bin
-                    # .NET: https://nixos.wiki/wiki/DotNET
-                  ];
-                  # file = {};
-                  # xdg.configFile = {};
-                };
-                programs.home-manager.enable = true;
-              };
-              # dotfilesの各ファイルを配置するやつを書く
-            };
-          })
-        ];
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      nixosConfigurations = {
+        upside-down-face = inputs.nixos.lib.nixosSystem {
+          modules = [
+            inputs.nixos-wsl.nixosModules.default
+            inputs.home-manager.nixosModules.home-manager
+            (import ./nix/common.nix)
+            (import ./nix/desktop/wsl.nix)
+          ];
+          specialArgs = {
+            defaultUser = "xecua";
+            inherit (inputs) neovim-nightly-overlay;
+          };
+        };
+      };
+      darwinConfigurations = {
+        default = inputs.nix-darwin.lib.darwinSystem {
+          modules = [
+            inputs.home-manager.darwinModules.home-manager
+            (import ./nix/common.nix)
+            (import ./nix/macbook/pro-m1.nix)
+          ];
+          specialArgs = {
+            defaultUser = "shiba";
+            inherit (inputs) neovim-nightly-overlay;
+          };
+        };
       };
     };
-    darwinConfigurations = {
-      default = inputs.nix-darwin.lib.darwinSystem {
-        modules = [
-          ({ pkgs, ...  }: {
-            environment.systemPackages = with pkgs; [
-              git
-            ];
-              nix.settings.experimental-features = [ "nix-command" "flakes" ];
-          })
-        ];
-      };
-    };
-  };
 }
 
+# ↓ネイティブで入れる機会あったら書くやつ
 # Desktop App
 # bitwarden-desktop obsidian vivaldi vivaldi-ffmpeg-codecs firefox-devedition-bin
 #
@@ -91,6 +64,5 @@
 #
 # Kernel/File System
 # refind btrfs-progs parted efibootmgr
-# Driver: 一番めんどくさい。とりあえずネイティブで入れる予定ないし後で……
 # v4l2loopback: https://nixos.wiki/wiki/OBS_Studio
 # nVidia driver: https://nixos.wiki/wiki/Nvidia
