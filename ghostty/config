@@ -9,9 +9,6 @@ macos-option-as-alt = left
 # linux only
 # window-decoration = false
 
-# macOS only
-keybind = global:ctrl+grave_accent=toggle_quick_terminal
-
 # disable (almost) all default keybinds
 keybind = ctrl+shift+t=unbind
 keybind = super+ctrl+shift+up=unbind

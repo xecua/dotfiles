@@ -4,13 +4,23 @@
     "nix-command"
     "flakes"
   ];
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     gcc
     git
+    clang
     llvm
     gnupg
     mold
   ];
+  fonts = {
+    packages = with pkgs; [
+      udev-gothic
+      udev-gothic-nf
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
+  };
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -53,8 +63,18 @@
           typst
           bottom
           temurin-bin
+          mercurial
+          iconv
+          pastel
+          teip
+          trippy
+          python3
           # .NET: https://nixos.wiki/wiki/DotNET
           socat # WSLだけ?
+
+          php84
+          php84Packages.composer
+          php84Packages.psysh
         ];
         # file = {};
         # xdg.configFile = {};
