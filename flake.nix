@@ -56,8 +56,7 @@
 # Native
 # containerd slirp4netns cni-plugins nerdctl rootlesskit
 # fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa
-# discord httpie blueman wf-recorder wl-clipboard xremap xdg-desktop-portal-hyprland protonmail-desktop adwaita-qt
-# udev-gothic udev-gothic-nf noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-color-emoji corefonts nerd-fonts.symbols-only dunst ghostty font-awesome
+# discord blueman wf-recorder wl-clipboard xremap xdg-desktop-portal-hyprland protonmail-desktop adwaita-qt dunst ghostty
 # alsa-utils bluez-alsa pavucontrol playerctl pipewire obs-studio
 # grim hypridle hyprlock hyprpaper kanshi qt6ct greetd.greetd greetd.tuigreet waybar
 # libfido2 yubikey-manager

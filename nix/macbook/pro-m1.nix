@@ -1,26 +1,18 @@
 { pkgs, defaultUser, ... }:
 {
-  system.stateVersion = 6;
+  system = {
+    # ?
+    activationScripts.extraActivate.text = ''
+      ln -sf ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
+      ln -sf ${pkgs.temurin-bin} /Library/Java/JavaVirtualMachines/temurin.jdk
+    '';
+    stateVersion = 6;
+  };
   nixpkgs.hostPlatform = "aarch64-darwin";
   environment.systemPackages = with pkgs; [
     colima
-    firefox
-    flutter
-    google-chrome
-    # ghostty # corrupted?
     karabiner-elements
-    neovide
-    ngrok
-    obsidian
-    postman
-    raycast
-    skimpdf
-    slack
-    temurin-bin
     temurin-bin-17
-    vscode
-    wireshark
-    zoom-us
   ];
   home-manager = {
     users.${defaultUser} =
@@ -28,11 +20,37 @@
       {
         home = {
           homeDirectory = lib.mkForce "/Users/${defaultUser}";
+          packages = with pkgs; [
+            firefox
+            flutter
+            google-chrome
+            # ghostty # corrupted?
+            neovide
+            ngrok
+            obsidian
+            postman
+            raycast
+            skimpdf
+            slack
+            vscode
+            wireshark
+            zoom-us
+            docker-client
+            docker-compose
+            mutagen
+            mutagen-compose
+          ];
         };
       };
   };
   homebrew = {
     enable = true;
+    taps = [
+      "laishulu/homebrew" # macism
+    ];
+    brews = [
+      "macism"
+    ];
     casks = [
       "amethyst"
       "google-drive"

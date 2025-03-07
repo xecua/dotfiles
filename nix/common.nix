@@ -1,4 +1,9 @@
-{ pkgs, defaultUser, neovim-nightly-overlay, ... }:
+{
+  pkgs,
+  defaultUser,
+  neovim-nightly-overlay,
+  ...
+}:
 {
   nix.settings.experimental-features = [
     "nix-command"
@@ -13,12 +18,17 @@
     gnupg
     mold
   ];
+  programs.fish.enable = true; # enable `nix` completion
   fonts = {
     packages = with pkgs; [
       udev-gothic
       udev-gothic-nf
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      corefonts
+      nerd-fonts.symbols-only
+      font-awesome
     ];
   };
   home-manager = {
@@ -64,12 +74,22 @@
           bottom
           temurin-bin
           mercurial
+          mycli
+          gh
+          dig
+          less
+          curl
+          wget
+          devcontainer
+          pv
+          universal-ctags
           iconv
           pastel
           teip
           trippy
           python3
-          # .NET: https://nixos.wiki/wiki/DotNET
+          httpie
+          dotnetCorePackages.dotnet_9.sdk
           socat # WSLだけ?
 
           php84
