@@ -56,7 +56,6 @@ make_symlink(config_home / 'lazygit' / 'config.yml',
              script_dir / 'lazygit' / 'config.yml')
 make_symlink(config_home / 'fd')
 make_symlink(config_home / 'ripgrep')
-make_symlink(config_home / 'zed')
 make_symlink(config_home / 'waybar')
 make_symlink(config_home / 'dunst')
 make_symlink(config_home / 'hypr')

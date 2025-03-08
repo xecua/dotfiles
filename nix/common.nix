@@ -21,7 +21,6 @@
     llvm
     mold
   ];
-  programs.fish.enable = true; # enable `nix` completion
   fonts = {
     packages = with pkgs; [
       udev-gothic
@@ -100,10 +99,6 @@
           # (uutils-coreutils.override { prefix = "u"; })
           wget
         ];
-        # file = {};
-      };
-      xdg.dataFile = {
-        "fish/vendor_completions.d/nix.fish".source = "${pkgs.nix}/share/fish/vendor_completions.d/nix.fish";
       };
     };
   };

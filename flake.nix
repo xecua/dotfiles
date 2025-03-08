@@ -17,14 +17,18 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      # flake-partsとか使えそう?
+      formatter = {
+        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      };
       nixosConfigurations = {
         upside-down-face = inputs.nixos.lib.nixosSystem {
           modules = [
             inputs.nixos-wsl.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
             (import ./nix/common.nix)
+            (import ./nix/files.nix)
             (import ./nix/desktop/wsl.nix)
           ];
           specialArgs = {
@@ -38,11 +42,23 @@
           modules = [
             inputs.home-manager.darwinModules.home-manager
             (import ./nix/common.nix)
+            (import ./nix/files.nix)
             (import ./nix/macbook/pro-m1.nix)
           ];
           specialArgs = {
             defaultUser = "shiba";
             inherit (inputs) neovim-nightly-overlay;
+          };
+        };
+      };
+      # 直home-managerはファイルの配置をするときくらいな気がする
+      homeConfigurations = {
+        default = inputs.home-manager.lib.homeManagerConfiguration {
+          modules = [
+            (import ./nix/files.nix)
+          ];
+          specialArgs = {
+            defaultUser = "xecua";
           };
         };
       };
