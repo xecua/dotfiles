@@ -74,12 +74,11 @@
           neovim-nightly-overlay.packages.${system}.default
           nodejs
           pastel
-          php84
-          php84Packages.composer
+          # php84
+          # php84Packages.composer
           # php84Packages.psysh
           pv
           python3
-          python312Packages.weasyprint
           radare2
           rename
           ripgrep

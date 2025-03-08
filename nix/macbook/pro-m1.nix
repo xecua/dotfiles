@@ -35,7 +35,6 @@
             mutagen-compose
             neovide
             ngrok
-            obsidian
             postman
             raycast
             skimpdf
@@ -57,9 +56,10 @@
     ];
     casks = [
       "amethyst"
-      "google-drive"
       "ghostty"
+      "google-drive"
       "jetbrains-toolbox"
+      "obsidian"
       "vivaldi"
     ];
   };
