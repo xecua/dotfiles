@@ -45,6 +45,10 @@ if status is-interactive
     alias sed=gsed
   end
 
+  if type -q gtar
+    alias sed=gtar
+  end
+
   if type -q gawk
     alias awk=gawk
   end

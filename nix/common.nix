@@ -11,11 +11,14 @@
   ];
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    bat
+    clang
+    curl
     gcc
     git
-    clang
-    llvm
     gnupg
+    inetutils
+    llvm
     mold
   ];
   programs.fish.enable = true; # enable `nix` completion
@@ -40,64 +43,68 @@
         username = defaultUser;
         stateVersion = "24.05";
         packages = with pkgs; [
-          neovim-nightly-overlay.packages.${system}.default
-          fish
-          deno
-          rustup
-          nodejs
-          go
-          tmux
-          unzip
-          direnv
-          difftastic
-          eza
-          fd
-          ripgrep
-          fzf
-          lazygit
-          tig
-          lnav
-          fastfetch
-          jnv
-          jaq
-          unar
-          hexyl
-          bat
-          starship
-          skktools
-          bat-extras.prettybat
-          bat-extras.batpipe
           bat-extras.batman
-          sccache
-          radare2
-          typst
+          bat-extras.batpipe
+          bat-extras.prettybat
           bottom
-          temurin-bin
+          deno
+          devcontainer
+          difftastic
+          dig
+          direnv
+          dotnetCorePackages.dotnet_9.sdk
+          eza
+          fastfetch
+          fd
+          fish
+          fzf
+          gh
+          gnirehtet
+          go
+          hexyl
+          httpie
+          iconv
+          jaq
+          jnv
+          lazygit
+          less
+          lnav
           mercurial
           mycli
-          gh
-          dig
-          less
-          curl
-          wget
-          devcontainer
-          pv
-          universal-ctags
-          iconv
+          neovim-nightly-overlay.packages.${system}.default
+          nodejs
           pastel
-          teip
-          trippy
-          python3
-          httpie
-          dotnetCorePackages.dotnet_9.sdk
-          socat # WSLだけ?
-
           php84
           php84Packages.composer
-          php84Packages.psysh
+          # php84Packages.psysh
+          pv
+          python3
+          python312Packages.weasyprint
+          radare2
+          rename
+          ripgrep
+          rustup
+          sccache
+          skktools
+          socat # WSLだけ?
+          starship
+          teip
+          temurin-bin
+          tig
+          tmux
+          trash-cli
+          trippy
+          typst
+          unar
+          universal-ctags
+          unzip
+          # (uutils-coreutils.override { prefix = "u"; })
+          wget
         ];
         # file = {};
-        # xdg.configFile = {};
+      };
+      xdg.dataFile = {
+        "fish/vendor_completions.d/nix.fish".source = "${pkgs.nix}/share/fish/vendor_completions.d/nix.fish";
       };
     };
   };

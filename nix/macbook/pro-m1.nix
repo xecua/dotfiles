@@ -13,6 +13,8 @@
     colima
     karabiner-elements
     temurin-bin-17
+    (writeShellScriptBin "gtar" ''exec ${lib.getExe gnutar} "$@"'')
+    (writeShellScriptBin "gsed" ''exec ${lib.getExe gnused} "$@"'')
   ];
   home-manager = {
     users.${defaultUser} =
@@ -21,10 +23,16 @@
         home = {
           homeDirectory = lib.mkForce "/Users/${defaultUser}";
           packages = with pkgs; [
+            darwin.iproute2mac
+            docker-client
+            docker-compose
+            docker-credential-helpers
             firefox
             flutter
-            google-chrome
             # ghostty # corrupted?
+            google-chrome
+            mutagen
+            mutagen-compose
             neovide
             ngrok
             obsidian
@@ -35,10 +43,6 @@
             vscode
             wireshark
             zoom-us
-            docker-client
-            docker-compose
-            mutagen
-            mutagen-compose
           ];
         };
       };
