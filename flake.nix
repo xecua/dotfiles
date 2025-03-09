@@ -16,11 +16,25 @@
 
   outputs =
     { self, nixpkgs, ... }@inputs:
+    let
+      pkgs = (import <nixpkgs> { });
+      scripts = {
+        format = {
+          # requires --impure?
+          type = "app";
+          program = toString (pkgs.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix");
+        };
+      };
+    in
     {
       # flake-partsとか使えそう?
       formatter = {
         x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
         aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+      };
+      apps = {
+        x86_64-linux = scripts;
+        aarch64-darwin = scripts;
       };
       nixosConfigurations = {
         upside-down-face = inputs.nixos.lib.nixosSystem {
@@ -59,6 +73,7 @@
           ];
           specialArgs = {
             defaultUser = "xecua";
+            inherit (inputs) neovim-nightly-overlay;
           };
         };
       };

@@ -6,9 +6,17 @@ let
 in
 {
   home-manager = {
-    users.${defaultUser} = {
-      home.file =
-        make-maps [
+    users.${defaultUser} = {config, ... }: {
+      home = {
+        # activation = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        #   # cdとかする必要ある?
+        #   run ${builtins.toPath ../rofi/setup.sh} ${builtins.toPath ../rofi/setup.sh}
+        #
+        #   run npm set prefix ${config.xdg.dataHome}/npm
+        #   run npm set cache  ${config.xdg.cacheHome}/npm
+        #   run npm set init-module ${config.xdg.configHome}/npm/config/npm-init.js
+        # '';
+        file = make-maps [
           ".profile"
           ".bash_profile"
           ".bashrc"
@@ -22,6 +30,7 @@ in
           ".local/bin/fzf-preview.sh" = make-item "fzf-preview.sh";
           ".satysfi/local/packages" = make-item "satysfi/packages";
         };
+      };
       xdg = {
         configFile =
           make-maps [
@@ -50,11 +59,7 @@ in
           // {
             "libskk/rules" = make-item "skk/libskk/rules";
             "libcskk/rules" = make-item "skk/libcskk/rules";
-            # "wgetrc" = {
-            #   text = ''
-            #     $XDG_CACHE_HOME/wget-hsts
-            #   '';
-            # };
+            "wgetrc".text = "${config.xdg.cacheHome}/wget-hsts";
             # indentconfig?
             systemd = {
               source = ../systemd/user;
@@ -69,6 +74,4 @@ in
       };
     };
   };
-  # TODO: npm prefix
-  # TODO: rofi
 }
