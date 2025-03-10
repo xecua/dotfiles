@@ -35,9 +35,7 @@ in
         configFile =
           make-maps [
             "fish/conf.d"
-            "fish/completions"
             "fzfrc"
-            "nvim"
             "ideavim"
             "git"
             "lazygit/config.yml"
@@ -61,6 +59,11 @@ in
             "libcskk/rules" = make-item "skk/libcskk/rules";
             "wgetrc".text = "${config.xdg.cacheHome}/wget-hsts";
             # indentconfig?
+            nvim = {
+              source = ../nvim;
+              target = "nvim";
+              recursive = true;
+            };
             systemd = {
               source = ../systemd/user;
               target = "systemd/user";

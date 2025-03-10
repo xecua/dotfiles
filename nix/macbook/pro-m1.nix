@@ -15,6 +15,16 @@
     temurin-bin-17
     (writeShellScriptBin "gtar" ''exec ${lib.getExe gnutar} "$@"'')
     (writeShellScriptBin "gsed" ''exec ${lib.getExe gnused} "$@"'')
+    firefox
+    google-chrome
+    neovide
+    postman
+    raycast
+    skimpdf
+    slack
+    vscode
+    wireshark
+    zoom-us
   ];
   home-manager = {
     users.${defaultUser} =
@@ -23,25 +33,15 @@
         home = {
           homeDirectory = lib.mkForce "/Users/${defaultUser}";
           packages = with pkgs; [
-            darwin.iproute2mac
+            iproute2mac
             docker-client
             docker-compose
             docker-credential-helpers
-            firefox
             flutter
             # ghostty # corrupted?
-            google-chrome
             mutagen
             mutagen-compose
-            neovide
             ngrok
-            postman
-            raycast
-            skimpdf
-            slack
-            vscode
-            wireshark
-            zoom-us
           ];
         };
       };
