@@ -1,8 +1,7 @@
 { pkgs, defaultUser, ... }:
 {
   system = {
-    # ?
-    activationScripts.extraActivate.text = ''
+    activationScripts.extraActivation.text = ''
       ln -sf ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
       ln -sf ${pkgs.temurin-bin} /Library/Java/JavaVirtualMachines/temurin.jdk
     '';
@@ -37,7 +36,6 @@
             docker-client
             docker-compose
             docker-credential-helpers
-            flutter
             # ghostty # corrupted?
             mutagen
             mutagen-compose
@@ -56,6 +54,7 @@
     ];
     casks = [
       "amethyst"
+      "flutter"
       "ghostty"
       "google-drive"
       "jetbrains-toolbox"

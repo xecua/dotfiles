@@ -202,8 +202,14 @@ vim.fn["ddu#custom#patch_global"]({
     },
     sourceOptions = {
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
-        file_external = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
-        buffer = { columns = { "icon_filename_ff" }, converters = { "converter_hl_dir" } },
+        file_external = {
+            -- columns = { "icon_filename_ff" },
+            converters = { "converter_hl_dir" },
+        },
+        buffer = {
+            -- columns = { "icon_filename_ff" },
+            converters = { "converter_hl_dir" },
+        },
         source = { defaultAction = "execute" },
         file = { -- filerでしか使ってないのでそれ用に調整してしまう
             columns = { "icon_filename" },

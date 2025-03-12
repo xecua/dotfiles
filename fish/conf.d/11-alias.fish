@@ -57,13 +57,6 @@ if status is-interactive
     alias lg=lazygit
   end
 
-  if type -q pbcopy
-    alias cbpaste=pbpaste
-  else if type -q xsel
-    alias cbpaste='xsel -ob'
-  else if type -q wl-copy
-    alias cbpaste=wl-paste
-  else if type -q win32yank.exe
-    alias cbpaste='win32yank.exe -o'
-  end
+  alias cbcopy=fish_clipboard_copy
+  alias cbpaste=fish_clipboard_paste
 end

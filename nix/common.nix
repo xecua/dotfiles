@@ -81,7 +81,7 @@
           radare2
           rename
           ripgrep
-          rustup
+          rustup # rust-analyzerもこれで
           sccache
           skktools
           socat # WSLだけ?
@@ -98,6 +98,32 @@
           unzip
           # (uutils-coreutils.override { prefix = "u"; })
           wget
+
+          # LSP Servers
+          astro-language-server
+          pyright
+          yapf
+          clang-tools # includes clangd
+          typescript-language-server
+          nodePackages_latest.prettier
+          vim-language-server
+          vscode-langservers-extracted # html, css, eslint
+          efm-langserver
+          gopls
+          nil # Nix
+          kotlin-language-server
+          intelephense
+          jdt-language-server
+          texlab
+          stylelint-lsp
+          lua-language-server
+          stylua
+          sqls
+          sql-formatter
+          lemminx # XML
+          yaml-language-server
+          taplo # TOML
+          typos-lsp
         ];
       };
     };

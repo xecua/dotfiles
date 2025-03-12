@@ -45,7 +45,7 @@ in
             "dunst"
             "hypr"
             "starship.toml"
-            "ghostty"
+            "ghostty/config"
             "lesskey"
             "latexmk/latexmkrc"
             "tmux/tmux.conf"

@@ -9,36 +9,6 @@ require("mason").setup({
     },
 })
 
-require("mason-lspconfig").setup({
-    ensure_installed = {
-        "astro",
-        "pyright",
-        "rust_analyzer",
-        "clangd",
-        "ts_ls",
-        "vimls",
-        "html",
-        "efm",
-        "gopls",
-        "nil_ls",
-        "kotlin_language_server",
-        "intelephense",
-        "jdtls",
-        "jsonls",
-        "texlab",
-        "tsp_server",
-        "stylelint_lsp",
-        "eslint",
-        "lua_ls",
-        "sqls",
-        "lemminx",
-        "yamlls",
-        "taplo",
-        -- "typos_lsp",
-        -- note: non-lsp servers are not considered: https://github.com/williamboman/mason.nvim/discussions/143#discussioncomment-3225734
-    },
-})
-
 require("nlspsettings").setup({
     nvim_notify = { enable = true },
 })

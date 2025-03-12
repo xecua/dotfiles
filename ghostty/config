@@ -105,7 +105,7 @@ keybind = super+left=unbind
 keybind = super+comma=unbind
 keybind = super+minus=unbind
 keybind = super+a=unbind
-keybind = super+n=unbind
+# keybind = super+n=unbind
 keybind = super+page_down=unbind
 keybind = super+left_bracket=unbind
 keybind = super+physical:nine=unbind

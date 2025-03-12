@@ -1,9 +1,3 @@
-function cbcopy
-  echo -ne "\e]52;;"
-  base64 | tr -d "\n"
-  echo -ne '\e\\'
-end
-
 function frg
   rm -f /tmp/rg-fzf-{r,f}
   set -f rg_command "rg --column --line-number --no-heading --color=always --smart-case "
