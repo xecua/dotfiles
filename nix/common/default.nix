@@ -5,6 +5,9 @@
   ...
 }:
 {
+  imports = [
+    ./files.nix
+  ];
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -112,7 +115,6 @@
           gopls
           nil # Nix
           kotlin-language-server
-          intelephense
           jdt-language-server
           texlab
           stylelint-lsp
@@ -124,6 +126,18 @@
           yaml-language-server
           taplo # TOML
           typos-lsp
+
+          (writeShellScriptBin "php-debug-adapter" ''
+            exec ${lib.getBin nodejs}/bin/node ${lib.getLib vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js "$@"
+          '')
+
+          (intelephense.overrideAttrs (oldAttrs: rec {
+            version = "1.12.6";
+            src = fetchurl {
+              url = "https://registry.npmjs.org/intelephense/-/intelephense-${version}.tgz";
+              hash = "sha256-p2x5Ayipoxk77x0v+zRhg86dbRHuBBk1Iegk/FaZrU4=";
+            };
+          }))
         ];
       };
     };

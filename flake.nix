@@ -41,9 +41,7 @@
           modules = [
             inputs.nixos-wsl.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
-            (import ./nix/common.nix)
-            (import ./nix/files.nix)
-            (import ./nix/desktop/wsl.nix)
+            (import ./nix/linux/desktop-wsl.nix)
           ];
           specialArgs = {
             defaultUser = "xecua";
@@ -55,9 +53,7 @@
         default = inputs.nix-darwin.lib.darwinSystem {
           modules = [
             inputs.home-manager.darwinModules.home-manager
-            (import ./nix/common.nix)
-            (import ./nix/files.nix)
-            (import ./nix/macbook/pro-m1.nix)
+            (import ./nix/darwin/pro-m1.nix)
           ];
           specialArgs = {
             defaultUser = "shiba";
@@ -65,11 +61,11 @@
           };
         };
       };
-      # 直home-managerはファイルの配置をするときくらいな気がする
+      # 直home-managerはLinuxでファイルの配置をするときくらいな気がする
       homeConfigurations = {
         default = inputs.home-manager.lib.homeManagerConfiguration {
           modules = [
-            (import ./nix/files.nix)
+            (import ./nix/linux/files.nix)
           ];
           specialArgs = {
             defaultUser = "xecua";

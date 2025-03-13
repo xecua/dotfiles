@@ -1,5 +1,8 @@
 { pkgs, defaultUser, ... }:
 {
+  imports = [
+    ../common
+  ];
   system = {
     activationScripts.extraActivation.text = ''
       ln -sf ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
@@ -32,10 +35,11 @@
         home = {
           homeDirectory = lib.mkForce "/Users/${defaultUser}";
           packages = with pkgs; [
-            iproute2mac
             docker-client
             docker-compose
             docker-credential-helpers
+            flutter
+            iproute2mac
             # ghostty # corrupted?
             mutagen
             mutagen-compose
@@ -54,7 +58,6 @@
     ];
     casks = [
       "amethyst"
-      "flutter"
       "ghostty"
       "google-drive"
       "jetbrains-toolbox"
