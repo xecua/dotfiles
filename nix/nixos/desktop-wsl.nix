@@ -1,8 +1,7 @@
 { defaultUser, ... }:
 {
   imports = [
-    ../common
-    ./files.nix
+    ./common.nix
   ];
   system.stateVersion = "24.05";
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -10,10 +9,5 @@
   wsl = {
     enable = true;
     inherit defaultUser;
-  };
-  home-manager = {
-    users.${defaultUser} = {
-      home.homeDirectory = "/home/${defaultUser}";
-    };
   };
 }

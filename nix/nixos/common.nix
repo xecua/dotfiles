@@ -5,10 +5,19 @@ let
   make-maps = builtins.foldl' (acc: item: acc // make-attr item) { };
 in
 {
+  imports = [
+    ../common
+    ../common/extra-pkgs.nix
+  ];
+  i18n = {
+    supportedLocales = [ "en_US.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" ];
+    defaultLocale = "en_US.UTF-8";
+  };
   home-manager = {
     users.${defaultUser} =
       { config, ... }:
       {
+        home.homeDirectory = "/home/${defaultUser}";
         xdg = {
           configFile =
             make-maps [

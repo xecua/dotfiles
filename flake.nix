@@ -41,7 +41,7 @@
           modules = [
             inputs.nixos-wsl.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
-            (import ./nix/linux/desktop-wsl.nix)
+            (import ./nix/nixos/desktop-wsl.nix)
           ];
           specialArgs = {
             defaultUser = "xecua";
@@ -64,9 +64,7 @@
       # 直home-managerはLinuxでファイルの配置をするときくらいな気がする
       homeConfigurations = {
         default = inputs.home-manager.lib.homeManagerConfiguration {
-          modules = [
-            (import ./nix/linux/files.nix)
-          ];
+          modules = [ (import ./nix/home-manager) ];
           specialArgs = {
             defaultUser = "xecua";
             inherit (inputs) neovim-nightly-overlay;
