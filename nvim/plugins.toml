@@ -16,8 +16,14 @@ repo = 'Shougo/dpp-ext-lazy'
 
 # terminal
 [[plugins]]
-repo = 'Shougo/deol.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/deol.lua'
+repo = 'Shougo/ddt.vim'
+hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddt.lua'
+
+[[plugins]]
+repo = 'Shougo/ddt-ui-terminal'
+
+[[plugins]]
+repo = 'Shougo/ddt-ui-shell'
 
 ## open new tabpage instead of start nested instance
 [[plugins]]
@@ -533,10 +539,6 @@ vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'nvim-navic']
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lualine.lua'
-
-[[plugins]]
-repo = 'arkav/lualine-lsp-progress'
-on_source = 'lualine.nvim'
 
 # mark
 [[plugins]]

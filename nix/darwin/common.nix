@@ -53,6 +53,7 @@
       "amethyst"
       "ghostty"
       "google-drive"
+      "macskk"
       "jetbrains-toolbox"
       "obsidian"
       "vivaldi"

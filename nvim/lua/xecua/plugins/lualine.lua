@@ -36,9 +36,8 @@ require("lualine").setup({
             { "branch", icon = { "" } }, -- 0xe702 (devicons)
         },
         lualine_c = {
-            -- arkav/lualine-lsp-progress
             ddu,
-            "lsp_progress",
+            { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
             { "navic", navic_opts = { lazy_update_context = true } },
         },
         lualine_x = { "diagnostics" },
