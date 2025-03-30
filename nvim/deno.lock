@@ -217,7 +217,10 @@
     "@denops/std@7.4.0": {
       "integrity": "6d7ae66af0286a440c14c0ba096b4336697bcd69e83e0fce21a41fb3dec10d65",
       "dependencies": [
-        "jsr:@denops/core@7"
+        "jsr:@core/unknownutil@^4.3.0",
+        "jsr:@denops/core@7",
+        "jsr:@std/semver@1",
+        "jsr:@std/ulid"
       ]
     },
     "@denops/std@7.5.0": {

@@ -25,6 +25,7 @@ vim.diagnostic.config({
             return diagnostic.code and string.format(" [%s]", diagnostic.code) or ""
         end,
     },
+    virtual_lines = true,
 })
 
 if vim.g.neovide ~= nil then

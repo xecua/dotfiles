@@ -1,17 +1,5 @@
 -- lua_source {{{
-local registry = require("mason-registry")
 local lspconfig = require("lspconfig")
-
-require("mason").setup({
-    registries = {
-        "lua:xecua.mason-registry",
-        "github:mason-org/mason-registry",
-    },
-})
-
-require("nlspsettings").setup({
-    nvim_notify = { enable = true },
-})
 
 local servers = {
     "denols",
@@ -40,7 +28,7 @@ local servers = {
     -- "typos_lsp",
 }
 
--- NOTE: nvim-lspconfigが0.11仕様になったらvim.lsp.enableにしてlua/xecua/lspは消す
+-- NOTE: nvim-lspconfigが0.11仕様になったらvim.lsp.enableにしてlua/xecua/lspをlspに移動する
 -- vim.lsp.config("*", {})
 -- vim.lsp.enable(servers)
 
@@ -53,19 +41,13 @@ for _, server in ipairs(servers) do
     end
 end
 
--- _default.lua
-vim.keymap.del("n", "grn")
-vim.keymap.del({ "n", "x" }, "gra")
-vim.keymap.del("n", "grr")
-vim.keymap.del("n", "gri")
-vim.keymap.del("n", "gO")
-
 local augroup = vim.api.nvim_create_augroup("LspConfig", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
     group = augroup,
     callback = function()
         -- setting up jdtls (this does not work when called in setup_handlers)
+        local registry = require("mason-registry")
         local pkg_dir = registry.get_package("jdtls"):get_install_path()
         local jdtls = require("jdtls")
         local jar_path = vim.fn.glob(pkg_dir .. "/plugins/org.eclipse.equinox.launcher_*.jar")
@@ -109,110 +91,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
             },
             init_options = { bundles = bundles },
         })
-    end,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = augroup,
-    callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        local buffer = args.buf
-        vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
-            vim.lsp.buf.format({
-                filter = function(c)
-                    return c.name ~= "typescript-tools" and c.name ~= "lua_ls" and c.name ~= "sqls"
-                end,
-            })
-        end, {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
-            vim.lsp.buf.hover({
-                border = "single",
-                focusable = false,
-                focus = false,
-                silent = true,
-            })
-        end, {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
-            vim.lsp.buf.signature_help({
-                border = "single",
-                focusable = false,
-                focus = false,
-                silent = true,
-            })
-        end, {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspCodeAction", "lua vim.lsp.buf.code_action()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
-
-        -- Mappings.
-        local opts = { buffer = buffer, silent = true }
-
-        -- LSP related: preceded by <Leader>l
-        vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", opts)
-        vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", opts)
-        vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", opts)
-        vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", opts)
-        vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", opts)
-        vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", opts)
-        vim.keymap.set("n", "<Leader>la", "<Cmd>LspCodeAction<CR>", opts)
-        vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
-        vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
-        vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
-        vim.keymap.set({ "i", "s" }, "<C-s>", "<Cmd>LspSignatureHelp<CR>", opts)
-
-        if client.name == "jdtls" then
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspOrganizeImports",
-                'lua require("jdtls").organize_imports()',
-                {}
-            )
-            vim.keymap.set("n", "<Leader>lo", "<Cmd>LspOrganizeImports<CR>", { buffer = buffer, silent = true })
-
-            vim.api.nvim_buf_create_user_command(buffer, "LspTestClass", 'lua require("jdtls").test_class()', {})
-            vim.keymap.set("n", "<Leader>dc", "<Cmd>LspTestClass<CR>", { buffer = buffer, silent = true })
-
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspTestMethod",
-                'lua require("jdtls").test_nearest_method()',
-                {}
-            )
-            vim.keymap.set("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>", { buffer = buffer, silent = true })
-
-            require("jdtls").setup_dap({ hotcodereplace = "auto" })
-        end
-
-        if client:supports_method("textDocument/documentSymbol") then
-            require("nvim-navic").attach(client, buffer)
-        end
-
-        if client:supports_method("textDocument/formatting") then
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = buffer,
-                command = "LspFormat",
-                desc = "LSP: Format on save",
-            })
-        end
-
-        if client:supports_method("textDocument/inlayHint") then
-            vim.lsp.inlay_hint.enable()
-        end
-
-        if client:supports_method("textDocument/signatureHelp") then
-            vim.api.nvim_create_autocmd("CursorHoldI", {
-                group = augroup,
-                buffer = buffer,
-                command = "LspSignatureHelp",
-                desc = "LSP: Signature Help while Typing.",
-            })
-        end
     end,
 })
 

@@ -15,6 +15,14 @@ vim.keymap.set("v", "?", "<Esc>?\\%V\\v") -- \%V: previously selected range
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
 vim.keymap.set("n", ":%s/", ":%s/\\v")
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
+
+-- _default.lua
+vim.keymap.del("n", "grn")
+vim.keymap.del({ "n", "x" }, "gra")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+vim.keymap.del("n", "gO")
+
 vim.keymap.set("n", "gf", function()
     local cfile = vim.fs.normalize(vim.fn.expand("<cfile>"))
     if string.match(cfile, "^/") then

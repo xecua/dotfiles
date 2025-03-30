@@ -196,9 +196,22 @@ repo = 'SmiteshP/nvim-navic'
 ## Installer
 [[plugins]]
 repo = 'williamboman/mason.nvim'
+lua_source = """
+require("mason").setup({
+    registries = {
+        "lua:xecua.mason-registry",
+        "github:mason-org/mason-registry",
+    },
+})
+"""
 
 [[plugins]]
 repo = 'tamago324/nlsp-settings.nvim'
+lua_source = """
+require("nlspsettings").setup({
+    nvim_notify = { enable = true },
+})
+"""
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
