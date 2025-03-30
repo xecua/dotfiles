@@ -1,9 +1,15 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  nixgl,
+  config,
+  ...
+}:
 {
   imports = [ ./linux.nix ];
+  nixGL.packages = nixgl.packages;
   home.packages = with pkgs; [
     buildkit
-    neovide
     jnv
+    (config.lib.nixGL.wrap neovide)
   ];
 }

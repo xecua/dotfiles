@@ -12,22 +12,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixgl = {
+      url = "github:nix-community/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      scripts =
-        let
-          pkgs = (import <nixpkgs> { });
-        in
-        {
-          format = {
-            # requires --impure?
-            type = "app";
-            program = toString (pkgs.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix");
-          };
+      scripts = system: {
+        format = {
+          type = "app";
+          program = toString (
+            nixpkgs.legacyPackages.${system}.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix"
+          );
         };
+      };
     in
     {
       # flake-partsとか使えそう?
@@ -36,8 +37,8 @@
         aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
       };
       apps = {
-        x86_64-linux = scripts;
-        aarch64-darwin = scripts;
+        x86_64-linux = scripts "x86_64-linux";
+        aarch64-darwin = scripts "aarch64-darwin";
       };
       nixosConfigurations = {
         upside-down-face = inputs.nixos.lib.nixosSystem {
@@ -64,14 +65,13 @@
           };
         };
       };
-      # 直home-managerはLinuxでファイルの配置をするときくらいな気がする
       homeConfigurations = {
         gentoo = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ (import ./nix/home-manager/gentoo.nix) ];
           extraSpecialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) neovim-nightly-overlay;
+            inherit (inputs) neovim-nightly-overlay nixgl;
           };
         };
       };
