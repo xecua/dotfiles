@@ -16,30 +16,30 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    { nixpkgs, treefmt, ... }@inputs:
     let
-      scripts = system: {
-        format = {
-          type = "app";
-          program = toString (
-            nixpkgs.legacyPackages.${system}.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix"
-          );
-        };
-      };
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      eachSystem =
+        callback: nixpkgs.lib.genAttrs systems (system: callback nixpkgs.legacyPackages.${system});
     in
     {
-      # flake-partsとか使えそう?
-      formatter = {
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
-      };
-      apps = {
-        x86_64-linux = scripts "x86_64-linux";
-        aarch64-darwin = scripts "aarch64-darwin";
-      };
+      formatter = eachSystem (
+        pkgs:
+        treefmt.lib.mkWrapper pkgs {
+          projectRootFile = "flake.nix";
+          programs.nixfmt.enable = true;
+        }
+      );
       nixosConfigurations = {
         upside-down-face = inputs.nixos.lib.nixosSystem {
           modules = [
@@ -55,6 +55,7 @@
       };
       darwinConfigurations = {
         default = inputs.nix-darwin.lib.darwinSystem {
+          pkgs = "aarch64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             (import ./nix/darwin/pro-m1.nix)
