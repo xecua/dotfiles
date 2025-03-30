@@ -12,3 +12,14 @@ keybinding:
   universal:
     quit: <c-c>
     return: q
+    gotoTop: g
+    gotoBottom: G
+    prevBlock-alt: '['
+    nextBlock-alt: ']'
+    prevTab: h
+    nextTab: l
+  commits:
+    renameCommit: "<disabled>"
+    viewResetOptions: r
+  stash:
+    popStash: p
