@@ -17,14 +17,17 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      pkgs = (import <nixpkgs> { });
-      scripts = {
-        format = {
-          # requires --impure?
-          type = "app";
-          program = toString (pkgs.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix");
+      scripts =
+        let
+          pkgs = (import <nixpkgs> { });
+        in
+        {
+          format = {
+            # requires --impure?
+            type = "app";
+            program = toString (pkgs.writeShellScript "nix-format" "nix fmt flake.nix nix/**/*.nix");
+          };
         };
-      };
     in
     {
       # flake-partsとか使えそう?
@@ -63,9 +66,10 @@
       };
       # 直home-managerはLinuxでファイルの配置をするときくらいな気がする
       homeConfigurations = {
-        default = inputs.home-manager.lib.homeManagerConfiguration {
-          modules = [ (import ./nix/home-manager) ];
-          specialArgs = {
+        gentoo = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          modules = [ (import ./nix/home-manager/gentoo.nix) ];
+          extraSpecialArgs = {
             defaultUser = "xecua";
             inherit (inputs) neovim-nightly-overlay;
           };
@@ -79,7 +83,7 @@
 # bitwarden-desktop obsidian vivaldi vivaldi-ffmpeg-codecs firefox-devedition-bin
 #
 # Native
-# containerd slirp4netns cni-plugins nerdctl rootlesskit
+# containerd slirp4netns cni-plugins nerdctl rootlesskit buildkit
 # fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa
 # discord blueman wf-recorder wl-clipboard xremap xdg-desktop-portal-hyprland protonmail-desktop adwaita-qt dunst ghostty
 # alsa-utils bluez-alsa pavucontrol playerctl pipewire obs-studio

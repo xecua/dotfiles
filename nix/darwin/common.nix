@@ -1,9 +1,6 @@
 { pkgs, defaultUser, ... }:
 {
-  imports = [
-    ../common
-    ../common/extra-pkgs.nix
-  ];
+  imports = [ ../common/system.nix ];
   system = {
     activationScripts.extraActivation.text = ''
       ln -sf ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
@@ -27,20 +24,9 @@
     wireshark
     zoom-us
   ];
-  home-manager.users.${defaultUser} =
-    { lib, ... }:
-    {
-      home = {
-        homeDirectory = lib.mkForce "/Users/${defaultUser}";
-        packages = with pkgs; [
-          docker-client
-          docker-compose
-          docker-credential-helpers
-          iproute2mac
-          # ghostty # corrupted?
-        ];
-      };
-    };
+  home-manager.users.${defaultUser} = {
+    imports = [ ../home-manager/darwin.nix ];
+  };
   homebrew = {
     enable = true;
     taps = [
