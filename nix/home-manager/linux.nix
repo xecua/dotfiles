@@ -2,7 +2,6 @@
 with (import ../utils.nix);
 {
   imports = [ ./common.nix ];
-  nixpkgs.config.allowUnfree = true;
   home.homeDirectory = "/home/${defaultUser}";
   xdg = {
     configFile =

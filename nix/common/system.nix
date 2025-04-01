@@ -37,6 +37,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit defaultUser; };
     users.${defaultUser} = {
       home.packages = with pkgs; [
         bat-extras.batman

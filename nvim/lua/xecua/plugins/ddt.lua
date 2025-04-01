@@ -61,6 +61,7 @@ vim.fn["ddt#custom#patch_global"]({
             split = "floating",
             toggle = true,
             command = is_darwin and "zsh" or "bash",
+            startInsert = true,
         },
     },
 })

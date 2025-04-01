@@ -1,8 +1,11 @@
-{ defaultUser, lib, ... }:
-with (import ../utils.nix);
+{
+  defaultUser,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [ ./common.nix ];
-  nixpkgs.config.allowUnfree = true;
   home = {
     homeDirectory = lib.mkForce "/Users/${defaultUser}";
     packages = with pkgs; [

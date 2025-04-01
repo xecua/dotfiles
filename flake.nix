@@ -55,7 +55,6 @@
       };
       darwinConfigurations = {
         default = inputs.nix-darwin.lib.darwinSystem {
-          pkgs = "aarch64-darwin";
           modules = [
             inputs.home-manager.darwinModules.home-manager
             (import ./nix/darwin/pro-m1.nix)

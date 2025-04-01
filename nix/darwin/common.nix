@@ -3,8 +3,8 @@
   imports = [ ../common/system.nix ];
   system = {
     activationScripts.extraActivation.text = ''
-      ln -sf ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
-      ln -sf ${pkgs.temurin-bin} /Library/Java/JavaVirtualMachines/temurin.jdk
+      ln -sfn ${pkgs.temurin-bin-17} /Library/Java/JavaVirtualMachines/temurin-17.jdk
+      ln -sfn ${pkgs.temurin-bin} /Library/Java/JavaVirtualMachines/temurin.jdk
     '';
   };
   environment.systemPackages = with pkgs; [
@@ -24,6 +24,9 @@
     wireshark
     zoom-us
   ];
+  users.users.${defaultUser} = {
+    name = defaultUser;
+  };
   home-manager.users.${defaultUser} = {
     imports = [ ../home-manager/darwin.nix ];
   };

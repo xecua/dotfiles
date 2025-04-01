@@ -46,6 +46,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
     group = augroup,
     callback = function()
+        require("jdtls").start_or_attach({ cmd = "jdtls" })
+        --[[
         -- setting up jdtls (this does not work when called in setup_handlers)
         local registry = require("mason-registry")
         local pkg_dir = registry.get_package("jdtls"):get_install_path()
@@ -91,6 +93,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
             },
             init_options = { bundles = bundles },
         })
+        ]]
     end,
 })
 
