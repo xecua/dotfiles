@@ -11,8 +11,9 @@
     stateVersion = "25.05";
     packages = with pkgs; [
       uv
-      deno # denols付属
-      rustup # rust-analyzerもこれで
+      deno # w/ denols
+      rustup # w/ rust-analyzer
+      typescript # w/ tsserver
       # haskellPackages.ghcup # broken
 
       # LSP Servers
@@ -20,7 +21,6 @@
       pyright
       yapf
       clang-tools # includes clangd
-      typescript-language-server
       nodePackages_latest.prettier
       vim-language-server
       vscode-langservers-extracted # html, css, eslint

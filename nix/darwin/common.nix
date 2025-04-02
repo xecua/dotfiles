@@ -10,6 +10,7 @@
   environment.systemPackages = with pkgs; [
     colima
     karabiner-elements
+    cocoapods
     temurin-bin-17
     (writeShellScriptBin "gtar" ''exec ${lib.getExe gnutar} "$@"'')
     (writeShellScriptBin "gsed" ''exec ${lib.getExe gnused} "$@"'')
