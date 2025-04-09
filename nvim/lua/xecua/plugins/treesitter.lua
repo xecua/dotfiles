@@ -21,5 +21,6 @@ require("nvim-treesitter.configs").setup({
     ignore_install = {
         "fish", -- seems to have some problem https://github.com/ram02z/tree-sitter-fish/issues/17
     },
+    indent = { enable = true },
 })
 -- }}}

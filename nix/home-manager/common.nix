@@ -10,6 +10,10 @@
     username = defaultUser;
     stateVersion = "25.05";
     packages = with pkgs; [
+      # nix util
+      nix-tree
+      nvd
+
       uv
       deno # w/ denols
       rustup # w/ rust-analyzer

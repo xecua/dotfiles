@@ -75,6 +75,7 @@
         # php84Packages.psysh
         pv
         python3
+        visidata
         radare2
         rename
         ripgrep
@@ -84,7 +85,6 @@
         starship
         teip
         temurin-bin
-        tig
         tmux
         trash-cli
         trippy

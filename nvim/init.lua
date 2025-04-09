@@ -19,13 +19,16 @@ vim.api.nvim_create_user_command(
 )
 
 vim.diagnostic.config({
-    virtual_text = {
-        source = true,
-        suffix = function(diagnostic)
-            return diagnostic.code and string.format(" [%s]", diagnostic.code) or ""
+    virtual_lines = {
+        format = function(diag)
+            local s = string.format("%s: %s", diag.source, diag.message)
+            if diag.code then
+                s = string.format("%s [%s]", s, diag.code)
+            end
+            return s
         end,
     },
-    virtual_lines = true,
+    signs = false,
 })
 
 if vim.g.neovide ~= nil then
