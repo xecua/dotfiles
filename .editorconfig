@@ -1,4 +1,0 @@
-
-[*.lua]
-# 現状efmのuiではstyluaの--indent-typeを適切にセットできない
-indent_style = space
