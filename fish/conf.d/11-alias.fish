@@ -46,7 +46,7 @@ if status is-interactive
   end
 
   if type -q gtar
-    alias sed=gtar
+    alias tar=gtar
   end
 
   if type -q gawk

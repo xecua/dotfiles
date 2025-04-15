@@ -7,6 +7,7 @@ vim.g.copilot_filetypes = {
     dapui_watches = false,
     dapui_scopes = false,
     dapui_console = false,
+    AvanteInput = false,
 }
 
 vim.keymap.set("i", "<C-l>", 'copilot#Accept("<C-l>")', { replace_keycodes = false, silent = true, expr = true })

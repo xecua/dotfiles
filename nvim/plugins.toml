@@ -644,7 +644,7 @@ vim.g.jumpcursor_marks = jumpcursor_marks
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'
-lua_add = "vim.keymap.set({ 'n', 'v' }, '<Leader>a', '<Plug>(LiveEasyAlign)')"
+lua_add = "vim.keymap.set({ 'n', 'v' }, '<Leader>e', '<Plug>(LiveEasyAlign)')"
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'

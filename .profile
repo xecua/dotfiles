@@ -5,6 +5,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export GTK_USE_PORTAL=1 # Use xdg-desktop-portal instead of default handler
 export GHCUP_USE_XDG_DIRS=1
+export DFT_COLOR=always
 export DFT_DISPLAY=side-by-side-show-both
 export EDITOR=nvim
 

@@ -9,6 +9,7 @@ require("tabnine").setup({
         "dapui_watches",
         "dapui_scopes",
         "dapui_console",
+        "AvanteInput",
     },
 })
 

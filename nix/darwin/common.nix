@@ -7,6 +7,10 @@
       ln -sfn ${pkgs.temurin-bin} /Library/Java/JavaVirtualMachines/temurin.jdk
     '';
   };
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    reattach = true;
+  };
   environment.systemPackages = with pkgs; [
     colima
     karabiner-elements
@@ -14,6 +18,7 @@
     temurin-bin-17
     (writeShellScriptBin "gtar" ''exec ${lib.getExe gnutar} "$@"'')
     (writeShellScriptBin "gsed" ''exec ${lib.getExe gnused} "$@"'')
+    (writeShellScriptBin "gawk" ''exec ${lib.getExe gawk} "$@"'')
     firefox
     google-chrome
     neovide
