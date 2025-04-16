@@ -6,7 +6,7 @@ vim.lsp.config("jsonls", require("xecua.lsp.lua_ls"))
 vim.lsp.config("texlab", require("xecua.lsp.texlab"))
 
 vim.lsp.enable({
-    "denols",
+    -- "denols",
     -- "eslint",
     "intelephense",
     "lua_ls",
@@ -33,6 +33,16 @@ vim.lsp.enable({
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
+-- workaround until workspace_required become available
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "typescript", "typescriptreact" },
+    group = augroup,
+    callback = function()
+        if vim.fs.root(0, vim.lsp.config["denols"].root_markers) ~= nil then
+            vim.lsp.start(vim.lsp.config["denols"])
+        end
+    end,
+})
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
     group = augroup,
