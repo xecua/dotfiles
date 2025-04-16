@@ -3,6 +3,7 @@
 	email = contact@caffeine.page
 	signingkey = 33A065F0
 [core]
+	autocrlf = input
 	editor = nvim
 [init]
 	defaultBranch = main

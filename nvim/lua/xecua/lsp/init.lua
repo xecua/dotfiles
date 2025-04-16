@@ -1,5 +1,10 @@
 -- vim.lsp.config('*', {})
 
+vim.lsp.config("denols", require("xecua.lsp.denols"))
+vim.lsp.config("intelephense", require("xecua.lsp.intelephense"))
+vim.lsp.config("jsonls", require("xecua.lsp.lua_ls"))
+vim.lsp.config("texlab", require("xecua.lsp.texlab"))
+
 vim.lsp.enable({
     "denols",
     -- "eslint",
