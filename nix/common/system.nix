@@ -15,6 +15,8 @@
     curl
     gcc
     git
+    git-extras
+    git-filter-repo
     gnupg
     inetutils
     llvm

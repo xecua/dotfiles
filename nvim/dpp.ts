@@ -20,31 +20,30 @@ type MakeLazyStateResult = {
 // make_state expects the class named 'Config' and that has config() method to be exported
 export class Config extends BaseConfig {
   override async config(args: ConfigArguments): Promise<ConfigReturn> {
+    async function loadToml(
+      path: string,
+      loadOptions?: Partial<Plugin>,
+    ): Promise<TomlLoadResult> {
+      return (await args.dpp.extAction(
+        args.denops,
+        context,
+        options,
+        "toml",
+        "load",
+        { path, loadOptions },
+      )) as TomlLoadResult;
+    }
+
     args.contextBuilder.setGlobal({
       protocols: ["git"],
     });
 
     const [context, options] = await args.contextBuilder.get(args.denops);
     const config_base = await args.denops.call("stdpath", "config");
-    const tomls = [
-      (await args.dpp.extAction(args.denops, context, options, "toml", "load", {
-        path: `${config_base}/plugins.toml`,
-      })) as TomlLoadResult,
-    ];
+    const tomls = [await loadToml(`${config_base}/plugins.toml`)];
 
     if (existsSync(`${config_base}/local.toml`)) {
-      tomls.push(
-        (await args.dpp.extAction(
-          args.denops,
-          context,
-          options,
-          "toml",
-          "load",
-          {
-            path: `${config_base}/local.toml`,
-          },
-        )) as TomlLoadResult,
-      );
+      tomls.push(await loadToml(`${config_base}/local.toml`));
     }
 
     const recordPlugins: Record<string, Plugin> = {};

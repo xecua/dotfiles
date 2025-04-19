@@ -14,10 +14,6 @@ keybinding:
     return: q
     gotoTop: g
     gotoBottom: G
-    prevBlock-alt: '['
-    nextBlock-alt: ']'
-    prevTab: h
-    nextTab: l
   commits:
     renameCommit: "<disabled>"
     viewResetOptions: r

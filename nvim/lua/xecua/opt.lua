@@ -29,7 +29,6 @@ vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
 vim.opt.shiftwidth = 0 -- 改行・<</>>でのインデント量(0 => tabstop)
 vim.opt.tabstop = 4 -- tab文字の幅
 vim.opt.smartindent = true
-vim.g.vim_indent_cont = 4 -- 継続行のインデント量を固定
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

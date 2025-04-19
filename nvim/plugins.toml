@@ -596,7 +596,7 @@ repo = 'ConradIrwin/vim-bracketed-paste'
 repo = 'alvan/vim-closetag'
 hook_add = """
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.ctp,*.jsx,*.tsx,*.vue,*.svelte,*.astro'
-let g:closetag_filetypes = 'html,xhtml,phtml,php,javascript,javascriptreact,typescript,typescriptreact,vue,svelte,astro'
+let g:closetag_filetypes = 'html,xhtml,phtml,php,javascriptreact,typescriptreact,vue,svelte,astro'
 """
 
 # color scheme
