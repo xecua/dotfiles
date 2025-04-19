@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     buildkit
     jnv
+    redocly
     (config.lib.nixGL.wrap neovide)
   ];
 }

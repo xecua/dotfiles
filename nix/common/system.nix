@@ -67,6 +67,7 @@
         lazygit
         less
         lnav
+        redocly
         mercurial
         mycli
 
