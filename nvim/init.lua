@@ -1,3 +1,8 @@
+if vim.g.vscode then
+    require("xecua.editors.vscode")
+    return
+end
+
 vim.cmd("filetype plugin indent off")
 
 require("xecua.opt")
