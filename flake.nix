@@ -14,10 +14,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,7 +55,7 @@
           ];
           specialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) neovim-nightly-overlay;
+            # inherit (inputs) neovim-nightly-overlay;
           };
         };
       };
@@ -67,7 +67,7 @@
           ];
           specialArgs = {
             defaultUser = "shiba";
-            inherit (inputs) neovim-nightly-overlay;
+            # inherit (inputs) neovim-nightly-overlay;
           };
         };
       };
@@ -77,7 +77,7 @@
           modules = [ (import ./nix/home-manager/gentoo.nix) ];
           extraSpecialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) neovim-nightly-overlay nixgl;
+            inherit (inputs) nixgl; # neovim-nightly-overlay
           };
         };
       };
@@ -90,7 +90,7 @@
 #
 # Native
 # containerd slirp4netns cni-plugins nerdctl rootlesskit buildkit
-# fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa
+# fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa walker
 # discord blueman wf-recorder wl-clipboard xremap xdg-desktop-portal-hyprland protonmail-desktop adwaita-qt dunst ghostty
 # alsa-utils bluez-alsa pavucontrol playerctl pipewire obs-studio
 # grim hypridle hyprlock hyprpaper kanshi qt6ct greetd.greetd greetd.tuigreet waybar

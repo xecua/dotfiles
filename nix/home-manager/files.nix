@@ -4,8 +4,6 @@ with (import ../utils.nix);
   home = {
     # activation = lib.hm.dag.entryAfter ["writeBoundary"] ''
     #   # cdとかする必要ある?
-    #   run ${builtins.toPath ../rofi/setup.sh} ${builtins.toPath ../rofi/setup.sh}
-    #
     #   run npm set prefix ${config.xdg.dataHome}/npm
     #   run npm set cache  ${config.xdg.cacheHome}/npm
     #   run npm set init-module ${config.xdg.configHome}/npm/config/npm-init.js
@@ -42,6 +40,7 @@ with (import ../utils.nix);
         "latexmk/latexmkrc"
         "tmux/tmux.conf"
         "zathura"
+        "walker/config.toml" # themesは起動時に権限変更とかしようとするのでstoreにあるとまずい。カスタムテーマやるならそいつも個別に。
       ]
       // {
         "wgetrc".text = "${config.xdg.cacheHome}/wget-hsts";

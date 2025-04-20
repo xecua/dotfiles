@@ -251,8 +251,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    # TODO: fix for wayland?
-    dmenu = /usr/bin/rofi -dmenu -p dunst:
+    dmenu = walker -n -d
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open

@@ -84,20 +84,6 @@ for p in (script_dir / 'systemd' / 'user').iterdir():
     base_name = p.name
     make_symlink(config_home / 'systemd' / 'user' / base_name, p.resolve())
 
-if not (config_home / 'rofi').exists():
-    rofi_path = script_dir / 'rofi'
-    setup_sh_path = rofi_path / 'setup.sh'
-    setup_sh_path.chmod(0o755)
-    subprocess.run(setup_sh_path, cwd=rofi_path)
-    make_symlink(binary_path / 'rofi_launcher',
-                 script_dir / 'rofi_scripts' / 'rofi_launcher')
-    make_symlink(binary_path / 'rofi_powermenu',
-                 script_dir / 'rofi_scripts' / 'rofi_powermenu')
-    make_symlink(binary_path / 'rofi_scripts',
-                 script_dir / 'rofi_scripts' / 'rofi_screenshot')
-    make_symlink(binary_path / 'rofi_volume',
-                 script_dir / 'rofi_scripts' / 'rofi_volume')
-
 if not (config_home / 'wgetrc').exists():
     hsts_file_path = cache_home / 'wget-hsts'
     with open(config_home / 'wgetrc', 'w') as f:
