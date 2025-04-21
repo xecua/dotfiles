@@ -4,10 +4,14 @@
   ...
 }:
 {
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    download-buffer-size = 500 * 1024 * 1024;
+  };
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     bat

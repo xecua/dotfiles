@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    return
+end
+
 local augroup = vim.api.nvim_create_augroup("IMSwitch", { clear = true })
 
 local function switch_im_function(enable)

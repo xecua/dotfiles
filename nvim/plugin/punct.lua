@@ -1,3 +1,7 @@
+if vim.g.vscode then
+    return
+end
+
 local utils = require("xecua.utils")
 
 -- Switching automatic punctuation substitution
