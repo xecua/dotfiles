@@ -74,6 +74,7 @@
         redocly
         mercurial
         mycli
+        dua
 
         nodejs
         pastel
