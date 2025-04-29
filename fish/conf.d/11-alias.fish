@@ -5,6 +5,8 @@ if status is-interactive
   alias :q=exit
   alias nvimdiff='nvim -d'
 
+  alias rm=trash
+
   if [ (uname) = 'Darwin' ]
     alias sudoedit='sudo -e'
   end

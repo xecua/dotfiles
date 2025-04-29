@@ -7,7 +7,7 @@ vim.lsp.enable({
     "lua_ls",
     "texlab",
     "jsonls",
-    -- "efm",
+    "efm",
 
     "sourcekit",
     "nil_ls",

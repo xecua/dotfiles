@@ -48,7 +48,7 @@ local function switch_im_function(enable)
     end
 end
 
-vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
     group = augroup,
     pattern = "*",
     callback = switch_im_function(false),

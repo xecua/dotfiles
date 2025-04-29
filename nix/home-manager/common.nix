@@ -46,6 +46,7 @@
       typos-lsp
       fsautocomplete
       fantomas
+      php84Packages.php-codesniffer
 
       # Debug Servers
       netcoredbg
