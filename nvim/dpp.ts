@@ -40,7 +40,7 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
     const config_base = await args.denops.call("stdpath", "config");
-    const tomls = [await loadToml(`${config_base}/plugins.toml`)];
+    const tomls = [await loadToml(`${config_base}/dpp.toml`)];
 
     if (existsSync(`${config_base}/local.toml`)) {
       tomls.push(await loadToml(`${config_base}/local.toml`));

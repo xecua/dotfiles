@@ -4,7 +4,7 @@
   system = {
     activationScripts.extraActivation.text = ''
       ln -sfn {${pkgs.temurin-bin-17},}/Library/Java/JavaVirtualMachines/temurin-17.jdk
-      ln -sfn {${pkgs.temurin-bin-21},}/Library/Java/JavaVirtualMachines/temurin.jdk
+      ln -sfn {${pkgs.temurin-bin-21},}/Library/Java/JavaVirtualMachines/temurin-21.jdk
     '';
   };
   security.pam.services.sudo_local = {

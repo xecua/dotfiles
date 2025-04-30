@@ -28,7 +28,7 @@ vim.keymap.set("n", "<Leader>fg", function()
     vscode.action("workbench.action.terminal.searchWorkspace")
 end)
 
-vim.keymap.set("n", "K", "lua vim.lsp.buf.hover()", {})
+vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "<Leader>lh", vim.lsp.buf.signature_help, {})
 vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references, {})
 vim.keymap.set("n", "<Leader>ld", vim.lsp.buf.definition, {})
@@ -42,3 +42,5 @@ vim.keymap.del({ "n", "x" }, "<C-w><C-j>", {})
 vim.keymap.del({ "n", "x" }, "<C-w><C-h>", {})
 vim.keymap.del({ "n", "x" }, "<C-w><C-k>", {})
 vim.keymap.del({ "n", "x" }, "<C-w><C-l>", {})
+
+-- accelerated-jkとか入れる?

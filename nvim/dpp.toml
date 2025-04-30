@@ -187,7 +187,6 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lspconfig.lua'
 
 ## breadcrumbs
 [[plugins]]

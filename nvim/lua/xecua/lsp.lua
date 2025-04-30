@@ -1,8 +1,8 @@
 -- vim.lsp.config('*', {})
 
 vim.lsp.enable({
-    -- "denols",
-    -- "eslint",
+    "denols",
+    "eslint",
     "intelephense",
     "lua_ls",
     "texlab",
@@ -11,7 +11,7 @@ vim.lsp.enable({
 
     "sourcekit",
     "nil_ls",
-    -- "astro",
+    "astro",
     "pyright",
     "clangd",
     "vimls",
@@ -28,16 +28,6 @@ vim.lsp.enable({
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
--- workaround until workspace_required become available
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "typescript", "typescriptreact" },
-    group = augroup,
-    callback = function()
-        if vim.fs.root(0, vim.lsp.config["denols"].root_markers) ~= nil then
-            vim.lsp.start(vim.lsp.config["denols"])
-        end
-    end,
-})
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "java" },
     group = augroup,
