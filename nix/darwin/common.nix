@@ -15,20 +15,14 @@
     colima
     karabiner-elements
     cocoapods
-    temurin-bin-17
     (writeShellScriptBin "gtar" ''exec ${lib.getExe gnutar} "$@"'')
     (writeShellScriptBin "gsed" ''exec ${lib.getExe gnused} "$@"'')
     (writeShellScriptBin "gawk" ''exec ${lib.getExe gawk} "$@"'')
-    firefox
-    google-chrome
-    neovide
     postman
     raycast
     skimpdf
     slack
-    vscode
     wireshark
-    zoom-us
   ];
   users.users.${defaultUser} = {
     name = defaultUser;
@@ -52,6 +46,7 @@
       "jetbrains-toolbox"
       "obsidian"
       "vivaldi"
+      "zoom"
     ];
   };
 }

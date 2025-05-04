@@ -1,5 +1,7 @@
 # dynamic, modification-prone commands and textual correction
 
+bind -M insert \cg expand-abbr
+
 function expand_vim
   if type -q nvim
     echo nvim

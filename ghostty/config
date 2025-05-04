@@ -5,6 +5,7 @@ font-size = 12
 theme = Molokai
 window-inherit-working-directory = true
 macos-option-as-alt = left
+confirm-close-surface = false
 
 # linux only
 # window-decoration = false

@@ -26,6 +26,9 @@
     llvm
     mold
     neovim-unwrapped
+    neovide
+    firefox-devedition-bin
+    vscode
     # neovim-nightly-overlay.packages.${system}.default
   ];
   fonts = {
@@ -35,7 +38,6 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
-      corefonts
       nerd-fonts.symbols-only
       font-awesome
     ];
@@ -69,6 +71,7 @@
         jaq
         jnv
         lazygit
+        lazydocker
         less
         lnav
         redocly

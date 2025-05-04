@@ -90,7 +90,7 @@
 #
 # Native
 # containerd slirp4netns cni-plugins nerdctl rootlesskit buildkit
-# fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa walker
+# fcitx fcitx-configtool fcitx-gtk fcitx-qt fcitx-skk chafa walker corefonts
 # discord blueman wf-recorder wl-clipboard xremap xdg-desktop-portal-hyprland protonmail-desktop adwaita-qt dunst ghostty
 # alsa-utils bluez-alsa pavucontrol playerctl pipewire obs-studio
 # grim hypridle hyprlock hyprpaper kanshi qt6ct greetd.greetd greetd.tuigreet waybar
