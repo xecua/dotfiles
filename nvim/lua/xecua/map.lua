@@ -2,8 +2,6 @@
 vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>silent cclose<CR><Bar><Cmd>silent lclose<CR>")
-vim.keymap.set("n", "<Leader>tq", "<Cmd>lua vim.diagnostic.setqflist()<CR>")
-vim.keymap.set("n", "<Leader>tl", "<Cmd>lua vim.diagnostic.setloclist()<CR>")
 vim.keymap.set("n", "zK", "<Cmd>normal! zszH<CR>")
 vim.keymap.set("n", "<C-w>o", "<nop>")
 vim.keymap.set("n", "<C-w><C-o>", "<nop>")
