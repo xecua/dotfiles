@@ -1,7 +1,6 @@
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 vim.g.loaded_matchparen = true
 vim.g.markdown_recommended_style = 0
-vim.g.health = { style = "float" }
 vim.g.netrw_http_cmd = "curl"
 vim.g.netrw_http_xcmd = "-L -o"
 
