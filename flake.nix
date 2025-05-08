@@ -86,7 +86,7 @@
 
 # ↓ネイティブで入れる機会あったら書くやつ
 # Desktop App
-# bitwarden-desktop obsidian vivaldi vivaldi-ffmpeg-codecs firefox-devedition-bin
+# bitwarden-desktop obsidian vivaldi vivaldi-ffmpeg-codecs
 #
 # Native
 # containerd slirp4netns cni-plugins nerdctl rootlesskit buildkit

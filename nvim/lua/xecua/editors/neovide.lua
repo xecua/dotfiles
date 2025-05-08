@@ -19,6 +19,3 @@ vim.api.nvim_create_user_command("NeovideToggleFullscreen", function()
 end, {})
 
 vim.env.COLORTERM = "truecolor"
-
--- Neovideの場合、オプションは最後にくっついて全部のフォントに適用される あと'monospace'は解決してくれない
-vim.opt.guifont = "UDEV Gothic 35NFLG:h8"
