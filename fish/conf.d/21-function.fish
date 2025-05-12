@@ -19,8 +19,8 @@ end
 
 function fzf-git-switch -w 'git switch'
   set -f branch $argv[1]
-  if [ -z "$branch" ]
-    set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf)
+  if [ -z "$branch" ]; or not git show-ref --quiet $branch
+    set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf -q "$branch")
   end
   git switch $branch
 end

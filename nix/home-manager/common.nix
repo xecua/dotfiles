@@ -5,7 +5,13 @@
 }:
 {
   imports = [ ./files.nix ];
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+    neovide.settings = {
+      fork = true;
+      title-hidden = true;
+    };
+  };
   home = {
     username = defaultUser;
     stateVersion = "25.05";

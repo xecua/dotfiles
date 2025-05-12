@@ -234,7 +234,6 @@ on_lua = 'nio'
 repo = 'pmizio/typescript-tools.nvim'
 lua_source = """
 require("typescript-tools").setup({
-  root_dir = vim.fs.root(0, {'tsconfig.json', 'package.json'}),
   single_file_support = false,
   init_options = {
       preferences = {

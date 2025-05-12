@@ -7,6 +7,6 @@ return {
         local fname = vim.api.nvim_buf_get_name(bufnr)
         local cwd = vim.uv.cwd()
         local root = vim.fs.root(fname, { "composer.json", ".git" })
-        on_dir(vim.fs.relpath(cwd, root) and cwd or root)
+        on_dir(root and vim.fs.relpath(cwd, root) and cwd or root)
     end,
 }

@@ -9,10 +9,6 @@ export DFT_COLOR=always
 export DFT_DISPLAY=side-by-side-show-both
 export EDITOR=nvim
 
-# export NEOVIDE_FRAME=buttonless # for macOS (.profile.local)
-export NEOVIDE_FORK=1
-export NEOVIDE_TITLE_HIDDEN=1
-
 # Language related variables, using XDG Base Directories
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"

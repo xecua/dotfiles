@@ -5,10 +5,13 @@
   ];
   system.stateVersion = 6;
   nixpkgs.hostPlatform = "aarch64-darwin"; # Intel Mac買うことたぶんないけど……
-  home-manager.users.${defaultUser}.home.packages = with pkgs; [
-    flutter
-    mutagen
-    mutagen-compose
-    ngrok
-  ];
+  home-manager.users.${defaultUser} = {
+    home.packages = with pkgs; [
+      flutter
+      mutagen
+      mutagen-compose
+      ngrok
+    ];
+    programs.neovide.settings.frame = "buttonless";
+  };
 }
