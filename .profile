@@ -58,10 +58,7 @@ PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 PATH="$ANDROID_HOME/platform-tools:$PATH"
 PATH="$XDG_DATA_HOME/npm/bin:$PATH" # npm global bin (assuming properly configured)
 PATH="$PNPM_HOME:$PATH"
-PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH" # unversioned python installed with Homebrew
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
-PATH="$XDG_CONFIG_HOME/rofi/bin:$PATH" # scripts from https://github.com/adi1090x/rofi (v1.7)
-PATH="$XDG_CONFIG_HOME/rofi/scripts:$PATH" # scripts from https://github.com/adi1090x/rofi (master)
 PATH="$HOME/.dotnet/tools:$PATH"
 
 # set by command

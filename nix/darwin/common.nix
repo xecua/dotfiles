@@ -29,6 +29,7 @@
   };
   home-manager.users.${defaultUser} = {
     imports = [ ../home-manager/darwin.nix ];
+    programs.neovide.settings.frame = "buttonless";
   };
   homebrew = {
     enable = true;

@@ -15,6 +15,7 @@ vim.keymap.set("v", "?", "<Esc>?\\%V\\v") -- \%V: previously selected range
 vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
 vim.keymap.set("n", ":%s/", ":%s/\\v")
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
+vim.keymap.set("n", "<Leader>rn", "<Cmd>set relativenumber!<CR>")
 
 -- _default.lua
 vim.keymap.del("n", "grn")

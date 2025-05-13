@@ -7,9 +7,14 @@
   imports = [ ./files.nix ];
   programs = {
     home-manager.enable = true;
-    neovide.settings = {
-      fork = true;
-      title-hidden = true;
+    neovide = {
+      enable = true;
+      package = null;
+      settings = {
+        fork = true;
+        title-hidden = true;
+        font.normal = "UDEV Gothic 35NFLG";
+      };
     };
   };
   home = {

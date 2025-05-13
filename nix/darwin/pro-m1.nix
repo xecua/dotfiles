@@ -12,6 +12,6 @@
       mutagen-compose
       ngrok
     ];
-    programs.neovide.settings.frame = "buttonless";
+    programs.neovide.settings.font.size = 14;
   };
 }
