@@ -24,7 +24,7 @@
     gnupg
     inetutils
     llvm
-    mold
+    # mold # Darwinで壊れている というかそもそも使わない
     neovim-unwrapped
     neovide
     firefox-devedition-bin

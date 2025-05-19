@@ -4,12 +4,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = augroup,
     callback = function()
         local pos = vim.api.nvim_win_get_cursor(0)
-        vim.cmd([[silent! %s#\s\+$##e]])
+        if vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "yaml.openapi" then
+            vim.cmd([[silent! %s#\s\+$##e]])
+        end
         vim.cmd([[silent! %s#\($\n\s*\)\+\%$##e]])
         pos[1] = math.min(pos[1], vim.api.nvim_buf_line_count(0))
         vim.api.nvim_win_set_cursor(0, pos)
     end,
-    desc = "Remove redundant lines",
+    desc = "Remove redundant spaces and lines",
 })
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup,

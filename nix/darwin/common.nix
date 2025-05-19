@@ -33,6 +33,7 @@
   };
   homebrew = {
     enable = true;
+    user = defaultUser;
     taps = [
       "laishulu/homebrew" # macism
     ];
