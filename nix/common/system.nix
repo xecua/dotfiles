@@ -29,6 +29,7 @@
     neovide
     firefox-devedition-bin
     vscode
+    w3m
     # neovim-nightly-overlay.packages.${system}.default
   ];
   fonts = {
@@ -71,6 +72,7 @@
         jaq
         jnv
         lazygit
+        ghq
         lazydocker
         less
         lnav

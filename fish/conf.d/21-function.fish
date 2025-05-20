@@ -20,9 +20,16 @@ end
 function fzf-git-switch -w 'git switch'
   set -f branch $argv[1]
   if [ -z "$branch" ]; or not git show-ref --quiet $branch
-    set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf -q "$branch")
+    set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf -1 -q "$branch")
   end
   git switch $branch
+end
+
+function ghqcd
+  set -l ghqdir (ghq list -p | fzf -1 -q "$argv[1]")
+  if [ -n "$ghqdir" ]
+    cd $ghqdir
+  end
 end
 
 function randomstring

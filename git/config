@@ -99,5 +99,7 @@
 	main = R !git rebase -i %(commit)
 	main = C "@printf '\\e]52;;'$(echo -n $1|base64)'\\e\\\\'"
 	diff = R !git rebase -i %(commit)
+[ghq]
+	root = ~/Documents/repos
 [include]
 	path = ~/.gitconfig.local
