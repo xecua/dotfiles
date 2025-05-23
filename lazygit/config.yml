@@ -5,7 +5,8 @@ gui:
   shortTimeFormat: "15:04"
 git:
   branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
-  allBranchesLogCmd: git log --all --graph --date=short --pretty=short-oneline --color=always
+  allBranchesLogCmds:
+    - git log --all --graph --date=short --pretty=short-oneline --color=always
   paging:
     externalDiffCommand: "difft --color=always --display=inline"
 keybinding:
