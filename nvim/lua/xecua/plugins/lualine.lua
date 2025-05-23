@@ -88,6 +88,6 @@ require("lualine").setup({
         --   },
         -- },
     },
-    extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive" },
+    extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "avante" },
 })
 -- }}}

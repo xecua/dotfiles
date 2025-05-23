@@ -27,7 +27,6 @@ with (import ../utils.nix);
   xdg = {
     configFile =
       make-maps [
-        "fish/conf.d"
         "fzfrc"
         "ideavim"
         "git"
@@ -46,6 +45,7 @@ with (import ../utils.nix);
         "wgetrc".text = "${config.xdg.cacheHome}/wget-hsts";
         # indentconfig?
         nvim = make-recursive-item "nvim";
+        fish = make-recursive-item "fish";
       };
     dataFile = {
       "fish/vendor_completions.d/nix.fish".source =

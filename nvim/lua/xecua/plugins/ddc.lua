@@ -48,6 +48,9 @@ vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
 -- }}}
 
 -- lua_source {{{
+vim.lsp.config("*", {
+    capabilities = require("ddc_source_lsp").make_client_capabilities(),
+})
 vim.fn["ddc#custom#patch_global"]({
     ui = "pum",
     sources = {

@@ -26,9 +26,9 @@ function fzf-git-switch -w 'git switch'
 end
 
 function ghqcd
-  set -l ghqdir (ghq list -p | fzf -1 -q "$argv[1]")
+  set -l ghqdir (ghq list | fzf -1 -q "$argv[1]")
   if [ -n "$ghqdir" ]
-    cd $ghqdir
+    cd (ghq root)/$ghqdir
   end
 end
 
