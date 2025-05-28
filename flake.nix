@@ -77,7 +77,7 @@
           modules = [ (import ./nix/home-manager/gentoo.nix) ];
           extraSpecialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) nixgl; # neovim-nightly-overlay
+            inherit (inputs) nixgl ; #neovim-nightly-overlay;
           };
         };
       };

@@ -1,6 +1,7 @@
 {
   pkgs,
   defaultUser,
+  # neovim-nightly-overlay,
   ...
 }:
 {
@@ -25,11 +26,11 @@
     inetutils
     llvm
     # mold # Darwinで壊れている というかそもそも使わない
-    neovim-unwrapped
     neovide
     firefox-devedition-bin
     vscode
     w3m
+    neovim-unwrapped
     # neovim-nightly-overlay.packages.${system}.default
   ];
   fonts = {

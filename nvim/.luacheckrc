@@ -1,2 +1,2 @@
-globals = { 'vim' }
-std = 'luajit'
+Globals = { "vim" }
+Std = "luajit"

@@ -56,7 +56,6 @@ vim.fn["ddc#custom#patch_global"]({
     sources = {
         "lsp",
         "file",
-        "skkeleton",
         "around",
         "denippet",
     },
@@ -140,6 +139,22 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
             mode = "win32",
         },
     },
+})
+
+-- skkeletonが有効なときはそれだけをsourceに
+local prev_config = nil
+vim.api.nvim_create_autocmd("User", {
+    pattern = "skkeleton-enable-pre",
+    callback = function()
+        prev_config = vim.fn["ddc#custom#get_buffer"]()
+        vim.fn["ddc#custom#patch_buffer"]("sources", { "skkeleton" })
+    end,
+})
+vim.api.nvim_create_autocmd("User", {
+    pattern = "skkeleton-disable-pre",
+    callback = function()
+        vim.fn["ddc#custom#set_buffer"](prev_config)
+    end,
 })
 
 vim.keymap.set({ "n", "v" }, ":", function()
