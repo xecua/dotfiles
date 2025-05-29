@@ -146,10 +146,6 @@ on_if = "get(g:, 'use_copilot', v:false)"
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
 [[plugins]]
-repo = 'CopilotC-Nvim/CopilotChat.nvim'
-on_if = "get(g:, 'use_copilot', v:false)"
-
-[[plugins]]
 repo = 'codota/tabnine-nvim'
 on_if = "get(g:, 'use_tabnine', v:false)"
 extAttrs = { installerBuild = './dl_binaries.sh' }
@@ -163,6 +159,12 @@ merged = false
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/avante.lua'
 depends = ['dressing.nvim', 'plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
 extAttrs = { installerBuild = 'make' }
+
+[[plugins]]
+repo = 'ravitemer/mcphub.nvim'
+depends = ['plenary.nvim', 'avante.nvim']
+extAttrs = { installerBuild = 'deno install -gA npm:mcp-hub' }
+lua_source = "require('mcphub').setup({})"
 
 [[plugins]]
 repo = 'stevearc/dressing.nvim'

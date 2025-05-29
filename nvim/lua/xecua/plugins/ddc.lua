@@ -79,6 +79,7 @@ vim.fn["ddc#custom#patch_global"]({
             dup = "keep",
             sorters = { "sorter_fuzzy", "sorter_lsp-kind" },
             forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
+            isVolatile = true,
         },
         file = {
             mark = "file",
@@ -142,18 +143,16 @@ vim.fn["ddc#custom#patch_filetype"]({ "ps1", "dosbatch", "autohotkey", "registry
 })
 
 -- skkeletonが有効なときはそれだけをsourceに
-local prev_config = nil
 vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-enable-pre",
     callback = function()
-        prev_config = vim.fn["ddc#custom#get_buffer"]()
         vim.fn["ddc#custom#patch_buffer"]("sources", { "skkeleton" })
     end,
 })
 vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-disable-pre",
     callback = function()
-        vim.fn["ddc#custom#set_buffer"](prev_config)
+        vim.fn["ddc#custom#patch_buffer"]("sources", { "lsp", "file", "around", "denippet" })
     end,
 })
 

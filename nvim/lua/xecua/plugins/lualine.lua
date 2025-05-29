@@ -40,7 +40,7 @@ require("lualine").setup({
             { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
             { "navic", navic_opts = { lazy_update_context = true } },
         },
-        lualine_x = { "diagnostics" },
+        lualine_x = { "diagnostics", { require("mcphub.extensions.lualine") } },
         lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
         lualine_z = { "location" },
     },
