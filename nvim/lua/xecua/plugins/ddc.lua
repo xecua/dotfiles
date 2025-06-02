@@ -88,6 +88,7 @@ vim.fn["ddc#custom#patch_global"]({
         cmdline = {
             mark = "cmd",
             forceCompletionPattern = [[\S\s*]],
+            isVolatile = true,
         },
         ["cmdline-history"] = {
             mark = "cmd-hist",
