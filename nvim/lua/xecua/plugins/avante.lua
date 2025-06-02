@@ -7,6 +7,8 @@ elseif vim.g.use_gemini then
 end
 
 if model then
+    vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
+
     require("avante_lib").load()
 
     -- 自動補完はcopilotとかに投げるのでこっちでは不要

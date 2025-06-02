@@ -27,7 +27,7 @@ require("lualine").setup({
         theme = "wombat",
         globalstatus = true,
         disabled_filetypes = {
-            winbar = { "dap-repl" },
+            winbar = { "dap-repl", "Avante", "AvanteInput", "AvanteSelectedFiles" },
         },
     },
     sections = {

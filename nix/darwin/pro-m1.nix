@@ -11,6 +11,7 @@
       mutagen
       mutagen-compose
       ngrok
+      code-cursor
     ];
     programs.neovide.settings.font.size = 14;
   };

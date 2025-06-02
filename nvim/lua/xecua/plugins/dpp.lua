@@ -16,7 +16,9 @@ vim.api.nvim_create_user_command("DppClearState", "call dpp#clear_state()", {})
 vim.api.nvim_create_user_command("DppMakeState", "call dpp#make_state()", {})
 vim.api.nvim_create_user_command("DppClean", "call map(dpp#check_clean(), { _, val -> delete(val, 'rf') })", {})
 vim.api.nvim_create_user_command("DppInstall", "call dpp#async_ext_action('installer', 'install')", {})
-vim.api.nvim_create_user_command("DppUpdate", "call dpp#async_ext_action('installer', 'update')", {})
+vim.api.nvim_create_user_command("DppUpdate", function(opts)
+    vim.fn["dpp#async_ext_action"]("installer", "install", { names = opts.args or {} })
+end, { nargs = "*" })
 
 vim.api.nvim_create_autocmd("User", {
     group = dpp_augroup,
