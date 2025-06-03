@@ -145,12 +145,6 @@ repo = 'github/copilot.vim'
 on_if = "get(g:, 'use_copilot', v:false)"
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
 
-[[plugins]]
-repo = 'codota/tabnine-nvim'
-on_if = "get(g:, 'use_tabnine', v:false)"
-extAttrs = { installerBuild = './dl_binaries.sh' }
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/tabnine.lua'
-
 # ## integration
 [[plugins]]
 repo = 'yetone/avante.nvim'
@@ -159,6 +153,13 @@ merged = false
 hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/avante.lua'
 depends = ['dressing.nvim', 'plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
 extAttrs = { installerBuild = 'make' }
+
+[[plugins]]
+repo = 'yuucu/cursor_open.nvim'
+on_if = "get(g:, 'use_cursor', v:false)"
+lua_source = """
+require('cursor_open').setup({})
+"""
 
 [[plugins]]
 repo = 'ravitemer/mcphub.nvim'

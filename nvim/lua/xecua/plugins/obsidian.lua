@@ -23,7 +23,8 @@ require("obsidian").setup({
             end,
             overrides = {
                 notes_subdir = vim.NIL,
-                temlpates = { folder = vim.NIL },
+                templates = { folder = vim.NIL },
+                daily_notes = { folder = vim.NIL, date_format = vim.NIL, template = vim.NIL },
             },
         },
     },

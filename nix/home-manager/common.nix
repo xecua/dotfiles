@@ -58,6 +58,7 @@
       fsautocomplete
       fantomas
       php84Packages.php-codesniffer
+      jbang
 
       # Debug Servers
       netcoredbg

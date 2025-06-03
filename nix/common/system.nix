@@ -81,6 +81,7 @@
         mercurial
         mycli
         dua
+        tdf
 
         nodejs
         pastel
