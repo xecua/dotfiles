@@ -4,10 +4,9 @@
     ./common.nix
   ];
   system.stateVersion = 6;
-  system.environmentPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
       flutter
       code-cursor
-
   ];
   nixpkgs.hostPlatform = "aarch64-darwin"; # Intel Mac買うことたぶんないけど……
   home-manager.users.${defaultUser} = {

@@ -11,6 +11,19 @@ vim.opt.whichwrap = "b,s,<,>,[,]"
 vim.opt.showmode = true
 vim.opt.clipboard = { "unnamedplus", "unnamed" }
 
+vim.keymap.set({ "n", "x" }, "<C-w><C-h>", function()
+    vscode.action("workbench.action.navigateLeft")
+end)
+vim.keymap.set({ "n", "x" }, "<C-w><C-j>", function()
+    vscode.action("workbench.action.navigateDown")
+end)
+vim.keymap.set({ "n", "x" }, "<C-w><C-k>", function()
+    vscode.action("workbench.action.navigateUp")
+end)
+vim.keymap.set({ "n", "x" }, "<C-w><C-l>", function()
+    vscode.action("workbench.action.navigateRight")
+end)
+
 vim.keymap.set("n", "<C-n>", function()
     vscode.action("workbench.action.toggleSidebarVisibility")
     -- vscode.action("workbench.explorer.fileView.toggleVisibility") -- ← 動かない? (放置されたissueあり)
@@ -23,6 +36,9 @@ vim.keymap.set("v", "<C-_>", function()
 end)
 vim.keymap.set("n", "<Leader>fd", function()
     vscode.action("workbench.action.quickOpen")
+end)
+vim.keymap.set("n", "<Leader>fb", function()
+    vscode.action("workbench.files.action.focusOpenEditorsView")
 end)
 vim.keymap.set("n", "<Leader>fg", function()
     vscode.action("workbench.action.terminal.searchWorkspace")
@@ -38,9 +54,8 @@ vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "<Leader>lci", vim.lsp.buf.incoming_calls, {})
 vim.keymap.set("n", "<Leader>lco", vim.lsp.buf.outgoing_calls, {})
 
-vim.keymap.del({ "n", "x" }, "<C-w><C-j>", {})
-vim.keymap.del({ "n", "x" }, "<C-w><C-h>", {})
-vim.keymap.del({ "n", "x" }, "<C-w><C-k>", {})
-vim.keymap.del({ "n", "x" }, "<C-w><C-l>", {})
+vim.keymap.set("n", "<Leader>db", function()
+    vscode.action("editor.debug.action.toggleBreakpoint")
+end)
 
 -- accelerated-jkとか入れる?

@@ -36,7 +36,7 @@
       pyright
       yapf
       clang-tools # includes clangd
-      nodePackages_latest.prettier
+      prettier
       vim-language-server
       vscode-langservers-extracted # html, css, eslint
       efm-langserver
