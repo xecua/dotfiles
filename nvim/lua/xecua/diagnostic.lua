@@ -4,15 +4,16 @@ vim.keymap.set("n", "<Leader>tt", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = "Toggle diagnostic" })
 
+local function format_diag(diag)
+    local s = string.format("%s: %s", diag.source, diag.message)
+    if diag.code then
+        s = string.format("%s [%s]", s, diag.code)
+    end
+    return s
+end
+
 vim.diagnostic.config({
-    virtual_lines = {
-        format = function(diag)
-            local s = string.format("%s: %s", diag.source, diag.message)
-            if diag.code then
-                s = string.format("%s [%s]", s, diag.code)
-            end
-            return s
-        end,
-    },
+    virtaul_text = { format = format_diag },
+    float = { format = format_diag, suffix = "" },
     signs = false,
 })
