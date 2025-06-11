@@ -48,17 +48,18 @@ vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
 -- }}}
 
 -- lua_source {{{
+local default_sources = {
+    "lsp",
+    "file",
+    "around",
+    "denippet",
+}
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
 })
 vim.fn["ddc#custom#patch_global"]({
     ui = "pum",
-    sources = {
-        "lsp",
-        "file",
-        "around",
-        "denippet",
-    },
+    sources = default_sources,
     sourceOptions = {
         _ = {
             matchers = { "matcher_fuzzy" },
@@ -153,7 +154,7 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-disable-pre",
     callback = function()
-        vim.fn["ddc#custom#patch_buffer"]("sources", { "lsp", "file", "around", "denippet" })
+        vim.fn["ddc#custom#patch_buffer"]("sources", default_sources)
     end,
 })
 

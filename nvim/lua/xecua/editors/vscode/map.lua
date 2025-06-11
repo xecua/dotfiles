@@ -1,16 +1,3 @@
-local vscode = require("vscode")
-vim.notify = vscode.notify
-vim.g.clipboard = vim.g.vscode_clipboard
-
-vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.wrapscan = true
-vim.opt.whichwrap = "b,s,<,>,[,]"
-vim.opt.showmode = true
-vim.opt.clipboard = { "unnamedplus", "unnamed" }
-
 vim.keymap.set({ "n", "x" }, "<C-w><C-h>", function()
     vscode.action("workbench.action.navigateLeft")
 end)
@@ -55,7 +42,7 @@ vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references, {})
 vim.keymap.set("n", "<Leader>ld", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "<Leader>lt", vim.lsp.buf.type_definition, {})
 vim.keymap.set("n", "<Leader>li", function()
-    vscode.action("workbench.action.goToImplementation")
+    vscode.action("editor.action.goToImplementation")
 end, {})
 vim.keymap.set("n", "<Leader>la", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "<Leader>lci", vim.lsp.buf.incoming_calls, {})

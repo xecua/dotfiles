@@ -13,7 +13,7 @@ local function format_diag(diag)
 end
 
 vim.diagnostic.config({
-    virtaul_text = { format = format_diag },
-    float = { format = format_diag, suffix = "" },
+    virtual_text = { format = format_diag },
+    float = { border = "single", format = format_diag, suffix = "" },
     signs = false,
 })
