@@ -26,7 +26,7 @@
       nvd
 
       uv
-      deno # w/ denols
+      (deno.overrideAttrs { doCheck = false; }) # w/ denols
       rustup # w/ rust-analyzer
       typescript # w/ tsserver
       # haskellPackages.ghcup # broken

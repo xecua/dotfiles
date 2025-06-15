@@ -32,6 +32,8 @@
     w3m
     neovim-unwrapped
     # neovim-nightly-overlay.packages.${system}.default
+
+    lsof
   ];
   fonts = {
     packages = with pkgs; [
