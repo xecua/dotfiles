@@ -1,4 +1,4 @@
-{ pkgs, defaultUser, ... }:
+{ pkgs, defaultUser, mcp-hub, ... }:
 {
   imports = [ ../common/system.nix ];
   system = {
@@ -27,9 +27,12 @@
   users.users.${defaultUser} = {
     name = defaultUser;
   };
-  home-manager.users.${defaultUser} = {
-    imports = [ ../home-manager/darwin.nix ];
-    programs.neovide.settings.frame = "buttonless";
+  home-manager = {
+    extraSpecialArgs = { inherit mcp-hub defaultUser; };
+    users.${defaultUser} = {
+      imports = [ ../home-manager/darwin.nix ];
+      programs.neovide.settings.frame = "buttonless";
+    };
   };
   homebrew = {
     enable = true;

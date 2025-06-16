@@ -1,3 +1,5 @@
+local vscode = require("vscode")
+
 vim.keymap.set({ "n", "x" }, "<C-w><C-h>", function()
     vscode.action("workbench.action.navigateLeft")
 end)

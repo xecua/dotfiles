@@ -1,6 +1,7 @@
 {
   pkgs,
   defaultUser,
+  mcp-hub,
   ...
 }:
 {
@@ -24,6 +25,8 @@
       # nix util
       nix-tree
       nvd
+
+      mcp-hub.packages.${system}.mcp-hub
 
       uv
       (deno.overrideAttrs { doCheck = false; }) # w/ denols

@@ -165,7 +165,6 @@ require('cursor_open').setup({})
 repo = 'ravitemer/mcphub.nvim'
 depends = ['plenary.nvim', 'avante.nvim']
 lua_source = "require('mcphub').setup({})"
-hook_post_update = '!deno install -gfrA npm:mcp-hub'
 
 [[plugins]]
 repo = 'stevearc/dressing.nvim'

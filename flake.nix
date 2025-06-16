@@ -26,6 +26,10 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mcp-hub = {
+      url = "github:ravitemer/mcp-hub";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -55,7 +59,7 @@
           ];
           specialArgs = {
             defaultUser = "xecua";
-            # inherit (inputs) neovim-nightly-overlay;
+            inherit (inputs) mcp-hub; # neovim-nightly-overlay;
           };
         };
       };
@@ -67,7 +71,7 @@
           ];
           specialArgs = {
             defaultUser = "shiba";
-            # inherit (inputs) neovim-nightly-overlay;
+            inherit (inputs) mcp-hub; # neovim-nightly-overlay;
           };
         };
       };
@@ -77,7 +81,7 @@
           modules = [ (import ./nix/home-manager/gentoo.nix) ];
           extraSpecialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) nixgl ; #neovim-nightly-overlay;
+            inherit (inputs) nixgl mcp-hub; #neovim-nightly-overlay;
           };
         };
       };

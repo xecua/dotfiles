@@ -1,4 +1,4 @@
-{ defaultUser, ... }:
+{ defaultUser, mcp-hub, ... }:
 {
   imports = [ ../common/system.nix ];
   i18n = {
@@ -8,7 +8,10 @@
     ];
     defaultLocale = "en_US.UTF-8";
   };
-  home-manager.users.${defaultUser} = {
-    imports = [ ../home-manager/linux.nix ];
+  home-manager = {
+    extraSpecialArgs = { inherit mcp-hub defaultUser; };
+    users.${defaultUser} = {
+      imports = [ ../home-manager/linux.nix ];
+    };
   };
 }
