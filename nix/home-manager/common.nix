@@ -27,6 +27,7 @@
       nvd
 
       mcp-hub.packages.${system}.mcp-hub
+      claude-code
 
       uv
       (deno.overrideAttrs { doCheck = false; }) # w/ denols

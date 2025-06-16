@@ -19,6 +19,7 @@
     clang
     curl
     gcc
+    gnumake
     git
     git-extras
     git-filter-repo
