@@ -682,6 +682,7 @@ hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
+lua_source = "require('treesitter-context').setup({})"
 
 ## color matching parenthesis
 [[plugins]]
