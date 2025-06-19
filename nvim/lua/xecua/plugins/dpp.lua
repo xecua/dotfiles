@@ -1,8 +1,9 @@
-local dpp_base_dir = vim.fn.stdpath("cache") .. "/dpp"
-local dpp_config_path = vim.fn.stdpath("config") .. "/dpp.ts"
-local dpp_augroup = vim.api.nvim_create_augroup("DppConfig", { clear = true })
+local M = {}
 
-local function add_plugin(plugin_name)
+local dpp_augroup = vim.api.nvim_create_augroup("DppConfig", { clear = true })
+local dpp_base_dir = vim.fn.stdpath("cache") .. "/dpp"
+
+local function install_plugin(plugin_name)
     local source_local = string.format("%s/repos/github.com/%s", dpp_base_dir, plugin_name)
     if vim.fn.isdirectory(source_local) == 0 then
         vim.notify("installing " .. plugin_name .. "...")
@@ -12,14 +13,6 @@ local function add_plugin(plugin_name)
     vim.opt.rtp:prepend(source_local)
 end
 
-vim.api.nvim_create_user_command("DppClearState", "call dpp#clear_state()", {})
-vim.api.nvim_create_user_command("DppMakeState", "call dpp#make_state()", {})
-vim.api.nvim_create_user_command("DppClean", "call map(dpp#check_clean(), { _, val -> delete(val, 'rf') })", {})
-vim.api.nvim_create_user_command("DppInstall", "call dpp#async_ext_action('installer', 'install')", {})
-vim.api.nvim_create_user_command("DppUpdate", function(opts)
-    vim.fn["dpp#async_ext_action"]("installer", "update", { names = opts.fargs })
-end, { nargs = "*" })
-
 vim.api.nvim_create_autocmd("User", {
     group = dpp_augroup,
     pattern = "Dpp:makeStatePost",
@@ -28,38 +21,57 @@ vim.api.nvim_create_autocmd("User", {
         vim.notify("make_state finished. please restart neovim.")
     end,
 })
-vim.api.nvim_create_autocmd("BufWritePost", {
-    group = dpp_augroup,
-    pattern = { "*.lua", "*.toml", "*.ts", "*.vim" },
-    command = "call dpp#check_files()",
-})
 
-add_plugin("Shougo/dpp.vim")
-if require("dpp").load_state(dpp_base_dir) then
-    for _, ext in ipairs({
-        "Shougo/dpp-protocol-git",
-        "Shougo/dpp-ext-installer",
-        "Shougo/dpp-ext-toml",
-        "Shougo/dpp-ext-lazy",
-        "vim-denops/denops.vim",
-    }) do
-        add_plugin(ext)
-    end
+function M.setup(name)
+    vim.env.STD_CONFIG = vim.fn.stdpath("config")
+    local dpp_config_path = vim.fn.stdpath("config") .. "/dpp/" .. name .. ".ts"
 
-    vim.fn["denops#server#wait_async"](function()
-        -- denopsが立ち上がったらmake_stateする
-        require("dpp").make_state(dpp_base_dir, dpp_config_path)
-    end)
-end
+    vim.api.nvim_create_user_command("DppClearState", function()
+        require("dpp").clear_state(name)
+    end, {})
+    vim.api.nvim_create_user_command("DppMakeState", function()
+        require("dpp").make_state(dpp_base_dir, dpp_config_path, name)
+    end, {})
 
-if vim.v.vim_did_enter == 1 then
-    vim.fn["dpp#util#_call_hook"]("post_source")
-else
-    vim.api.nvim_create_autocmd("VimEnter", {
+    vim.api.nvim_create_user_command("DppInstall", "call dpp#async_ext_action('installer', 'install')", {})
+    vim.api.nvim_create_user_command("DppUpdate", function(opts)
+        vim.fn["dpp#async_ext_action"]("installer", "update", { names = opts.fargs })
+    end, { nargs = "*" })
+    vim.api.nvim_create_user_command("DppClean", "call map(dpp#check_clean(), { _, val -> delete(val, 'rf') })", {})
+
+    vim.api.nvim_create_autocmd("BufWritePost", {
         group = dpp_augroup,
-        pattern = "*",
+        pattern = { "*.lua", "*.toml", "*.ts", "*.vim" },
         callback = function()
-            vim.fn["dpp#util#_call_hook"]("post_source")
+            require("dpp").check_files(name)
         end,
     })
+
+    install_plugin("Shougo/dpp.vim")
+    if require("dpp").load_state(dpp_base_dir, name) then
+        install_plugin("Shougo/dpp-protocol-git")
+        install_plugin("Shougo/dpp-ext-installer")
+        install_plugin("Shougo/dpp-ext-toml")
+        install_plugin("Shougo/dpp-ext-lazy")
+        install_plugin("vim-denops/denops.vim")
+
+        vim.fn["denops#server#wait_async"](function()
+            -- denopsが立ち上がったらmake_stateする
+            require("dpp").make_state(dpp_base_dir, dpp_config_path, name)
+        end)
+    end
+
+    if vim.v.vim_did_enter == 1 then
+        vim.fn["dpp#util#_call_hook"]("post_source")
+    else
+        vim.api.nvim_create_autocmd("VimEnter", {
+            group = dpp_augroup,
+            pattern = "*",
+            callback = function()
+                vim.fn["dpp#util#_call_hook"]("post_source")
+            end,
+        })
+    end
 end
+
+return M

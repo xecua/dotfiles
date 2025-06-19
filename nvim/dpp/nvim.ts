@@ -40,16 +40,16 @@ export class Config extends BaseConfig {
 
     const [context, options] = await args.contextBuilder.get(args.denops);
     const config_base = await args.denops.call("stdpath", "config");
-    const tomls = [await loadToml(`${config_base}/dpp.toml`)];
+    const tomls = [loadToml(`${config_base}/dpp/plugins.toml`)];
 
     if (existsSync(`${config_base}/local.toml`)) {
-      tomls.push(await loadToml(`${config_base}/local.toml`));
+      tomls.push(loadToml(`${config_base}/dpp/local.toml`));
     }
 
     const recordPlugins: Record<string, Plugin> = {};
     const ftplugins: Record<string, string> = {};
     const hooksFiles: string[] = [];
-    for (const toml of tomls) {
+    for (const toml of await Promise.all(tomls)) {
       for (const plugin of toml.plugins) {
         recordPlugins[plugin.name] = plugin;
       }
