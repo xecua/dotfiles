@@ -1,30 +1,6 @@
-# plugin manager
-[[plugins]]
-repo = 'Shougo/dpp.vim'
-
-[[plugins]]
-repo = 'Shougo/dpp-ext-installer'
-
-[[plugins]]
-repo = 'Shougo/dpp-protocol-git'
-
-[[plugins]]
-repo = 'Shougo/dpp-ext-toml'
-
-[[plugins]]
-repo = 'Shougo/dpp-ext-lazy'
-
 # Utility
 [[plugins]]
 repo = 'nvim-lua/plenary.nvim'
-
-# denops
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-lua_add = """
-vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
-vim.api.nvim_create_user_command('DenopsFixCache', 'call denops#cache#update(#{reload: v:true})', {})
-"""
 
 # cursor
 [[plugins]]

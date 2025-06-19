@@ -1,0 +1,33 @@
+# plugin manager
+[[plugins]]
+repo = 'Shougo/dpp.vim'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-installer'
+
+[[plugins]]
+repo = 'Shougo/dpp-protocol-git'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-toml'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-lazy'
+
+# denops
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+lua_add = """
+vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
+vim.api.nvim_create_user_command('DenopsFixCache', 'call denops#cache#update(#{reload: v:true})', {})
+"""
+
+[[plugins]]
+repo = 'vim-denops/denops-shared-server.vim'
+lua_add = """
+--vim.g.denops_server_addr = '127.0.0.1:32123'
+vim.api.nvim_create_user_command('DenopsRestart', 'call denops_shared_server#restart()', {})
+vim.api.nvim_create_user_command('DenopsInstall', 'call denops_shared_server#install()', {})
+vim.api.nvim_create_user_command('DenopsUninstall', 'call denops_shared_server#uninstall()', {})
+"""
+hook_done_update = "call denops_shared_server#install()"
