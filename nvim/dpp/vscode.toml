@@ -1,0 +1,63 @@
+# plugin manager
+[[plugins]]
+repo = 'Shougo/dpp.vim'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-installer'
+
+[[plugins]]
+repo = 'Shougo/dpp-protocol-git'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-toml'
+
+[[plugins]]
+repo = 'Shougo/dpp-ext-lazy'
+
+# Utility
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+# denops
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+lua_add = """
+vim.g['denops#server#deno_args'] = { '-q', '--no-lock', '-A', '--unstable-kv' }
+vim.api.nvim_create_user_command('DenopsFixCache', 'call denops#cache#update(#{reload: v:true})', {})
+"""
+
+# cursor
+[[plugins]]
+repo = 'rhysd/accelerated-jk'
+lua_add = """
+vim.keymap.set('n', 'j', '<Plug>(accelerated_jk_gj)')
+vim.keymap.set('n', 'k', '<Plug>(accelerated_jk_gk)')
+"""
+
+[[plugins]]
+repo = 'skanehira/jumpcursor.vim'
+lua_add = """
+vim.keymap.set('n', '<Leader>j', '<Plug>(jumpcursor-jump)')
+
+local jumpcursor_marks = {}
+for i = 0x61, 0x7a do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x41, 0x5a do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x21, 0x40 do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x5b, 0x60 do table.insert(jumpcursor_marks, string.char(i)) end
+for i = 0x7b, 0x7e do table.insert(jumpcursor_marks, string.char(i)) end
+vim.g.jumpcursor_marks = jumpcursor_marks
+"""
+
+# parenthesis control
+[[plugins]]
+repo = 'rhysd/vim-operator-surround'
+depends = 'vim-operator-user'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/surround.lua'
+
+## dependency
+[[plugins]]
+repo = 'kana/vim-operator-user'
+
+[[plugins]]
+repo = 'monaqa/dial.nvim'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/dial.lua'
