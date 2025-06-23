@@ -1,0 +1,54 @@
+## ddc
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+depends = 'denops.vim'
+on_event = ['InsertEnter', 'CmdlineEnter']
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/ddc.lua'
+
+### ui
+[[plugins]]
+repo = 'Shougo/ddc-ui-pum'
+depends = ['pum.vim']
+
+### source
+[[plugins]]
+repo = 'Shougo/ddc-source-lsp'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-around'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline'
+rev = '4003bc995e0c34a859a5abbfe1f78e43674822e4'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-cmdline_history'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-line'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-input'
+group = 'ddc'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-source-file'
+group = 'ddc'
+
+[[plugins]]
+repo = 'tani/ddc-fuzzy'
+group = 'ddc'
+
+### filter
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_rank'
+group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-matcher_head'
+group = 'ddc'

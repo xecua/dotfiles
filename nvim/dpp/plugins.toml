@@ -1,7 +1,7 @@
 # terminal
 [[plugins]]
 repo = 'Shougo/ddt.vim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddt.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/ddt.lua'
 
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
@@ -21,7 +21,7 @@ extAttrs = { installerBuild = './install.sh' }
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/startify.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/startify.lua'
 
 # Preview
 [[plugins]]
@@ -40,7 +40,7 @@ vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = 'plenary.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/obsidian.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/obsidian.lua'
 
 [[plugins]]
 repo = 'MeanderingProgrammer/render-markdown.nvim'
@@ -64,7 +64,7 @@ require('render-markdown').setup({
 # Submode
 [[plugins]]
 repo = 'kana/vim-submode'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/submode.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/submode.lua'
 
 # task runner
 [[plugins]]
@@ -73,7 +73,7 @@ extAttrs = { installerBuild = 'make' }
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/quickrun.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/quickrun.lua'
 
 # quickfix
 [[plugins]]
@@ -88,26 +88,31 @@ on_ft = 'qf'
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
 lua_add = "vim.keymap.set('n', '<Leader>td', '<Cmd>TodoQuickFix<CR>')"
-lua_source = "require('todo-comments').setup({})"
+lua_source = """
+require('todo-comments').setup({})
+"""
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/which-key.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/which-key.lua'
 
 # popup notification
 [[plugins]]
 repo = 'rcarriga/nvim-notify'
-lua_source = "vim.notify = require('notify')"
+lua_source = """
+vim.notify = require('notify')
+"""
+
 
 [[plugins]]
 repo = 'ibhagwan/fzf-lua'
+depends = ['nvim-web-devicons']
 lua_source = """
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({'fzf-vim'})
 fzf_lua.register_ui_select()
 """
 
-## dependency
 [[plugins]]
 repo = 'nvim-tree/nvim-web-devicons'
 
@@ -118,19 +123,20 @@ repo = 'rhysd/vim-grammarous'
 # Ghosttext
 [[plugins]]
 repo = 'gamoutatsumi/dps-ghosttext.vim'
+depends = ['denops.vim']
 
 # LLM
 [[plugins]]
 repo = 'github/copilot.vim'
 on_if = "get(g:, 'use_copilot', v:false)"
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/copilot.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/copilot.lua'
 
 # ## integration
 [[plugins]]
 repo = 'yetone/avante.nvim'
 # mergeするとダメらしい
 merged = false
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/avante.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/avante.lua'
 depends = ['plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
 extAttrs = { installerBuild = 'make' }
 
@@ -144,7 +150,9 @@ require('cursor_open').setup({})
 [[plugins]]
 repo = 'ravitemer/mcphub.nvim'
 depends = ['plenary.nvim', 'avante.nvim']
-lua_source = "require('mcphub').setup({})"
+lua_source = """
+require('mcphub').setup({})
+"""
 
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
@@ -155,6 +163,7 @@ repo = 'tpope/vim-dadbod'
 
 [[plugins]]
 repo = 'kristijanhusak/vim-dadbod-ui'
+depends = ['vim-dadbod']
 lua_add = """
 vim.g.db_ui_show_database_icon = 1
 vim.g.db_ui_use_nvim_notify = 1
@@ -193,12 +202,13 @@ require("nlspsettings").setup({
 
 [[plugins]]
 repo = 'mfussenegger/nvim-jdtls'
+depends = ['nvim-dap']
 on_lua = 'jdtls'
 
 ## DAP
 [[plugins]]
 repo = 'mfussenegger/nvim-dap'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/dap.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/dap.lua'
 
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
@@ -211,6 +221,7 @@ on_lua = 'nio'
 ## tsserver integration
 [[plugins]]
 repo = 'pmizio/typescript-tools.nvim'
+depends = ['plenary.nvim', 'nvim-lspconfig']
 lua_source = """
 require("typescript-tools").setup({
   single_file_support = false,
@@ -229,6 +240,7 @@ repo = 'creativenull/efmls-configs-nvim'
 ## Rust tooltip
 [[plugins]]
 repo = 'mrcjkb/rustaceanvim'
+depends = ['mason.nvim']
 lua_add = """
 vim.g.rustaceanvim = function()
   local config = {
@@ -253,7 +265,9 @@ end
 ## Flutter integration
 [[plugins]]
 repo = 'akinsho/flutter-tools.nvim'
-lua_source = "require('flutter-tools').setup({})"
+lua_source = """
+require('flutter-tools').setup({})
+"""
 
 # Popup
 [[plugins]]
@@ -278,10 +292,12 @@ depends = 'denops.vim'
 [[plugins]]
 repo = 'vim-skk/skkeleton'
 depends = 'denops.vim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/skkeleton.lua'
+group = 'ddc'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/skkeleton.lua'
 
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
+depends = ['skkeleton']
 rev = 'v2'
 lua_source = """
 require('skkeleton_indicator').setup({
@@ -301,137 +317,10 @@ merged = false
 repo = 'uasi/skk-emoji-jisyo'
 merged = false
 
-## ddc
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-depends = 'denops.vim'
-on_event = ['InsertEnter', 'CmdlineEnter']
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddc.lua'
-
-### ui
-[[plugins]]
-repo = 'Shougo/ddc-ui-pum'
-depends = ['ddc.vim', 'pum.vim']
-
-### source
-[[plugins]]
-repo = 'Shougo/ddc-source-lsp'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-around'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-cmdline'
-rev = '4003bc995e0c34a859a5abbfe1f78e43674822e4'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-cmdline_history'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-line'
-
-[[plugins]]
-repo = 'Shougo/ddc-source-input'
-
-[[plugins]]
-repo = 'LumaKernel/ddc-source-file'
-
-[[plugins]]
-repo = 'tani/ddc-fuzzy'
-
-### filter
-[[plugins]]
-repo = 'Shougo/ddc-filter-sorter_rank'
-
-[[plugins]]
-repo = 'Shougo/ddc-filter-matcher_head'
-
-## ddu
-[[plugins]]
-repo = 'Shougo/ddu.vim'
-depends = 'denops.vim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/ddu.lua'
-
-[[plugins]]
-repo = 'Shougo/ddu-commands.vim'
-on_cmd = 'Ddu'
-depends = 'ddu.vim'
-
-### UI
-[[plugins]]
-repo = 'Shougo/ddu-ui-ff'
-
-[[plugins]]
-repo = 'Shougo/ddu-ui-filer'
-
-### Matcher
-[[plugins]]
-repo = 'Shougo/ddu-filter-matcher_hidden'
-
-[[plugins]]
-repo = 'mityu/ddu-filter-matcher_multi_regex'
-
-[[plugins]]
-repo = 'Shougo/ddu-filter-converter_display_word'
-
-[[plugins]]
-repo = 'kyoh86/ddu-filter-converter_hl_dir'
-
-[[plugins]]
-repo = 'yuki-yano/ddu-filter-fzf'
-
-[[plugins]]
-repo = 'Shougo/ddu-filter-sorter_alpha'
-
-[[plugins]]
-repo = 'xecua/ddu-filter-sorter_treefirst'
-
-### Sources
-[[plugins]]
-repo = 'Shougo/ddu-source-action'
-
-[[plugins]]
-repo = 'matsui54/ddu-source-help'
-
-[[plugins]]
-repo = 'matsui54/ddu-source-man'
-
-[[plugins]]
-repo = '4513ECHO/ddu-source-source'
-
-[[plugins]]
-repo = 'Shougo/ddu-source-file'
-
-[[plugins]]
-repo = 'matsui54/ddu-source-file_external'
-
-[[plugins]]
-repo = 'shun/ddu-source-buffer'
-
-[[plugins]]
-repo = 'shun/ddu-source-rg'
-
-[[plugins]]
-repo = 'Shougo/ddu-source-register'
-
-[[plugins]]
-repo = 'uga-rosa/ddu-source-lsp'
-
-### Kinds
-[[plugins]]
-repo = 'Shougo/ddu-kind-file'
-
-[[plugins]]
-repo = 'Shougo/ddu-kind-word'
-
-### column
-[[plugins]]
-repo = 'ryota2357/ddu-column-icon_filename'
-
 # filer
 [[plugins]]
 repo = 'lambdalisue/vim-fern'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/fern.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/fern.lua'
 
 [[plugins]]
 repo = 'lambdalisue/vim-glyph-palette'
@@ -486,7 +375,7 @@ require('gitsigns').setup({
 # autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lexima.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/lexima.lua'
 
 # undo
 [[plugins]]
@@ -500,7 +389,7 @@ vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'nvim-navic']
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/lualine.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/lualine.lua'
 
 # mark
 [[plugins]]
@@ -510,19 +399,7 @@ hook_add = "let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyz'"
 # comment
 [[plugins]]
 repo = 'numToStr/Comment.nvim'
-lua_source = """
-require('Comment').setup({
-  ignore = '^$',
-  mappings = {
-    basic = false,
-    extra = false
-  },
-  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
-})
-vim.keymap.set('n', '<C-_><C-_>', '<Plug>(comment_toggle_linewise_current)')
-vim.keymap.set('v', '<C-_><C-_>', '<Plug>(comment_toggle_linewise_visual)')
-vim.keymap.set('v', '<C-_>b', '<Plug>(comment_toggle_blockwise_visual)')
-"""
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/comment.lua'
 
 ## jsx/tsx helper
 [[plugins]]
@@ -604,11 +481,13 @@ repo = 'mattn/vim-maketable'
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = "TSUpdate"
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/treesitter.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/treesitter.lua'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
-lua_source = "require('treesitter-context').setup({})"
+lua_source = """
+require('treesitter-context').setup({})
+"""
 
 ## color matching parenthesis
 [[plugins]]
@@ -649,7 +528,7 @@ repo = 'ymyzk/vim-copl'
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
 on_ft = 'csv'
-hooks_file = '$XDG_CONFIG_HOME/nvim/lua/xecua/plugins/rainbow_csv.lua'
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/rainbow_csv.lua'
 
 ## Firestore Security Rule
 [[plugins]]

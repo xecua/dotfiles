@@ -1,9 +1,9 @@
-import { type Plugin } from "jsr:@shougo/dpp-vim@4.2.0/types";
+import { type Plugin } from "jsr:@shougo/dpp-vim@4.4.0/types";
 import {
   BaseConfig,
   type ConfigArguments,
   type ConfigReturn,
-} from "jsr:@shougo/dpp-vim@4.2.0/config";
+} from "jsr:@shougo/dpp-vim@4.4.0/config";
 import { existsSync } from "jsr:@std/fs@1.0.16";
 
 type TomlLoadResult = {
@@ -43,6 +43,8 @@ export class Config extends BaseConfig {
     const tomls = [
       loadToml(`${config_base}/dpp/dpp.toml`),
       loadToml(`${config_base}/dpp/common.toml`),
+      loadToml(`${config_base}/dpp/ddu.toml`),
+      loadToml(`${config_base}/dpp/ddc.toml`),
       loadToml(`${config_base}/dpp/plugins.toml`),
     ];
 
@@ -85,9 +87,21 @@ export class Config extends BaseConfig {
       },
     )) as MakeLazyStateResult;
 
+    const groups = {
+      ddc: {
+        depends: "denops.vim",
+        on_source: "ddc.vim",
+      },
+      ddu: {
+        depends: "denops.vim",
+        on_source: "ddu.vim",
+      },
+    };
+
     return {
       ftplugins,
       hooksFiles,
+      groups,
       plugins,
       stateLines,
     };
