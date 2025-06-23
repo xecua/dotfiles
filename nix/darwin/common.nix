@@ -1,6 +1,11 @@
-{ pkgs, defaultUser, mcp-hub, ... }:
 {
-  imports = [ ../common/system.nix ];
+  pkgs,
+  defaultUser,
+  mcp-hub,
+  ...
+}:
+{
+  imports = [ ../system.nix ];
   system = {
     activationScripts.extraActivation.text = ''
       ln -sfn {${pkgs.temurin-bin-17},}/Library/Java/JavaVirtualMachines/temurin-17.jdk

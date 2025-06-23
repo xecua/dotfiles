@@ -92,7 +92,11 @@
         # php84Packages.composer
         # php84Packages.psysh
         pv
-        python3
+        (python3.withPackages (pypkgs: [
+          pypkgs.pip
+          pypkgs.ipykernel
+          pypkgs.pandas
+        ]))
         visidata
         radare2
         rename

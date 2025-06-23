@@ -1,6 +1,6 @@
 { defaultUser, mcp-hub, ... }:
 {
-  imports = [ ../common/system.nix ];
+  imports = [ ../system.nix ];
   i18n = {
     supportedLocales = [
       "en_US.UTF-8/UTF-8"
