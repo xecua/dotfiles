@@ -1,7 +1,7 @@
 {
   pkgs,
   defaultUser,
-  # neovim-nightly-overlay,
+  overlays,
   ...
 }:
 {
@@ -13,7 +13,10 @@
 
     download-buffer-size = 500 * 1024 * 1024;
   };
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    inherit overlays;
+    config.allowUnfree = true;
+  };
   environment.systemPackages = with pkgs; [
     bat
     clang

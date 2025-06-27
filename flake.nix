@@ -41,6 +41,9 @@
       ];
       eachSystem =
         callback: nixpkgs.lib.genAttrs systems (system: callback nixpkgs.legacyPackages.${system});
+      overlays = [
+        # inputs.neovim-nightly-overlay.default
+      ];
     in
     {
       formatter = eachSystem (
@@ -59,7 +62,8 @@
           ];
           specialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) mcp-hub; # neovim-nightly-overlay;
+            inherit overlays;
+            inherit (inputs) mcp-hub;
           };
         };
       };
@@ -71,7 +75,8 @@
           ];
           specialArgs = {
             defaultUser = "shiba";
-            inherit (inputs) mcp-hub; # neovim-nightly-overlay;
+            inherit overlays;
+            inherit (inputs) mcp-hub;
           };
         };
       };
@@ -81,7 +86,7 @@
           modules = [ (import ./nix/home-manager/gentoo.nix) ];
           extraSpecialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) nixgl mcp-hub; #neovim-nightly-overlay;
+            inherit (inputs) nixgl mcp-hub;
           };
         };
       };

@@ -1,12 +1,10 @@
 { pkgs, defaultUser, ... }:
 {
-  imports = [
-    ./common.nix
-  ];
+  imports = [ ./common.nix ];
   system.stateVersion = 6;
   environment.systemPackages = with pkgs; [
-      flutter
-      code-cursor
+    flutter
+    code-cursor
   ];
   nixpkgs.hostPlatform = "aarch64-darwin"; # Intel Mac買うことたぶんないけど……
   home-manager.users.${defaultUser} = {

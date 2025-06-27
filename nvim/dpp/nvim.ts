@@ -94,7 +94,7 @@ export class Config extends BaseConfig {
       },
       ddu: {
         depends: "denops.vim",
-        on_source: "ddu.vim",
+        // on_source: "ddu.vim",
       },
     };
 
