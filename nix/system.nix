@@ -65,12 +65,15 @@
         dig
         direnv
         dotnetCorePackages.dotnet_9.sdk
+        dua
         eza
         fastfetch
         fd
         fish
         fzf
+        gemini-cli
         gh
+        ghq
         gnirehtet
         go
         hexyl
@@ -78,15 +81,14 @@
         iconv
         jaq
         jnv
-        lazygit
-        ghq
         lazydocker
+        lazygit
         less
         lnav
-        redocly
         mercurial
+        mise
         mycli
-        dua
+        redocly
         tdf
 
         nodejs

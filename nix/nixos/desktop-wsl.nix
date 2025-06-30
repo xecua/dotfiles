@@ -8,4 +8,7 @@
     enable = true;
     inherit defaultUser;
   };
+  home-manager.users.${defaultUser} = {
+    programs.neovide.settings.font.size = 14;
+  };
 }
