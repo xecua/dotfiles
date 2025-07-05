@@ -48,12 +48,16 @@ vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
 -- }}}
 
 -- lua_source {{{
+-- tsに書きたいかもしれない……
 local default_sources = {
     "lsp",
     "file",
     "around",
     "denippet",
 }
+if vim.g.use_copilot then
+    table.insert(default_sources, "copilot")
+end
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
 })
@@ -179,5 +183,6 @@ vim.keymap.set({ "n", "v" }, ":", function()
     return ":"
 end, { expr = true })
 
+vim.fn["ddc#enable_terminal_completion"]()
 vim.fn["ddc#enable"]({ context_filetype = "treesitter" })
 -- }}}

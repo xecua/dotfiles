@@ -10,6 +10,10 @@ hooks_file = '$STD_CONFIG/lua/xecua/plugins/ddc.lua'
 repo = 'Shougo/ddc-ui-pum'
 depends = ['pum.vim']
 
+[[plugins]]
+repo = 'Shougo/ddc-ui-none'
+group = 'ddc'
+
 ### source
 [[plugins]]
 repo = 'Shougo/ddc-source-lsp'
@@ -27,6 +31,11 @@ group = 'ddc'
 [[plugins]]
 repo = 'Shougo/ddc-source-cmdline_history'
 group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-source-copilot'
+group = 'ddc'
+hook_add = 'let g:copilot_hide_during_completion = 0'
 
 [[plugins]]
 repo = 'Shougo/ddc-source-line'

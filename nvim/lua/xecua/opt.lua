@@ -23,6 +23,7 @@ vim.opt.scrolloff = 2
 vim.opt.sidescrolloff = 2
 vim.opt.title = true
 vim.opt.wildoptions:append("fuzzy")
+vim.opt.pumblend = 25
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)

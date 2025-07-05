@@ -65,18 +65,20 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 vim.api.nvim_create_autocmd("User", {
-    pattern = "Ddu:ui:ff:openFilterWindow",
+    pattern = "Ddu:uiOpenFilterWindow",
     callback = function()
         vim.fn["pum#set_option"]({
             reversed = true,
             direction = "above",
         })
+        vim.fn["ddc#custom#patch_global"]("ui", "none")
     end,
 })
 
 vim.api.nvim_create_autocmd("User", {
-    pattern = "Ddu:ui:ff:closeFilterWindow",
+    pattern = "Ddu:uiCloseFilterWindow",
     callback = function()
+        vim.fn["ddc#custom#patch_global"]("ui", "pum")
         vim.fn["pum#set_option"]({
             reversed = false,
             direction = "auto",
