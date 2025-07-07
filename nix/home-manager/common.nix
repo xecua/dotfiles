@@ -30,7 +30,7 @@
       claude-code
 
       uv
-      (deno.overrideAttrs { doCheck = false; }) # w/ denols
+      deno # w/ denols
       rustup # w/ rust-analyzer
       typescript # w/ tsserver
       # haskellPackages.ghcup # broken
