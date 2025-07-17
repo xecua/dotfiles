@@ -125,6 +125,15 @@ repo = 'rhysd/vim-grammarous'
 repo = 'gamoutatsumi/dps-ghosttext.vim'
 depends = ['denops.vim']
 
+[[plugins]]
+repo = 'glacambre/firenvim'
+hook_post_update = 'call firenvim#install(0)'
+lua_add = """
+if vim.g.started_by_firenvim then
+    vim.opt.laststatus = 0
+end
+"""
+
 # LLM
 [[plugins]]
 repo = 'github/copilot.vim'
@@ -175,6 +184,23 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 # LSP
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
+
+[[plugins]]
+# fork. back to original when https://github.com/antosha417/nvim-lsp-file-operations/pull/34 is merged
+repo = 'igorlfs/nvim-lsp-file-operations'
+depends = ['nvim-lspconfig']
+lua_post_source = """
+require("lsp-file-operations").setup()
+local lspconfig = require("lspconfig")
+lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        require("lsp-file-operations").default_capabilities()
+    ),
+})
+
+"""
 
 ## breadcrumbs
 [[plugins]]

@@ -90,6 +90,8 @@
         mycli
         redocly
         tdf
+        veryl
+        verilator
 
         nodejs
         pastel
@@ -112,6 +114,7 @@
         starship
         teip
         temurin-bin
+        gradle
         tmux
         trash-cli
         trippy

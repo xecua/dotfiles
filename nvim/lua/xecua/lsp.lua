@@ -129,7 +129,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/formatting") then
             vim.api.nvim_create_autocmd("BufWritePre", {
-                group = init_augroup_id,
+                group = augroup,
                 buffer = buffer,
                 command = "LspFormat",
                 desc = "LSP: Format on save",
@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/signatureHelp") then
             vim.api.nvim_create_autocmd("CursorHoldI", {
-                group = init_augroup_id,
+                group = augroup,
                 buffer = buffer,
                 command = "LspSignatureHelp",
                 desc = "LSP: Signature Help while Typing.",
