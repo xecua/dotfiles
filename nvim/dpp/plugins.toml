@@ -120,10 +120,6 @@ repo = 'nvim-tree/nvim-web-devicons'
 [[plugins]]
 repo = 'rhysd/vim-grammarous'
 
-# Ghosttext
-[[plugins]]
-repo = 'gamoutatsumi/dps-ghosttext.vim'
-depends = ['denops.vim']
 
 [[plugins]]
 repo = 'glacambre/firenvim'
@@ -131,6 +127,8 @@ hook_post_update = 'call firenvim#install(0)'
 lua_add = """
 if vim.g.started_by_firenvim then
     vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
+    vim.opt.number = false
 end
 """
 

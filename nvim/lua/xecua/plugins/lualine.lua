@@ -1,4 +1,8 @@
 -- lua_source {{{
+if vim.g.started_by_firenvim then
+    return
+end
+
 local function fileformat()
     -- lualine's fileformat only shows icon *or* text
     -- when nvim-web-devicons becomes to have this, then replace with it.
