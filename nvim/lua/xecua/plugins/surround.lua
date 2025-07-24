@@ -26,23 +26,39 @@ vim.g["operator#surround#blocks"] = {
     },
 }
 
-vim.api.nvim_create_autocmd("FileType", {
-    -- group = init_augroup_id,
+local function is_operator_surround_disabled_buffer()
+    local List = require("plenary.collections.py_list")
+    local operator_surround_disabled_buffer_types = List({
+        "fern",
+        "ddu-ff",
+        "ddu-filer",
+        "qf",
+        "fugitive",
+        "gitsigns-blame",
+    })
+    return operator_surround_disabled_buffer_types:contains(vim.opt_local.ft:get())
+end
+
+local augroup = vim.api.nvim_create_augroup("OperatorSurround", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
     pattern = "*",
-    callback = function(args)
-        local List = require("plenary.collections.py_list")
-        local operator_surround_disabled_buffer_types = List({
-            "fern",
-            "ddu-ff",
-            "ddu-filer",
-            "qf",
-            "fugitive",
-            "gitsigns-blame",
-        })
-        if not operator_surround_disabled_buffer_types:contains(args.match) then
+    callback = function()
+        if not is_operator_surround_disabled_buffer() then
             vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)", { buffer = true })
             vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)", { buffer = true })
             vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)", { buffer = true })
+        end
+    end,
+})
+vim.api.nvim_create_autocmd("BufLeave", {
+    group = augroup,
+    pattern = "*",
+    callback = function()
+        if not is_operator_surround_disabled_buffer() then
+            vim.keymap.del("n", "sa", { buffer = true })
+            vim.keymap.del("n", "sd", { buffer = true })
+            vim.keymap.del("n", "sr", { buffer = true })
         end
     end,
 })

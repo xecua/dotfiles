@@ -125,6 +125,12 @@ repo = 'rhysd/vim-grammarous'
 repo = 'glacambre/firenvim'
 hook_post_update = 'call firenvim#install(0)'
 lua_add = """
+vim.g.firenvim_config = {
+    globalSettings = {},
+    localSettings = {
+        [".*"] = { takeover = "never" }
+    }
+}
 if vim.g.started_by_firenvim then
     vim.opt.laststatus = 0
     vim.opt.showtabline = 0
