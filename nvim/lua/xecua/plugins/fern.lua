@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("FileType", {
             )
         end, { buffer = true, expr = true }) -- 選択は<LeftMouse>でやってる
         vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
-        vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { buffer = true })
+        vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { nowait = true, buffer = true })
         vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
     end,
 })

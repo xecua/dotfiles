@@ -29,7 +29,7 @@ vim.g["operator#surround#blocks"] = {
 local function is_operator_surround_disabled_buffer()
     local List = require("plenary.collections.py_list")
     local operator_surround_disabled_buffer_types = List({
-        "fern",
+        "fzf",
         "ddu-ff",
         "ddu-filer",
         "qf",
@@ -48,17 +48,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
             vim.keymap.set("n", "sa", "<Plug>(operator-surround-append)", { buffer = true })
             vim.keymap.set("n", "sd", "<Plug>(operator-surround-delete)", { buffer = true })
             vim.keymap.set("n", "sr", "<Plug>(operator-surround-replace)", { buffer = true })
-        end
-    end,
-})
-vim.api.nvim_create_autocmd("BufLeave", {
-    group = augroup,
-    pattern = "*",
-    callback = function()
-        if not is_operator_surround_disabled_buffer() then
-            vim.keymap.del("n", "sa", { buffer = true })
-            vim.keymap.del("n", "sd", { buffer = true })
-            vim.keymap.del("n", "sr", { buffer = true })
         end
     end,
 })
