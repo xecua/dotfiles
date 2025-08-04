@@ -190,6 +190,23 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
+repo = 'ray-x/lsp_signature.nvim'
+lua_source = """
+require('lsp_signature').setup({})
+"""
+
+# [[plugins]]
+# repo = 'matsui54/denops-signature_help'
+# depends = 'denops.vim'
+# lua_source = """
+# vim.g.signature_help_config = {
+#     contentsStyle = "currentLabel"
+# }
+# vim.fn["signature_help#enable"]()
+# """
+
+
+[[plugins]]
 # fork. back to original when https://github.com/antosha417/nvim-lsp-file-operations/pull/34 is merged
 repo = 'igorlfs/nvim-lsp-file-operations'
 depends = ['nvim-lspconfig']
@@ -307,16 +324,6 @@ repo = 'Shougo/pum.vim'
 repo = 'matsui54/denops-popup-preview.vim'
 depends = 'denops.vim'
 hook_source = "call popup_preview#enable()"
-
-[[plugins]]
-repo = 'matsui54/denops-signature_help'
-depends = 'denops.vim'
-# lua_source = """
-# vim.g.signature_help_config = {
-#     contentsStyle = "currentLabel"
-# }
-# vim.fn["signature_help#enable"]()
-# """
 
 ## SKK
 [[plugins]]

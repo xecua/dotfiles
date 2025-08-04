@@ -63,6 +63,7 @@
       fantomas
       php84Packages.php-codesniffer
       jbang
+      fvm # Flutter w/ Dart, including dart-analyzer
 
       # Debug Servers
       netcoredbg

@@ -41,6 +41,7 @@ export class Config extends BaseConfig {
     const [context, options] = await args.contextBuilder.get(args.denops);
     const config_base = await args.denops.call("stdpath", "config");
     const tomls = [
+      loadToml(`${config_base}/dpp/denops.toml`),
       loadToml(`${config_base}/dpp/dpp.toml`),
       loadToml(`${config_base}/dpp/common.toml`),
     ];

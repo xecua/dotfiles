@@ -26,37 +26,42 @@ end
 
 ---@return { obsidian_dir: string, skkeleton_dictionaries: table<string> }
 function M.get_local_config()
-    local skkdict_path = vim.fn["dpp#get"]("dict").path
-    local emoji_jisyo_path = vim.fn["dpp#get"]("skk-emoji-jisyo").path
+    local obsidian_dir = "/dev/null"
+    local skkeleton_dictionaries = {}
 
-    local skkeleton_dictionaries = {
-        skkdict_path .. "/SKK-JISYO.L",
-        skkdict_path .. "/SKK-JISYO.jinmei",
-        skkdict_path .. "/SKK-JISYO.geo",
-        skkdict_path .. "/SKK-JISYO.law",
-        skkdict_path .. "/SKK-JISYO.station",
-        skkdict_path .. "/SKK-JISYO.propernoun",
-        skkdict_path .. "/SKK-JISYO.pinyin",
-        skkdict_path .. "/SKK-JISYO.itaiji",
-        skkdict_path .. "/SKK-JISYO.itaiji.JIS3_4",
-        skkdict_path .. "/SKK-JISYO.JIS2004",
-        skkdict_path .. "/SKK-JISYO.JIS2",
-        skkdict_path .. "/SKK-JISYO.JIS3_4",
-        emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
-    }
-
-    local ok, local_config = pcall(require, "xecua.local")
-    local config = {
-        obsidian_dir = "/dev/null",
-        skkeleton_dictionaries = skkeleton_dictionaries,
-    }
-
+    local ok, dpp = pcall(require, "dpp")
     if ok then
-        config.obsidian_dir = local_config.obsidian_dir or config.obsidian_dir
-        vim.list_extend(config.skkeleton_dictionaries, local_config.skkeleton_dictionaries or {})
+        local skkdict_path = dpp.get("dict").path
+        local emoji_jisyo_path = dpp.get("skk-emoji-jisyo").path
+        vim.list_extend(skkeleton_dictionaries, {
+            skkdict_path .. "/SKK-JISYO.L",
+            skkdict_path .. "/SKK-JISYO.jinmei",
+            skkdict_path .. "/SKK-JISYO.geo",
+            skkdict_path .. "/SKK-JISYO.law",
+            skkdict_path .. "/SKK-JISYO.station",
+            skkdict_path .. "/SKK-JISYO.propernoun",
+            skkdict_path .. "/SKK-JISYO.pinyin",
+            skkdict_path .. "/SKK-JISYO.itaiji",
+            skkdict_path .. "/SKK-JISYO.itaiji.JIS3_4",
+            skkdict_path .. "/SKK-JISYO.JIS2004",
+            skkdict_path .. "/SKK-JISYO.JIS2",
+            skkdict_path .. "/SKK-JISYO.JIS3_4",
+            emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
+        })
     end
 
-    return config
+    local local_config
+    ok, local_config = pcall(require, "xecua.local")
+
+    if ok then
+        obsidian_dir = local_config.obsidian_dir or obsidian_dir
+        vim.list_extend(skkeleton_dictionaries, local_config.skkeleton_dictionaries or {})
+    end
+
+    return {
+        obsidian_dir = obsidian_dir,
+        skkeleton_dictionaries = skkeleton_dictionaries,
+    }
 end
 
 return M
