@@ -33,6 +33,7 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export POETRY_HOME="$XDG_DATA_HOME/poetry"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
+export FVM_CACHE_PATH="$XDG_DATA_HOME/fvm" # Flutter (FVM)
 
 export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME/fzfrc"
 export LESS="-FRXMS -j5 --shift 5"
@@ -56,10 +57,12 @@ PATH="$POETRY_HOME/bin:$PATH"
 PATH="$DENO_INSTALL/bin:$PATH"
 PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 PATH="$ANDROID_HOME/platform-tools:$PATH"
+PATH="$ANDROID_HOME/emulator:$PATH"
 PATH="$XDG_DATA_HOME/npm/bin:$PATH" # npm global bin (assuming properly configured)
 PATH="$PNPM_HOME:$PATH"
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$HOME/.dotnet/tools:$PATH"
+PATH="$FVM_CACHE_PATH/default/bin:$PATH"
 
 # set by command
 if command -v ruby >/dev/null; then
