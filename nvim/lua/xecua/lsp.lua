@@ -1,5 +1,7 @@
 -- vim.lsp.config('*', {})
 
+local methods = vim.lsp.protocol.Methods
+
 vim.lsp.enable({
     "denols",
     "eslint",
@@ -54,6 +56,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local buffer = args.buf
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
+                async = true,
                 filter = function(c)
                     return c.name ~= "typescript-tools" and c.name ~= "lua_ls" and c.name ~= "sqls"
                 end,
@@ -123,11 +126,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
             require("jdtls").setup_dap({ hotcodereplace = "auto" })
         end
 
-        if client:supports_method("textDocument/documentSymbol") then
+        if client:supports_method(methods.textDocument_documentSymbol) then
             require("nvim-navic").attach(client, buffer)
         end
 
-        if client:supports_method("textDocument/formatting") then
+        if client:supports_method(methods.textDocument_formatting) then
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
                 buffer = buffer,
@@ -136,11 +139,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
 
-        if client:supports_method("textDocument/inlayHint") then
+        if client:supports_method(methods.textDocument_inlayHint) then
             vim.lsp.inlay_hint.enable()
         end
 
-        if client:supports_method("textDocument/signatureHelp") then
+        if client:supports_method(methods.textDocument_signatureHelp) then
             vim.api.nvim_create_autocmd("CursorHoldI", {
                 group = augroup,
                 buffer = buffer,

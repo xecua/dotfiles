@@ -1,5 +1,6 @@
 -- lua_add {{{
 
+-- <-- floating terminal
 local buf = nil
 local win = nil
 
@@ -8,8 +9,10 @@ vim.api.nvim_create_autocmd("FileType", {
     group = ddt_group_id,
     pattern = "ddt-terminal",
     callback = function()
-        vim.keymap.set("n", "<CR>", "<Cmd>call ddt#ui#do_action('executeLine')<CR>", { buffer = true })
-
+        -- bufとwinをいじるのでここは必要
+        if buf ~= nil and win ~= nil then
+            return
+        end
         vim.api.nvim_create_autocmd("BufLeave", {
             buffer = 0,
             callback = function()
@@ -21,7 +24,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.keymap.set("n", "<Leader>p", function()
+local function ddt_float_term_toggle()
     -- darken background
     if buf == nil then
         buf = vim.api.nvim_create_buf(false, true)
@@ -39,6 +42,7 @@ vim.keymap.set("n", "<Leader>p", function()
         vim.fn["ddt#start"]({
             uiParams = {
                 terminal = {
+                    split = "floating",
                     winCol = vim.o.columns / 18,
                     winWidth = vim.o.columns * 8 / 9,
                     winRow = vim.o.lines / 18,
@@ -49,8 +53,24 @@ vim.keymap.set("n", "<Leader>p", function()
     else
         vim.api.nvim_win_close(vim.g.ddt_ui_last_winid, true)
     end
-end)
+end
+
+vim.api.nvim_create_user_command("DdtFloatTermToggle", ddt_float_term_toggle, {})
+vim.keymap.set("n", "<Leader>p", "<Cmd>DdtFloatTermToggle<CR>")
+-- -->
+
+-- <-- terminal on bottom
+local function ddt_bottom_term()
+    vim.fn["ddt#start"]({
+        uiParams = {
+            terminal = { split = "horizontal", winHeight = 10 },
+        },
+    })
+end
+vim.api.nvim_create_user_command("DdtBottomTerm", ddt_bottom_term, {})
+vim.keymap.set("n", "<Leader>`", "<Cmd>DdtBottomTerm<CR>")
 -- }}}
+
 -- lua_source {{{
 local is_darwin = require("xecua.utils").get_os_string() == "Darwin"
 
@@ -58,11 +78,14 @@ vim.fn["ddt#custom#patch_global"]({
     ui = "terminal",
     uiParams = {
         terminal = {
-            split = "floating",
             toggle = true,
             command = is_darwin and "zsh" or "bash",
             startInsert = true,
         },
     },
 })
+-- }}}
+
+-- lua_ddt-terminal {{{
+vim.keymap.set("n", "<CR>", "<Cmd>call ddt#ui#do_action('executeLine')<CR>", { buffer = true })
 -- }}}

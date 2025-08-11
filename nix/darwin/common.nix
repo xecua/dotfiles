@@ -17,6 +17,7 @@
     reattach = true;
   };
   environment.systemPackages = with pkgs; [
+    lima
     colima
     karabiner-elements
     cocoapods
