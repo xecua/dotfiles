@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "ddt-terminal",
     callback = function()
         -- bufとwinをいじるのでここは必要
-        if buf ~= nil and win ~= nil then
+        if buf == nil and win == nil then
             return
         end
         vim.api.nvim_create_autocmd("BufLeave", {
