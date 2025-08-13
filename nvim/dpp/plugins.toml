@@ -438,6 +438,9 @@ repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'nvim-navic']
 hooks_file = '$STD_CONFIG/lua/xecua/plugins/lualine.lua'
 
+[[plugins]]
+repo = 'petertriho/nvim-scrollbar'
+
 # mark
 [[plugins]]
 repo = 'vim-scripts/ShowMarks'

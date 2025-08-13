@@ -19,7 +19,10 @@ export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 
-export ANDROID_HOME="$XDG_DATA_HOME/Android/Sdk" # Android Studio default
+export ANDROID_USER_HOME="$XDG_DATA_HOME/android"
+export ANDROID_HOME="$ANDROID_USER_HOME/sdk" # Android Studio default
+export ANDROID_EMULATOR_HOME="$ANDROID_USER_HOME" # Should be default, but not considered in some tools
+export ANDROID_AVD_HOME="$ANDROID_EMULATOR_HOME/avd" # Should be default, but not considered in some tools
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export COURSIER_INSTALL_DIR="$XDG_DATA_HOME/coursier/bin"

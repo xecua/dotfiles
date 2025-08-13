@@ -1,5 +1,6 @@
 vim.keymap.set("n", "<Leader>tq", "<Cmd>lua vim.diagnostic.setqflist()<CR>")
 vim.keymap.set("n", "<Leader>tl", "<Cmd>lua vim.diagnostic.setloclist()<CR>")
+vim.keymap.set("n", "<Leader>tf", "<Cmd>lua vim.diagnostic.open_float()<CR>")
 vim.keymap.set("n", "<Leader>tt", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = "Toggle diagnostic" })

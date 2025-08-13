@@ -4,6 +4,7 @@ vim.filetype.add({
         jsx = "typescriptreact",
         er = "python", -- erg
         hx = "haxe",
+        mdc = "markdown",
         frag = "glsl",
         vert = "glsl",
     },
