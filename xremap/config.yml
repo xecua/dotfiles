@@ -1,20 +1,17 @@
 modmap:
   - name: default
     remap:
-      capslock: leftctrl
-      leftmeta:
-        held: leftmeta
-        alone: muhenkan
-      rightmeta:
-        held: rightmeta
-        alone: henkan
+      capslock: ctrl_l
       # SandS
       space:
-        held: leftshift
+        held: shift_l
         alone: space
+        free_hold: true
       henkan:
-        held: leftshift
+        held: shift_l
         alone: space
+        free_hold: true
       muhenkan:
-        held: rightshift
+        held: shift_r
         alone: space
+        free_hold: true

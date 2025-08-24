@@ -8,7 +8,7 @@ if status is-interactive
   if type -q trash
     alias rm=trash
   else if type -q gio
-    alais rm="gio trash"
+    alias rm="gio trash"
   end
 
   if not type -q sudoedit

@@ -19,6 +19,14 @@ if status --is-interactive
     gibo completion fish | source
   end
 
+  if type -q colima
+    colima completion fish | source
+  end
+
+  if type -q xremap
+    xremap --completions fish | source
+  end
+
   if type -q fzf
     fzf --fish | source
     alias fcd fzf-cd-widget

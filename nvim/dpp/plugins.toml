@@ -441,7 +441,7 @@ hooks_file = '$STD_CONFIG/lua/xecua/plugins/lualine.lua'
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
 lua_source = """
-require('gitsigns').setup()
+require('scrollbar').setup()
 require("scrollbar.handlers.gitsigns").setup()
 """
 

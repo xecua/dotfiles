@@ -27,7 +27,6 @@
       nvd
 
       mcp-hub.packages.${system}.mcp-hub
-      claude-code
 
       uv
       deno # w/ denols

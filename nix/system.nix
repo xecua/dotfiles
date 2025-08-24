@@ -60,6 +60,7 @@
         bat-extras.batpipe
         bat-extras.prettybat
         bottom
+        claude-code
         devcontainer
         difftastic
         dig
@@ -124,6 +125,7 @@
         unzip
         # (uutils-coreutils.override { prefix = "u"; })
         wget
+        localstack
       ];
     };
   };
