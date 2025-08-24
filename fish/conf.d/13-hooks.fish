@@ -27,6 +27,10 @@ if status --is-interactive
     xremap --completions fish | source
   end
 
+  if type -q localstack
+    localstack completion fish | source
+  end
+
   if type -q fzf
     fzf --fish | source
     alias fcd fzf-cd-widget
