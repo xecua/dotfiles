@@ -20,6 +20,13 @@ vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
         uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
     })
 end, {})
+vim.api.nvim_create_user_command("DduDpp", function()
+    vim.fn["ddu#start"]({
+        name = "ff-dpp",
+        sources = { { name = "dpp" } },
+        kindOptions = { file = { defaultAction = "cd" } },
+    })
+end, {})
 vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
@@ -134,6 +141,7 @@ vim.fn["ddu#custom#patch_global"]({
     },
 })
 -- }}}
+
 -- lua_ddu-ff {{{
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
@@ -154,6 +162,7 @@ vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
 vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 
 -- }}}
+
 -- lua_ddu-filer {{{
 -- TODO: 開いたときに現在のファイルにカーソルが移動するやつとウィンドウ選んでファイルを開けるやつ
 vim.opt_local.number = true
