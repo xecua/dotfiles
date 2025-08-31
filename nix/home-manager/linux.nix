@@ -1,4 +1,7 @@
-{ defaultUser, ... }:
+{
+  defaultUser,
+  ...
+}:
 with (import ../utils.nix);
 {
   imports = [ ./common.nix ];
@@ -8,7 +11,6 @@ with (import ../utils.nix);
       make-maps [
         "waybar"
         "dunst"
-        "hypr"
         "xremap"
         "kanshi"
         "fontconfig/fonts.conf"
@@ -16,6 +18,7 @@ with (import ../utils.nix);
       // {
         "libskk/rules" = make-item "skk/libskk/rules";
         "libcskk/rules" = make-item "skk/libcskk/rules";
+        hypr = make-recursive-item "hypr";
         systemd = make-recursive-item "systemd/user";
       };
   };
