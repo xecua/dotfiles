@@ -28,6 +28,7 @@ vim.api.nvim_create_user_command("DduDpp", function()
     })
 end, {})
 vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
+vim.keymap.set("n", "<Leader>ff", "<Cmd>Ddu file_rg<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
@@ -72,7 +73,8 @@ vim.api.nvim_create_autocmd("User", {
 -- }}}
 
 -- lua_source {{{
-vim.fn["ddu#custom#alias"]("default", "column", "icon_filename_ff", "icon_filename")
+vim.fn["ddu#custom#alias"]("_", "column", "icon_filename_ff", "icon_filename")
+vim.fn["ddu#custom#alias"]("_", "source", "file_rg", "file_external")
 vim.fn["ddu#custom#patch_global"]({
     ui = "ff",
     uiParams = {
@@ -93,6 +95,7 @@ vim.fn["ddu#custom#patch_global"]({
     },
     sourceParams = {
         file_external = { cmd = { "fd", ".", "-t", "f", "-H", "-E", ".git" } },
+        file_rg = { cmd = { "rg", "--files", "--color", "never" } },
         rg = { args = { "--json" } },
     },
     sourceOptions = {

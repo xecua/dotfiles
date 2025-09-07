@@ -46,7 +46,6 @@ with (import ../utils.nix);
         # indentconfig?
         nvim = make-recursive-item "nvim";
         fish = make-recursive-item "fish";
-        mise = make-recursive-item "mise";
       };
     dataFile = {
       "fish/vendor_completions.d/nix.fish".source =

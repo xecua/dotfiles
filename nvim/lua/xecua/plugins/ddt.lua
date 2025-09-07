@@ -31,5 +31,6 @@ vim.fn["ddt#custom#patch_global"]({
 -- }}}
 
 -- lua_ddt-terminal {{{
+vim.opt_local.winfixheight = true
 vim.keymap.set("n", "<CR>", "<Cmd>call ddt#ui#do_action('executeLine')<CR>", { buffer = true })
 -- }}}

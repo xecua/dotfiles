@@ -87,7 +87,6 @@
         less
         lnav
         mercurial
-        mise
         mycli
         redocly
         tdf

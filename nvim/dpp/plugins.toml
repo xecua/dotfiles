@@ -604,7 +604,10 @@ repo = 'direnv/direnv.vim'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
-hook_add = "let g:go_doc_keywordprg_enabled = 0"
+hook_add = """
+let g:go_doc_keywordprg_enabled = 0
+let g:go_echo_command_info = 0
+"""
 
 # Haxe
 [[plugins]]
