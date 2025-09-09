@@ -16,5 +16,6 @@
     (config.lib.nixGL.wrap neovide)
     # walker # guruにあるけどメンテナがいないみたい
     # localstack # 依存が……
+    cook-cli
   ];
 }

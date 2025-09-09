@@ -61,3 +61,6 @@ group = 'ddc'
 [[plugins]]
 repo = 'Shougo/ddc-filter-matcher_head'
 group = 'ddc'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-sorter_lsp_kind'

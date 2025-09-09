@@ -92,7 +92,7 @@
         tdf
         veryl
         verilator
-
+        cook-cli
         nodejs
         pastel
         # php84
@@ -124,7 +124,8 @@
         unzip
         # (uutils-coreutils.override { prefix = "u"; })
         wget
-        localstack
+        # localstack
+        awscli2
       ];
     };
   };

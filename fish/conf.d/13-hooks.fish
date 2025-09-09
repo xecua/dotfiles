@@ -31,6 +31,10 @@ if status --is-interactive
     localstack completion fish | source
   end
 
+  if type -q colima
+    colima completion fish | source
+  end
+
   if type -q fzf
     fzf --fish | source
     alias fcd fzf-cd-widget

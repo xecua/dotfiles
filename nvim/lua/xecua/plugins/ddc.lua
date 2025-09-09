@@ -82,7 +82,7 @@ vim.fn["ddc#custom#patch_global"]({
         lsp = {
             mark = "LSP",
             dup = "keep",
-            sorters = { "sorter_fuzzy", "sorter_lsp-kind" },
+            sorters = { "sorter_fuzzy", "sorter_lsp_kind" },
             forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
             isVolatile = true,
         },
