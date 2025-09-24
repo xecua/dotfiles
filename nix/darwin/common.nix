@@ -28,7 +28,6 @@
     raycast
     skimpdf
     slack
-    wireshark
   ];
   users.users.${defaultUser} = {
     name = defaultUser;
@@ -58,6 +57,7 @@
       "obsidian"
       "vivaldi"
       "zoom"
+      "wireshark-app"
     ];
   };
 }

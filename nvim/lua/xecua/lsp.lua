@@ -57,7 +57,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
-                    return c.name ~= "typescript-tools" and c.name ~= "lua_ls" and c.name ~= "sqls"
+                    return vim.tbl_contains({
+                        "typescript-tools",
+                        "lua_ls",
+                        "sqls",
+                        "intelephense",
+                    }, c.name)
                 end,
             })
         end, {})

@@ -2,9 +2,7 @@
 {
   imports = [ ./common.nix ];
   system.stateVersion = 6;
-  environment.systemPackages = with pkgs; [
-    code-cursor
-  ];
+  # environment.systemPackages = with pkgs; [];
   nixpkgs.hostPlatform = "aarch64-darwin"; # Intel Mac買うことたぶんないけど……
   home-manager.users.${defaultUser} = {
     home.packages = with pkgs; [
