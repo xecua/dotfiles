@@ -534,6 +534,7 @@ repo = 'mattn/vim-maketable'
 # Syntax Highlighting
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
+rev = 'main'
 hook_post_update = "TSUpdate"
 hooks_file = '$STD_CONFIG/lua/xecua/plugins/treesitter.lua'
 

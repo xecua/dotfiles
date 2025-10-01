@@ -36,6 +36,7 @@
     vscode
     w3m
     neovim-unwrapped
+    tree-sitter
     # neovim-nightly-overlay.packages.${system}.default
 
     lsof

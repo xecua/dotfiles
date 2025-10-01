@@ -1,5 +1,5 @@
 -- lua_add {{{
--- cannot use submode.vim to enter submode
+-- cannot use submode.vim because it is not resolved for each key press
 
 local leave_submode, handle_key, enter_submode
 local is_submode = false
@@ -16,60 +16,35 @@ leave_submode = function()
 end
 
 enter_submode = function()
-    if not is_submode then
-        is_submode = true
-        vim.keymap.set("n", "h", function()
-            handle_key("h")
-        end, {})
-        vim.keymap.set("n", "j", function()
-            handle_key("j")
-        end, {})
-        vim.keymap.set("n", "k", function()
-            handle_key("k")
-        end, {})
-        vim.keymap.set("n", "l", function()
-            handle_key("l")
-        end, {})
-        vim.keymap.set("n", "<Esc>", function()
-            handle_key("<Esc>")
-        end, {})
-    end
+    vim.keymap.set("n", "h", handle_key("h"), { buffer = true, desc = "Move to Left" })
+    vim.keymap.set("n", "j", handle_key("j"), { buffer = true, desc = "Move to Down" })
+    vim.keymap.set("n", "k", handle_key("k"), { buffer = true, desc = "Move to Up" })
+    vim.keymap.set("n", "l", handle_key("l"), { buffer = true, desc = "Move to Right" })
+    vim.keymap.set("n", "<Esc>", leave_submode, { buffer = true, desc = "Leave move mode" })
 end
 
 handle_key = function(key)
-    if vim.b.rbcsv ~= 1 then
-        leave_submode()
-        vim.fn.feedkeys(key)
-        return
-    end
+    return function()
+        if not is_submode then
+            is_submode = true
+            enter_submode()
+        end
 
-    enter_submode()
-
-    if key == "h" then
-        vim.cmd("RainbowCellGoLeft")
-    elseif key == "j" then
-        vim.cmd("RainbowCellGoDown")
-    elseif key == "k" then
-        vim.cmd("RainbowCellGoUp")
-    elseif key == "l" then
-        vim.cmd("RainbowCellGoRight")
-    else
-        leave_submode()
-        vim.fn.feedkeys(key)
+        if key == "h" then
+            vim.cmd("RainbowCellGoLeft")
+        elseif key == "j" then
+            vim.cmd("RainbowCellGoDown")
+        elseif key == "k" then
+            vim.cmd("RainbowCellGoUp")
+        elseif key == "l" then
+            vim.cmd("RainbowCellGoRight")
+        end
     end
 end
 
-vim.keymap.set("n", "<Leader>rh", function()
-    handle_key("h")
-end, { desc = "Entering CSV Move Mode" })
-vim.keymap.set("n", "<Leader>rj", function()
-    handle_key("j")
-end, { desc = "Entering CSV Move Mode" })
-vim.keymap.set("n", "<Leader>rk", function()
-    handle_key("k")
-end, { desc = "Entering CSV Move Mode" })
-vim.keymap.set("n", "<Leader>rl", function()
-    handle_key("l")
-end, { desc = "Entering CSV Move Mode" })
+vim.keymap.set("n", "<Leader>rh", handle_key("h"), { buffer = true, desc = "Enter move mode then move to left" })
+vim.keymap.set("n", "<Leader>rj", handle_key("j"), { buffer = true, desc = "Enter move mode then move to down" })
+vim.keymap.set("n", "<Leader>rk", handle_key("k"), { buffer = true, desc = "Enter move mode then move to up" })
+vim.keymap.set("n", "<Leader>rl", handle_key("l"), { buffer = true, desc = "Enter move mode then move to right" })
 
 -- }}}

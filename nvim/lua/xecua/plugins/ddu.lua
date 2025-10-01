@@ -3,14 +3,13 @@
 
 vim.api.nvim_create_user_command("DduRgLive", function()
     vim.fn["ddu#start"]({
-        sources = { { name = "rg", options = { volatile = true, matchers = {} } } },
-        sourceOptions = { rg = { matchers = {}, sorters = {} } },
+        sources = { { name = "rg", options = { volatile = true, matchers = {}, sorters = {} } } },
         uiParams = { ff = { ignoreEmpty = false } },
     })
 end, {})
 vim.api.nvim_create_user_command("DduLspDocumentSymbol", function()
     vim.fn["ddu#start"]({
-        sources = { { name = "lsp_documentSymbol" } },
+        sources = { "lsp_documentSymbol" },
         uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
     })
 end, {})
@@ -22,13 +21,11 @@ vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
 end, {})
 vim.api.nvim_create_user_command("DduDpp", function()
     vim.fn["ddu#start"]({
-        name = "ff-dpp",
-        sources = { { name = "dpp" } },
+        sources = { "dpp" },
         kindOptions = { file = { defaultAction = "cd" } },
     })
 end, {})
 vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
-vim.keymap.set("n", "<Leader>ff", "<Cmd>Ddu file_rg<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
@@ -39,7 +36,16 @@ vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
 vim.api.nvim_create_user_command("DduFiler", function()
     vim.fn["ddu#start"]({
         ui = "filer",
-        sources = { { name = "file" } },
+        sources = {
+            {
+                name = "file",
+                options = {
+                    columns = { "icon_filename" },
+                    matchers = { "matcher_hidden" },
+                    sorters = { "sorter_alpha", "sorter_treefirst" },
+                },
+            },
+        },
         actionOptions = {
             narrow = { quit = false },
             open = { quit = false },
@@ -74,14 +80,13 @@ vim.api.nvim_create_autocmd("User", {
 
 -- lua_source {{{
 vim.fn["ddu#custom#alias"]("_", "column", "icon_filename_ff", "icon_filename")
-vim.fn["ddu#custom#alias"]("_", "source", "file_rg", "file_external")
 vim.fn["ddu#custom#patch_global"]({
     ui = "ff",
     uiParams = {
         ff = {
             previewWidth = 80,
             previewSplit = "vertical",
-            startAutoAction = true,
+            -- startAutoAction = true,
             statusline = false,
             autoAction = { name = "preview", sync = false },
         },
@@ -95,7 +100,6 @@ vim.fn["ddu#custom#patch_global"]({
     },
     sourceParams = {
         file_external = { cmd = { "fd", ".", "-t", "f", "-H", "-E", ".git" } },
-        file_rg = { cmd = { "rg", "--files", "--color", "never" } },
         rg = { args = { "--json" } },
     },
     sourceOptions = {
@@ -109,11 +113,6 @@ vim.fn["ddu#custom#patch_global"]({
             converters = { "converter_hl_dir" },
         },
         source = { defaultAction = "execute" },
-        file = { -- filerでしか使ってないのでそれ用に調整してしまう
-            columns = { "icon_filename" },
-            matchers = { "matcher_hidden" },
-            sorters = { "sorter_alpha", "sorter_treefirst" },
-        },
         lsp_documentSymbol = { converters = { "converter_lsp_symbol" } },
         lsp_workspaceSymbol = { converters = { "converter_lsp_symbol" } },
     },
