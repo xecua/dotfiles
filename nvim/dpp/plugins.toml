@@ -364,6 +364,10 @@ merged = false
 repo = 'uasi/skk-emoji-jisyo'
 merged = false
 
+[[plugins]]
+repo = 'ymrl/SKK-JISYO.emoji-ja'
+merged = false
+
 # filer
 [[plugins]]
 repo = 'lambdalisue/vim-fern'

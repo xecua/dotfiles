@@ -1,3 +1,11 @@
+local fs = require("efmls-configs.fs")
+
+local phpcs = require("efmls-configs.linters.phpcs")
+phpcs.lintCommand = string.format(
+    ' %s --no-colors --exclude=Generic.Files.LineLength --report=emacs --stdin-path="${INPUT}" -',
+    fs.executable("phpcs", fs.Scope.COMPOSER)
+)
+
 local prettier = require("efmls-configs.formatters.prettier")
 local languages = {
     html = { prettier },
@@ -21,8 +29,8 @@ local languages = {
         require("efmls-configs.formatters.stylua"),
     },
     php = {
-        require("efmls-configs.linters.phpcs"),
-        require("efmls-configs.formatters.phpcbf"),
+        phpcs,
+        -- require("efmls-configs.formatters.phpcbf"),
     },
     python = {
         require("efmls-configs.formatters.yapf"),

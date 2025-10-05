@@ -33,6 +33,7 @@ function M.get_local_config()
     if ok then
         local skkdict_path = dpp.get("dict").path
         local emoji_jisyo_path = dpp.get("skk-emoji-jisyo").path
+        local emoji_jisyo_ja_path = dpp.get("SKK-JISYO.emoji-ja").path
         vim.list_extend(skkeleton_dictionaries, {
             skkdict_path .. "/SKK-JISYO.L",
             skkdict_path .. "/SKK-JISYO.jinmei",
@@ -47,6 +48,7 @@ function M.get_local_config()
             skkdict_path .. "/SKK-JISYO.JIS2",
             skkdict_path .. "/SKK-JISYO.JIS3_4",
             emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
+            emoji_jisyo_ja_path .. "/SKK-JISYO.emoji-ja.utf8",
         })
     end
 

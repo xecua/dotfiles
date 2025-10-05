@@ -1,3 +1,4 @@
+;; extends
 (call
   function: (identifier) @identifier
   (#eq? @identifier "gql")

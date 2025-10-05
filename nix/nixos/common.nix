@@ -1,4 +1,9 @@
-{ defaultUser, mcp-hub, ... }:
+{
+  pkgs,
+  defaultUser,
+  mcp-hub,
+  ...
+}:
 {
   imports = [ ../system.nix ];
   i18n = {
@@ -8,6 +13,9 @@
     ];
     defaultLocale = "en_US.UTF-8";
   };
+  environment.systemPackages = with pkgs; [
+    file
+  ];
   home-manager = {
     extraSpecialArgs = { inherit mcp-hub defaultUser; };
     users.${defaultUser} = {
