@@ -6,6 +6,7 @@ theme = Molokai
 window-inherit-working-directory = true
 macos-option-as-alt = left
 confirm-close-surface = false
+shell-integration = fish
 
 # linux only
 # window-decoration = false

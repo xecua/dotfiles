@@ -15,6 +15,7 @@
   };
   environment.systemPackages = with pkgs; [
     file
+    iaito # radare2 GUI
   ];
   home-manager = {
     extraSpecialArgs = { inherit mcp-hub defaultUser; };

@@ -58,6 +58,7 @@
       "vivaldi"
       "zoom"
       "wireshark-app"
+      "iaito"
     ];
   };
 }
