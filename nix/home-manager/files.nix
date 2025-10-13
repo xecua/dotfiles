@@ -41,7 +41,6 @@ with (import ../utils.nix);
         "zathura"
         "walker/config.toml" # themesは起動時に権限変更とかしようとするのでstoreにあるとまずい。カスタムテーマやるならそいつも個別に。
         "gtk-3.0/settings.ini"
-        "gtk-4.0/settings.ini"
       ]
       // {
         "wgetrc".text = "${config.xdg.cacheHome}/wget-hsts";
