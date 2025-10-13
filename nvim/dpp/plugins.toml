@@ -295,7 +295,7 @@ repo = 'creativenull/efmls-configs-nvim'
 ## Rust tooltip
 [[plugins]]
 repo = 'mrcjkb/rustaceanvim'
-depends = ['mason.nvim']
+# depends = ['mason.nvim']
 lua_add = """
 vim.g.rustaceanvim = function()
   local config = {
@@ -305,7 +305,7 @@ vim.g.rustaceanvim = function()
 
   local registry = require('mason-registry')
   if registry.is_installed('codelldb') then
-    local pkg_dir = registry.get_package('codelldb'):get_install_path()
+    local pkg_dir = vim.env.MASON .. '/packages/codelldb'
     config.dap = {
       adapter = require('rustaceanvim.config').get_codelldb_adapter(
         pkg_dir .. '/extension/adapter/codelldb',
