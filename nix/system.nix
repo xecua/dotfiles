@@ -32,7 +32,6 @@
     llvm
     # mold # Darwinで壊れている というかそもそも使わない
     neovide
-    firefox-devedition
     vscode
     w3m
     neovim-unwrapped

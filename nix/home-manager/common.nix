@@ -43,6 +43,7 @@
       vim-language-server
       vscode-langservers-extracted # html, css, eslint
       efm-langserver
+      fish-lsp
       gopls
       nil # Nix
       kotlin-language-server

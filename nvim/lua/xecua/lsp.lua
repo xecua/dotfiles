@@ -13,6 +13,7 @@ vim.lsp.enable({
 
     "sourcekit",
     "nil_ls",
+    "fish_lsp",
     "astro",
     "pyright",
     "clangd",

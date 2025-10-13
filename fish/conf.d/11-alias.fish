@@ -63,6 +63,8 @@ if status is-interactive
     alias lg=lazygit
   end
 
+  alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
+
   alias cbcopy=fish_clipboard_copy
   alias cbpaste=fish_clipboard_paste
 end
