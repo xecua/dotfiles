@@ -20,6 +20,11 @@ with (import ../utils.nix);
         "libcskk/rules" = make-item "skk/libcskk/rules";
         hypr = make-recursive-item "hypr";
         systemd = make-recursive-item "systemd/user";
+        # これだけのためにファイル用意したくないので直に書いちゃう(他はgentoo.nix参照)
+        "gtk-3.0/settings.ini".text = ''
+          [Settings]
+          gtk-application-prefer-dark-theme=1
+        '';
       };
   };
 }

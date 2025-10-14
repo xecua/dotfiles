@@ -18,4 +18,15 @@
     # localstack # 依存が……
     cook-cli
   ];
+  dconf = {
+    # NixOSだとprograms.dconfでもうちょっとリッチなことできそう?
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        gtk-im-module = "fcitx"; # gtk 3,
+        color-scheme = "prefer-dark"; # gtk 4.20
+        # TODO: qt?
+      };
+    };
+  };
 }
