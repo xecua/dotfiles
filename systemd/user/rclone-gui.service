@@ -1,0 +1,11 @@
+[Unit]
+Description=Rclone web gui
+Documentation=https://rclone.org/gui
+
+[Service]
+ExecStart=/usr/bin/rclone rcd --rc-web-gui
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=default.target
