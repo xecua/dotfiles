@@ -26,6 +26,7 @@ local servers = {
     "stylelint_lsp",
     "tsp_server",
     "vimls",
+    "copilot",
     -- "typos_lsp",
 }
 
