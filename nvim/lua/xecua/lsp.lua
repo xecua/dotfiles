@@ -1,34 +1,39 @@
 -- vim.lsp.config('*', {})
 
 local methods = vim.lsp.protocol.Methods
-
-vim.lsp.enable({
+local servers = {
     "denols",
-    "eslint",
-    "intelephense",
-    "lua_ls",
-    "texlab",
-    "jsonls",
     "efm",
-
-    "sourcekit",
-    "nil_ls",
-    "fish_lsp",
-    "astro",
-    "pyright",
-    "clangd",
-    "vimls",
-    "html",
-    "gopls",
-    "kotlin_language_server",
-    "tsp_server",
-    "stylelint_lsp",
-    "sqls",
-    "lemminx",
-    "yamlls",
+    "intelephense",
+    "jsonls",
+    "lua_ls",
     "taplo",
+    "texlab",
+    "yamlls",
+
+    "astro",
+    "clangd",
+    "eslint",
+    "fish_lsp",
+    "gopls",
+    "html",
+    "kotlin_language_server",
+    "lemminx",
+    "nil_ls",
+    "pyright",
+    "sourcekit",
+    "sqls",
+    "stylelint_lsp",
+    "tsp_server",
+    "vimls",
     -- "typos_lsp",
-})
+}
+
+if vim.g.use_copilot then
+    table.insert(servers, "copilot")
+end
+
+vim.lsp.enable(servers)
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 
@@ -55,6 +60,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
+        local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
+
+        if client.name == "copilot" then
+            if
+                vim.tbl_contains({
+                    "markdown",
+                    "dap-repl",
+                    "dapui_watches",
+                    "dapui_scopes",
+                    "dapui_console",
+                    "AvanteInput",
+                }, filetype)
+            then
+                --  条件に合致するfiletypeで無効化
+                vim.lsp.buf_detach(buffer, client.id)
+            end
+        end
+
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
@@ -62,7 +85,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                         "typescript-tools",
                         "lua_ls",
                         "sqls",
-                        "intelephense",
                     }, c.name)
                 end,
             })
@@ -146,6 +168,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method(methods.textDocument_inlayHint) then
             vim.lsp.inlay_hint.enable()
+        end
+
+        if
+            vim.fn.has("nvim-0.12") == 1
+            and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion)
+        then
+            vim.lsp.inline_completion.enable()
+            vim.keymap.set("i", "<C-l>", function()
+                if not vim.lsp.inline_completion.get() then
+                    return "<C-l>"
+                end
+            end, { silent = true, expr = true, buffer = buffer })
         end
 
         if client:supports_method(methods.textDocument_signatureHelp) then

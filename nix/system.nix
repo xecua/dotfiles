@@ -36,8 +36,6 @@
     w3m
     neovim-unwrapped
     tree-sitter
-    # neovim-nightly-overlay.packages.${system}.default
-
     lsof
   ];
   fonts = {
@@ -120,6 +118,8 @@
         trash-cli
         trippy
         typst
+        cargo
+        rustc
         unar
         universal-ctags
         unzip

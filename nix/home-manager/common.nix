@@ -30,7 +30,6 @@
 
       uv
       deno # w/ denols
-      rustup # w/ rust-analyzer
       typescript # w/ tsserver
       # haskellPackages.ghcup # broken
 
@@ -39,7 +38,9 @@
       pyright
       yapf
       clang-tools # includes clangd
+      copilot-language-server # replaces copilot.vim/copilot.lua
       prettier
+      rust-analyzer
       vim-language-server
       vscode-langservers-extracted # html, css, eslint
       efm-langserver

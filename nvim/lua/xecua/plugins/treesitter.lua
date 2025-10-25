@@ -18,5 +18,12 @@ vim.api.nvim_create_autocmd("FileType", {
 -- lua_source {{{
 require("nvim-treesitter").setup({
     install_dir = vim.fn.stdpath("cache") .. "/parsers",
+    textobjects = {
+        select = { enable = true },
+        keymaps = {
+            af = "@function.outer",
+            ["if"] = "@function.inner",
+        },
+    },
 })
 -- }}}

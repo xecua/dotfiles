@@ -14,10 +14,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixgl = {
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +42,7 @@
       eachSystem =
         callback: nixpkgs.lib.genAttrs systems (system: callback nixpkgs.legacyPackages.${system});
       overlays = [
-        # inputs.neovim-nightly-overlay.default
+        inputs.neovim-nightly-overlay.default # これコメントアウトすれば安定板に戻せる気がする
       ];
     in
     {
@@ -56,13 +56,13 @@
       nixosConfigurations = {
         upside-down-face = inputs.nixos.lib.nixosSystem {
           modules = [
+            { nixpkgs.overlays = overlays; }
             inputs.nixos-wsl.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
             (import ./nix/nixos/desktop-wsl.nix)
           ];
           specialArgs = {
             defaultUser = "xecua";
-            inherit overlays;
             inherit (inputs) mcp-hub;
           };
         };
@@ -70,17 +70,18 @@
       darwinConfigurations = {
         default = inputs.nix-darwin.lib.darwinSystem {
           modules = [
+            { nixpkgs.overlays = overlays; }
             inputs.home-manager.darwinModules.home-manager
             (import ./nix/darwin/pro-m1.nix)
           ];
           specialArgs = {
             defaultUser = "shiba";
-            inherit overlays;
             inherit (inputs) mcp-hub;
           };
         };
       };
       homeConfigurations = {
+        # Home Managerだと、configのnixpkgs.overlaysでoverlayを設定できる
         gentoo = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [ (import ./nix/home-manager/gentoo.nix) ];

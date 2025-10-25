@@ -147,12 +147,12 @@ end
 """
 
 # LLM
+## copilot-lsp NES w/ agent co-working
 [[plugins]]
-repo = 'github/copilot.vim'
+repo = 'folke/sidekick.nvim'
 on_if = "get(g:, 'use_copilot', v:false)"
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/copilot.lua'
 
-# ## integration
+## integration
 [[plugins]]
 repo = 'yetone/avante.nvim'
 # mergeするとダメらしい
@@ -547,6 +547,10 @@ repo = 'nvim-treesitter/nvim-treesitter-context'
 lua_source = """
 require('treesitter-context').setup({})
 """
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-textobjects'
+rev = 'main'
 
 ## color matching parenthesis
 [[plugins]]

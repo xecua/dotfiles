@@ -1,6 +1,0 @@
-[Unit]
-Description=Rclone bisync (periodical)
-After=network-online.target
-
-[Service]
-ExecStart=rclone bisync --filters-file %h/%i/.rclone-filter %h/%i/ %i:/

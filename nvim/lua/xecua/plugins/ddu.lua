@@ -58,10 +58,6 @@ local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:uiOpenFilterWindow",
     callback = function()
-        vim.fn["pum#set_option"]({
-            reversed = true,
-            direction = "above",
-        })
         vim.fn["ddc#custom#patch_global"]("ui", "none")
     end,
 })
@@ -70,10 +66,6 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:uiCloseFilterWindow",
     callback = function()
         vim.fn["ddc#custom#patch_global"]("ui", "pum")
-        vim.fn["pum#set_option"]({
-            reversed = false,
-            direction = "auto",
-        })
     end,
 })
 -- }}}
@@ -100,7 +92,7 @@ vim.fn["ddu#custom#patch_global"]({
     },
     sourceParams = {
         file_external = { cmd = { "fd", ".", "-t", "f", "-H", "-E", ".git" } },
-        rg = { args = { "--json" } },
+        rg = { maxEnqueSize = 1000, args = { "--json" } },
     },
     sourceOptions = {
         _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
@@ -159,6 +151,7 @@ vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", o
 vim.keymap.set("n", ",", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
 vim.keymap.set("n", "t", "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
 vim.keymap.set("n", "f", "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>", opts)
+vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('preview')<CR>", opts)
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
 vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
