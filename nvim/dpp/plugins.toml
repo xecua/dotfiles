@@ -147,23 +147,45 @@ end
 """
 
 # LLM
-## copilot-lsp NES w/ agent co-working
+## copilot-lsp NES and CLI agent integration
 [[plugins]]
 repo = 'folke/sidekick.nvim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/sidekick.lua'
+lua_source = """
+require("sidekick").setup({
+    cli = { mux = { enabled = true } },
+})
+"""
 
 ## integration
 [[plugins]]
 repo = 'yetone/avante.nvim'
 # mergeするとダメらしい
 merged = false
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/avante.lua'
+if = "get(g:, 'use_copilot', v:false)"
 depends = ['plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
 extAttrs = { installerBuild = 'make' }
+lua_source = """
+-- on_ifがfalseなのにsourceされる。なんかミスってる?
+vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
+require("avante_lib").load()
+require("avante").setup({
+    provider = "copilot",
+    providers = { copilot = { model = "gpt-4.1" } },
+    behaviour = {
+        support_paste_from_clipboard = true,
+        auto_set_keymaps = true,
+    },
+})
+"""
+
+## avanteで必要になる……んだけどlspと競合しそうなのでなるべく入れたくないなあ
+[[plugins]]
+repo = 'github/copilot.vim'
+if = "get(g:, 'use_copilot', v:false)"
 
 [[plugins]]
 repo = 'yuucu/cursor_open.nvim'
-on_if = "get(g:, 'use_cursor', v:false)"
+if = "get(g:, 'use_cursor', v:false)"
 lua_source = """
 require('cursor_open').setup({})
 """

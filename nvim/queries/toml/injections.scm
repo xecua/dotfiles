@@ -11,7 +11,9 @@
     "hook_done_update"
     "hook_post_source"
     "hook_post_update"
-    "hook_source")
+    "hook_source"
+    "if"
+    "on_if")
   (string) @injection.content
   (#match? @injection.content "^\"\"\"")
   (#offset! @injection.content 0 3 0 -3)
@@ -25,7 +27,9 @@
     "hook_done_update"
     "hook_post_source"
     "hook_post_update"
-    "hook_source")
+    "hook_source"
+    "if"
+    "on_if")
   (string) @injection.content
   (#match? @injection.content "^\"[^\"]")
   (#offset! @injection.content 0 1 0 -1)

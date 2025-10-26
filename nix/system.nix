@@ -59,7 +59,7 @@
         bat-extras.batpipe
         bat-extras.prettybat
         bottom
-        claude-code
+        # claude-code
         devcontainer
         difftastic
         dig
@@ -74,6 +74,7 @@
         gemini-cli
         gh
         ghq
+        github-copilot-cli
         gnirehtet
         go
         hexyl
