@@ -22,13 +22,14 @@ if model then
                 -- model = "o4-mini", -- preq=0.33
             },
             gemini = {
-                -- model = "gemini-2.5-flash", -- 10Req/Min, 500Req/Day for free
-                model = "gemini-2.5-pro", -- 5Req/Min, 25Req/Day for free
+                -- model = "gemini-2.5-flash", -- 10Req/Min, 250Req/Day for free
+                model = "gemini-2.5-pro", -- 5Req/Min, 100Req/Day for free
             },
+            -- gemmaとかをローカルで動かすのもアリ?
         },
         behaviour = {
             support_paste_from_clipboard = true,
-            auto_set_keymaps = true, -- とりあえずね
+            auto_set_keymaps = true, -- とりあえず
         },
     })
 end

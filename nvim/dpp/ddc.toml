@@ -33,11 +33,6 @@ repo = 'Shougo/ddc-source-cmdline_history'
 group = 'ddc'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-copilot'
-group = 'ddc'
-hook_add = 'let g:copilot_hide_during_completion = 0'
-
-[[plugins]]
 repo = 'Shougo/ddc-source-line'
 group = 'ddc'
 

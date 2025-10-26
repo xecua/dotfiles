@@ -55,9 +55,6 @@ local default_sources = {
     "around",
     "denippet",
 }
-if vim.g.use_copilot then
-    table.insert(default_sources, "copilot")
-end
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
 })

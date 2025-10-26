@@ -1,7 +1,9 @@
 -- vim.lsp.config('*', {})
 
 local methods = vim.lsp.protocol.Methods
-local servers = {
+
+vim.lsp.enable({
+    "copilot",
     "denols",
     "efm",
     "intelephense",
@@ -26,15 +28,8 @@ local servers = {
     "stylelint_lsp",
     "tsp_server",
     "vimls",
-    "copilot",
     -- "typos_lsp",
-}
-
-if vim.g.use_copilot then
-    table.insert(servers, "copilot")
-end
-
-vim.lsp.enable(servers)
+})
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 
@@ -176,10 +171,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
             and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion)
         then
             vim.lsp.inline_completion.enable()
-            vim.keymap.set("i", "<C-l>", function()
-                if not vim.lsp.inline_completion.get() then
-                    return "<C-l>"
+            vim.keymap.set({ "i", "n" }, "<C-l>", function()
+                if require("sidekick").nes_jump_or_apply() then
+                    return
                 end
+                if vim.lsp.inline_completion.get() then
+                    return
+                end
+                return "<C-l>"
             end, { silent = true, expr = true, buffer = buffer })
         end
 

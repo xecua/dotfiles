@@ -150,7 +150,7 @@ end
 ## copilot-lsp NES w/ agent co-working
 [[plugins]]
 repo = 'folke/sidekick.nvim'
-on_if = "get(g:, 'use_copilot', v:false)"
+hooks_file = '$STD_CONFIG/lua/xecua/plugins/sidekick.lua'
 
 ## integration
 [[plugins]]
