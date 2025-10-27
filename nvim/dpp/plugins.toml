@@ -152,6 +152,7 @@ end
 repo = 'folke/sidekick.nvim'
 lua_source = """
 require("sidekick").setup({
+    copilot = { status = { level = vim.log.levels.OFF } },
     cli = { mux = { enabled = true } },
 })
 """
@@ -192,7 +193,7 @@ require('cursor_open').setup({})
 
 [[plugins]]
 repo = 'ravitemer/mcphub.nvim'
-depends = ['plenary.nvim', 'avante.nvim']
+depends = ['plenary.nvim']
 lua_source = """
 require('mcphub').setup({})
 """

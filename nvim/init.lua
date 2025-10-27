@@ -5,6 +5,8 @@ end
 
 vim.cmd("filetype plugin indent off")
 
+pcall(require, "xecua.local-pre") -- ないならないで
+
 require("xecua.opt")
 require("xecua.var")
 require("xecua.map")
@@ -28,6 +30,6 @@ end
 -- plugin manager
 require("xecua.plugins.dpp").setup("nvim")
 
-pcall(require, "xecua.local") -- ないならないで
+pcall(require, "xecua.local")
 
 vim.cmd("filetype plugin on")

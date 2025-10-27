@@ -2,8 +2,7 @@
 
 local methods = vim.lsp.protocol.Methods
 
-vim.lsp.enable({
-    "copilot",
+local servers = {
     "denols",
     "efm",
     "intelephense",
@@ -29,7 +28,13 @@ vim.lsp.enable({
     "tsp_server",
     "vimls",
     -- "typos_lsp",
-})
+}
+
+if vim.g.use_copilot then
+    table.insert(servers, "copilot")
+end
+
+vim.lsp.enable(servers)
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 
@@ -56,23 +61,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
-        local filetype = vim.api.nvim_buf_get_option(buffer, "filetype")
-
-        if client.name == "copilot" then
-            if
-                vim.tbl_contains({
-                    "markdown",
-                    "dap-repl",
-                    "dapui_watches",
-                    "dapui_scopes",
-                    "dapui_console",
-                    "AvanteInput",
-                }, filetype)
-            then
-                --  条件に合致するfiletypeで無効化
-                vim.lsp.buf_detach(buffer, client.id)
-            end
-        end
 
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({

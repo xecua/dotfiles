@@ -33,7 +33,7 @@
   };
 
   outputs =
-    { nixpkgs, treefmt, ... }@inputs:
+    { nixpkgs, ... }@inputs:
     let
       systems = [
         "x86_64-linux"
@@ -42,13 +42,13 @@
       eachSystem =
         callback: nixpkgs.lib.genAttrs systems (system: callback nixpkgs.legacyPackages.${system});
       overlays = [
-        inputs.neovim-nightly-overlay.default # これコメントアウトすれば安定板に戻せる気がする
+        inputs.neovim-nightly-overlay.overlays.default # これコメントアウトすれば安定板に戻せる気がする
       ];
     in
     {
       formatter = eachSystem (
         pkgs:
-        treefmt.lib.mkWrapper pkgs {
+        inputs.treefmt.lib.mkWrapper pkgs {
           projectRootFile = "flake.nix";
           programs.nixfmt.enable = true;
         }
@@ -84,7 +84,10 @@
         # Home Managerだと、configのnixpkgs.overlaysでoverlayを設定できる
         gentoo = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [ (import ./nix/home-manager/gentoo.nix) ];
+          modules = [
+            { nixpkgs.overlays = overlays; }
+            (import ./nix/home-manager/gentoo.nix)
+          ];
           extraSpecialArgs = {
             defaultUser = "xecua";
             inherit (inputs) nixgl mcp-hub;

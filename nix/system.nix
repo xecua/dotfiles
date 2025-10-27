@@ -1,7 +1,6 @@
 {
   pkgs,
   defaultUser,
-  overlays,
   ...
 }:
 {
@@ -15,7 +14,6 @@
     use-xdg-base-directories = true;
   };
   nixpkgs = {
-    inherit overlays;
     config.allowUnfree = true;
   };
   environment.systemPackages = with pkgs; [
