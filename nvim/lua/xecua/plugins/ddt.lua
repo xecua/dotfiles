@@ -5,7 +5,7 @@ local function ddt_bottom_term()
     if vim.fn.win_id2win(vim.g.ddt_ui_last_winid) == 0 then
         vim.fn["ddt#start"]({
             uiParams = {
-                terminal = { split = "horizontal", winHeight = 10 },
+                terminal = { winHeight = 10 },
             },
         })
     else

@@ -1,0 +1,74 @@
+nix削除メモ
+
+- 言語環境
+  - gentooはportageで入れるか、スクリプトで入れるか…… -> あるものはとりあえず入れてみる
+  - fvm (Flutter)
+    - いちおうgentoo-zhにあるのでそっちで?
+  - ghcup
+    - haskell-overlayにある
+    - まあすぐには使わんのでなくても
+  - uv
+    - portageにある
+  - deno
+    - portageにある
+  - typescript
+    - portageにある
+- mcp-hub
+  - npm
+- lsp: 一部除きMasonで
+  - rust-analyzer
+    - portageはdev-lang/rust\[rust-analyzer\]で入る
+    - それ以外はrustupで
+  - astro-language-server
+  - pyright
+  - yapf
+  - clangd
+  - copilot-language-server
+  - prettier
+  - vim-language-server
+  - vscode language servers (html, css, eslint)
+  - efm-langserver
+  - fish-lsp
+  - gopls
+  - kotlin-language-server
+    - fwcd。unstableで消えている。kotlin公式からも出たっぽい
+  - intelephense
+  - jdt
+  - texlab
+  - stylelint-lsp
+  - lua-language-server
+  - stylua
+  - sqls
+  - sql-formatter
+  - lemminx (XML)
+  - yaml-language-server
+  - taplo
+  - typos-lsp
+  - fsautocomplete
+  - fantomas
+  - phpcs
+  - jbang
+    - これlspじゃないわ
+  - netcoredbg
+  - delve
+  - php-debug-adapter
+  - codelldb
+  - debugpy
+- gentoo
+  - jnv <- cargo
+  - redocly <- npm
+  - unar
+  - cook-cli ?
+  - buildkitについて: https://qiita.com/shoji-kai/items/503187773e4cd94ff17d
+- macOS
+  - iproute2mac
+  - docker / docker-compose
+  - gnu tar
+  - gnu sed
+  - gnu awk
+  - lima / colima
+  - cocoapods
+  - postman
+  - raycast
+  - skim
+- system.nix

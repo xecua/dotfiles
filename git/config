@@ -5,6 +5,7 @@
 [core]
 	autocrlf = input
 	editor = nvim
+	quotepath = false
 [init]
 	defaultBranch = main
 [color]

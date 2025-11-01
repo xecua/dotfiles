@@ -1,115 +1,154 @@
 #!/usr/bin/env python
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "tomli-w",
+# ]
+# ///
+#
+
+# ↑ PEP 723のinline script metadataってやつ uv runとかで実行すると仮想環境作って入れて実行してくれるらしい
 
 import sys
 import os
 from pathlib import Path
-import subprocess
-from textwrap import dedent
+from typing import Any
+# import subprocess
+import tomli_w
 
 script_dir = Path(__file__).parent
+
+argv = sys.argv[1:]
+force = '--force' in argv
 
 home = Path.home()
 config_home = Path(os.getenv("XDG_CONFIG_HOME", home / '.config'))
 cache_home = Path(os.getenv("XDG_CACHE_HOME", home / '.cache'))
 data_home = Path(os.getenv("XDG_DATA_HOME", home / '.local' / 'share'))
 binary_path = home / '.local' / 'bin'
-# TODO: Windows(cause error below?)
-# TODO: macOS(AquaSKK, Brewfile, yabai, skhd)
-uname = os.uname().sysname
+uname = os.uname()
 
 
-def make_symlink(link: Path, target: Path | None = None):
+def main():
+    make_symlink('dunst', config_home)
+    make_symlink('fd', config_home)
+    make_symlink('fish', config_home, True)
+    make_symlink('fontconfig', config_home)
+    make_symlink('ghostty/config', config_home)  # themeをうっかり入れるとライセンス違反になる
+    make_symlink('git', config_home)
+    make_symlink('gtk-3.0', config_home)
+    make_symlink('hypr', config_home)
+    make_symlink('hypr/workspaces.conf', config_home,
+                 target= script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}')
+    make_symlink('ideavim', config_home)
+    make_symlink('kanshi/config',
+                 config_home,
+                 target=script_dir / 'kanshi' / uname.nodename)
+    make_symlink('karabiner', config_home, True)
+    make_symlink('latexmk', config_home, True)
+    make_symlink('lazygit', config_home, True)
+    make_symlink('nvim', config_home)
+    make_symlink('ripgrep', config_home)
+    make_symlink('.satysfi/local/packages',
+                 home,
+                 target=script_dir / 'satysfi' / 'packages')
+    make_symlink('libskk', config_home, True, target=script_dir /'skk' / 'libskk')
+    make_symlink('systemd/user', config_home, True)
+    make_symlink('tmux', config_home, True)
+    make_symlink('walker', config_home, True)
+    make_symlink('waybar', config_home)
+    make_symlink('xremap', config_home)
+    make_symlink('zathura', config_home)
+
+    make_symlink('.bashrc', home)
+    make_symlink('.bash_profile', home)
+    make_symlink('.clang-format', home)
+    make_symlink('.mutagen.yml', home)
+    make_symlink('.myclirc', home)
+    make_symlink('.profile', home)
+    make_symlink('.zprofile', home)
+    make_symlink('.zshrc', home)
+
+    make_symlink('fzf-preview.sh', binary_path)
+    make_symlink('fzfrc', config_home)
+    make_symlink('lesskey', config_home)
+    make_symlink('starship.toml', config_home)
+
+    write_file(config_home / 'wgetrc', [
+        f'hsts-file = {cache_home / 'wget-hsts'}'
+    ])
+
+    write_file(home / '.indentconfig.yaml', [
+        f'paths:',
+        f'  - {script_dir / 'latexindent' / 'setting.yaml'}'
+    ])
+
+    # WSLとかでフォントサイズいじりたいので
+    neovide_config: dict[str, Any] = { "fork": True, 'title-hidden': True }
+    if uname.sysname == 'Darwin':
+        neovide_config['frame'] = 'buttonless'
+    write_file(config_home / 'neovide' / 'config.toml', tomli_w.dumps(neovide_config))
+
+    # try:
+    #     subprocess.run(['npm', 'set', 'prefix', data_home / 'npm'])
+    #     subprocess.run(['npm', 'set', 'cache', cache_home / 'npm'])
+    #     subprocess.run([
+    #         'npm', 'set', 'init-module',
+    #         config_home / 'npm' / 'config' / 'npm-init.js'
+    #     ])
+    # except:
+    #     print("npm does not exist.",
+    #           "Please setup manually or run this script again.")
+
+
+def write_file(path: Path, lines: str | list[str]):
+    lines = lines if isinstance(lines, list) else [lines]
+    if not path.parent.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        print(f"{path} exists. Skipped.")
+        return
+    with open(path, 'w') as f:
+        print(*lines, sep='\n', file=f)
+        print(f"Created: {path}", file=sys.stderr)
+
+
+def make_symlink(name: str | os.PathLike,
+                 link_base: Path,
+                 recursive=False,
+                 *,
+                 target: str | os.PathLike | None = None):
+    link = link_base / name
     if not link.parent.exists():
         link.parent.mkdir(parents=True, exist_ok=True)
 
-    if target is None:
-        target = script_dir / link.name
+    if link.exists():
+        if link.is_dir(follow_symlinks=False):
+            # symlinkでないディレクトリ: recursiveなら中身で判定。そうでなければreturn
+            if not recursive:
+                print(f"{link} exists. Skipped.")
+                return
+        elif force:
+            # fileかsymlink: forece
+            link.unlink()
+        else:
+            print(f"{link} exists. Skipped.")
+            return
 
-    if not link.exists():
+    if target is None:
+        target = script_dir / name
+    else:
+        target = Path(target)
+
+    if target.is_dir() and recursive:
+        for p in target.iterdir():
+            link_path = Path(name, p.name)
+            target_path = target / p.name
+            make_symlink(link_path, link_base, True, target=target_path)
+    else:
         link.symlink_to(target, target_is_directory=True)
         print(f"Linked: {link} -> {target}", file=sys.stderr)
-    else:
-        print(f"Not linked: {link}", file=sys.stderr)
 
 
-make_symlink(config_home / 'fish' / 'completions',
-             script_dir / 'fish' / 'completions')
-make_symlink(config_home / 'fish' / 'conf.d', script_dir / 'fish' / 'conf.d')
-
-make_symlink(home / '.profile')
-make_symlink(home / '.bashrc')
-make_symlink(home / '.bash_profile')
-make_symlink(home / '.zprofile')
-make_symlink(home / '.zshrc')
-make_symlink(home / '.myclirc')
-
-make_symlink(home / '.mutagen.yml')
-make_symlink(home / '.clang-format')
-
-make_symlink(binary_path / 'fzf-preview.sh')
-make_symlink(config_home / 'fzfrc')
-
-make_symlink(config_home / 'nvim')
-make_symlink(config_home / 'ideavim')
-make_symlink(config_home / 'git')
-make_symlink(config_home / 'lazygit' / 'config.yml',
-             script_dir / 'lazygit' / 'config.yml')
-make_symlink(config_home / 'fd')
-make_symlink(config_home / 'ripgrep')
-make_symlink(config_home / 'waybar')
-make_symlink(config_home / 'dunst')
-make_symlink(config_home / 'hypr')
-make_symlink(config_home / 'starship.toml')
-make_symlink(config_home / 'ghostty')
-make_symlink(config_home / 'lesskey')
-
-make_symlink(home / '.satysfi' / 'local' / 'packages',
-             script_dir / 'satysfi' / 'packages')
-make_symlink(config_home / 'latexmk' / 'latexmkrc',
-             script_dir / 'latexmk' / 'latexmkrc')
-make_symlink(config_home / 'tmux' / 'tmux.conf',
-             script_dir / 'tmux' / 'tmux.conf')
-
-# Linux only
-make_symlink(config_home / 'xremap')
-make_symlink(config_home / 'kanshi')
-make_symlink(config_home / 'fontconfig')
-make_symlink(config_home / 'zathura')
-make_symlink(config_home / 'libskk' / 'rules',
-             script_dir / 'skk' / 'libskk' / 'rules')
-make_symlink(data_home / 'libcskk' / 'rules',
-             script_dir / 'skk' / 'libcskk' / 'rules')
-
-for p in (script_dir / 'systemd' / 'user').iterdir():
-    base_name = p.name
-    make_symlink(config_home / 'systemd' / 'user' / base_name, p.resolve())
-
-if not (config_home / 'wgetrc').exists():
-    hsts_file_path = cache_home / 'wget-hsts'
-    with open(config_home / 'wgetrc', 'w') as f:
-        print(f'hsts-file = {hsts_file_path}', file=f)
-        print("wget was created.", file=sys.stderr)
-else:
-    print("wget was not created.", file=sys.stderr)
-
-if not (home / '.indentconfig.yaml').exists():
-    with open(home / '.indentconfig.yaml', 'w') as f:
-        print(dedent(f"""\
-        paths:
-          - {script_dir / 'latexindent' / 'setting.yaml'}
-        """),
-              file=f)
-        print("indentconfig.yaml was created.", file=sys.stderr)
-else:
-    print("indentconfig.yaml was not created.", file=sys.stderr)
-
-try:
-    subprocess.run(['npm', 'set', 'prefix', data_home / 'npm'])
-    subprocess.run(['npm', 'set', 'cache', cache_home / 'npm'])
-    subprocess.run([
-        'npm', 'set', 'init-module',
-        config_home / 'npm' / 'config' / 'npm-init.js'
-    ])
-except:
-    print("npm does not exist.",
-          "Please setup manually or run this script again.")
+if __name__ == '__main__':
+    main()

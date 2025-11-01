@@ -1,3 +1,4 @@
+vim.opt.guifont = "UDEV Gothic 35NFLG:h14"
 vim.g.neovide_input_ime = false
 vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_input_macos_option_key_is_meta = true

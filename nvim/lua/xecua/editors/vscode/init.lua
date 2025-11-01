@@ -5,6 +5,7 @@ vim.g.clipboard = vim.g.vscode_clipboard
 
 vim.g.mapleader = vim.api.nvim_replace_termcodes("<Space>", true, true, true)
 
+vim.opt.cmdheight = 500 -- workaround
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.wrapscan = true

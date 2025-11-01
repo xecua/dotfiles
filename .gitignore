@@ -1,5 +1,4 @@
 nvim/lua/xecua/local.lua
 nvim/lua/xecua/local-pre.lua
 nvim/local.toml
-ghostty/config.local
 .envrc
