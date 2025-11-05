@@ -4,19 +4,18 @@
 vim.api.nvim_create_user_command("DduRgLive", function()
     vim.fn["ddu#start"]({
         sources = { { name = "rg", options = { volatile = true, matchers = {}, sorters = {} } } },
-        uiParams = { ff = { ignoreEmpty = false } },
     })
 end, {})
 vim.api.nvim_create_user_command("DduLspDocumentSymbol", function()
     vim.fn["ddu#start"]({
         sources = { "lsp_documentSymbol" },
-        uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
+        uiParams = { ff = { displayTree = true } },
     })
 end, {})
 vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
     vim.fn["ddu#start"]({
         sources = { { name = "lsp_workspaceSymbol", options = { volatile = true } } },
-        uiParams = { ff = { ignoreEmpty = false, displayTree = true } },
+        uiParams = { ff = { displayTree = true } },
     })
 end, {})
 vim.api.nvim_create_user_command("DduDpp", function()

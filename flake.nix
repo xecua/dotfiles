@@ -6,10 +6,6 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixos";
     };
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +33,6 @@
     let
       systems = [
         "x86_64-linux"
-        "aarch64-darwin"
       ];
       eachSystem =
         callback: nixpkgs.lib.genAttrs systems (system: callback nixpkgs.legacyPackages.${system});
@@ -63,19 +58,6 @@
           ];
           specialArgs = {
             defaultUser = "xecua";
-            inherit (inputs) mcp-hub;
-          };
-        };
-      };
-      darwinConfigurations = {
-        default = inputs.nix-darwin.lib.darwinSystem {
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            inputs.home-manager.darwinModules.home-manager
-            (import ./nix/darwin/pro-m1.nix)
-          ];
-          specialArgs = {
-            defaultUser = "shiba";
             inherit (inputs) mcp-hub;
           };
         };

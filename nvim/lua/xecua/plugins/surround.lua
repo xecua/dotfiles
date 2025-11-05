@@ -29,6 +29,7 @@ vim.g["operator#surround#blocks"] = {
 local function is_operator_surround_disabled_buffer()
     local List = require("plenary.collections.py_list")
     local operator_surround_disabled_buffer_types = List({
+        "fern",
         "fzf",
         "ddu-ff",
         "ddu-filer",

@@ -37,13 +37,14 @@ def main():
     make_symlink('ghostty/config', config_home)  # themeをうっかり入れるとライセンス違反になる
     make_symlink('git', config_home)
     make_symlink('gtk-3.0', config_home)
-    make_symlink('hypr', config_home)
-    make_symlink('hypr/workspaces.conf', config_home,
-                 target= script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}')
+    make_symlink('hypr', config_home, True)
+    if (hypr_workspace :=script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}').exists():
+        make_symlink('hypr/workspaces.conf', config_home, target= hypr_workspace)
+    else:
+        (config_home / 'hypr' / 'workspaces.conf').touch()
     make_symlink('ideavim', config_home)
-    make_symlink('kanshi/config',
-                 config_home,
-                 target=script_dir / 'kanshi' / uname.nodename)
+    if (kanshi_config := script_dir / 'kanshi' / uname.nodename).exists():
+        make_symlink('kanshi/config', config_home, target=kanshi_config)
     make_symlink('karabiner', config_home, True)
     make_symlink('latexmk', config_home, True)
     make_symlink('lazygit', config_home, True)

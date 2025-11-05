@@ -1,3 +1,4 @@
+hypr/workspaces.conf
 nvim/lua/xecua/local.lua
 nvim/lua/xecua/local-pre.lua
 nvim/local.toml

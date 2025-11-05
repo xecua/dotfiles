@@ -40,7 +40,3 @@ hooks_file = '$STD_CONFIG/lua/xecua/plugins/dial.lua'
 
 [[plugins]]
 repo = 'tpope/vim-abolish'
-lua_add = """
-vim.keymap.set({ "n", "v" }, ":S/", ":S/\\v")
-vim.keymap.set("n", ":%S/", ":%S/\\v")
-"""
