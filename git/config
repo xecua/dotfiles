@@ -89,7 +89,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[url "git@github.com"]
+[url "git@github.com:"]
 	pushInsteadOf = https://github.com/
 [tig]
 	ignore-case = smart-case
