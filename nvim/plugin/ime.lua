@@ -1,7 +1,3 @@
-if vim.g.vscode then
-    return
-end
-
 local augroup = vim.api.nvim_create_augroup("IMSwitch", { clear = true })
 
 local function switch_im_function(enable)
@@ -48,13 +44,21 @@ local function switch_im_function(enable)
     end
 end
 
-vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
-    group = augroup,
-    pattern = "*",
-    callback = switch_im_function(false),
-})
-vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
-    group = augroup,
-    pattern = "*",
-    callback = switch_im_function(true),
-})
+if vim.g.vscode then
+    vim.api.nvim_create_autocmd("ModeChanged", {
+        group = augroup,
+        pattern = "i:*",
+        callback = switch_im_function(true),
+    })
+else
+    vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
+        group = augroup,
+        pattern = "*",
+        callback = switch_im_function(false),
+    })
+    vim.api.nvim_create_autocmd({ "FocusLost", "VimLeave" }, {
+        group = augroup,
+        pattern = "*",
+        callback = switch_im_function(true),
+    })
+end

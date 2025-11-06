@@ -150,6 +150,14 @@ end
 ## copilot-lsp NES and CLI agent integration
 [[plugins]]
 repo = 'folke/sidekick.nvim'
+lua_add = """
+vim.keymap.set('n', '<Leader>ss', '<Cmd>Sidekick cli toggle<CR>', {})
+vim.keymap.set('n', '<Leader>sl', '<Cmd>Sidekick cli select<CR>', {})
+vim.keymap.set({'n', 'x'}, '<Leader>st', '<Cmd>Sidekick cli send msg="{this}"<CR>', {})
+vim.keymap.set({'n', 'x'}, '<Leader>sf', '<Cmd>Sidekick cli send msg="{file}"<CR>', {})
+vim.keymap.set({'n', 'x'}, '<Leader>sv', '<Cmd>Sidekick cli send msg="{selection}"<CR>', {})
+vim.keymap.set({'n', 'x'}, '<Leader>sp', '<Cmd>Sidekick cli prompt<CR>', {})
+"""
 lua_source = """
 require("sidekick").setup({
     copilot = { status = { level = vim.log.levels.OFF } },

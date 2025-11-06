@@ -27,8 +27,8 @@ vim.g["operator#surround#blocks"] = {
 }
 
 local function is_operator_surround_disabled_buffer()
-    local List = require("plenary.collections.py_list")
-    local operator_surround_disabled_buffer_types = List({
+    local filetype = vim.opt_local.ft:get()
+    return vim.tbl_contains({
         "fern",
         "fzf",
         "ddu-ff",
@@ -36,8 +36,7 @@ local function is_operator_surround_disabled_buffer()
         "qf",
         "fugitive",
         "gitsigns-blame",
-    })
-    return operator_surround_disabled_buffer_types:contains(vim.opt_local.ft:get())
+    }, filetype)
 end
 
 local augroup = vim.api.nvim_create_augroup("OperatorSurround", { clear = true })
