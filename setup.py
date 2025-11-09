@@ -90,18 +90,6 @@ def main():
         neovide_config['frame'] = 'buttonless'
     write_file(config_home / 'neovide' / 'config.toml', tomli_w.dumps(neovide_config))
 
-    # try:
-    #     subprocess.run(['npm', 'set', 'prefix', data_home / 'npm'])
-    #     subprocess.run(['npm', 'set', 'cache', cache_home / 'npm'])
-    #     subprocess.run([
-    #         'npm', 'set', 'init-module',
-    #         config_home / 'npm' / 'config' / 'npm-init.js'
-    #     ])
-    # except:
-    #     print("npm does not exist.",
-    #           "Please setup manually or run this script again.")
-
-
 def write_file(path: Path, lines: str | list[str]):
     lines = lines if isinstance(lines, list) else [lines]
     if not path.parent.exists():

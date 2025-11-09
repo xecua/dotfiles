@@ -14,10 +14,6 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl = {
-      url = "github:nix-community/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,20 +55,6 @@
           specialArgs = {
             defaultUser = "xecua";
             inherit (inputs) mcp-hub;
-          };
-        };
-      };
-      homeConfigurations = {
-        # Home Managerだと、configのnixpkgs.overlaysでoverlayを設定できる
-        gentoo = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            { nixpkgs.overlays = overlays; }
-            (import ./nix/home-manager/gentoo.nix)
-          ];
-          extraSpecialArgs = {
-            defaultUser = "xecua";
-            inherit (inputs) nixgl mcp-hub;
           };
         };
       };
