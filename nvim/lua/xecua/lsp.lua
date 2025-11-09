@@ -44,7 +44,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     callback = function()
         local registry = require("mason-registry")
 
-        -- TODO: nixで入れてるときにうまいこと取る方法を探る。それまでmasonで
         -- DAP: both of java-debug-adapter and java-test are ought to be installed. (https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap)
         local debug_adapter_dir = registry.get_package("java-debug-adapter"):get_install_path()
         local java_test_dir = registry.get_package("java-test"):get_install_path()
