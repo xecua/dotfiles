@@ -7,8 +7,8 @@ git:
   branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
   allBranchesLogCmds:
     - git log --all --graph --date=short --pretty=short-oneline --color=always
-  paging:
-    externalDiffCommand: "difft --color=always --display=inline"
+  pagers:
+    - externalDiffCommand: "difft --color=always --display=inline"
 keybinding:
   universal:
     quit: <c-c>
