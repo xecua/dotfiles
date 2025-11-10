@@ -637,6 +637,7 @@ repo = 'vim-skk/skkdict.vim'
 [[plugins]]
 repo = 'wuelnerdotexe/vim-astro'
 
+# direnv
 [[plugins]]
 repo = 'direnv/direnv.vim'
 
@@ -662,3 +663,7 @@ on_ft = 'swift'
 [[plugins]]
 repo = 'kaarmu/typst.vim'
 on_ft = 'typst'
+
+# Handlebars
+[[plugins]]
+repo = 'mustache/vim-mustache-handlebars'
