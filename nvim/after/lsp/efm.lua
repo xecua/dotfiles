@@ -6,6 +6,12 @@ phpcs.lintCommand = string.format(
     fs.executable("phpcs", fs.Scope.COMPOSER)
 )
 
+local rumdl = {
+    formatCanRange = true,
+    formatStdin = true,
+    formatCommand = "rumdl fmt --quiet --stdin-filename '${INPUT}' -",
+}
+
 local prettier = require("efmls-configs.formatters.prettier")
 local languages = {
     html = { prettier },
@@ -16,7 +22,7 @@ local languages = {
     javascript = { prettier },
     javascriptreact = { prettier },
     json = { prettier },
-    -- markdown = { prettier },
+    markdown = { rumdl },
     typescript = { prettier },
     typescriptreact = { prettier },
     yaml = { prettier },
