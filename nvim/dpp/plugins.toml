@@ -388,6 +388,13 @@ require('skkeleton_indicator').setup({
 """
 
 [[plugins]]
+repo = 'NI57721/skkeleton-henkan-highlight'
+lua_add = """
+vim.cmd.highlight('SkkeletonHenkan', 'gui=underline term=underline cterm=underline')
+vim.cmd.highlight('SkkeletonHenakanSelect', 'gui=underline,reverse term=underline,reverse cterm=underline,reverse')
+"""
+
+[[plugins]]
 repo = 'skk-dev/dict'
 merged = false
 
@@ -510,8 +517,8 @@ repo = 'ConradIrwin/vim-bracketed-paste'
 [[plugins]]
 repo = 'alvan/vim-closetag'
 hook_add = """
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.ctp,*.jsx,*.tsx,*.vue,*.svelte,*.astro'
-let g:closetag_filetypes = 'html,xhtml,phtml,php,javascriptreact,typescriptreact,vue,svelte,astro'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.ctp,*.jsx,*.tsx,*.vue,*.svelte,*.astro,*.xml'
+let g:closetag_filetypes = 'html,xhtml,phtml,php,javascriptreact,typescriptreact,vue,svelte,astro,xml,gentoo-metadata'
 """
 
 # color scheme
@@ -544,9 +551,10 @@ lua_add = "vim.keymap.set({ 'n', 'v' }, '<Leader>e', '<Plug>(LiveEasyAlign)')"
 repo = 'RRethy/vim-illuminate'
 lua_source = """
 require('illuminate').configure({
-  filetype_overrides = {
-    toml = { providers = { 'regex' } },
-  },
+    modes_denylist = { 'i' } ,
+    filetype_overrides = {
+        toml = { providers = { 'regex' } },
+    },
 })
 """
 
