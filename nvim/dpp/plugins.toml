@@ -191,6 +191,9 @@ require("avante").setup({
 [[plugins]]
 repo = 'github/copilot.vim'
 if = "get(g:, 'use_copilot', v:false)"
+lua_add = """
+vim.g.copilot_no_tab_map = true
+"""
 
 [[plugins]]
 repo = 'yuucu/cursor_open.nvim'
