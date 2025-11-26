@@ -68,7 +68,7 @@ if status is-interactive
         alias flutter='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command flutter'
     end
     if type -q fvm
-        alias fvm='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/fvm command fvm'
+        alias fvm='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command fvm'
     end
 
     alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'

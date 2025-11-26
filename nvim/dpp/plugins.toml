@@ -392,7 +392,7 @@ require('skkeleton_indicator').setup({
 
 [[plugins]]
 repo = 'NI57721/skkeleton-henkan-highlight'
-lua_add = """
+lua_source = """
 vim.cmd.highlight('SkkeletonHenkan', 'gui=underline term=underline cterm=underline')
 vim.cmd.highlight('SkkeletonHenakanSelect', 'gui=underline,reverse term=underline,reverse cterm=underline,reverse')
 """

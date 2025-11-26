@@ -48,6 +48,11 @@ if vim.g.vscode then
     vim.api.nvim_create_autocmd("ModeChanged", {
         group = augroup,
         pattern = "i:*",
+        callback = switch_im_function(false),
+    })
+    vim.api.nvim_create_autocmd("ModeChanged", {
+        group = augroup,
+        pattern = "*:i",
         callback = switch_im_function(true),
     })
 else
