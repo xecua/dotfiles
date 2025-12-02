@@ -116,6 +116,7 @@ vim.fn["ddc#custom#patch_global"]({
             end),
             enableResolveItem = true,
             enableAdditionalTextEdit = true,
+            enableDisplayDetail = true,
             confirmBehavior = "replace",
         },
     },

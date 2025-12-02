@@ -24,6 +24,36 @@ vim.api.nvim_create_user_command("DduDpp", function()
         kindOptions = { file = { defaultAction = "cd" } },
     })
 end, {})
+vim.api.nvim_create_user_command("DduRgLiveRoot", function()
+    vim.ui.input({
+        prompt = "Base directory: ",
+        default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        completion = "dir",
+    }, function(input)
+        vim.fn["ddu#start"]({
+            sources = {
+                {
+                    name = "rg",
+                    options = { volatile = true, matchers = {}, sorters = {}, path = input },
+                },
+            },
+        })
+    end)
+end, {})
+vim.api.nvim_create_user_command("DduFileWithIgnored", function()
+    vim.fn["ddu#start"]({
+        sources = {
+            {
+                name = "file_external",
+                params = { cmd = { "fd", ".", "-t", "f", "-H", "--no-ignore-vcs" } },
+            },
+        },
+    })
+end, {})
+
+vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
+vim.keymap.set("n", "<Leader>ffd", "<Cmd>DduFileWithIgnored<CR>") -- 別のfd生やすならffdiとか
+vim.keymap.set("n", "<Leader>ffg", "<Cmd>DduRgLiveRoot<CR>") -- 別のfg生やすならffgrとか
 vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
@@ -78,7 +108,7 @@ vim.fn["ddu#custom#patch_global"]({
             previewWidth = 80,
             previewSplit = "vertical",
             -- startAutoAction = true,
-            statusline = false,
+            overwriteStatusline = false,
             autoAction = { name = "preview", sync = false },
         },
         filer = {
@@ -90,7 +120,7 @@ vim.fn["ddu#custom#patch_global"]({
         filer = { toggle = true },
     },
     sourceParams = {
-        file_external = { cmd = { "fd", ".", "-t", "f", "-H", "-E", ".git" } },
+        file_external = { cmd = { "fd", ".", "-t", "f", "-H" } },
         rg = { maxEnqueSize = 1000, args = { "--json" } },
     },
     sourceOptions = {

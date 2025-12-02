@@ -318,7 +318,14 @@ require("typescript-tools").setup({
       preferences = {
           includeCompletionsWithInsertText = false
       }
-  }
+  },
+  root_dir = function(bufnr, callback)
+    local deno_config = vim.fs.root(bufnr, {"deno.json", "deno.jsonc" })
+    if deno_config then
+      return
+    end
+    callback(require('typescript-tools.utils').get_root_dir(bufnr))
+  end
 })
 """
 
@@ -518,10 +525,14 @@ hook_add = "let g:readme_viewer#plugin_manager = 'dpp.vim'"
 repo = 'ConradIrwin/vim-bracketed-paste'
 
 [[plugins]]
-repo = 'alvan/vim-closetag'
-hook_add = """
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.php,*.ctp,*.jsx,*.tsx,*.vue,*.svelte,*.astro,*.xml'
-let g:closetag_filetypes = 'html,xhtml,phtml,php,javascriptreact,typescriptreact,vue,svelte,astro,xml,gentoo-metadata'
+repo = 'windwp/nvim-ts-autotag'
+lua_source = """
+require('nvim-ts-autotag').setup({
+    aliases = {
+        ['gentoo-metadata'] = 'xml', -- そもそもneovimがgentoo-metadataっていうtreesitterを見に行ってしまうのでダメかも
+        ["ctp"] = "html", -- cakephp(<=3) template
+    }
+})
 """
 
 # color scheme

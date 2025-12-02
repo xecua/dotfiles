@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("User", {
     group = dpp_augroup,
     pattern = "Dpp:makeStatePost",
     callback = function()
-        -- load_stateすればいい感じになるっぽいんだよなあ ただし毎回するとまあまあめんどい
+        -- エラー吐いたときにmakeStateしないなら勝手に:Restartしてもいいんだけど
         vim.notify("make_state finished. please restart neovim.")
     end,
 })
