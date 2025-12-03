@@ -3,17 +3,18 @@
 local methods = vim.lsp.protocol.Methods
 
 local servers = {
-    "denols",
     "efm",
     "intelephense",
     "jsonls",
     "lua_ls",
     "taplo",
     "texlab",
+    "tsgo",
     "yamlls",
 
     "astro",
     "clangd",
+    "denols",
     "eslint",
     "fish_lsp",
     "gopls",
@@ -92,7 +93,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
         vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
         vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspCodeAction", "lua vim.lsp.buf.code_action()", {})
+        vim.api.nvim_buf_create_user_command(buffer, "LspCodeAction", "lua vim.lsp.buf.code_action()", { range = true })
         vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
         vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
         vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
@@ -107,7 +108,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", opts)
         vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", opts)
         vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", opts)
-        vim.keymap.set("n", "<Leader>la", "<Cmd>LspCodeAction<CR>", opts)
+        vim.keymap.set({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>", opts)
         vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
         vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
         vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)

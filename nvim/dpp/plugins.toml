@@ -307,28 +307,6 @@ depends = ['nvim-dap', 'nvim-nio']
 repo = 'nvim-neotest/nvim-nio'
 on_lua = 'nio'
 
-## tsserver integration
-[[plugins]]
-repo = 'pmizio/typescript-tools.nvim'
-depends = ['plenary.nvim', 'nvim-lspconfig']
-lua_source = """
-require("typescript-tools").setup({
-  single_file_support = false,
-  init_options = {
-      preferences = {
-          includeCompletionsWithInsertText = false
-      }
-  },
-  root_dir = function(bufnr, callback)
-    local deno_config = vim.fs.root(bufnr, {"deno.json", "deno.jsonc" })
-    if deno_config then
-      return
-    end
-    callback(require('typescript-tools.utils').get_root_dir(bufnr))
-  end
-})
-"""
-
 ## efm-langserver presets
 [[plugins]]
 repo = 'creativenull/efmls-configs-nvim'

@@ -1,0 +1,8 @@
+return {
+    single_file_support = false,
+    init_options = {
+        preferences = {
+            includeCompletionsWithInsertText = false,
+        },
+    },
+}

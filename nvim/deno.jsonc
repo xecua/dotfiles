@@ -1,1 +1,5 @@
-{ /* dummy json to start denols */ }
+{
+  "workspace": [
+  "./dpp"
+  ]
+  }

@@ -8,6 +8,7 @@ vim.api.nvim_create_user_command(
 -- 現在の状態をセッションとして保存してrestart
 vim.api.nvim_create_user_command("Restart", function()
     -- tempname()のファイルだとrestartを乗り越えられない。ただランダムの名前は便利なので使わせてもらう
-    local session = vim.fs.joinpath(vim.env.XDG_RUNTIME_DIR, vim.fs.basename(vim.fn.tempname()) .. ".vim")
+    local dir = vim.env.XDG_RUNTIME_DIR or vim.env.TMPDIR or vim.env.TEMP -- Linux, Darwin, Windows
+    local session = vim.fs.joinpath(dir, vim.fs.basename(vim.fn.tempname()) .. ".vim")
     vim.cmd(string.format("mks! %s | restart source %s", session, session))
 end, {})
