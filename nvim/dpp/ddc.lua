@@ -51,7 +51,7 @@ vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
 vim.lsp.config("*", {
     capabilities = require("ddc_source_lsp").make_client_capabilities(),
 })
-vim.fn["ddc#custom#load_config"](vim.fn.stdpath("config") .. "dpp/ddc.ts")
+vim.fn["ddc#custom#load_config"](vim.fn.stdpath("config") .. "/dpp/ddc.ts")
 
 vim.keymap.set({ "n", "v" }, ":", function()
     vim.fn["pum#set_option"]({
