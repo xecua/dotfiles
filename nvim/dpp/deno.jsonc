@@ -1,5 +1,7 @@
 {
   "imports": {
+    "@shougo/ddc-vim": "jsr:@shougo/ddc-vim@^10.1.0",
+    "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@^11.1.0",
     "@shougo/dpp-vim": "jsr:@shougo/dpp-vim@^5.1.0",
     "@std/fs": "jsr:@std/fs@^1.0.20"
   }
