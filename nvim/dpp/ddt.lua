@@ -1,5 +1,4 @@
 -- lua_add {{{
-
 local function ddt_bottom_term()
     -- toggle
     if vim.fn.win_id2win(vim.g.ddt_ui_last_winid) == 0 then

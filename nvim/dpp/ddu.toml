@@ -2,7 +2,7 @@
 [[plugins]]
 repo = 'Shougo/ddu.vim'
 depends = 'denops.vim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/ddu.lua'
+hooks_file = '$STD_CONFIG/dpp/ddu.lua'
 
 [[plugins]]
 repo = 'Shougo/ddu-commands.vim'

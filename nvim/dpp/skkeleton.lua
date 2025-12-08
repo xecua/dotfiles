@@ -689,6 +689,28 @@ vim.api.nvim_create_autocmd("User", {
         })
     end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "skkeleton-enable-pre",
+    callback = function()
+        vim.fn["ddc#custom#patch_buffer"]("ui", "none")
+        vim.fn["skkeleton#config"]({
+            markerHenkan = "▽",
+            markerHenkanSelect = "▼",
+        })
+    end,
+})
+vim.api.nvim_create_autocmd("User", {
+    pattern = "skkeleton-disable-pre",
+    callback = function()
+        vim.fn["ddc#custom#patch_buffer"]("ui", "pum")
+        vim.fn["skkeleton#config"]({
+            markerHenkan = "",
+            markerHenkanSelect = "",
+        })
+    end,
+})
+
 -- }}}
 
 -- lua_source {{{

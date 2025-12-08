@@ -25,9 +25,11 @@ vim.api.nvim_create_user_command("DduDpp", function()
     })
 end, {})
 vim.api.nvim_create_user_command("DduRgLiveRoot", function()
+    -- バッファがあればそのディレクトリ、なければカレントディレクトリを初期値にする
+    local default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) or vim.uv.cwd()
     vim.ui.input({
         prompt = "Base directory: ",
-        default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        default = default,
         completion = "dir",
     }, function(input)
         vim.fn["ddu#start"]({

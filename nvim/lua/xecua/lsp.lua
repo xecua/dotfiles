@@ -2,11 +2,11 @@
 
 local methods = vim.lsp.protocol.Methods
 
-local servers = {
+vim.lsp.enable({
     "efm",
     "intelephense",
     "jsonls",
-    "lua_ls",
+    "lua_ls", -- LLVM basedなシステムでは動かないかも(gcc libunwindが必要なため)
     "taplo",
     "texlab",
     "tsgo",
@@ -23,19 +23,18 @@ local servers = {
     "lemminx",
     "nil_ls",
     "pyright",
+    "rumdl",
     "sourcekit",
     "sqls",
     "stylelint_lsp",
     "tsp_server",
     "vimls",
     -- "typos_lsp",
-}
+})
 
 if vim.g.use_copilot then
-    table.insert(servers, "copilot")
+    vim.lsp.enable("copilot")
 end
-
-vim.lsp.enable(servers)
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 
@@ -65,11 +64,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
-                    return not vim.tbl_contains({
-                        "typescript-tools",
-                        "lua_ls",
-                        "sqls",
-                    }, c.name)
+                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls" }, c.name)
                 end,
             })
         end, {})

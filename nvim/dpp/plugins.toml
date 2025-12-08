@@ -1,7 +1,7 @@
 # terminal
 [[plugins]]
 repo = 'Shougo/ddt.vim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/ddt.lua'
+hooks_file = '$STD_CONFIG/dpp/ddt.lua'
 
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
@@ -21,7 +21,23 @@ extAttrs = { installerBuild = './install.sh' }
 # startup
 [[plugins]]
 repo = 'mhinz/vim-startify'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/startify.lua'
+lua_add = """
+vim.g.startify_change_to_vcs_root = 1
+vim.g.startify_lists = {
+    { type = "files", header = { "   MRU" } },
+    { type = "bookmarks", header = { "   Bookmarks" } },
+    { type = "sessions", header = { "   Sessions" } },
+    { type = "commands", header = { "   Commands" } },
+}
+vim.g.startify_commands = {
+    { "Open Daily Note", "ObsidianToday" },
+}
+vim.g.startify_bookmarks = {
+    "~",
+    "~/.config/nvim",
+    require("xecua.utils").get_local_config().obsidian_dir,
+}
+"""
 
 # Preview
 [[plugins]]
@@ -48,7 +64,45 @@ vim.keymap.set('n', '<Leader>ww', '<Cmd>call WindowSwap#EasyWindowSwap()<CR>')
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = 'plenary.nvim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/obsidian.lua'
+lua_add = """
+vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
+vim.keymap.set("n", "<Leader>bm", "<Cmd>ObsidianTomorrow<CR>")
+vim.keymap.set("n", "<Leader>by", "<Cmd>ObsidianYesterday<CR>")
+vim.keymap.set("n", "<Leader>bs", "<Cmd>ObsidianQuickSwitch<CR>")
+vim.keymap.set("n", "<Leader>bo", "<Cmd>ObsidianOpen<CR>")
+"""
+lua_source = """
+local default_vault = require("xecua.utils").get_local_config().obsidian_dir
+
+require("obsidian").setup({
+    templates = {
+        subdir = "templates",
+    },
+    daily_notes = { folder = "dailynotes", date_format = "%Y-%m-%d", template = "dailynote.md" },
+    disable_frontmatter = true,
+    follow_url_func = function(url)
+        vim.ui.open(url)
+    end,
+    ui = { enable = false },
+    workspaces = {
+        {
+            name = vim.fs.basename(default_vault),
+            path = default_vault,
+        },
+        {
+            name = "no-vault",
+            path = function()
+                return assert(vim.fn.getcwd())
+            end,
+            overrides = {
+                notes_subdir = vim.NIL,
+                templates = { folder = vim.NIL },
+                daily_notes = { folder = vim.NIL, date_format = vim.NIL, template = vim.NIL },
+            },
+        },
+    },
+})
+"""
 
 [[plugins]]
 repo = 'MeanderingProgrammer/render-markdown.nvim'
@@ -72,7 +126,7 @@ require('render-markdown').setup({
 # Submode
 [[plugins]]
 repo = 'kana/vim-submode'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/submode.lua'
+hooks_file = '$STD_CONFIG/dpp/submode.lua'
 
 # task runner
 [[plugins]]
@@ -81,7 +135,31 @@ extAttrs = { installerBuild = 'make' }
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/quickrun.lua'
+lua_add = """
+vim.g.quickrun_no_default_key_mappings = 1
+vim.g.quickrun_config = {
+    _ = {
+        runner = "vimproc",
+        ["runner/vimproc/updatetime"] = 40,
+        outputter = "error",
+        ["outputter/error/error"] = "quickfix",
+        ["outputter/quickfix/into"] = 1,
+    },
+    cpp = { command = "g++" },
+    tex = { command = "latexmk" },
+    satysfi = { command = "satysfi" },
+    rust = { type = "rust/cargo" },
+}
+"""
+lua_source = """
+vim.fn["quickrun#module#register"]({
+    name = "close_quickfix_on_success",
+    kind = "hook",
+    on_success = function(_, _)
+        vim.api.nvim_command("cclose")
+    end,
+}, 1)
+"""
 
 # quickfix
 [[plugins]]
@@ -102,7 +180,35 @@ require('todo-comments').setup({})
 
 [[plugins]]
 repo = 'folke/which-key.nvim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/which-key.lua'
+lua_source = """
+local presets = require("which-key.plugins.presets")
+presets.operators.v = nil
+
+require("which-key").setup({
+    triggers = {
+        { "<auto>", mode = "nxso" },
+        { "<c-x>", mode = "i" },
+    },
+    spec = {
+        {
+            mode = { "i" },
+            { "<C-x><C-]>", desc = "tags" },
+            { "<C-x><C-d>", desc = "definitions or macros" },
+            { "<C-x><C-f>", desc = "file names" },
+            { "<C-x><C-i>", desc = "keywords in the current and included files" },
+            { "<C-x><C-k>", desc = "keywords in dictionary" },
+            { "<C-x><C-l>", desc = "Whole lines" },
+            { "<C-x><C-n>", desc = "keywords in the current file" },
+            { "<C-x><C-o>", desc = "omni completion" },
+            { "<C-x><C-s>", desc = "Spelling suggestions" },
+            { "<C-x><C-t>", desc = "keywords in thesaurus" },
+            { "<C-x><C-u>", desc = "User defined completion" },
+            { "<C-x><C-v>", desc = "Vim command-line" },
+            { "<C-x><C-z>", desc = "stop completion" },
+        },
+    },
+})
+"""
 
 # popup notification
 [[plugins]]
@@ -232,23 +338,6 @@ vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
 repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
-repo = 'ray-x/lsp_signature.nvim'
-lua_source = """
-require('lsp_signature').setup({})
-"""
-
-# [[plugins]]
-# repo = 'matsui54/denops-signature_help'
-# depends = 'denops.vim'
-# lua_source = """
-# vim.g.signature_help_config = {
-#     contentsStyle = "currentLabel"
-# }
-# vim.fn["signature_help#enable"]()
-# """
-
-
-[[plugins]]
 # fork. back to original when https://github.com/antosha417/nvim-lsp-file-operations/pull/34 is merged
 repo = 'igorlfs/nvim-lsp-file-operations'
 depends = ['nvim-lspconfig']
@@ -297,7 +386,7 @@ on_lua = 'jdtls'
 ## DAP
 [[plugins]]
 repo = 'mfussenegger/nvim-dap'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/dap.lua'
+hooks_file = '$STD_CONFIG/dpp/dap.lua'
 
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
@@ -359,7 +448,7 @@ hook_source = "call popup_preview#enable()"
 repo = 'vim-skk/skkeleton'
 depends = 'denops.vim'
 group = 'ddc'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/skkeleton.lua'
+hooks_file = '$STD_CONFIG/dpp/skkeleton.lua'
 
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
@@ -397,7 +486,29 @@ merged = false
 # filer
 [[plugins]]
 repo = 'lambdalisue/vim-fern'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/fern.lua'
+lua_add = """
+vim.g["fern#renderer"] = "nvim-web-devicons"
+vim.g["fern#disable_auto_buffer_delete"] = true
+vim.g["fern#disable_auto_buffer_rename"] = true
+vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>")
+"""
+lua_fern = """
+vim.opt_local.list = false
+vim.opt_local.wrap = false
+
+vim.fn["glyph_palette#apply"]()
+
+vim.keymap.set("n", "<LeftRelease>", function()
+    return vim.fn["fern#smart#leaf"](
+        "<Plug>(fern-action-open)",
+        "<Plug>(fern-action-expand)",
+        "<Plug>(fern-action-collapse)"
+    )
+end, { buffer = true, expr = true }) -- 選択は<LeftMouse>でやってる
+vim.keymap.set("n", "e", "<Plug>(fern-action-open:select)", { buffer = true })
+vim.keymap.set("n", "s", "<Plug>(fern-action-open:split)", { nowait = true, buffer = true })
+vim.keymap.set("n", "v", "<Plug>(fern-action-open:vsplit)", { buffer = true })
+"""
 
 [[plugins]]
 repo = 'lambdalisue/vim-glyph-palette'
@@ -452,7 +563,7 @@ require('gitsigns').setup({
 # autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/lexima.lua'
+hooks_file = '$STD_CONFIG/dpp/lexima.lua'
 
 # undo
 [[plugins]]
@@ -466,7 +577,7 @@ vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'nvim-navic']
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/lualine.lua'
+hooks_file = '$STD_CONFIG/dpp/lualine.lua'
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
@@ -483,7 +594,21 @@ hook_add = "let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyz'"
 # comment
 [[plugins]]
 repo = 'numToStr/Comment.nvim'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/comment.lua'
+lua_add = """
+vim.keymap.set("n", "<C-_><C-_>", "<Plug>(comment_toggle_linewise_current)")
+vim.keymap.set("v", "<C-_><C-_>", "<Plug>(comment_toggle_linewise_visual)")
+vim.keymap.set("v", "<C-_>b", "<Plug>(comment_toggle_blockwise_visual)")
+"""
+lua_source = """
+require("Comment").setup({
+    ignore = "^$",
+    mappings = {
+        basic = false,
+        extra = false,
+    },
+    pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+})
+"""
 
 ## jsx/tsx helper
 [[plugins]]
@@ -571,7 +696,34 @@ repo = 'mattn/vim-maketable'
 repo = 'nvim-treesitter/nvim-treesitter'
 rev = 'main'
 hook_post_update = "TSUpdate"
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/treesitter.lua'
+lua_add = """
+local augroup = vim.api.nvim_create_augroup("Treesitter", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    -- すべてのファイルでやってほしいのでpatternはなし
+    callback = function()
+        -- pcallでエラーを無視することでパーサーやクエリがあるか気にしなくてすむ
+        local ok, _ = pcall(vim.treesitter.start)
+        if ok then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
+"""
+lua_source = """
+require("nvim-treesitter").setup({
+    install_dir = vim.fn.stdpath("cache") .. "/parsers",
+    textobjects = {
+        select = { enable = true },
+        keymaps = {
+            af = "@function.outer",
+            ["if"] = "@function.inner",
+        },
+    },
+})
+"""
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
@@ -622,7 +774,7 @@ repo = 'ymyzk/vim-copl'
 [[plugins]]
 repo = 'mechatroner/rainbow_csv'
 on_ft = 'csv'
-hooks_file = '$STD_CONFIG/lua/xecua/plugins/rainbow_csv.lua'
+hooks_file = '$STD_CONFIG/dpp/rainbow_csv.lua'
 
 ## Firestore Security Rule
 [[plugins]]

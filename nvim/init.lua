@@ -22,7 +22,7 @@ if vim.g.neovide ~= nil then
 end
 
 -- plugin manager
-require("xecua.plugins.dpp").setup("nvim")
+require("xecua.dpp").setup("nvim")
 
 pcall(require, "xecua.local")
 
