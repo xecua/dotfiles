@@ -73,7 +73,7 @@ vim.api.nvim_create_user_command("DduFiler", function()
                 options = {
                     columns = { "icon_filename" },
                     matchers = { "matcher_hidden" },
-                    sorters = { "sorter_alpha", "sorter_treefirst" },
+                    sorters = {},
                 },
             },
         },

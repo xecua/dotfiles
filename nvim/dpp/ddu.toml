@@ -43,10 +43,6 @@ group = 'ddu'
 repo = 'Shougo/ddu-filter-sorter_alpha'
 group = 'ddu'
 
-[[plugins]]
-repo = 'xecua/ddu-filter-sorter_treefirst'
-group = 'ddu'
-
 ### Sources
 [[plugins]]
 repo = 'Shougo/ddu-source-action'
