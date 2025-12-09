@@ -88,6 +88,7 @@ end, {})
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:uiOpenFilterWindow",
+    group = ddu_group_id,
     callback = function()
         vim.fn["ddc#custom#patch_global"]("ui", "none")
     end,
@@ -95,6 +96,7 @@ vim.api.nvim_create_autocmd("User", {
 
 vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:uiCloseFilterWindow",
+    group = ddu_group_id,
     callback = function()
         vim.fn["ddc#custom#patch_global"]("ui", "pum")
     end,
@@ -102,69 +104,7 @@ vim.api.nvim_create_autocmd("User", {
 -- }}}
 
 -- lua_source {{{
-vim.fn["ddu#custom#alias"]("_", "column", "icon_filename_ff", "icon_filename")
-vim.fn["ddu#custom#patch_global"]({
-    ui = "ff",
-    uiParams = {
-        ff = {
-            previewWidth = 80,
-            previewSplit = "vertical",
-            -- startAutoAction = true,
-            overwriteStatusline = false,
-            autoAction = { name = "preview", sync = false },
-        },
-        filer = {
-            split = "vertical",
-            winWidth = vim.o.columns / 6,
-        },
-    },
-    uiOptions = {
-        filer = { toggle = true },
-    },
-    sourceParams = {
-        file_external = { cmd = { "fd", ".", "-t", "f", "-H" } },
-        rg = { maxEnqueSize = 1000, args = { "--json" } },
-    },
-    sourceOptions = {
-        _ = { matchers = { "matcher_fzf" }, sorters = { "sorter_fzf" } },
-        file_external = {
-            -- columns = { "icon_filename_ff" },
-            converters = { "converter_hl_dir" },
-        },
-        buffer = {
-            -- columns = { "icon_filename_ff" },
-            converters = { "converter_hl_dir" },
-        },
-        source = { defaultAction = "execute" },
-        lsp_documentSymbol = { converters = { "converter_lsp_symbol" } },
-        lsp_workspaceSymbol = { converters = { "converter_lsp_symbol" } },
-    },
-    filterParams = {
-        matcher_fzf = { highlightMatched = "Search" },
-    },
-    kindOptions = {
-        file = { defaultAction = "open" },
-        word = { defaultAction = "append" },
-        action = { defaultAction = "do" },
-        command_history = { defaultAction = "edit" },
-        command = { defaultAction = "edit" },
-        help = { defaultAction = "open" },
-        readme_viewer = { defaultAction = "open" },
-        lsp = { defaultAction = "open" },
-        lsp_codeAction = { defaultAction = "apply" },
-        ui_select = { defaultAction = "select" },
-    },
-    columnParams = {
-        icon_filename = {
-            defaultIcon = { icon = "" },
-        },
-        icon_filename_ff = {
-            defaultIcon = { icon = "" },
-            padding = 0,
-            pathDisplayOption = "relative",
-        },
-    },
-})
+vim.fn["ddu#custom#load_config"](vim.fn.stdpath("config") .. "/dpp/ddu.ts")
 -- }}}
 
 -- lua_ddu-ff {{{

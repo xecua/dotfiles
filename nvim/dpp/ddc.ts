@@ -11,7 +11,7 @@ export class Config extends BaseConfig {
         _: {
           matchers: ["matcher_fuzzy"],
           sorters: ["sorter_fuzzy"],
-          converters: ["converter_fuzzy"],
+          converters: ["converter_fuzzy", "converter_remove_overlap"],
           ignoreCase: true,
         },
         around: { mark: "A" },
@@ -24,7 +24,7 @@ export class Config extends BaseConfig {
         },
         lsp: {
           mark: "LSP",
-          dup: "keep",
+          dup: "force",
           sorters: ["sorter_fuzzy", "sorter_lsp_kind"],
           forceCompletionPattern: String.raw`\.\w*|:\w*|->\w*`,
           isVolatile: true,

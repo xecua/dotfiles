@@ -59,3 +59,6 @@ group = 'ddc'
 
 [[plugins]]
 repo = 'Shougo/ddc-filter-sorter_lsp_kind'
+
+[[plugins]]
+repo = 'Shougo/ddc-filter-converter_remove_overlap'
