@@ -74,6 +74,7 @@ def main():
     make_symlink('fzfrc', config_home)
     make_symlink('lesskey', config_home)
     make_symlink('starship.toml', config_home)
+    make_symlink('nbrc', config_home)
 
     write_file(config_home / 'wgetrc', [
         f'hsts-file = {cache_home / 'wget-hsts'}'
