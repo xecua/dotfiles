@@ -1,176 +1,36 @@
 {
-  "title": "AquaSKK (AZIK)",
-  "rules": [
+  "description": "macSKK",
+  "manipulators": [
     {
-      "description": "AquaSKK (AZIK) for JetBrains",
-      "manipulators": [
+      "conditions": [
         {
-          "type": "basic",
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": ["left_shift", "right_shift"]
-            }
-          },
-          "to": [
-            {
-              "select_input_source": {
-                "language": "ja",
-                "input_source_id": "jp.sourceforge.inputmethod.aquaskk.FullWidthRoman",
-                "input_mode_id": "com.apple.inputmethod.Japanese.FullWidthRoman"
-              }
-            }
+          "bundle_identifiers": [
+            "^com\\.postmanlabs\\.mac",
+            "^com\\.microsoft\\.Powerpoint",
+            "^com\\.apple\\.Terminal",
+            "^com\\.google\\.android\\.studio",
+            "^com\\.microsoft\\.VSCode",
+            "^com\\.todesktop\\.230313mzl4w4u92",
+            "^com\\.mitchellh\\.ghostty",
+            "^com\\.apidog\\.app"
           ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\.",
-                "Fleet.app",
-                "com.google.android.studio"
-              ]
-            },
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "input_source_id": "^jp\\.sourceforge\\.inputmethod\\.aquaskk\\.(Hiragana|Katakana|HalfWidthKana)$"
-                }
-              ]
-            }
-          ]
+          "type": "frontmost_application_if"
         },
         {
-          "type": "basic",
-          "from": {
-            "key_code": "l"
-          },
-          "to": [
+          "input_sources": [
             {
-              "select_input_source": {
-                "language": "en",
-                "input_source_id": "jp.sourceforge.inputmethod.aquaskk.Ascii",
-                "input_mode_id": "com.apple.inputmethod.Roman"
-              }
+              "input_source_id": "^net\\.mtgto\\.inputmethod\\.macSKK\\.(ascii|hiragana|katakana|hankaku|eisu)$"
             }
           ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\.",
-                "Fleet.app",
-                "com.google.android.studio"
-              ]
-            },
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "input_source_id": "^jp\\.sourceforge\\.inputmethod\\.aquaskk\\.(Hiragana|Katakana|HalfWidthKana)$"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "[",
-            "modifiers": {
-              "mandatory": ["left_control", "right_control"]
-            }
-          },
-          "to": [
-            {
-              "select_input_source": {
-                "language": "ja",
-                "input_source_id": "jp.sourceforge.inputmethod.aquaskk.HalfWidthKana",
-                "input_mode_id": "com.apple.inputmethod.Japanese.HalfWidthKana"
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\.",
-                "Fleet.app",
-                "com.google.android.studio"
-              ]
-            },
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "input_source_id": "^jp\\.sourceforge\\.inputmethod\\.aquaskk\\.(Hiragana|Katakana|HalfWidthKana)$"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "["
-          },
-          "to": [
-            {
-              "select_input_source": {
-                "language": "ja",
-                "input_source_id": "jp.sourceforge.inputmethod.aquaskk.Katakana",
-                "input_mode_id": "com.apple.inputmethod.Japanese.Katakana"
-              }
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.jetbrains\\.",
-                "Fleet.app",
-                "com.google.android.studio"
-              ]
-            },
-            {
-              "type": "input_source_if",
-              "input_sources": [
-                {
-                  "input_source_id": "^jp\\.sourceforge\\.inputmethod\\.aquaskk\\.(Hiragana|Katakana|HalfWidthKana)$"
-                }
-              ]
-            }
-          ]
+          "type": "input_source_if"
         }
-      ]
-    },
-    {
-      "description": "AquaSKK for Terminal/iTerm2",
-      "manipulators": [
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "mandatory": ["left_control"]
-            }
-          },
-          "to": [
-            {
-              "key_code": "japanese_kana"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.googlecode\\.iterm2",
-                "^com\\.apple\\.Terminal"
-              ]
-            }
-          ]
-        }
-      ]
+      ],
+      "from": {
+        "key_code": "j",
+        "modifiers": { "mandatory": ["left_control"] }
+      },
+      "to": [{ "key_code": "japanese_kana" }],
+      "type": "basic"
     }
   ]
 }
