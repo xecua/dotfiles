@@ -694,10 +694,12 @@ vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-enable-pre",
     callback = function()
         vim.fn["ddc#custom#patch_buffer"]("ui", "none")
-        vim.fn["skkeleton#config"]({
-            markerHenkan = "▽",
-            markerHenkanSelect = "▼",
-        })
+        if vim.fn.mode() == "c" then
+            vim.fn["skkeleton#config"]({
+                markerHenkan = "▽",
+                markerHenkanSelect = "▼",
+            })
+        end
     end,
 })
 vim.api.nvim_create_autocmd("User", {

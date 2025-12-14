@@ -6,8 +6,8 @@ vim.filetype.add({
     },
     pattern = {
         [".textlintrc"] = "json",
-        ["docker%-compose%.ya?ml"] = "yaml.docker-compose",
-        ["compose%.ya?ml"] = "yaml.docker-compose",
+        ["docker%-compose%.ya?ml"] = "yaml.compose",
+        ["compose%.ya?ml"] = "yaml.compose",
         ["openapi.*%.ya?ml"] = "yaml.openapi",
         ["openapi.*%.json"] = "json.openapi",
         [".*/%.vscode/.*%.json"] = "jsonc",

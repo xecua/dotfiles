@@ -8,12 +8,46 @@ vim.keymap.set("n", "<C-w><C-o>", "<nop>")
 -- vimgrep under cursor in current file
 vim.keymap.set("n", "<Leader>v", ":<C-u>lv /<C-r><C-w>/j %<CR>")
 -- Always enable verymagic (a.k.a. ERE). see :h \v
-vim.keymap.set("n", "/", "/\\v")
-vim.keymap.set("n", "?", "?\\v")
-vim.keymap.set("v", "/", "<Esc>/\\%V\\v") -- \%V: previously selected range
-vim.keymap.set("v", "?", "<Esc>?\\%V\\v") -- \%V: previously selected range
-vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
-vim.keymap.set("n", ":%s/", ":%s/\\v")
+vim.keymap.set("c", "<C-v>", function()
+    local cmdtype = vim.fn.getcmdtype()
+    if cmdtype == "/" or cmdtype == "?" then
+        -- この場合は1文字目が/または?で確定している (visualでも)
+        local cmdline = vim.fn.getcmdline()
+        local pos = vim.fn.getcmdpos()
+        if cmdline:sub(1, 2) == "\\v" then
+            -- 削除
+            vim.fn.setcmdline(cmdline:sub(3))
+            vim.fnd.setcmdpos(pos - 2)
+        else
+            -- 挿入
+            vim.fn.setcmdline("\\v" .. cmdline)
+            vim.fn.setcmdpos(pos + 2)
+        end
+        return ""
+    elseif cmdtype == ":" then
+        local cmdline = vim.fn.getcmdline()
+        local pos = vim.fn.getcmdpos()
+        -- substitute
+        local pattern = vim.regex([[\v^((\d+|'\<)?,(\d+|'\>)?)?s(ubstitute)?]])
+        local _, e = pattern:match_str(cmdline) -- eはマッチの終端位置=区切り文字のインデックス(0-based)。lua(1-based)だとe+1が区切り文字。
+        if e then
+            if cmdline:sub(e + 2, e + 3) == "\\v" then
+                -- 削除
+                vim.fn.setcmdline(cmdline:sub(1, e + 1) .. cmdline:sub(e + 4))
+                vim.fn.setcmdpos(pos - 2)
+            else
+                -- 挿入
+                vim.fn.setcmdline(cmdline:sub(1, e + 1) .. "\\v" .. cmdline:sub(e + 2))
+                vim.fn.setcmdpos(pos + 2)
+            end
+            return ""
+        end
+    end
+    -- default
+    return "<C-v>"
+end, { expr = true, desc = "toggle \\v(verymagic) while searching" })
+vim.keymap.set("v", "/", "<Esc>/\\%V") -- \%V: gvで選択される範囲。後ろにも%Vが必要
+vim.keymap.set("v", "?", "<Esc>?\\%V")
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
 vim.keymap.set("n", "<Leader>rn", "<Cmd>set relativenumber!<CR>")
 

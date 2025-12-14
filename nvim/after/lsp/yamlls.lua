@@ -1,3 +1,9 @@
 return {
-    filetypes = { "yaml", "yaml.docker-composer", "yaml.gitlab", "yaml.openapi" },
+    filetypes = {
+        "yaml",
+        "yaml.docker-composer",
+        "yaml.compose",
+        "yaml.gitlab",
+        "yaml.openapi",
+    },
 }

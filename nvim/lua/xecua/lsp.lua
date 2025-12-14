@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
-                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls" }, c.name)
+                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls" }, c.name)
                 end,
             })
         end, {})

@@ -19,6 +19,8 @@ local languages = {
     typescript = { prettier },
     typescriptreact = { prettier },
     yaml = { prettier },
+    ["yaml.openapi"] = { prettier },
+    ["yaml.compose"] = { prettier },
     vue = { prettier },
     go = {
         require("efmls-configs.linters.golangci_lint"),
