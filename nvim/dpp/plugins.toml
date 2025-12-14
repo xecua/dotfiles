@@ -298,7 +298,9 @@ require("avante").setup({
 repo = 'github/copilot.vim'
 if = "get(g:, 'use_copilot', v:false)"
 lua_add = """
+-- どうも勝手に起動するっぽい……
 vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_filetypes = { ['*'] = false } --これlocal-pre.luaでやんないとダメかも
 """
 
 [[plugins]]

@@ -15,7 +15,7 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/ripgreprc"
-export NBRC_PATH="$XDG_CONFIG_HOME/nbrc"
+export NBRC_PATH="$XDG_CONFIG_HOME/nb/nbrc"
 
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"

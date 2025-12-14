@@ -1,4 +1,0 @@
-- Markdownのフォーマッタを考える
-  - Prettierにしてると謎の挙動が発生する
-  - 代替案(未検証)
-    - https://github.com/rvben/rumdl/issues
