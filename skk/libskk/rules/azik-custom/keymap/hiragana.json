@@ -1,14 +1,11 @@
 {
-    "include": [
-        "common",
-        "default/hiragana"
-    ],
-    "define": {
-        "keymap": {
-            "[": "set-input-mode-katakana",
-            "q": null,
-            "Q": "start-preedit insert-kana-ん",
-            "'": "start-preedit-no-delete"
-        }
+  "include": ["default/hiragana", "common"],
+  "define": {
+    "keymap": {
+      "[": "set-input-mode-katakana",
+      "q": null,
+      "Q": "start-preedit insert-kana-ん",
+      "'": "start-preedit-no-delete"
     }
+  }
 }

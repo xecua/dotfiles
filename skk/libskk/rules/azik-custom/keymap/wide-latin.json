@@ -1,6 +1,3 @@
 {
-    "include": [
-        "default/wide-latin",
-        "common"
-    ]
+  "include": ["default/wide-latin", "common"]
 }

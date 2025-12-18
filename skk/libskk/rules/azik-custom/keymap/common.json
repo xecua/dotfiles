@@ -1,9 +1,9 @@
 {
-    "define": {
-        "keymap": {
-            ":": "upper-;",
-            "X": null,
-            "<": "purge-candidate"
-        }
+  "define": {
+    "keymap": {
+      ":": "upper-;",
+      "X": null,
+      "<": "purge-candidate"
     }
+  }
 }
