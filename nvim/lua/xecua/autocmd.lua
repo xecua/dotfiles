@@ -32,6 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "jsonc",
         "rst",
         "satysfi",
+        "sql",
         "vim",
         "vue",
         "xml",

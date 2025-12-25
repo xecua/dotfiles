@@ -7,6 +7,8 @@ vim.lsp.enable({
     "intelephense",
     "jsonls",
     "lua_ls", -- LLVM basedなシステムでは動かないかも(gcc libunwindが必要なため)
+    "oxfmt",
+    "oxlint",
     "taplo",
     "texlab",
     "tsgo",
@@ -55,6 +57,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+local format_autocmd_defined = {}
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
     callback = function(args)
@@ -136,7 +139,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             require("nvim-navic").attach(client, buffer)
         end
 
-        if client:supports_method(methods.textDocument_formatting) then
+        if client:supports_method(methods.textDocument_formatting) and format_autocmd_defined[buffer] then
+            format_autocmd_defined[buffer] = true
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
                 buffer = buffer,
@@ -227,4 +231,11 @@ local function inspect_lsp_client()
         end
     end)
 end
+
 vim.api.nvim_create_user_command("LspInspectClient", inspect_lsp_client, {})
+vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", {})
+vim.api.nvim_create_user_command("LspLog", function()
+    vim.cmd(string.format("tabnew %s", vim.lsp.log.get_filename()))
+end, {
+    desc = "Opens the Nvim LSP client log.",
+})

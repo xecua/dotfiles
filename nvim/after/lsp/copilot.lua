@@ -1,5 +1,5 @@
 return {
-    root_dir = function(bufnr, callback)
+    root_dir = function(bufnr, on_dir)
         local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
         if
             vim.tbl_contains({
@@ -14,10 +14,7 @@ return {
             return
         end
 
-        local root_dir = vim.fs.root(bufnr, { ".git" })
-        if root_dir then
-            return callback(root_dir)
-        end
+        return on_dir(vim.fs.root(bufnr, { ".git" }))
     end,
     settings = {
         telemetry = {
