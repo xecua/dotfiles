@@ -139,7 +139,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             require("nvim-navic").attach(client, buffer)
         end
 
-        if client:supports_method(methods.textDocument_formatting) and format_autocmd_defined[buffer] then
+        if client:supports_method(methods.textDocument_formatting) and not format_autocmd_defined[buffer] then
             format_autocmd_defined[buffer] = true
             vim.api.nvim_create_autocmd("BufWritePre", {
                 group = augroup,
