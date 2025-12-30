@@ -7,6 +7,8 @@ phpcs.lintCommand = string.format(
 )
 
 local prettier = require("efmls-configs.formatters.prettier")
+prettier.requireMarker = true
+
 local languages = {
     html = { prettier },
     css = { prettier },
