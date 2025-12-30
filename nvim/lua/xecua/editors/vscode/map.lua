@@ -1,11 +1,7 @@
 local vscode = require("vscode")
 
-vim.keymap.set("n", "/", "/\\v")
-vim.keymap.set("n", "?", "?\\v")
 vim.keymap.set("v", "/", "<Esc>/\\%V\\v") -- \%V: previously selected range
 vim.keymap.set("v", "?", "<Esc>?\\%V\\v") -- \%V: previously selected range
-vim.keymap.set({ "n", "v" }, ":s/", ":s/\\v")
-vim.keymap.set("n", ":%s/", ":%s/\\v")
 
 vim.keymap.set({ "n", "x" }, "<C-w><C-h>", function()
     vscode.action("workbench.action.navigateLeft")
