@@ -11,7 +11,7 @@ repo = 'Shougo/ddt-ui-shell'
 
 ## open new tabpage instead of start nested instance
 [[plugins]]
-repo = 'lambdalisue/guise.vim'
+repo = 'lambdalisue/vim-guise'
 hook_add = "let g:guise#disable_vim = 1"
 
 [[plugins]]

@@ -67,7 +67,7 @@ end
 abbr --add nv --function expand_neovide
 
 if type -q emerge
-    set -l emerge_update 'sudo emerge -avtuDU --keep-going --with-bdeps=y --autounmask=n% @world @smart-live-rebuild'
+    set -l emerge_update 'sudo emerge -avtuDU --keep-going --with-bdeps=y --autounmask=n% @world'
     abbr --add udon --set-cursor $emerge_update
     abbr --add うどん --set-cursor $emerge_update
 

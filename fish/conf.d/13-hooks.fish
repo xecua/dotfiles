@@ -28,12 +28,16 @@ if status --is-interactive
     end
 
     if type -q localstack
-        localstack completion fish | source
+        localstack completion fish 2>/dev/null | source
     end
 
     if type -q fzf
         fzf --fish | source
         alias fcd fzf-cd-widget
+    end
+
+    if type -q mise
+        mise activate fish | source
     end
 
     if type -q dyff

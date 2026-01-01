@@ -63,6 +63,9 @@ _dailynote() {
     else
         note_path="$date.md"
     fi
+    if [[ -n "$template" ]]; then
+        template="$root/$template"
+    fi
 
     if [[ ! -e "$root/$note_path" ]]; then
         _add --filename "$note_path" --title "$date" --template "$template" --edit

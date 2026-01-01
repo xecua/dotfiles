@@ -101,9 +101,6 @@ fi
 # Describe machine specific configurations in ~/.profile.local
 ## example:
 # export XMODIFIERS=@im=fcitx
-# export QT_IM_MODULE=fcitx
-# export QT_IM_MODULES="wayland;fcitx;ibus"
-# note: for gtk, copy content of gtk-{3,4}.0/settings.ini to each file and not use GTK_IM_MODULE
 #
 # export LANG=ja_JP.UTF-8
 # export BROWSER=/usr/bin/vivaldi

@@ -7,6 +7,26 @@ phpcs.lintCommand = string.format(
 )
 
 local prettier = require("efmls-configs.formatters.prettier")
+prettier.rootMarkers = {
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+    ".prettierrc.json5",
+    ".prettierrc.js",
+    "prettier.config.js",
+    ".prettierrc.ts",
+    "prettier.config.ts",
+    ".prettierrc.mjs",
+    "prettier.config.mjs",
+    ".prettierrc.mts",
+    "prettier.config.mts",
+    ".prettierrc.cjs",
+    "prettier.config.cjs",
+    "prettier.config.cts",
+    ".prettierrc.cts",
+    ".prettierrc.toml",
+}
 prettier.requireMarker = true
 
 local languages = {
