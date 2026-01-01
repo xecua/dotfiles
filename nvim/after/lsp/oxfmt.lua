@@ -1,5 +1,3 @@
-local util = require("lspconfig.util")
-
 return {
     cmd = function(dispatchers, config)
         local cmd = "oxfmt"
@@ -9,14 +7,6 @@ return {
         end
         return vim.lsp.rpc.start({ cmd, "--lsp" }, dispatchers)
     end,
-    filetypes = {
-        "javascript",
-        "javascriptreact",
-        "javascript.jsx",
-        "typescript",
-        "typescriptreact",
-        "typescript.tsx",
-    },
     workspace_required = true,
     root_dir = function(bufnr, on_dir)
         on_dir(vim.fs.root(bufnr, { ".oxfmtrc.json", ".oxfmtrc.jsonc" }))
