@@ -1,8 +1,8 @@
 /*-----Colors----*/
 /*
  *rgba(0,85,102,1),#005566 --> Indigo(dye)
- *rgba(0,43,51,1),#002B33 --> Dark Green 
- *rgba(0,153,153,1),#009999 --> Persian Green 
+ *rgba(0,43,51,1),#002B33 --> Dark Green
+ *rgba(0,153,153,1),#009999 --> Persian Green
  *
  */
 
@@ -10,16 +10,16 @@
   /* `otf-font-awesome` is required to be installed for icons */
   /* Symbols Nerd Font for icons(only). https://github.com/Alexays/Waybar/issues/215#issuecomment-2099830546 */
   font-family: "Symbols Nerd Font", sans-serif;
+  /* font-family: monospace; */
   font-size: 12px;
-  border-radius: 1rem;
+  color: #ffffff;
 }
 
 window#waybar {
-  background-color: rgba(43, 48, 59, 0.5);
+  background: rgba(43, 48, 59, 0.5);
   /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-  color: #ffffff;
   transition-property: background-color;
-  transition-duration: .5s;
+  transition-duration: 0.5s;
 }
 
 window#waybar.hidden {
@@ -27,7 +27,7 @@ window#waybar.hidden {
 }
 
 window#waybar.empty {
-  background-color: transparent;
+  background: transparent;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -37,15 +37,11 @@ button:hover {
 
 #workspaces button {
   padding: 0 5px;
-  background: #64727D;
-  color: #ffffff;
+  background: #64727d;
+  border-radius: 1rem;
 }
 
-#workspaces button:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-#workspaces button.focused {
+#workspaces button.active {
   background: #4d97d1;
 }
 
@@ -54,7 +50,27 @@ button:hover {
 }
 
 #mode {
-  background: #64727D;
+  background: #64727d;
+}
+
+#hardware,
+#media,
+#clock,
+#tray {
+  background: rgba(80, 80, 80, 0.5);
+  border-radius: 1rem;
+}
+
+#hardware > *:first-child > *,
+#media > *:first-child > * {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+#hardware > *:last-child > *,
+#media > *:last-child > * {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 #clock,
@@ -74,21 +90,22 @@ button:hover {
 #power-profiles-daemon,
 #mpd {
   padding: 0 10px;
-  color: #ffffff;
 }
 
+/*
 #window,
 #workspaces {
   margin: 0 4px;
 }
+*/
 
 /* If workspaces is the leftmost module, omit left margin */
-.modules-left>widget:first-child>#workspaces {
+.modules-left > widget:first-child > #workspaces {
   margin-left: 0;
 }
 
 /* If workspaces is the rightmost module, omit right margin */
-.modules-right>widget:last-child>#workspaces {
+.modules-right > widget:last-child > #workspaces {
   margin-right: 0;
 }
 
@@ -103,8 +120,7 @@ button:hover {
 
 #battery.charging,
 #battery.plugged {
-  color: #ffffff;
-  background-color: #26A65B;
+  background-color: #26a65b;
 }
 
 @keyframes blink {
@@ -158,7 +174,7 @@ label:focus {
 }
 
 #disk {
-  background-color: #964B00;
+  background-color: #964b00;
 }
 
 #backlight {
@@ -205,14 +221,14 @@ label:focus {
 }
 
 #tray {
-  background-color: #64727D;
+  background-color: #64727d;
 }
 
-#tray>.passive {
+#tray > .passive {
   -gtk-icon-effect: dim;
 }
 
-#tray>.needs-attention {
+#tray > .needs-attention {
   -gtk-icon-effect: highlight;
   background-color: #eb4d4b;
 }
@@ -259,11 +275,11 @@ label:focus {
   min-width: 16px;
 }
 
-#keyboard-state>label {
+#keyboard-state > label {
   padding: 0 5px;
 }
 
-#keyboard-state>label.locked {
+#keyboard-state > label.locked {
   background: rgba(0, 0, 0, 0.2);
 }
 

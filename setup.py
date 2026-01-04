@@ -38,7 +38,7 @@ def main():
     make_symlink('git', config_home)
     make_symlink('gtk-3.0', config_home)
     make_symlink('hypr', config_home, True)
-    if (hypr_workspace :=script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}').exists():
+    if (hypr_workspace := script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}').exists():
         make_symlink('hypr/workspaces.conf', config_home, target= hypr_workspace)
     else:
         (config_home / 'hypr' / 'workspaces.conf').touch()
@@ -74,7 +74,7 @@ def main():
     make_symlink('fzfrc', config_home)
     make_symlink('lesskey', config_home)
     make_symlink('starship.toml', config_home)
-    make_symlink('nbrc', config_home)
+    make_symlink('nb', config_home)
 
     write_file(config_home / 'wgetrc', [
         f'hsts-file = {cache_home / 'wget-hsts'}'
