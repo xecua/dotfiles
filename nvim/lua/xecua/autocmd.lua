@@ -20,7 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
         "c",
         "cpp",
         "dart",
-        "fish",
         "css",
         "html",
         "javascript",

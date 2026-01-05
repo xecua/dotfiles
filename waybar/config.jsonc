@@ -2,7 +2,7 @@
 {
   // "layer": "top", // Waybar at top layer
   // "position": "bottom", // Waybar position (top|bottom|left|right)
-  "height": 20, // Waybar height (to be removed for auto height)
+  // "height": 20, // Waybar height (to be removed for auto height)
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
@@ -15,40 +15,17 @@
   },
   "group/media": {
     "orientation": "inherit",
-    "modules": ["wireplumber", "backlight", "custom/media"]
+    "modules": ["backlight", "wireplumber", "custom/media"]
   },
   "hyprland/workspaces": {
-    "format": "<sub>{icon}</sub>{windows}",
-    "window-rewrite-default": ""
+    "format": "{icon}: {windows}",
+    "window-rewrite-default": "",
+    "workspace-taskbar": {
+      "enable": true
+    }
   },
   "hyprland/window": {
     "separate-outputs": true
-  },
-  "mpd": {
-    "format": " {stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}%",
-    "format-disconnected": " Disconnected",
-    "format-stopped": " {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped",
-    "unknown-tag": "N/A",
-    "interval": 5,
-    "consume-icons": {
-      "on": " "
-    },
-    "random-icons": {
-      "off": "<span color=\"#f53c3c\"> </span> ",
-      "on": " "
-    },
-    "repeat-icons": {
-      "on": " "
-    },
-    "single-icons": {
-      "on": " 1"
-    },
-    "state-icons": {
-      "paused": "",
-      "playing": ""
-    },
-    "tooltip-format": "MPD (connected)",
-    "tooltip-format-disconnected": "MPD (disconnected)"
   },
   "tray": {
     "spacing": 10
@@ -116,8 +93,9 @@
     "format-icons": ["", "", ""]
   },
   "custom/media": {
-    "format": "{icon} {}",
+    "format": "{icon} {text}",
     "return-type": "json",
+    "hide-empty-text": true,
     "max-length": 40,
     "format-icons": {
       "spotify": "",
