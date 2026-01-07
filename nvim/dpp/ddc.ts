@@ -49,9 +49,9 @@ export class Config extends BaseConfig {
       },
       sourceParams: {
         lsp: {
-          // snippetEngine : vim.fn["denops#callback#register"](function(body)
-          //     vim.fn["denippet#anonymous"](body)
-          // end),
+          snippetEngine: (body: string) => {
+            args.denops.call("denippet#anonymous", body);
+          },
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
           enableDisplayDetail: true,
@@ -66,7 +66,7 @@ export class Config extends BaseConfig {
       ],
       cmdlineSources: {
         [":"]: ["cmdline", "cmdline_history", "around"],
-        ["@"]: ["cmdline_history", "input", "file", "arund"],
+        ["@"]: ["cmdline_history", "input", "file", "around"],
         [">"]: ["cmdline_history", "input", "file", "around"],
         ["/"]: ["around", "line"],
         ["?"]: ["around", "line"],

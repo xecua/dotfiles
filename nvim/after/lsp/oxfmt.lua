@@ -9,6 +9,11 @@ return {
     end,
     workspace_required = true,
     root_dir = function(bufnr, on_dir)
+        if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
+            -- deno fmt使うやろ
+            return
+        end
+
         on_dir(vim.fs.root(bufnr, { ".oxfmtrc.json", ".oxfmtrc.jsonc" }))
     end,
 }

@@ -21,6 +21,12 @@ return {
     root_dir = function(bufnr, on_dir)
         local fname = vim.api.nvim_buf_get_name(bufnr)
         local root_markers = util.insert_package_json({ ".oxlintrc.json" }, "oxlint", fname)
+
+        if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
+            -- deno lint使うやろ
+            return
+        end
+
         on_dir(vim.fs.dirname(vim.fs.find(root_markers, { path = fname, upward = true })[1]))
     end,
 }
