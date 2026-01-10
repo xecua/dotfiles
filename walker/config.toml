@@ -275,12 +275,12 @@ icon = "system-reboot"
 label = "Reboot"
 
 [[plugins.entries]]
-exec = "playerctl pause && wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 && hyprlock"
+exec = "playerctl pause; wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; hyprlock"
 icon = "system-lock-screen"
 label = "Lock Screen"
 
 [[plugins.entries]]
-exec = "playerctl pause && wpctl set-mute @DEFAULT_AUDIO_SINK@ 1 && systemctl suspend"
+exec = "playerctl pause; wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; systemctl suspend"
 icon = "weather-clear-night-symbolic"
 label = "Sleep"
 

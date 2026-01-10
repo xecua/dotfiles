@@ -49,8 +49,8 @@ export class Config extends BaseConfig {
       },
       sourceParams: {
         lsp: {
-          snippetEngine: (body: string) => {
-            args.denops.call("denippet#anonymous", body);
+          snippetEngine: async (body: string) => {
+            await args.denops.call("denippet#anonymous", body);
           },
           enableResolveItem: true,
           enableAdditionalTextEdit: true,
