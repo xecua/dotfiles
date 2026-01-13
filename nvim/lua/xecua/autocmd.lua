@@ -13,81 +13,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
     desc = "Remove redundant spaces and lines",
 })
+
+local filetype_callback = require("xecua.filetype")
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup,
-    pattern = {
-        "astro",
-        "c",
-        "cpp",
-        "dart",
-        "css",
-        "html",
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "typespec",
-        "json",
-        "jsonc",
-        "rst",
-        "satysfi",
-        "sql",
-        "vim",
-        "vue",
-        "xml",
-        "yaml",
-    },
-    callback = function()
-        vim.opt_local.tabstop = 2
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = {
-        "astro",
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-    },
-    callback = function()
-        -- regex string as text object
-        vim.keymap.set("o", "i/", "<Cmd>normal! T/vt/<CR>")
-        vim.keymap.set("o", "a/", "<Cmd>normal! F/vf/<CR>")
-        vim.keymap.set("v", "i/", "<Cmd>normal! T/ot/<CR>")
-        vim.keymap.set("v", "a/", "<Cmd>normal! F/of/<CR>")
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = { "gitconfig", "go", "tsv" },
-    callback = function()
-        vim.opt_local.expandtab = false
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = { "csv", "tsv" },
-    callback = function()
-        vim.opt_local.wrap = false
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = "snippets",
-    callback = function()
-        vim.opt_local.expandtab = false
-        vim.opt_local.softtabstop = -1
-        vim.opt_local.shiftwidth = 0
-        vim.opt_local.tabstop = 2
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = "tex",
-    callback = function()
-        vim.opt_local.makeprg = "latexmk"
+    pattern = "*",
+    callback = function(args)
+        filetype_callback[args.match]()
     end,
 })
 vim.api.nvim_create_autocmd(

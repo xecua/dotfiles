@@ -267,7 +267,16 @@ vim.keymap.set({'n', 'x'}, '<Leader>sp', '<Cmd>Sidekick cli prompt<CR>', {})
 lua_source = """
 require("sidekick").setup({
     copilot = { status = { level = vim.log.levels.OFF } },
-    cli = { mux = { enabled = true } },
+    cli = {
+        win = {
+            keys = {
+                nav_left = false,
+                nav_down = false,
+                nav_up = false,
+                nav_right = false
+            }
+        }
+    }
 })
 """
 
@@ -439,11 +448,13 @@ require('flutter-tools').setup({
 # Popup
 [[plugins]]
 repo = 'Shougo/pum.vim'
-
-[[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-depends = 'denops.vim'
-hook_source = "call popup_preview#enable()"
+lua_source = """
+vim.fn['pum#set_option']({
+    preview = true,
+    preview_width = 80,
+    preview_border = 'single',
+})
+"""
 
 ## SKK
 [[plugins]]
