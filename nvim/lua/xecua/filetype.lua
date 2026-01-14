@@ -4,9 +4,9 @@ local M = {}
 
 local function set_indent(tabstop, expandtab)
     if expandtab ~= nil then
-        vim.opt_local.expandtab = false
+        vim.opt_local.expandtab = expandtab
     end
-    if tabstop == nil then
+    if tabstop ~= nil then
         vim.opt_local.tabstop = tabstop
     end
 end

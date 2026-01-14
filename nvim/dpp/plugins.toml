@@ -217,6 +217,28 @@ lua_source = """
 vim.notify = require('notify')
 """
 
+[[plugins]]
+repo = 'RutaTang/quicknote.nvim'
+depends = ['plenary.nvim']
+lua_add = """
+local function call_func_map(name)
+    return "<Cmd>lua require('quicknote')." .. name .. "()<CR>"
+end
+vim.keymap.set("n", "<Leader>nn", call_func_map('ToggleNoteSigns'))
+-- current line/buffer
+vim.keymap.set("n", "<Leader>ne", call_func_map('NewNoteAtCurrentLine'))-- すでにあったらそっち開くみたい
+vim.keymap.set("n", "<Leader>nd", call_func_map('DeleteNoteAtCurrentLine'))
+vim.keymap.set("n", "<Leader>nl", call_func_map('ListNotesForCurrentBuffer'))
+-- cwd
+vim.keymap.set("n", "<Leader>nwe",call_func_map('NewNoteAtCWD'))
+vim.keymap.set("n", "<Leader>nwd", call_func_map('DeleteNoteAtCWD'))
+vim.keymap.set("n", "<Leader>nwl", call_func_map('ListNotesForCWD'))
+"""
+lua_source = """
+require("quicknote").setup({
+    mode = "resident",
+})
+"""
 
 [[plugins]]
 repo = 'ibhagwan/fzf-lua'
@@ -328,21 +350,6 @@ require('mcphub').setup({})
 
 [[plugins]]
 repo = 'MunifTanjim/nui.nvim'
-
-# Database client
-[[plugins]]
-repo = 'tpope/vim-dadbod'
-
-[[plugins]]
-repo = 'kristijanhusak/vim-dadbod-ui'
-depends = ['vim-dadbod']
-lua_add = """
-vim.g.db_ui_show_database_icon = 1
-vim.g.db_ui_use_nvim_notify = 1
-vim.g.db_ui_auto_execute_table_helpers = 1
-vim.g.db_ui_use_nerd_fonts = 1
-vim.keymap.set("n", "<Leader>n", "<Cmd>DBUIToggle<CR>")
-"""
 
 # LSP
 [[plugins]]

@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls" }, c.name)
                 end,
             })
-        end, {})
+        end, { range = true })
         vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
             vim.lsp.buf.hover({
                 border = "single",

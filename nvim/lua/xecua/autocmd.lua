@@ -54,12 +54,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     ]],
 })
 
-vim.api.nvim_create_autocmd("User", {
-    group = augroup,
-    pattern = "DBUIOpened",
-    command = "setl number",
-})
-
 vim.api.nvim_create_autocmd("BufEnter", {
     group = augroup,
     pattern = "*",
