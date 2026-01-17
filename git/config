@@ -1,6 +1,6 @@
 [user]
-	name = Shiba Shunta
-	email = contact@caffeine.page
+	name = admin
+	email = root@example.com
 	signingkey = 33A065F0
 [core]
 	autocrlf = input
