@@ -6,8 +6,8 @@
   // "width": 1280, // Waybar width
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
-  "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-  "modules-center": ["hyprland/window"],
+  "modules-left": ["hyprland/workspaces", "niri/workspaces", "hyprland/submap"],
+  "modules-center": ["hyprland/window", "niri/window"],
   "modules-right": ["group/hardware", "group/media", "clock", "tray"],
   "group/hardware": {
     "orientation": "inherit",
