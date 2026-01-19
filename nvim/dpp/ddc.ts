@@ -28,6 +28,7 @@ export class Config extends BaseConfig {
           sorters: ["sorter_fuzzy", "sorter_lsp_kind"],
           forceCompletionPattern: String.raw`\.\w*|:\w*|->\w*`,
           isVolatile: true,
+          hideTimeout: 2000,
         },
         file: {
           mark: "file",
@@ -58,6 +59,7 @@ export class Config extends BaseConfig {
           confirmBehavior: "replace",
         },
       },
+      autoCompleteDelay: 150,
       autoCompleteEvents: [
         "InsertEnter",
         "TextChangedI",

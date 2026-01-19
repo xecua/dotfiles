@@ -45,7 +45,13 @@ vim.keymap.set({ "i", "c" }, "<C-p>", function()
 end, { desc = "Select previous entry or start completion" })
 vim.keymap.set({ "i", "c" }, "<C-y>", "<Cmd>call pum#map#confirm()<CR>")
 vim.keymap.set({ "i", "c" }, "<C-c>", "<Cmd>call pum#map#cancel()<CR>")
-vim.keymap.set({ "i", "c", "t" }, "<LeftMouse>", "<Cmd>call pum#map_confirm_mouse()<CR>")
+vim.keymap.set({ "i", "c", "t" }, "<LeftMouse>", function()
+    if vim.fn["pum#visible"]() then
+        return "<Cmd>call pum#map_confirm_mouse()<CR>"
+    else
+        return "<LeftMouse>"
+    end
+end, { expr = true, desc = "Confirm completion item with mouse" })
 -- }}}
 
 -- lua_source {{{
