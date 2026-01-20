@@ -77,6 +77,7 @@ def main():
     make_symlink('lesskey', config_home)
     make_symlink('starship.toml', config_home)
     make_symlink('nb', config_home)
+    make_symlink('mimeapps.list', config_home)
 
     write_file(config_home / 'wgetrc', [
         f'hsts-file = {cache_home / 'wget-hsts'}'
