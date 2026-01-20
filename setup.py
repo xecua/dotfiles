@@ -70,6 +70,7 @@ def main():
     make_symlink('.profile', home)
     make_symlink('.zprofile', home)
     make_symlink('.zshrc', home)
+    make_symlink('.glide.toml', home)
 
     make_symlink('fzf-preview.sh', binary_path)
     make_symlink('fzfrc', config_home)
