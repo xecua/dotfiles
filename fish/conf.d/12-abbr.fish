@@ -73,3 +73,13 @@ if type -q emerge
 
     abbr --add ec --set-cursor 'bat (equery w %)'
 end
+
+function expand_timg
+    if string match -qr 'ghostty$' "$TERMINAL"
+        # Ghostty supports Kitty graphics protocol
+        echo 'timg -pk'
+    else
+        echo timg
+    end
+end
+abbr --add timg --function expand_timg

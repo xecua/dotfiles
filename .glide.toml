@@ -30,7 +30,8 @@ group_bars.vertical_placement = "right"
 # Note that the restore file is only useful when upgrading or restarting
 # glide itself; it is not valid after the user logs out or restarts.
 "Alt + Shift + E" = "save_and_exit"
-# Toggle whether the current space is managed by Glide. "Alt + Tab" = "toggle_space_activated"
+# Toggle whether the current space is managed by Glide.
+"Alt + Z" = "toggle_space_activated"
 # Focus the window in the specified direction.
 "Alt + H" = { move_focus = "left" }
 "Alt + J" = { move_focus = "down" }

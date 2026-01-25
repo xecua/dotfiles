@@ -311,6 +311,11 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match title="clipse"
+    open-floating true
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -351,11 +356,13 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "walker -n -m applications"; }
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+P hotkey-overlay-title="Powermenu" { spawn-sh "walker -n -m power"; }
+    Mod+Space hotkey-overlay-title="Launchpad" { spawn-sh "walker -n"; }
+    Mod+V hotkey-overlay-title="Clipboard Manager" { spawn-sh "ghostty --title=clipse -e clipse"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
-    Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
+    // Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -573,8 +580,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+T       { toggle-window-floating; }
+    Mod+Shift+T { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
@@ -623,10 +630,6 @@ spawn-sh-at-startup "systemd-cat --identifier=hyprpaper hyprpaper"
 spawn-sh-at-startup "systemd-cat --identifier=hypridle hypridle"
 spawn-sh-at-startup "systemd-cat --identifier=clipse clipse"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
-
-// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
