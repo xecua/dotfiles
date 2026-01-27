@@ -34,10 +34,6 @@ vim.lsp.enable({
     -- "typos_lsp",
 })
 
-if vim.g.use_copilot then
-    vim.lsp.enable("copilot")
-end
-
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
