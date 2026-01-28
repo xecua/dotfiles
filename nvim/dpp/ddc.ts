@@ -39,7 +39,7 @@ export class Config extends BaseConfig {
           forceCompletionPattern: String.raw`\S\s*`,
           isVolatile: true,
         },
-        ["cmdline-history"]: {
+        cmdline_history: {
           mark: "cmd-hist",
           matchers: ["matcher_head"],
           sorters: ["sorter_rank"],

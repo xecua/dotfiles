@@ -1,4 +1,7 @@
-local fs = require("efmls-configs.fs")
+local ok, fs = pcall(require, "efmls-configs.fs")
+if not ok then
+    return {}
+end
 
 local phpcs = require("efmls-configs.linters.phpcs")
 phpcs.lintCommand = string.format(

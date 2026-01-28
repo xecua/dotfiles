@@ -6,7 +6,7 @@ vim.lsp.enable({
     "efm",
     "intelephense",
     "jsonls",
-    "lua_ls", -- LLVM basedなシステムでは動かないかも(gcc libunwindが必要なため)
+    "lua_ls", -- clangでコンパイルすると動かないかも(gcc libunwindが必要なため)
     "oxfmt",
     "oxlint",
     "taplo",
@@ -149,19 +149,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.inlay_hint.enable()
         end
 
+        -- NESは0.12なくてもいけるわ inline completionは0.12が必要
+        local nes_ok, nes = pcall(require, "sidekick.nes")
+        if nes_ok and nes.is_enabled() then
+            vim.keymap.set("n", "<C-l>", function()
+                if nes.have() and (nes.jump() or nes.apply()) then
+                    return ""
+                end
+                return "<C-l>"
+            end, { silent = true, expr = true, buffer = buffer, desc = "Next Edit Suggestion" })
+        end
+
         if
             vim.fn.has("nvim-0.12") == 1
             and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion)
         then
             vim.lsp.inline_completion.enable()
-            vim.keymap.set({ "i", "n" }, "<C-l>", function()
-                if require("sidekick").nes_jump_or_apply() then
-                    return
-                end
-                if vim.lsp.inline_completion.get() then
-                    return
-                end
-                return "<C-l>"
+            vim.keymap.set("i", "<C-l>", function()
+                return vim.lsp.inline_completion.get() and "" or "<C-l>"
             end, { silent = true, expr = true, buffer = buffer })
         end
 

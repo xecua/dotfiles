@@ -1,4 +1,7 @@
-local util = require("lspconfig.util")
+local ok, util = pcall(require, "lspconfig.util")
+if not ok then
+    return {}
+end
 
 return {
     cmd = function(dispatchers, config)

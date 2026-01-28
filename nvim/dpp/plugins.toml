@@ -260,17 +260,9 @@ end
 """
 
 # LLM
-## copilot-lsp NES and CLI agent integration
+## copilot-lsp NES (and CLI agent integration, which is not wanted)
 [[plugins]]
 repo = 'folke/sidekick.nvim'
-lua_add = """
-vim.keymap.set('n', '<Leader>ss', '<Cmd>Sidekick cli toggle<CR>', {})
-vim.keymap.set('n', '<Leader>sl', '<Cmd>Sidekick cli select<CR>', {})
-vim.keymap.set({'n', 'x'}, '<Leader>st', '<Cmd>Sidekick cli send msg="{this}"<CR>', {})
-vim.keymap.set({'n', 'x'}, '<Leader>sf', '<Cmd>Sidekick cli send msg="{file}"<CR>', {})
-vim.keymap.set({'n', 'x'}, '<Leader>sv', '<Cmd>Sidekick cli send msg="{selection}"<CR>', {})
-vim.keymap.set({'n', 'x'}, '<Leader>sp', '<Cmd>Sidekick cli prompt<CR>', {})
-"""
 lua_source = """
 require("sidekick").setup({
     copilot = { status = { level = vim.log.levels.OFF } },
@@ -292,11 +284,11 @@ require("sidekick").setup({
 repo = 'yetone/avante.nvim'
 # mergeするとダメらしい
 merged = false
+# on_ifはfalseでもsourceされる。なんかミスってる?
 if = "get(g:, 'use_copilot', v:false)"
 depends = ['plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
 extAttrs = { installerBuild = 'make' }
 lua_source = """
--- on_ifがfalseなのにsourceされる。なんかミスってる?
 vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
 require("avante_lib").load()
 require("avante").setup({
