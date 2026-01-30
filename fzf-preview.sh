@@ -59,7 +59,10 @@ elif ! [[ $KITTY_WINDOW_ID ]] && (( FZF_PREVIEW_TOP + FZF_PREVIEW_LINES == $(stt
 fi
 
 # Use chafa with Sixel output
-if command -v chafa > /dev/null; then
+if command -v timg > /dev/null; then
+  timg -pk -g"$dim" "$file"
+  echo
+elif command -v chafa > /dev/null; then
   chafa -s "$dim" "$file"
   # Add a new line character so that fzf can display multiple images in the preview window
   echo

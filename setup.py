@@ -35,6 +35,7 @@ def main():
     make_symlink('fish', config_home, True)
     make_symlink('fontconfig', config_home)
     make_symlink('ghostty/config', config_home)  # themeをうっかり入れるとライセンス違反になる
+    make_symlink('clipse', config_home)
     make_symlink('git', config_home)
     make_symlink('niri', config_home)
     make_symlink('gtk-3.0', config_home)

@@ -20,7 +20,7 @@ abbr --add vi --function expand_vim
 
 function fzf_vim
     set -f vim_command (expand_vim)
-    set -f target (fzf --preview 'fzf-preview.sh {}')
+    set -f target (fd | fzf --preview 'fzf-preview.sh {}')
     if [ -z $target ]
         return 1
     end
@@ -34,7 +34,7 @@ function fzf_cat
     else
         set -f cat_command cat
     end
-    set -f target (fzf --preview 'fzf-preview.sh {}')
+    set -f target (fd | fzf --preview 'fzf-preview.sh {}')
     if [ -z $target ]
         return 1
     end

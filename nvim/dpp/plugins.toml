@@ -260,9 +260,33 @@ end
 """
 
 # LLM
+[[plugins]]
+# VimEnterでLSPを(npx使ってvim.lsp.startで)起動する。Masonで入れなくていいし、lsp.enableも不要
+# このときの名前が "GitHub Copilot" (lualineで無効化しているもの)
+repo = 'github/copilot.vim'
+if = "get(g:, 'use_copilot', v:false)"
+lua_add = """
+vim.g.copilot_filetypes = {
+    markdown = false,
+    ["dap-repl"] = false,
+    dapui_watches = false,
+    dapui_scopes= false,
+    dapui_console= false,
+    AvanteInput= false,
+}
+vim.g.copilot_no_tab_map = true
+-- docにはないけど、これでセットしてくれるみたい
+vim.g.copilot_lsp_settings = {
+    telemetry = {
+        telemetryLevel = "off",
+    },
+}
+"""
+
 ## copilot-lsp NES (and CLI agent integration, which is not wanted)
 [[plugins]]
 repo = 'folke/sidekick.nvim'
+if = "get(g:, 'use_copilot', v:false)"
 lua_source = """
 require("sidekick").setup({
     copilot = { status = { level = vim.log.levels.OFF } },
@@ -299,29 +323,6 @@ require("avante").setup({
         auto_set_keymaps = true,
     },
 })
-"""
-
-[[plugins]]
-# VimEnterでLSPを(npx使ってvim.lsp.startで)起動する。Masonで入れなくていいし、lsp.enableも不要
-# このときの名前が "GitHub Copilot" (lualineで無効化しているもの)
-repo = 'github/copilot.vim'
-if = "get(g:, 'use_copilot', v:false)"
-lua_add = """
-vim.g.copilot_filetypes = {
-    markdown = false,
-    ["dap-repl"] = false,
-    dapui_watches = false,
-    dapui_scopes= false,
-    dapui_console= false,
-    AvanteInput= false,
-}
-vim.g.copilot_no_tab_map = true
--- docにはないけど、これでセットしてくれるみたい
-vim.g.copilot_lsp_settings = {
-    telemetry = {
-        telemetryLevel = "off",
-    },
-}
 """
 
 [[plugins]]

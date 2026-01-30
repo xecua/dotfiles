@@ -151,7 +151,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         -- NESは0.12なくてもいけるわ inline completionは0.12が必要
         local nes_ok, nes = pcall(require, "sidekick.nes")
-        if nes_ok and nes.is_enabled() then
+        if nes_ok then
             vim.keymap.set("n", "<C-l>", function()
                 if nes.have() and (nes.jump() or nes.apply()) then
                     return ""
