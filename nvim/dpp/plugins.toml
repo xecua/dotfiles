@@ -400,10 +400,18 @@ hooks_file = '$STD_CONFIG/dpp/dap.lua'
 [[plugins]]
 repo = 'rcarriga/nvim-dap-ui'
 depends = ['nvim-dap', 'nvim-nio']
+lua_add = """
+vim.keymap.set("n", "<Leader>dd", function()
+    require('dapui').toggle({ reset = true })
+end, { silent = true, desc = "Toggle DAP UI" })
+"""
+lua_source = """
+require('dapui').setup({})
+"""
 
 [[plugins]]
 repo = 'nvim-neotest/nvim-nio'
-on_lua = 'nio'
+# on_lua = 'nio'
 
 ## efm-langserver presets
 [[plugins]]

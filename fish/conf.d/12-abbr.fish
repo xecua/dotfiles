@@ -75,7 +75,7 @@ if type -q emerge
 end
 
 function expand_timg
-    if string match -qr 'ghostty$' "$TERMINAL"
+    if test -n "$GHOSTTY_RESOURCES_DIR"
         # Ghostty supports Kitty graphics protocol
         echo 'timg -pk'
     else
