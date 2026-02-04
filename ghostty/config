@@ -12,6 +12,7 @@ shell-integration = fish
 # window-decoration = false
 
 # disable (almost) all default keybinds
+keybind = ctrl+shift+a=unbind
 keybind = ctrl+shift+t=unbind
 keybind = super+ctrl+shift+up=unbind
 keybind = super+ctrl+shift+equal=unbind
@@ -40,23 +41,33 @@ keybind = ctrl+shift+e=unbind
 keybind = ctrl+shift+enter=unbind
 keybind = ctrl+shift+i=unbind
 keybind = alt+one=unbind
+keybind = alt+digit_1=unbind
 keybind = alt+two=unbind
+keybind = alt+digit_2=unbind
 keybind = alt+three=unbind
+keybind = alt+digit_3=unbind
 keybind = alt+four=unbind
+keybind = alt+digit_4=unbind
 keybind = alt+five=unbind
+keybind = alt+digit_5=unbind
 keybind = alt+six=unbind
+keybind = alt+digit_6=unbind
 keybind = alt+seven=unbind
+keybind = alt+digit_7=unbind
 keybind = alt+eight=unbind
+keybind = alt+digit_8=unbind
 keybind = alt+nine=unbind
+keybind = alt+digit_9=unbind
 keybind = alt+f4=unbind
 keybind = ctrl+page_down=unbind
 keybind = ctrl+enter=unbind
 keybind = ctrl+page_up=unbind
-keybind = ctrl+comma=unbind
-keybind = ctrl+equal=unbind
+keybind = ctrl+,=unbind
 keybind = ctrl+zero=unbind
-keybind = ctrl+minus=unbind
-keybind = ctrl+plus=unbind
+keybind = ctrl+-=unbind
+keybind = ctrl+shift+==unbind
+keybind = ctrl+equal=unbind
+keybind = ctrl++=unbind
 keybind = ctrl+tab=unbind
 keybind = shift+insert=unbind
 keybind = shift+up=unbind
