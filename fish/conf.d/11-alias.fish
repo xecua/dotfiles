@@ -71,6 +71,11 @@ if status is-interactive
         alias fvm='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command fvm'
     end
 
+    # ghcup uses undefined variable XDG_BIN_HOME for installed binary
+    if type -q ghcup
+        alias ghcup='XDG_BIN_HOME=$XDG_DATA_HOME/ghcup/bin command ghcup'
+    end
+
     alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 
     alias cbcopy=fish_clipboard_copy
