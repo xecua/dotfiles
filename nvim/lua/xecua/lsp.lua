@@ -9,7 +9,6 @@ vim.lsp.enable({
     "lua_ls", -- clangでコンパイルすると動かないかも(gcc libunwindが必要なため)
     "oxfmt",
     "oxlint",
-    "taplo",
     "texlab",
     "tsgo",
     "yamlls",
@@ -29,6 +28,7 @@ vim.lsp.enable({
     "sourcekit",
     "sqls",
     "stylelint_lsp",
+    -- "tombi", -- キーでソートする機能あるけどいらない…… oxfmtで
     "tsp_server",
     "vimls",
     -- "typos_lsp",
@@ -60,10 +60,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
 
+        if client.name == "GitHub Copilot" and vim.fn["copilot#Enabled"]() == 0 then
+            -- VimEnterで起動するときはg:copilot_filetypesが無視される(PR案件な気もするけど)
+            client:stop()
+            return
+        end
+
         vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
             vim.lsp.buf.format({
                 filter = function(c)
-                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls" }, c.name)
+                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }, c.name)
                 end,
             })
         end, { range = true })

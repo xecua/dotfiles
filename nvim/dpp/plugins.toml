@@ -754,6 +754,28 @@ require('treesitter-context').setup({})
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-textobjects'
 rev = 'main'
+lua_add = """
+-- select
+vim.keymap.set({ "x", "o" }, "am", function()
+    require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+end, { desc = "outer method/function" })
+vim.keymap.set({ "x", "o" }, "im", function()
+    require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+end, { desc = "inner method/function" })
+vim.keymap.set({ "x", "o" }, "ac", function()
+    require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+end, { desc = 'outer class' })
+vim.keymap.set({ "x", "o" }, "ic", function()
+    require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+end, { desc = 'inner class' })
+vim.keymap.set("n", "swn", function()
+    require("nvim-treesitter-textobjects.swap").swap_next("@parameter.inner")
+end, { desc = "swap with next parameter" })
+vim.keymap.set("n", "swp", function()
+    require("nvim-treesitter-textobjects.swap").swap_previous("@parameter.inner")
+end, { desc = "swap with previous parameter" })
+"""
+lua_source = "require('nvim-treesitter-textobjects').setup({})"
 
 ## color matching parenthesis
 [[plugins]]

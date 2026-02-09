@@ -3,7 +3,6 @@
 [settings]
 # Enable animations.
 animate = true
-
 # Disable each space by default. When this is set, Use the
 # toggle_space_activated command to enable a space.
 default_disable = false
@@ -23,6 +22,19 @@ group_bars.enable = true
 group_bars.thickness = 6
 group_bars.horizontal_placement = "top"
 group_bars.vertical_placement = "right"
+
+# WARNING:
+# This section contains experimental features that might break or be removed in
+# the future. Use at your own risk!
+[settings.experimental]
+# Enables the experimental status icon.
+status_icon.enable = true
+# Show the current space index on the status icon.
+status_icon.space_index = true
+# Use color in the icon.
+status_icon.color = true
+# Resize the focused window in the specified direction.
+
 [keys]
 # Note: Modifier and key names must be capitalized.
 # Save the current state to the restore file and exit.
@@ -42,6 +54,10 @@ group_bars.vertical_placement = "right"
 "Alt + Shift + J" = { move_node = "down" }
 "Alt + Shift + K" = { move_node = "up" }
 "Alt + Shift + L" = { move_node = "right" }
+"Alt + Ctrl + H" = { resize = { direction = "left", percent = 5 } }
+"Alt + Ctrl + J" = { resize = { direction = "down", percent = 5 } }
+"Alt + Ctrl + K" = { resize = { direction = "up", percent = 5 } }
+"Alt + Ctrl + L" = { resize = { direction = "right", percent = 5 } }
 # Move up or down the tree hieararchy, selecting a parent or child node
 # respectively.
 "Alt + A" = "ascend"
@@ -82,13 +98,3 @@ group_bars.vertical_placement = "right"
 #
 # Print the current layout in the logs.
 "Alt + Shift + D" = "debug"
-# WARNING:
-# This section contains experimental features that might break or be removed in
-# the future. Use at your own risk!
-[settings.experimental]
-# Enables the experimental status icon.
-status_icon.enable = true
-# Show the current space index on the status icon.
-status_icon.space_index = true
-# Use color in the icon.
-status_icon.color = true
