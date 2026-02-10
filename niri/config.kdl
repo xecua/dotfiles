@@ -632,7 +632,7 @@ binds {
 spawn-sh-at-startup "systemd-cat --identifier=waybar waybar"
 spawn-sh-at-startup "systemd-cat --identifier=hyprpaper hyprpaper"
 spawn-sh-at-startup "systemd-cat --identifier=hypridle hypridle"
-spawn-sh-at-startup "systemd-cat --identifier=clipse clipse"
+spawn-sh-at-startup "clipse -listen"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
