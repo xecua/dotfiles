@@ -287,6 +287,17 @@ vim.g.copilot_lsp_settings = {
 [[plugins]]
 repo = 'folke/sidekick.nvim'
 if = "get(g:, 'use_copilot', v:false)"
+lua_add = """
+vim.keymap.set("n", "<C-l>", function()
+    local nes = require("sidekick.nes")
+    if nes.have() then
+        nes.apply()
+    else
+        nes.update()
+    end
+end, { desc = "Next Edit Suggestion" })
+
+"""
 lua_source = """
 require("sidekick").setup({
     copilot = { status = { level = vim.log.levels.OFF } },

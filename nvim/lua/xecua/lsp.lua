@@ -155,21 +155,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.inlay_hint.enable()
         end
 
-        -- NESは0.12なくてもいけるわ inline completionは0.12が必要
-        local nes_ok, nes = pcall(require, "sidekick.nes")
-        if nes_ok then
-            vim.keymap.set("n", "<C-l>", function()
-                if nes.have() and (nes.jump() or nes.apply()) then
-                    return ""
-                end
-                return "<C-l>"
-            end, { silent = true, expr = true, buffer = buffer, desc = "Next Edit Suggestion" })
-        end
-
-        if
-            vim.fn.has("nvim-0.12") == 1
-            and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion)
-        then
+        if vim.fn.has("nvim-0.12") == 1 and client:supports_method(methods.textDocument_inlineCompletion) then
             vim.lsp.inline_completion.enable()
             vim.keymap.set("i", "<C-l>", function()
                 return vim.lsp.inline_completion.get() and "" or "<C-l>"

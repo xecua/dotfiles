@@ -88,6 +88,12 @@ keybind = shift+right=unbind
 keybind = shift+page_down=unbind
 keybind = shift+down=unbind
 keybind = shift+home=unbind
+keybind = super+n=unbind
+keybind = super+z=unbind
+keybind = super+shift+z=unbind
+keybind = super+ctrl+shift+j=unbind
+keybind = super+alt+w=unbind
+keybind = super+shift+t=unbind
 keybind = super+alt+shift+j=unbind
 keybind = super+alt+shift+w=unbind
 keybind = super+alt+i=unbind

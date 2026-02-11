@@ -130,7 +130,7 @@ vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 -- }}}
 
 -- lua_ddu-filer {{{
--- TODO: 開いたときに現在のファイルにカーソルが移動するやつとウィンドウ選んでファイルを開けるやつ
+-- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)とウィンドウ選んで(適当なプラグインを使おう)ファイルを開けるやつ
 vim.opt_local.number = true
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
@@ -160,6 +160,8 @@ end, opts)
 vim.keymap.set("n", "l", function()
     if vim.fn["ddu#ui#get_item"]()["isTree"] then
         vim.fn["ddu#ui#do_action"]("expandItem", { isInTree = true })
+        -- isInTreeがtrueなら↓も呼んでくれてはいるんだけど効かん……
+        vim.fn["ddu#ui#do_action"]("cursorNext")
     else
         vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
     end
