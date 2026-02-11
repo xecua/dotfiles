@@ -630,8 +630,10 @@ binds {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-sh-at-startup "systemd-cat --identifier=waybar waybar"
-spawn-sh-at-startup "systemd-cat --identifier=hyprpaper hyprpaper"
 spawn-sh-at-startup "systemd-cat --identifier=hypridle hypridle"
+// spawn-sh-at-startup "systemd-cat --identifier=wayidle wayidle -t 1800 loginctl lock-session" // TODO: replace hypridle+hyprlock -> wayidle+waylock(+something?)
+spawn-sh-at-startup "systemd-cat --identifier=awww-daemon awww-daemon"
+spawn-sh-at-startup "fish -c 'while true; awww img -t random (random choice ~/Pictures/Wallpaper/*) ; sleep 1h; end'" // 1時間おきに壁紙をランダムに変更
 spawn-sh-at-startup "clipse -listen"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
 
