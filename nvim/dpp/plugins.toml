@@ -300,6 +300,7 @@ end, { desc = "Next Edit Suggestion" })
 """
 lua_source = """
 require("sidekick").setup({
+    nes = { diff = { inline = false } },
     copilot = { status = { level = vim.log.levels.OFF } },
     cli = {
         win = {

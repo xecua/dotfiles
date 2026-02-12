@@ -39,11 +39,6 @@ def main():
     make_symlink('git', config_home)
     make_symlink('niri', config_home)
     make_symlink('gtk-3.0', config_home)
-    make_symlink('hypr', config_home, True)
-    if (hypr_workspace := script_dir / 'hypr' / 'workspaces' / f'{uname.nodename}').exists():
-        make_symlink('hypr/workspaces.conf', config_home, target= hypr_workspace)
-    else:
-        (config_home / 'hypr' / 'workspaces.conf').touch()
     make_symlink('ideavim', config_home)
     if (kanshi_config := script_dir / 'kanshi' / uname.nodename).exists():
         make_symlink('kanshi/config', config_home, target=kanshi_config)
