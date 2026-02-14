@@ -26,9 +26,4 @@ require("xecua.dpp").setup("nvim")
 
 pcall(require, "xecua.local")
 
-if vim.fn.has("nvim-0.12") == 1 then
-    -- HEADであることが判定できればいいんだけど……
-    require("vim._core.ui2").enable({})
-end
-
 vim.cmd("filetype plugin on")

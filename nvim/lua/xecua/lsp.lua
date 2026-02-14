@@ -1,8 +1,7 @@
 -- vim.lsp.config('*', {})
 
-local methods = vim.lsp.protocol.Methods
-
 vim.lsp.enable({
+    "denols",
     "efm",
     "intelephense",
     "jsonls",
@@ -15,7 +14,6 @@ vim.lsp.enable({
 
     "astro",
     "clangd",
-    "denols",
     "eslint",
     "fish_lsp",
     "gopls",
@@ -60,59 +58,128 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         local buffer = args.buf
 
+        assert(client ~= nil)
         if client.name == "GitHub Copilot" and vim.fn["copilot#Enabled"]() == 0 then
             -- VimEnterで起動するときはg:copilot_filetypesが無視される(PR案件な気もするけど)
             client:stop()
             return
         end
 
-        vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
-            vim.lsp.buf.format({
-                filter = function(c)
-                    return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }, c.name)
-                end,
-            })
-        end, { range = true })
-        vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
-            vim.lsp.buf.hover({
-                border = "single",
-                focusable = false,
-                focus = false,
-                silent = true,
-            })
-        end, {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
-            vim.lsp.buf.signature_help({
-                border = "single",
-                focusable = false,
-                focus = false,
-                silent = true,
-            })
-        end, {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspCodeAction", "lua vim.lsp.buf.code_action()", { range = true })
-        vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
-        vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
+        local mapopts = { buffer = buffer, silent = true }
 
-        -- Mappings.
-        local opts = { buffer = buffer, silent = true }
+        if client:supports_method("textDocument/formatting") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
+                vim.lsp.buf.format({
+                    filter = function(c)
+                        return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }, c.name)
+                    end,
+                })
+            end, { range = client:supports_method("textDocument/rangeFormatting") })
+            if not format_autocmd_defined[buffer] then
+                format_autocmd_defined[buffer] = true
+                vim.api.nvim_create_autocmd("BufWritePre", { group = augroup, buffer = buffer, command = "LspFormat" })
+            end
+        end
 
-        -- LSP related: preceded by <Leader>l
-        vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", opts)
-        vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", opts)
-        vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", opts)
-        vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", opts)
-        vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", opts)
-        vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", opts)
-        vim.keymap.set({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>", opts)
-        vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", opts)
-        vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", opts)
-        vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", opts)
-        vim.keymap.set({ "i", "s" }, "<C-s>", "<Cmd>LspSignatureHelp<CR>", opts)
+        if client:supports_method("textDocument/hover") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
+                vim.lsp.buf.hover({
+                    border = "single",
+                    focusable = false,
+                    focus = false,
+                    silent = true,
+                })
+            end, {})
+            vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", mapopts)
+        end
+
+        if client:supports_method("textDocument/signatureHelp") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
+                vim.lsp.buf.signature_help({ border = "single", focusable = false, focus = false, silent = true })
+            end, {})
+            vim.api.nvim_create_autocmd(
+                "CursorHoldI",
+                { group = augroup, buffer = buffer, command = "LspSignatureHelp" }
+            )
+            vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", mapopts)
+            vim.keymap.set({ "i", "s" }, "<C-s>", "<Cmd>LspSignatureHelp<CR>", mapopts)
+        end
+
+        if client:supports_method("textDocument/references") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
+            vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", mapopts)
+        end
+
+        if client:supports_method("textDocument/definition") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
+            vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", mapopts)
+        end
+        if client:supports_method("textDocument/typeDefinition") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
+            vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", mapopts)
+        end
+        if client:supports_method("typeHierarchy/subtypes") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspSubtypes", "lua vim.lsp.buf.typehierarchy('subtypes')", {})
+            vim.keymap.set("n", "<Leader>lsb", "<Cmd>LspSubtypes<CR>", mapopts)
+        end
+        if client:supports_method("typeHierarchy/supertypes") then
+            vim.api.nvim_buf_create_user_command(
+                buffer,
+                "LspSupertypes",
+                "lua vim.lsp.buf.typehierarchy('supertypes')",
+                {}
+            )
+            vim.keymap.set("n", "<Leader>lsp", "<Cmd>LspSupertypes<CR>", mapopts)
+        end
+        if client:supports_method("textDocument/implementation") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
+            vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", mapopts)
+        end
+        if client:supports_method("textDocument/codeAction") then
+            vim.api.nvim_buf_create_user_command(
+                buffer,
+                "LspCodeAction",
+                "lua vim.lsp.buf.code_action()",
+                { range = true }
+            )
+            vim.keymap.set({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>", mapopts)
+        end
+        if client:supports_method("callHierarchy/incomingCalls") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
+            vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", mapopts)
+        end
+        if client:supports_method("callHierarchy/outgoingCalls") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
+            vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", mapopts)
+        end
+        if client:supports_method("textDocument/rename") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
+            vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", mapopts)
+        end
+
+        if client:supports_method("textDocument/documentSymbol") then
+            require("nvim-navic").attach(client, buffer)
+        end
+
+        if client:supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable()
+        end
+
+        if client:supports_method("textDocument/codeLens") then
+            vim.lsp.codelsns.enable()
+            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+                group = augroup,
+                buffer = buffer,
+                command = "lua vim.lsp.codelens.refresh()",
+            })
+        end
+
+        if vim.fn.has("nvim-0.12") == 1 and client:supports_method("textDocument/inlineCompletion") then
+            vim.lsp.inline_completion.enable()
+            vim.keymap.set("i", "<C-l>", function()
+                return vim.lsp.inline_completion.get() and "" or "<C-l>"
+            end, { silent = true, expr = true, buffer = buffer })
+        end
 
         if client.name == "jdtls" then
             vim.api.nvim_buf_create_user_command(
@@ -136,40 +203,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             require("jdtls").setup_dap({ hotcodereplace = "auto" })
         end
-
-        if client:supports_method(methods.textDocument_documentSymbol) then
-            require("nvim-navic").attach(client, buffer)
-        end
-
-        if client:supports_method(methods.textDocument_formatting) and not format_autocmd_defined[buffer] then
-            format_autocmd_defined[buffer] = true
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = buffer,
-                command = "LspFormat",
-                desc = "LSP: Format on save",
-            })
-        end
-
-        if client:supports_method(methods.textDocument_inlayHint) then
-            vim.lsp.inlay_hint.enable()
-        end
-
-        if vim.fn.has("nvim-0.12") == 1 and client:supports_method(methods.textDocument_inlineCompletion) then
-            vim.lsp.inline_completion.enable()
-            vim.keymap.set("i", "<C-l>", function()
-                return vim.lsp.inline_completion.get() and "" or "<C-l>"
-            end, { silent = true, expr = true, buffer = buffer })
-        end
-
-        if client:supports_method(methods.textDocument_signatureHelp) then
-            vim.api.nvim_create_autocmd("CursorHoldI", {
-                group = augroup,
-                buffer = buffer,
-                command = "LspSignatureHelp",
-                desc = "LSP: Signature Help while Typing.",
-            })
-        end
     end,
 })
 
@@ -186,7 +219,7 @@ local function inspect_lsp_client()
 
             -- Create a temporary buffer to show the configuration
             local buf = vim.api.nvim_create_buf(false, true)
-            local win = vim.api.nvim_open_win(buf, true, {
+            vim.api.nvim_open_win(buf, true, {
                 relative = "editor",
                 width = math.floor(vim.o.columns * 0.75),
                 height = math.floor(vim.o.lines * 0.90),

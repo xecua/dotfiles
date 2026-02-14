@@ -1,5 +1,14 @@
 {
-    "diagnostics.globals": [
-        "vim"
-    ]
+  "format.enable": false,
+  "diagnostics.globals": [
+    "vim"
+  ],
+  "runtime.path": [
+    "lua/?.lua",
+    "lua/?/init.lua"
+  ],
+  "workspace.checkThirdParty": false,
+  "workspace.library": [
+    "$VIMRUNTIME"
+  ]
 }
