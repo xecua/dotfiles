@@ -64,6 +64,13 @@ vim.g.windowswap_map_keys = 0
 vim.keymap.set('n', '<Leader>ww', '<Cmd>call WindowSwap#EasyWindowSwap()<CR>')
 """
 
+# select
+[[plugins]]
+repo = 's1n7ax/nvim-window-picker'
+lua_source = """
+require("window-picker").setup({})
+"""
+
 [[plugins]]
 repo = 'epwalsh/obsidian.nvim'
 depends = 'plenary.nvim'
@@ -268,6 +275,7 @@ if = "get(g:, 'use_copilot', v:false)"
 lua_add = """
 vim.g.copilot_filetypes = {
     markdown = false,
+    ["ddu-filer"] = false,
     ["dap-repl"] = false,
     dapui_watches = false,
     dapui_scopes= false,

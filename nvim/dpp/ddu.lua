@@ -157,6 +157,16 @@ vim.keymap.set("n", "t", function()
         vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "tab drop" } })
     end
 end, opts)
+vim.keymap.set("n", "e", function()
+    if not vim.fn["ddu#ui#get_item"]()["isTree"] then
+        local picked_window_id = require("window-picker").pick_window()
+        local picked_window_nr = vim.api.nvim_win_get_number(picked_window_id)
+        vim.fn["ddu#ui#do_action"](
+            "itemAction",
+            { name = "open", params = { command = picked_window_nr .. "wincmd w|drop" } }
+        )
+    end
+end, opts)
 vim.keymap.set("n", "l", function()
     if vim.fn["ddu#ui#get_item"]()["isTree"] then
         vim.fn["ddu#ui#do_action"]("expandItem", { isInTree = true })
