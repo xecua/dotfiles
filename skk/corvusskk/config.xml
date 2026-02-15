@@ -5,6 +5,7 @@
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.L" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.jinmei" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.geo" enabled="1" />
+      <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.law" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.station" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.propernoun" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.itaiji" enabled="1" />
@@ -12,12 +13,12 @@
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS2" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS3_4" enabled="1" />
       <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.JIS2004" enabled="1" />
-      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.npiii.utf8" enabled="1" />
-      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.2ch.utf8" enabled="1" />
-      <row path="G:\マイドライブ\other\skk\utf8-dict\SKK-JISYO.genshin.utf8" enabled="1" />
+      <row path="https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.pinyin" enabled="1" />
+      <row path="G:\マイドライブ\skk\raw-dict\npiiii.l.euc" enabled="1" />
       <row path="https://gist.githubusercontent.com/orumin/4971333/raw/b71ff032916d0ea9f5c73ea4ceebcf5220d7e932/SKK-JISYO.mahjong" enabled="1" />
       <row path="https://raw.githubusercontent.com/uasi/skk-emoji-jisyo/master/SKK-JISYO.emoji.utf8" enabled="1" />
-      <row path="https://raw.githubusercontent.com/xecua/dotfiles/master/skk/skk-jisyo.utf-8" enabled="1" />
+      <row path="https://raw.githubusercontent.com/ymrl/SKK-JISYO.emoji-ja/refs/heads/master/SKK-JISYO.emoji-ja.utf8" enabled="1" />
+      <row path="G:\マイドライブ\skk\utf8-dict\skk-jisyo.utf8" enabled="1" />
     </list>
   </section>
   <section name="server">
@@ -50,10 +51,10 @@
     <key name="entogglekana" value="1" />
     <key name="setbydirect" value="0" />
     <key name="compmultinum" value="1" />
-    <key name="stacompmulti" value="0" />
-    <key name="dynamiccomp" value="0" />
-    <key name="dyncompmulti" value="0" />
-    <key name="compuserdic" value="0" />
+    <key name="stacompmulti" value="1" />
+    <key name="dynamiccomp" value="1" />
+    <key name="dyncompmulti" value="1" />
+    <key name="compuserdic" value="1" />
     <key name="compincback" value="0" />
   </section>
   <section name="font">
@@ -64,14 +65,14 @@
   </section>
   <section name="display">
     <key name="maxwidth" value="320" />
-    <key name="colorbg" value="0xFFFFFF" />
-    <key name="colorfr" value="0x000000" />
-    <key name="colorse" value="0xFF0000" />
-    <key name="colorco" value="0x808080" />
-    <key name="colorca" value="0x000000" />
-    <key name="colorsc" value="0x808080" />
-    <key name="coloran" value="0x808080" />
-    <key name="colorno" value="0x000000" />
+    <key name="colorbg" value="0x1E1E1E" />
+    <key name="colorfr" value="0x404040" />
+    <key name="colorse" value="0xF6B564" />
+    <key name="colorco" value="0x9E9E9E" />
+    <key name="colorca" value="0xE0E0E0" />
+    <key name="colorsc" value="0x9E9E9E" />
+    <key name="coloran" value="0x9E9E9E" />
+    <key name="colorno" value="0xE0E0E0" />
     <key name="drawapi" value="1" />
     <key name="colorfont" value="1" />
     <key name="untilcandlist" value="2" />
@@ -289,7 +290,6 @@
       <row ro="nh" hi="ぬう" ka="ヌウ" an="ﾇｳ" so="0" />
       <row ro="nw" hi="ねい" ka="ネイ" an="ﾈｲ" so="0" />
       <row ro="np" hi="のう" ka="ノウ" an="ﾉｳ" so="0" />
-      <row ro="nm" hi="のみ" ka="ノミ" an="ﾉﾐ" so="0" />
       <row ro="ha" hi="は" ka="ハ" an="ﾊ" so="0" />
       <row ro="hi" hi="ひ" ka="ヒ" an="ﾋ" so="0" />
       <row ro="hu" hi="ふ" ka="フ" an="ﾌ" so="0" />
@@ -416,7 +416,6 @@
       <row ro="dh" hi="づう" ka="ヅウ" an="ﾂﾞｳ" so="0" />
       <row ro="dw" hi="でい" ka="デイ" an="ﾃﾞｲ" so="0" />
       <row ro="dp" hi="どう" ka="ドウ" an="ﾄﾞｳ" so="0" />
-      <row ro="dr" hi="だら" ka="ダラ" an="ﾀﾞﾗ" so="0" />
       <row ro="ba" hi="ば" ka="バ" an="ﾊﾞ" so="0" />
       <row ro="bi" hi="び" ka="ビ" an="ﾋﾞ" so="0" />
       <row ro="bu" hi="ぶ" ka="ブ" an="ﾌﾞ" so="0" />
@@ -841,6 +840,7 @@
       <row ro="xxk" hi="↑" ka="↑" an="↑" so="0" />
       <row ro="xxl" hi="→" ka="→" an="→" so="0" />
       <row ro="xxL" hi="⇒" ka="⇒" an="⇒" so="0" />
+      <row ro="xxwa" hi="ゎ" ka="ヮ" an="" so="0" />
     </list>
   </section>
   <section name="jlatin">
