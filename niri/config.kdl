@@ -357,10 +357,9 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     // Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "ghostty"; }
-    Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "walker -n -m applications"; }
-    // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+P hotkey-overlay-title="Powermenu" { spawn-sh "walker -n -m power"; }
-    Mod+Space hotkey-overlay-title="Launchpad" { spawn-sh "walker -n"; }
+    Mod+D hotkey-overlay-title="Run an Application" { spawn-sh "walker -m desktopapplications"; }
+    Mod+P hotkey-overlay-title="Powermenu" { spawn-sh "walker -n -m menus:power"; }
+    Mod+Space hotkey-overlay-title="Launchpad" { spawn-sh "walker"; }
     Mod+V hotkey-overlay-title="Clipboard Manager" { spawn-sh "ghostty --title=clipse -e clipse"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -629,13 +628,14 @@ binds {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-sh-at-startup "systemd-cat --identifier=waybar waybar"
-spawn-sh-at-startup "systemd-cat --identifier=awww-daemon awww-daemon"
+spawn-sh-at-startup "systemd-cat -t waybar waybar"
+spawn-sh-at-startup "systemd-cat -t awww-daemon awww-daemon"
 spawn-sh-at-startup "fish -c 'while true; awww img -t random (random choice ~/Pictures/Wallpaper/*) ; sleep 1h; end'" // 1時間おきに壁紙をランダムに変更
 // waylock: niriがwp-single-pixel-buffer-v1に対応していないので動かない……
-spawn-sh-at-startup "systemd-cat --identifier=swayidle swayidle timeout 1800 'swaylock --indicator --clock -fS --effect-blur 2x2' before-sleep 'loginctl lock-session'"
+spawn-sh-at-startup "systemd-cat -t swayidle swayidle -w lock 'swaylock -fS --indicator --clock --effect-blur 2x2' timeout 1800 'systemctl suspend' before-sleep 'loginctl lock-session'"
 spawn-sh-at-startup "clipse -listen"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
+spawn-sh-at-startup "walker --gapplication-service"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.

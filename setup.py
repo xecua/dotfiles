@@ -53,6 +53,7 @@ def main():
     make_symlink('libskk', config_home, True, target=script_dir /'skk' / 'libskk')
     make_symlink('systemd/user', config_home, True)
     make_symlink('tmux', config_home, True)
+    make_symlink('elephant', config_home)
     make_symlink('walker', config_home, True)
     make_symlink('waybar', config_home)
     make_symlink('xremap', config_home)

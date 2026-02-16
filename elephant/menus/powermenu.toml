@@ -1,0 +1,30 @@
+name = "power"
+name_pretty = "Power Menu"
+icon = "applications-other"
+
+# actions: 各キーに割り当てられる、選択時のコマンド(右下) のことみたい
+# デフォルトはReturnなので、1つだけあればReturnで選択した時にそれになる
+[[entries]]
+text = "Shutdown"
+actions = { "shutdown" = "systemctl poweroff" }
+icon = "system-shutdown"
+
+[[entries]]
+text = "Reboot"
+actions = { "reboot" = "systemctl reboot" }
+icon = "system-reboot"
+
+[[entries]]
+text = "Lock"
+actions = { "lock" = "playerctl pause; wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; loginctl lock-session" }
+icon = "system-lock-screen"
+
+[[entries]]
+text = "Sleep"
+actions = { "sleep" = "playerctl pause; wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; systemctl suspend" }
+icon = "weather-clear-night-symbolic"
+
+[[entries]]
+text = "Quit Session"
+actions = { "quit" = "niri msg action quit" }
+icon = "application-exit"
