@@ -401,10 +401,13 @@ require("mason").setup({
 """
 
 [[plugins]]
-repo = 'tamago324/nlsp-settings.nvim'
+repo = 'mrjones2014/codesettings.nvim'
 lua_source = """
-require("nlspsettings").setup({
-    nvim_notify = { enable = true },
+require("codesettings").setup({})
+vim.lsp.config("*", {
+    before_init = function(_, config)
+        require('codesettings').with_local_settings(config.name, config)
+    end
 })
 """
 
