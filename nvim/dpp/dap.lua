@@ -27,11 +27,24 @@ require("dap").adapters = {
         port = "${port}",
         executable = { command = "codelldb", args = { "--port", "${port}" } },
     },
-    go = {
-        type = "server",
-        port = "${port}",
-        executable = { command = "dlv", args = { "dap", "-l", "127.0.0.1:${port}" } },
-    },
+    go = function(on_config, launchArgs)
+        local config = {
+            type = "server",
+        }
+        if launchArgs.request == "attach" and config.mode == "remote" then
+            -- このときだけはdlv dapは仲介してくれない(helpに列挙されてない)
+            -- でpathMappingってどうやんの??
+            config.port = launchArgs.port or 2345 -- delve default
+            if launchArgs.host then
+                config.host = launchArgs.host
+            end
+        else
+            -- dlv dap(configの解釈含めて全部やってくれる)を利用
+            config.port = "${port}"
+            config.executable = { command = "dlv", args = { "dap", "-l", "127.0.0.1:${port}" } }
+        end
+        on_config(config)
+    end,
     php = { type = "executable", command = "php-debug-adapter" },
     coreclr = {
         type = "executable",

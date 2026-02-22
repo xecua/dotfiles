@@ -277,10 +277,9 @@ vim.g.copilot_filetypes = {
     markdown = false,
     ["ddu-filer"] = false,
     ["dap-repl"] = false,
-    dapui_watches = false,
-    dapui_scopes= false,
-    dapui_console= false,
-    dapui_breakpoints = false,
+    ["dap-view"] = false,
+    ["dap-view-term"] = false,
+    ["dap-view-help"] = false,
     AvanteInput= false,
 }
 vim.g.copilot_no_tab_map = true
@@ -293,6 +292,7 @@ vim.g.copilot_lsp_settings = {
 """
 
 ## copilot-lsp NES (and CLI agent integration, which is not wanted)
+## これ(NES)ただLSPの独自メソッド呼んでるだけなので、可能なら独立したプラグインなり設定なりを使いたい
 [[plugins]]
 repo = 'folke/sidekick.nvim'
 if = "get(g:, 'use_copilot', v:false)"
@@ -305,7 +305,6 @@ vim.keymap.set("n", "<C-l>", function()
         nes.update()
     end
 end, { desc = "Next Edit Suggestion" })
-
 """
 lua_source = """
 require("sidekick").setup({
@@ -338,7 +337,7 @@ vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
 require("avante_lib").load()
 require("avante").setup({
     provider = "copilot",
-    providers = { copilot = { model = "gpt-5.2-codex" } },
+    providers = { copilot = { model = "gpt-5.2" } },
     behaviour = {
         support_paste_from_clipboard = true,
         auto_set_keymaps = true,
@@ -422,15 +421,15 @@ repo = 'mfussenegger/nvim-dap'
 hooks_file = '$STD_CONFIG/dpp/dap.lua'
 
 [[plugins]]
-repo = 'rcarriga/nvim-dap-ui'
+repo = 'igorlfs/nvim-dap-view'
 depends = ['nvim-dap', 'nvim-nio']
 lua_add = """
-vim.keymap.set("n", "<Leader>dd", function()
-    require('dapui').toggle({ reset = true })
-end, { silent = true, desc = "Toggle DAP UI" })
+vim.keymap.set("n", "<Leader>dd", "<Cmd>DapViewToggle<CR>", { silent = true })
 """
 lua_source = """
-require('dapui').setup({})
+require('dap-view').setup({
+    winbar = { controls = { enabled = true } },
+})
 """
 
 [[plugins]]

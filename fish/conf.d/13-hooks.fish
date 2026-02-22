@@ -44,6 +44,10 @@ if status --is-interactive
         dyff completion fish | source
     end
 
+    if type -q dlv
+        dlv completion fish | source
+    end
+
     if type -q zoxide
         zoxide init --cmd=cd fish | source
     end

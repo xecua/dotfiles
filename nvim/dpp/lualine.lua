@@ -72,7 +72,16 @@ require("lualine").setup({
         theme = "wombat",
         globalstatus = true,
         disabled_filetypes = {
-            winbar = { "dap-repl", "Avante", "AvanteInput", "AvanteSelectedFiles", "AvanteTodos" },
+            winbar = {
+                "dap-repl",
+                "dap-view",
+                "dap-view-term",
+                "dap-view-help",
+                "Avante",
+                "AvanteInput",
+                "AvanteSelectedFiles",
+                "AvanteTodos",
+            },
         },
     },
     sections = {
@@ -133,6 +142,6 @@ require("lualine").setup({
         --   },
         -- },
     },
-    extensions = { "fern", "man", "quickfix", "trouble", "nvim-dap-ui", "fugitive", "avante" },
+    extensions = { "fern", "man", "quickfix", "trouble", "fugitive", "avante" },
 })
 -- }}}
