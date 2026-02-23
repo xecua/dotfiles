@@ -42,3 +42,7 @@ vim.opt.showmode = false
 vim.opt.undofile = true
 vim.opt.shortmess:append("c")
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+
+if vim.fn.executable("rg") == 1 then
+    vim.opt.grepprg = "rg --vimgrep --smart-case"
+end

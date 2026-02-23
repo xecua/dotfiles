@@ -47,6 +47,13 @@ export class Config extends BaseConfig {
         },
         input: { mark: "input", isVolatile: true },
         line: { mark: "line" },
+        shell_native: {
+          mark: "sh",
+          matchers: ["matcher_head"],
+          isVolatile: true,
+          // enabledIf: String
+          //   .raw`getcmdline() =~? "^\(!\|make\s+\|g\s+\|git\s+\)" ? v:true : v:false`,
+        },
       },
       sourceParams: {
         lsp: {
@@ -58,6 +65,7 @@ export class Config extends BaseConfig {
           enableDisplayDetail: true,
           confirmBehavior: "replace",
         },
+        shell_native: { shell: "fish" },
       },
       autoCompleteDelay: 150,
       autoCompleteEvents: [
@@ -67,7 +75,7 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
       ],
       cmdlineSources: {
-        [":"]: ["cmdline", "cmdline_history", "around"],
+        [":"]: ["shell_native", "cmdline", "cmdline_history", "around"],
         ["@"]: ["cmdline_history", "input", "file", "around"],
         [">"]: ["cmdline_history", "input", "file", "around"],
         ["/"]: ["around", "line"],

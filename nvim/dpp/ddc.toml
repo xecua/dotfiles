@@ -41,6 +41,10 @@ repo = 'Shougo/ddc-source-input'
 group = 'ddc'
 
 [[plugins]]
+repo = 'Shougo/ddc-source-shell-native'
+group = 'ddc'
+
+[[plugins]]
 repo = 'LumaKernel/ddc-source-file'
 group = 'ddc'
 

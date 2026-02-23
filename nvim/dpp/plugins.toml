@@ -256,7 +256,10 @@ lua_add = """
 vim.g.firenvim_config = {
     globalSettings = {},
     localSettings = {
-        [".*"] = { takeover = "never" }
+        [".*"] = {
+            cmdline = "firenvim",
+            takeover = "never"
+        }
     }
 }
 if vim.g.started_by_firenvim then
