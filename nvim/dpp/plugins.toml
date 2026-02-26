@@ -294,36 +294,30 @@ vim.g.copilot_lsp_settings = {
 }
 """
 
-## copilot-lsp NES (and CLI agent integration, which is not wanted)
-## これ(NES)ただLSPの独自メソッド呼んでるだけなので、可能なら独立したプラグインなり設定なりを使いたい
 [[plugins]]
-repo = 'folke/sidekick.nvim'
+repo = 'copilotlsp-nvim/copilot-lsp'
 if = "get(g:, 'use_copilot', v:false)"
 lua_add = """
 vim.keymap.set("n", "<C-l>", function()
-    local nes = require("sidekick.nes")
-    if nes.have() then
-        nes.apply()
-    else
-        nes.update()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local state = vim.b[bufnr].nes_state
+    local nes = require("copilot-lsp.nes")
+    -- 手動で発火したいけどなあ……
+    if state and not nes.walk_cursor_start_edit() then
+        nes.apply_pending_nes()
+        nes.walk_cursor_end_edit()
     end
-end, { desc = "Next Edit Suggestion" })
+end, { desc = "Copilot NES" })
+vim.keymap.set("n", "<Esc>", function()
+    require("copilot-lsp.nes").clear()
+end, { desc = "Clear NES" })
+
 """
 lua_source = """
-require("sidekick").setup({
-    nes = { diff = { inline = false } },
-    copilot = { status = { level = vim.log.levels.OFF } },
-    cli = {
-        win = {
-            keys = {
-                nav_left = false,
-                nav_down = false,
-                nav_up = false,
-                nav_right = false
-            }
-        }
-    }
+vim.lsp.config('copilot_ls', {
+    cmd = { 'npx', '@github/copilot-language-server', '--stdio' }
 })
+vim.lsp.enable('copilot_ls')
 """
 
 ## integration

@@ -58,6 +58,7 @@ def main():
     make_symlink('waybar', config_home)
     make_symlink('xremap', config_home)
     make_symlink('zathura', config_home)
+    make_symlink('glide', home)
 
     make_symlink('.bashrc', home)
     make_symlink('.bash_profile', home)
@@ -67,7 +68,6 @@ def main():
     make_symlink('.profile', home)
     make_symlink('.zprofile', home)
     make_symlink('.zshrc', home)
-    make_symlink('.glide.toml', home)
 
     make_symlink('fzf-preview.sh', binary_path)
     make_symlink('fzfrc', config_home)

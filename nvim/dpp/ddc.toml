@@ -41,7 +41,7 @@ repo = 'Shougo/ddc-source-input'
 group = 'ddc'
 
 [[plugins]]
-repo = 'Shougo/ddc-source-shell-native'
+repo = 'Shougo/ddc-source-shell_native'
 group = 'ddc'
 
 [[plugins]]

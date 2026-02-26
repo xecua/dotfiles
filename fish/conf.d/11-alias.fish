@@ -76,6 +76,10 @@ if status is-interactive
         alias ghcup='XDG_BIN_HOME=$XDG_DATA_HOME/ghcup/bin command ghcup'
     end
 
+    if type -q phantom
+        alias ph=phantom
+    end
+
     alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 
     alias cbcopy=fish_clipboard_copy
