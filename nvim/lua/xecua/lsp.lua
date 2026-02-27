@@ -59,10 +59,35 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local buffer = args.buf
 
         assert(client ~= nil)
-        if client.name == "GitHub Copilot" and vim.fn["copilot#Enabled"]() == 0 then
-            -- VimEnterで起動するときはg:copilot_filetypesが無視される(PR案件な気もするけど)
-            client:stop()
-            return
+        if client.name == "GitHub Copilot" then
+            if vim.fn["copilot#Enabled"]() == 0 then
+                -- VimEnterで起動するときはg:copilot_filetypesが無視される(PR案件な気もするけど)
+                client:stop()
+                return
+            end
+
+            local ok, nes = require("copilot-lsp.nes")
+            if ok then
+                local debounced_request =
+                    require("copilot-lsp.util").debounce(nes.request_nes, vim.g.copilot_nes_debounce or 500)
+                vim.api.nvim_create_autocmd("TextChanged", {
+                    callback = function()
+                        debounced_request(client)
+                    end,
+                })
+                vim.api.nvim_create_autocmd("ModeChanged", {
+                    pattern = "i:n",
+                    callback = function()
+                        debounced_request(client)
+                    end,
+                })
+                vim.api.nvim_create_autocmd("BufEnter", {
+                    callback = function()
+                        local td_params = vim.lsp.util.make_text_document_params()
+                        client:notify("textDocument/didFocus", { textDocument = { uri = td_params.uri } })
+                    end,
+                })
+            end
         end
 
         local mapopts = { buffer = buffer, silent = true }
