@@ -108,12 +108,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/hover") then
             vim.api.nvim_buf_create_user_command(buffer, "LspHover", function()
-                vim.lsp.buf.hover({
-                    border = "single",
-                    focusable = false,
-                    focus = false,
-                    silent = true,
-                })
+                vim.lsp.buf.hover({ border = "single" })
             end, {})
             vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", mapopts)
         end
