@@ -52,6 +52,10 @@ if status --is-interactive
         zoxide init --cmd=cd fish | source
     end
 
+    if type -q phantom
+        phantom completion fish | source
+    end
+
     if type -q brew
         if test -d (brew --prefix)"/share/fish/completions"
             set -p fish_complete_path (brew --prefix)/share/fish/completions

@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 return
             end
 
-            local ok, nes = require("copilot-lsp.nes")
+            local ok, nes = pcall(require, "copilot-lsp.nes")
             if ok then
                 local debounced_request =
                     require("copilot-lsp.util").debounce(nes.request_nes, vim.g.copilot_nes_debounce or 500)

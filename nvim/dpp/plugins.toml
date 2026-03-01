@@ -317,13 +317,6 @@ end, { desc = "Copilot NES" })
 vim.keymap.set("n", "<Esc>", function()
     require("copilot-lsp.nes").clear()
 end, { desc = "Clear NES" })
-
-"""
-lua_source = """
-vim.lsp.config('copilot_ls', {
-    cmd = { 'npx', '@github/copilot-language-server', '--stdio' }
-})
-vim.lsp.enable('copilot_ls')
 """
 
 ## integration
@@ -887,3 +880,8 @@ on_ft = 'typst'
 # Handlebars
 [[plugins]]
 repo = 'mustache/vim-mustache-handlebars'
+
+# Idris2
+[[plugins]]
+repo = 'idris-community/idris2-nvim'
+lua_source = 'require("idris2").setup({})'

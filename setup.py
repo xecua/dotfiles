@@ -58,7 +58,7 @@ def main():
     make_symlink('waybar', config_home)
     make_symlink('xremap', config_home)
     make_symlink('zathura', config_home)
-    make_symlink('glide', home)
+    make_symlink('glide', config_home)
 
     make_symlink('.bashrc', home)
     make_symlink('.bash_profile', home)
