@@ -1,0 +1,12 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "Shiba Shunta"
+email = "contact@caffeine.page"
+
+[ui]
+editor = "nvim
+
+[signing]
+behavior = "own"
+backend = "gpg"

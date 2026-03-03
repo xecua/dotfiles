@@ -24,3 +24,6 @@
 # fd and rg's ignore file
 **/.fdignore
 **/.rgignore
+
+## jujutsu
+**/.jj
