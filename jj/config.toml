@@ -5,8 +5,15 @@ name = "Shiba Shunta"
 email = "contact@caffeine.page"
 
 [ui]
-editor = "nvim
+editor = "nvim"
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [signing]
 behavior = "own"
 backend = "gpg"
+
+[aliases]
+s = ["status"]
+l = ["log"]
+d = ["diff"]
+
