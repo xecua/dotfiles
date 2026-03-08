@@ -626,7 +626,7 @@ spawn-sh-at-startup "systemd-cat -t waybar waybar"
 spawn-sh-at-startup "systemd-cat -t awww-daemon awww-daemon"
 spawn-sh-at-startup "fish -c 'while true; awww img -t random (random choice ~/Pictures/Wallpaper/*) ; sleep 1h; end'" // 1時間おきに壁紙をランダムに変更
 // waylock: niriがwp-single-pixel-buffer-v1に対応していないので動かない……
-spawn-sh-at-startup "systemd-cat -t swayidle swayidle -w lock 'swaylock -fS --indicator --clock --effect-blur 2x2' timeout 1800 'systemctl suspend' before-sleep 'loginctl lock-session'"
+spawn-sh-at-startup "systemd-cat -t swayidle swayidle -w lock 'swaylock -fS --indicator --clock --effect-blur 2x2' timeout 1800 'systemctl suspend' before-sleep 'swaylock -fS --indicator --clock --effect-blur 2x2'"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
 spawn-sh-at-startup "walker --gapplication-service"
 

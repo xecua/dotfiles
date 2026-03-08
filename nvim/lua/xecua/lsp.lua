@@ -68,17 +68,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             local ok, nes = pcall(require, "copilot-lsp.nes")
             if ok then
-                local debounced_request =
-                    require("copilot-lsp.util").debounce(nes.request_nes, vim.g.copilot_nes_debounce or 500)
                 vim.api.nvim_create_autocmd("TextChanged", {
                     callback = function()
-                        debounced_request(client)
+                        nes.request_nes(client)
                     end,
                 })
                 vim.api.nvim_create_autocmd("ModeChanged", {
                     pattern = "i:n",
                     callback = function()
-                        debounced_request(client)
+                        nes.request_nes(client)
                     end,
                 })
                 vim.api.nvim_create_autocmd("BufEnter", {

@@ -310,9 +310,8 @@ vim.keymap.set("n", "<C-l>", function()
             nes.apply_pending_nes()
             nes.walk_cursor_end_edit()
         end
-    else
-        nes.request_nes('GitHub Copilot')
     end
+    nes.request_nes('GitHub Copilot')
 end, { desc = "Copilot NES" })
 vim.keymap.set("n", "<Esc>", function()
     require("copilot-lsp.nes").clear()
@@ -884,4 +883,18 @@ repo = 'mustache/vim-mustache-handlebars'
 # Idris2
 [[plugins]]
 repo = 'idris-community/idris2-nvim'
+# on_ft= 'idris2'
 lua_source = 'require("idris2").setup({})'
+[plugins.ftplugin]
+lua_idris2 = """
+vim.keymap.set("n", "<LocalLeader>cs", "<Cmd>lua require'idris2.code_action'.case_split()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>mc", "<Cmd>lua require'idris2.code_action'.make_case()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>mw", "<Cmd>lua require'idris2.code_action'.make_with()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>ml", "<Cmd>lua require'idris2.code_action'.make_lemma()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>ac", "<Cmd>lua require'idris2.code_action'.add_clause()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>es", "<Cmd>lua require'idris2.code_action'.expr_search()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>gd", "<Cmd>lua require'idris2.code_action'.generate_def()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>rh", "<Cmd>lua require'idris2.code_action'.refine_hole()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>eh", "<Cmd>lua require'idris2.code_action'.expr_search_hints()<CR>", {buffer = true})
+vim.keymap.set("n", "<LocalLeader>i",  "<Cmd>lua require'idris2.code_action'.intro()<CR>", {buffer = true})
+"""
