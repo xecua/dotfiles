@@ -228,11 +228,6 @@ vim.notify = require('notify')
 """
 
 [[plugins]]
-repo = 'RutaTang/quicknote.nvim'
-depends = ['plenary.nvim']
-hooks_file = "$STD_CONFIG/dpp/quicknote.lua"
-
-[[plugins]]
 repo = 'ibhagwan/fzf-lua'
 depends = ['nvim-web-devicons']
 lua_source = """
