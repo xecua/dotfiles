@@ -327,7 +327,7 @@ vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
 require("avante_lib").load()
 require("avante").setup({
     provider = "copilot",
-    providers = { copilot = { model = "gpt-5.2" } },
+    providers = { copilot = { model = "gpt-5.3-codex" } },
     behaviour = {
         support_paste_from_clipboard = true,
         auto_set_keymaps = true,

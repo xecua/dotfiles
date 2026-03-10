@@ -69,23 +69,20 @@ end
 
 # https://qiita.com/mkeeda/items/c5fa878436f1cc957892
 function attach_tmux_session_if_needed
-    set ID (tmux list-sessions)
+    set -f ID (tmux list-sessions)
     if [ -z "$ID" ]
         exec tmux new-session
         return
     end
 
-    set new_session "Create New Session"
-    if type -q fzf
-        set ID (string collect $ID $new_session | fzf | cut -d: -f1)
-    else if type -q peco
-        set ID (string collect $ID $new_session | peco --on-cancel=error | cut -d: -f1)
-    else
-        set ID ""
-    end
+    set -f new_session "Create New Session"
+    set -f no_session "Start shell without tmux"
+    set -f ID (string collect $ID $new_session $no_session | fzf | cut -d: -f1)
 
     if [ "$ID" = "$new_session" ]
         exec tmux new-session
+    else if [ "$ID" = "$no_session" ]
+        return
     else if [ -n "$ID" ]
         exec tmux attach-session -t "$ID"
     end
