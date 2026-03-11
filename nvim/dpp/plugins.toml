@@ -860,6 +860,7 @@ let g:go_echo_command_info = 0
 # Haxe
 [[plugins]]
 repo = 'jdonaldson/vaxe'
+on_ft = 'haxe'
 
 # Swift
 [[plugins]]

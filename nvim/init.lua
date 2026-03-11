@@ -4,6 +4,7 @@ if vim.g.vscode then
 end
 
 vim.cmd("filetype plugin indent off")
+vim.cmd("colorscheme sorbet")
 
 pcall(require, "xecua.local-pre") -- ないならないで
 
@@ -25,5 +26,18 @@ end
 require("xecua.dpp").setup("nvim")
 
 pcall(require, "xecua.local")
+
+local has_ui2, ui2 = pcall(require, "vim._core.ui2")
+if has_ui2 then
+    ui2.enable({
+        msg = {
+            target = "msg",
+            -- targets = {} -- <- |ui-messages|のkey -> "cmd"/"msg"/"pager"。dialogは使えない
+        },
+        cmd = {
+            target = "msg",
+        },
+    })
+end
 
 vim.cmd("filetype plugin on")

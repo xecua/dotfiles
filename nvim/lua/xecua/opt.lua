@@ -11,7 +11,8 @@ vim.opt.list = true
 vim.opt.listchars = { tab = ">-", lead = "･", multispace = "･", trail = "･", nbsp = "+" }
 vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
+vim.opt.ruler = false
 vim.opt.foldlevelstart = 99 -- open all fold by default
 vim.opt.foldcolumn = "1"
 vim.opt.switchbuf = { "useopen", "split" }
