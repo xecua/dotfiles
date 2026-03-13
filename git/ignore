@@ -6,20 +6,17 @@
 # F#
 **/.ionide/
 
-# Scala
-**/.metals/
-**/.bloop/
-**/.bsp
-
 # python
 **/venv
 
 # editor
 **/.vscode/
-**/.cursor
 **/.idea/
 **/xcuserdata/
-**/.nlsp-settings
+**/.nvim.lua
+**/.nvimrc
+**/.exrc
+**/.nvim
 
 # fd and rg's ignore file
 **/.fdignore

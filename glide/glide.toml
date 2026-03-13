@@ -41,7 +41,7 @@ status_icon.color = true
 # Restore this with the --restore option when starting glide.
 # Note that the restore file is only useful when upgrading or restarting
 # glide itself; it is not valid after the user logs out or restarts.
-"Alt + Shift + E" = "save_and_exit"
+"Alt + Shift + X" = "save_and_exit"
 # Toggle whether the current space is managed by Glide.
 "Alt + Z" = "toggle_space_activated"
 # Focus the window in the specified direction.
@@ -69,18 +69,18 @@ status_icon.color = true
 # Create a container above the current node in the specified orientation.
 # This has the effect of "splitting" the current window/node once a new node
 # is added.
-"Alt + Backslash" = { split = "horizontal" }
-"Alt + Equal" = { split = "vertical" }
+"Alt + Backslash" = { split = "vertical" }
+"Alt + Minus" = { split = "horizontal" }
 # Change the parent node to a horizontal or vertical group, also known as
 # "tabbed" and "stacked" respectively.
-"Alt + T" = { group = "horizontal" }
-# "Alt + S" = { group = "vertical" }
+"Alt + V" = { group = "horizontal" }
+"Alt + G" = { group = "vertical" }
 "Alt + E" = "ungroup"
 # Float the current node. Floating windows are allowed to overlap and keep
 # whatever size and position you give them. Note that they do not actually
 # float on top of other windows, as that would require disabling security
 # protection on your machine.
-"Alt + Shift + Space" = "toggle_window_floating"
+"Alt + T" = "toggle_window_floating"
 # Toggle between focusing floating nodes. When switching to floating mode
 # this will put all floating windows on top, and when switching away it will
 # hide floating windows.
