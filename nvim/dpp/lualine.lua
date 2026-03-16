@@ -67,6 +67,17 @@ local mcp_hub = {
     end,
 }
 
+local function navic_fallback()
+    local navic = require("nvim-navic")
+    if navic.is_available() then
+        local location = navic.get_location({ click = true, lazy_update_context = true })
+        if location and location ~= "" then
+            return location
+        end
+    end
+    return " " -- これやっとかないとまっしろになる
+end
+
 require("lualine").setup({
     options = {
         theme = "wombat",
@@ -89,9 +100,7 @@ require("lualine").setup({
         lualine_b = {
             { "branch", icon = { "" } }, -- 0xe702 (devicons)
         },
-        lualine_c = {
-            ddu,
-        },
+        lualine_c = { ddu },
         lualine_x = {
             "searchcount",
             "diagnostics",
@@ -113,13 +122,14 @@ require("lualine").setup({
         },
     },
     winbar = {
-        lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
-        lualine_c = { { "navic", navic_opts = { lazy_update_context = true } } },
+        lualine_b = {
+            { "filename", path = 1, symbols = { readonly = "[readonly]" } },
+        },
+        lualine_c = { navic_fallback },
     },
     inactive_winbar = {
-        -- dduとかではdisableにしたい
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
     },
-    extensions = { "fern", "man", "quickfix", "trouble", "fugitive", "avante" },
+    extensions = { "fern", "man", "quickfix", "trouble", "fugitive", "avante", "mason" },
 })
 -- }}}
