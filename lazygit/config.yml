@@ -3,6 +3,7 @@ gui:
   statusPanelView: allBranchesLog
   timeFormat: "2006-01-02T15:04:05Z07:00"
   shortTimeFormat: "15:04"
+  language: "ja"
 git:
   branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
   allBranchesLogCmds:

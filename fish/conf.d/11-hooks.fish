@@ -1,4 +1,8 @@
 if status --is-interactive
+    if type -q mise
+        mise activate fish | source
+    end
+
     if type -q direnv
         eval (direnv hook fish)
     end
@@ -34,10 +38,6 @@ if status --is-interactive
     if type -q fzf
         fzf --fish | source
         alias fcd fzf-cd-widget
-    end
-
-    if type -q mise
-        mise activate fish | source
     end
 
     if type -q dyff

@@ -63,6 +63,14 @@ if status is-interactive
         alias lg=lazygit
     end
 
+    if type -q lazydocker
+        alias ldo=lazydocker
+    end
+
+    if type -q lazydocker && type -q podman
+        alias lpo="DOCKER_HOST=unix://(podman info --format '{{.Host.RemoteSocket.Path}}') lazydocker"
+    end
+
     # Workaround for https://github.com/flutter/flutter/issues/59430
     if type -q flutter
         alias flutter='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command flutter'

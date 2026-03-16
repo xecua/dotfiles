@@ -91,10 +91,13 @@ require("lualine").setup({
         },
         lualine_c = {
             ddu,
-            { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
-            { "navic", navic_opts = { lazy_update_context = true } },
         },
-        lualine_x = { "searchcount", "diagnostics", mcp_hub },
+        lualine_x = {
+            "searchcount",
+            "diagnostics",
+            { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
+            mcp_hub,
+        },
         lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
         lualine_z = { "location" },
     },
@@ -108,39 +111,14 @@ require("lualine").setup({
                 mode = 2,
             },
         },
-        lualine_b = {
-            {
-                -- 'create new tabpage' component
-                '""', -- 0xf067 (Font Awesome)
-                on_click = function(args)
-                    vim.cmd("tabnew")
-                end,
-            },
-        },
     },
     winbar = {
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
-        lualine_z = {
-            {
-                '""', -- 0xf00d (Font Awesome)
-                on_click = function()
-                    vim.api.nvim_win_close(0, false)
-                end,
-            },
-        },
+        lualine_c = { { "navic", navic_opts = { lazy_update_context = true } } },
     },
     inactive_winbar = {
         -- dduとかではdisableにしたい
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
-        -- lualine_z = {
-        --   {
-        --     '""', -- 0xf00d (Font Awesome)
-        --     on_click = function()
-        --       local winnum = *ここが必要*
-        --       vim.api.nvim_win_close(winnum, false)
-        --     end,
-        --   },
-        -- },
     },
     extensions = { "fern", "man", "quickfix", "trouble", "fugitive", "avante" },
 })
