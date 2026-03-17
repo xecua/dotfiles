@@ -38,6 +38,8 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export POETRY_HOME="$XDG_DATA_HOME/poetry"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
+export FVM_CACHE_PATH="$XDG_DATA_HOME/fvm" # Flutter (FVM)
+export VITE_PLUS_HOME="$XDG_DATA_HOME/vite-plus"
 
 export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME/fzfrc"
 export LESS="-FRXMS -j5 --shift 5"
@@ -65,6 +67,8 @@ PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
 PATH="$PNPM_HOME:$PATH"
 PATH="/Library/TeX/texbin:$PATH" # MacTeX
 PATH="$HOME/.dotnet/tools:$PATH"
+PATH="$FVM_CACHE_PATH/bin:$PATH" # fvm
+PATH="$FVM_CACHE_PATH/default/bin:$PATH" # global flutter installed by fvm
 PATH="$XDG_DATA_HOME/ghcup/bin:$PATH"
 
 # set by command

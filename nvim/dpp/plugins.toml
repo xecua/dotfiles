@@ -784,8 +784,8 @@ end, { desc = "swap with previous parameter" })
 lua_source = "require('nvim-treesitter-textobjects').setup({})"
 
 ## color matching parenthesis
-[[plugins]]
-repo = 'hiphish/rainbow-delimiters.nvim'
+# [[plugins]]
+# repo = 'hiphish/rainbow-delimiters.nvim'
 
 ## fish
 [[plugins]]

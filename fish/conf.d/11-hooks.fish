@@ -65,4 +65,8 @@ if status --is-interactive
             set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
         end
     end
+
+    if [ -f $VITE_PLUS_HOME/env.fish ]
+        source $VITE_PLUS_HOME/env.fish
+    end
 end
