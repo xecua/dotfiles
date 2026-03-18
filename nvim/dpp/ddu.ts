@@ -50,6 +50,7 @@ export class Config extends BaseConfig {
           converters: ["converter_hl_dir"],
         },
         source: { defaultAction: "execute" },
+        dpp: { defaultAction: "cd" },
         lsp_documentSymbol: { converters: ["converter_lsp_symbol"] },
         lsp_workspaceSymbol: { converters: ["converter_lsp_symbol"] },
       },

@@ -638,7 +638,10 @@ require("Comment").setup({
 
 ## jsx/tsx helper
 [[plugins]]
-repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+# repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+# https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/124
+repo = 'amadeus/nvim-ts-context-commentstring'
+rev = 'neovim-nightly-fix'
 
 # helpの日本語化
 [[plugins]]
