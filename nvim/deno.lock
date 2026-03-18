@@ -11,7 +11,9 @@
     "jsr:@cross/runtime@1": "1.1.0",
     "jsr:@cross/utils@0.7": "0.7.1",
     "jsr:@deno/cache-dir@~0.13.2": "0.13.2",
+    "jsr:@deno/graph@~0.73.1": "0.73.1",
     "jsr:@deno/graph@~0.96.2": "0.96.2",
+    "jsr:@denops/core@8": "8.0.1",
     "jsr:@denops/core@^8.0.1": "8.0.1",
     "jsr:@denops/std@8.0": "8.0.0",
     "jsr:@denops/std@8.2": "8.2.0",
@@ -23,12 +25,12 @@
     "jsr:@lambdalisue/workerio@^4.0.1": "4.0.1",
     "jsr:@milly/async-signal@1": "1.0.1",
     "jsr:@nick/dispose@^1.1.0": "1.1.0",
-    "jsr:@shougo/ddc-vim@^10.1.0": "10.1.0",
-    "jsr:@shougo/ddu-ui-ff@^3.1.0": "3.1.0",
+    "jsr:@shougo/ddc-vim@^10.2.0": "10.2.0",
+    "jsr:@shougo/ddu-ui-ff@^3.2.0": "3.2.0",
     "jsr:@shougo/ddu-ui-filer@^3.2.0": "3.2.0",
-    "jsr:@shougo/ddu-vim@11.0": "11.0.0",
     "jsr:@shougo/ddu-vim@11.1": "11.1.0",
-    "jsr:@shougo/ddu-vim@^11.1.0": "11.1.0",
+    "jsr:@shougo/ddu-vim@11.2": "11.2.0",
+    "jsr:@shougo/ddu-vim@^11.3.0": "11.3.0",
     "jsr:@shougo/dpp-vim@6": "6.0.0",
     "jsr:@sigma/pty-ffi@0.28": "0.28.0",
     "jsr:@sigma/pty-ffi@0.32": "0.32.0",
@@ -44,8 +46,8 @@
     "jsr:@std/fmt@0.223": "0.223.0",
     "jsr:@std/fs@0.221": "0.221.0",
     "jsr:@std/fs@0.223": "0.223.0",
-    "jsr:@std/fs@^1.0.1": "1.0.22",
-    "jsr:@std/fs@^1.0.22": "1.0.22",
+    "jsr:@std/fs@^1.0.1": "1.0.23",
+    "jsr:@std/fs@^1.0.23": "1.0.23",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/io@0.223": "0.223.0",
     "jsr:@std/path@0.221": "0.221.0",
@@ -103,11 +105,15 @@
     "@deno/cache-dir@0.13.2": {
       "integrity": "c22419dfe27ab85f345bee487aaaadba498b005cce3644e9d2528db035c5454d",
       "dependencies": [
+        "jsr:@deno/graph@~0.73.1",
         "jsr:@std/fmt@0.223",
         "jsr:@std/fs@0.223",
         "jsr:@std/io",
         "jsr:@std/path@0.223"
       ]
+    },
+    "@deno/graph@0.73.1": {
+      "integrity": "cd69639d2709d479037d5ce191a422eabe8d71bb68b0098344f6b07411c84d41"
     },
     "@deno/graph@0.96.2": {
       "integrity": "db21e52fc5b2850cc5fe92528f4f84dd460c5e40678a6bd23ece5c9c53193090"
@@ -118,18 +124,14 @@
     "@denops/std@8.0.0": {
       "integrity": "1a3e4ba4fab7d88da0de1c5330b6b87b5c959037d55542edb18c51cda054caa2",
       "dependencies": [
-        "jsr:@core/unknownutil@^4.3.0",
-        "jsr:@lambdalisue/itertools",
-        "jsr:@lambdalisue/unreachable",
-        "jsr:@std/semver",
-        "jsr:@std/ulid"
+        "jsr:@denops/core@8"
       ]
     },
     "@denops/std@8.2.0": {
       "integrity": "6b473515c30a15b3ffe88accf11eabb7ed6210a1042311b563875bb10882f729",
       "dependencies": [
         "jsr:@core/unknownutil@^4.3.0",
-        "jsr:@denops/core",
+        "jsr:@denops/core@^8.0.1",
         "jsr:@lambdalisue/itertools",
         "jsr:@lambdalisue/unreachable",
         "jsr:@std/semver",
@@ -153,7 +155,7 @@
       "dependencies": [
         "jsr:@core/unknownutil@^4.3.0",
         "jsr:@deno/cache-dir",
-        "jsr:@deno/graph",
+        "jsr:@deno/graph@~0.96.2",
         "jsr:@std/crypto",
         "jsr:@std/fs@^1.0.1",
         "jsr:@std/path@^1.0.1"
@@ -174,22 +176,22 @@
     "@nick/dispose@1.1.0": {
       "integrity": "73a15b90cb48e1435801258ba3ac7a19382823349dedcacbb8e5b5b673ce9d17"
     },
-    "@shougo/ddc-vim@10.1.0": {
-      "integrity": "082f5067bc43f34aab9bb23126cbd6a47384c3ffae84e8f5246dffe38dce9da4",
+    "@shougo/ddc-vim@10.2.0": {
+      "integrity": "e5d8080537db885aaf6a91606913959a9b543bb83aebc47cbfd2fa9a034fd5b3",
       "dependencies": [
         "jsr:@core/unknownutil@4.3",
-        "jsr:@denops/std@8.0",
+        "jsr:@denops/std@8.2",
         "jsr:@lambdalisue/import-map-importer",
         "jsr:@std/assert@~1.0.7",
         "jsr:@std/path@1.1"
       ]
     },
-    "@shougo/ddu-ui-ff@3.1.0": {
-      "integrity": "0902b58e636f6215b2c624796ae16d0e48fb946d2f47a742814b290e014452b0",
+    "@shougo/ddu-ui-ff@3.2.0": {
+      "integrity": "5cdee73128a02aef6efaa7f4f17ec37455ae1c5df668ddcd3785701a2e5fd767",
       "dependencies": [
         "jsr:@core/unknownutil@4.3",
-        "jsr:@denops/std@8.0",
-        "jsr:@shougo/ddu-vim@11.0",
+        "jsr:@denops/std@8.2",
+        "jsr:@shougo/ddu-vim@11.2",
         "jsr:@std/assert@~1.0.7",
         "jsr:@std/path@1.1"
       ]
@@ -204,17 +206,29 @@
         "jsr:@std/path@1.1"
       ]
     },
-    "@shougo/ddu-vim@11.0.0": {
-      "integrity": "7dde913385e0cc3eff144d6e9c2e4a7ff02d4c5caaa3cec4c9bdc5732bbdffc2",
-      "dependencies": [
-        "jsr:@lambdalisue/import-map-importer",
-        "jsr:@std/path@1.1"
-      ]
-    },
     "@shougo/ddu-vim@11.1.0": {
       "integrity": "839d7c51a78ece975e034bacda2bf61a7e334dbf95d1ca2a838630933b0175e6",
       "dependencies": [
         "jsr:@core/unknownutil@4.3",
+        "jsr:@denops/std@8.0",
+        "jsr:@lambdalisue/import-map-importer",
+        "jsr:@std/path@1.1"
+      ]
+    },
+    "@shougo/ddu-vim@11.2.0": {
+      "integrity": "4610589cd79c72b29de341206134eee1f215018f4a7be2474c7949e30181a9a6",
+      "dependencies": [
+        "jsr:@core/unknownutil@4.3",
+        "jsr:@denops/std@8.2",
+        "jsr:@lambdalisue/import-map-importer",
+        "jsr:@std/path@1.1"
+      ]
+    },
+    "@shougo/ddu-vim@11.3.0": {
+      "integrity": "ec68a3cb3502b42cddc9b560e5a582fa7385479fbc1e1f5243fa8f7a27edd51e",
+      "dependencies": [
+        "jsr:@core/unknownutil@4.3",
+        "jsr:@denops/std@8.2",
         "jsr:@lambdalisue/import-map-importer",
         "jsr:@std/path@1.1"
       ]
@@ -222,6 +236,7 @@
     "@shougo/dpp-vim@6.0.0": {
       "integrity": "faf556cad2fbfa94c089d579af5294a0ac9c18920cdd5df592689213194cc4eb",
       "dependencies": [
+        "jsr:@denops/std@8.2",
         "jsr:@lambdalisue/import-map-importer",
         "jsr:@std/assert@~1.0.7",
         "jsr:@std/path@1.1"
@@ -287,8 +302,8 @@
     "@std/fs@0.223.0": {
       "integrity": "3b4b0550b2c524cbaaa5a9170c90e96cbb7354e837ad1bdaf15fc9df1ae9c31c"
     },
-    "@std/fs@1.0.22": {
-      "integrity": "de0f277a58a867147a8a01bc1b181d0dfa80bfddba8c9cf2bacd6747bcec9308",
+    "@std/fs@1.0.23": {
+      "integrity": "3ecbae4ce4fee03b180fa710caff36bb5adb66631c46a6460aaad49515565a37",
       "dependencies": [
         "jsr:@std/internal",
         "jsr:@std/path@^1.1.4"
@@ -1310,12 +1325,12 @@
     "members": {
       "dpp": {
         "dependencies": [
-          "jsr:@shougo/ddc-vim@^10.1.0",
-          "jsr:@shougo/ddu-ui-ff@^3.1.0",
+          "jsr:@shougo/ddc-vim@^10.2.0",
+          "jsr:@shougo/ddu-ui-ff@^3.2.0",
           "jsr:@shougo/ddu-ui-filer@^3.2.0",
-          "jsr:@shougo/ddu-vim@^11.1.0",
+          "jsr:@shougo/ddu-vim@^11.3.0",
           "jsr:@shougo/dpp-vim@6",
-          "jsr:@std/fs@^1.0.22"
+          "jsr:@std/fs@^1.0.23"
         ]
       }
     }
