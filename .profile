@@ -41,6 +41,9 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export FVM_CACHE_PATH="$XDG_DATA_HOME/fvm" # Flutter (FVM)
 export VITE_PLUS_HOME="$XDG_DATA_HOME/vite-plus"
 
+export COPILOT_HOME="$XDG_DATA_HOME/copilot"
+export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
+
 export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME/fzfrc"
 export LESS="-FRXMS -j5 --shift 5"
 export LESSCHARSET="utf-8"
