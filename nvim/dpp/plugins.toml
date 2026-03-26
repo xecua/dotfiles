@@ -803,16 +803,6 @@ on_ft = 'gitignore'
 [[plugins]]
 repo = 'qnighy/satysfi.vim'
 
-## F#
-[[plugins]]
-repo = 'ionide/Ionide-vim'
-on_ft = 'fsharp'
-
-## Brewfile
-[[plugins]]
-repo = 'bfontaine/Brewfile.vim'
-on_ft = 'Brewfile'
-
 ## ebuild etc
 [[plugins]]
 repo = 'gentoo/gentoo-syntax'
