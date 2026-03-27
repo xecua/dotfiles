@@ -1,5 +1,4 @@
 --reverse
---tmux 80%
 --no-scrollbar
 --preview-window=border-left
 --margin=1

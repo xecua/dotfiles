@@ -80,6 +80,12 @@ vim.api.nvim_create_user_command("DduFiler", function()
         actionOptions = {
             narrow = { quit = false },
             open = { quit = false },
+            newFile = { quit = false },
+            newDirectory = { quit = false },
+            rename = { quit = false },
+            yank = { quit = false },
+            paste = { quit = false },
+            trash = { quit = false },
         },
     })
 end, {})
@@ -99,6 +105,16 @@ vim.api.nvim_create_autocmd("User", {
     group = ddu_group_id,
     callback = function()
         vim.fn["ddc#custom#patch_global"]("ui", "pum")
+    end,
+})
+
+-- ddu-filerが最後のウィンドウになったら閉じる (fernと同様の挙動)
+vim.api.nvim_create_autocmd("WinEnter", {
+    group = ddu_group_id,
+    callback = function()
+        if vim.bo.filetype == "ddu-filer" and vim.fn.winnr("$") == 1 then
+            vim.cmd("quit")
+        end
     end,
 })
 -- }}}

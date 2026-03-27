@@ -1,3 +1,10 @@
+-- カーソル下のhighlightグループ名を取得 (https://stackoverflow.com/a/37040415)
+vim.api.nvim_create_user_command("SynID", function()
+    local synid = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), true)
+    local name = vim.fn.synIDattr(vim.fn.synIDtrans(synid), "name")
+    print(name)
+end, {})
+
 -- :h DiffOrig Luaで書き換えたい
 vim.api.nvim_create_user_command(
     "DiffOrig",
