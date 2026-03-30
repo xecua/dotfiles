@@ -7,11 +7,11 @@ local is_submode = false
 leave_submode = function()
     if is_submode then
         is_submode = false
-        vim.keymap.del("n", "h", {})
-        vim.keymap.del("n", "j", {})
-        vim.keymap.del("n", "k", {})
-        vim.keymap.del("n", "l", {})
-        vim.keymap.del("n", "<Esc>", {})
+        vim.keymap.del("n", "h", { buffer = true })
+        vim.keymap.del("n", "j", { buffer = true })
+        vim.keymap.del("n", "k", { buffer = true })
+        vim.keymap.del("n", "l", { buffer = true })
+        vim.keymap.del("n", "<Esc><Esc><Esc>", { buffer = true })
     end
 end
 
@@ -20,7 +20,7 @@ enter_submode = function()
     vim.keymap.set("n", "j", handle_key("j"), { buffer = true, desc = "Move to Down" })
     vim.keymap.set("n", "k", handle_key("k"), { buffer = true, desc = "Move to Up" })
     vim.keymap.set("n", "l", handle_key("l"), { buffer = true, desc = "Move to Right" })
-    vim.keymap.set("n", "<Esc>", leave_submode, { buffer = true, desc = "Leave move mode" })
+    vim.keymap.set("n", "<Esc><Esc><Esc>", leave_submode, { buffer = true, desc = "Leave move mode" })
 end
 
 handle_key = function(key)
