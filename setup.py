@@ -40,6 +40,7 @@ def main():
     make_symlink('jj/config.toml', config_home)
     make_symlink('jj/conf.d', config_home)
     make_symlink('niri', config_home)
+    make_symlink('npm', config_home)
     make_symlink('gtk-3.0', config_home)
     make_symlink('ideavim', config_home)
     if (kanshi_config := script_dir / 'kanshi' / uname.nodename).exists():
