@@ -345,26 +345,6 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 
-[[plugins]]
-# fork. back to original when https://github.com/antosha417/nvim-lsp-file-operations/pull/34 is merged
-repo = 'igorlfs/nvim-lsp-file-operations'
-depends = ['nvim-lspconfig']
-lua_post_source = """
-require("lsp-file-operations").setup()
-local lspconfig = require("lspconfig")
-local file_op_capabilities = vim.tbl_deep_extend(
-    "force",
-    vim.lsp.protocol.make_client_capabilities(),
-    require("lsp-file-operations").default_capabilities()
-)
-lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-    capabilities = file_op_capabilities,
-})
--- vim.lsp.enable() で起動するサーバにも同じ capability を渡す
-vim.lsp.config("*", { capabilities = file_op_capabilities })
-
-"""
-
 ## breadcrumbs
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
