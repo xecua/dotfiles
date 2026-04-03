@@ -500,6 +500,10 @@ vim.g["fern#disable_auto_buffer_delete"] = true
 vim.g["fern#disable_auto_buffer_rename"] = true
 vim.keymap.set("n", "<C-n>", "<Cmd>Fern . -reveal=%:p -drawer -toggle<CR>")
 """
+lua_source = """
+-- fern-replacer バッファへのフックを登録する (rename 時の LSP 通知)
+require("xecua.fern_lsp").setup()
+"""
 [plugins.ftplugin]
 lua_fern = """
 vim.opt_local.list = false
