@@ -206,7 +206,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
 
-        if vim.fn.has("nvim-0.12") == 1 and client:supports_method("textDocument/inlineCompletion") then
+        if client:supports_method("textDocument/inlineCompletion") then
             vim.lsp.inline_completion.enable()
             vim.keymap.set("i", "<C-l>", function()
                 return vim.lsp.inline_completion.get() and "" or "<C-l>"
