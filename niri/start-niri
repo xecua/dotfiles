@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+# /usr/local/share/wayland-sessionにこれを呼ぶ.desktopファイルを置くか、これを直接呼ぶとzshから(-> .zshenvを読んだ状態で)niri-sessionを起動することができる
+# -l付けないとログインシェルとしてのbash(= 環境が全部飛んだ状態)でexecしなおしてしまうっぽい
+exec niri-session -l

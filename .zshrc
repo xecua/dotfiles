@@ -1,8 +1,4 @@
-if [[ $- != *i* ]]; then
-    return
-fi
-
-if [[ -n "$CURSOR_AGENT" ]]; then
+if ! [[ -o interactive ]]; then
     return
 fi
 

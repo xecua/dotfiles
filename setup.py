@@ -63,13 +63,10 @@ def main():
     make_symlink('zathura', config_home)
     make_symlink('glide', config_home)
 
-    make_symlink('.bashrc', home)
-    make_symlink('.bash_profile', home)
     make_symlink('.clang-format', home)
     make_symlink('.mutagen.yml', home)
     make_symlink('.myclirc', home)
-    make_symlink('.profile', home)
-    make_symlink('.zprofile', home)
+    make_symlink('.zshenv', home)
     make_symlink('.zshrc', home)
 
     make_symlink('fzf-preview.sh', binary_path)
