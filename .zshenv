@@ -1,6 +1,6 @@
 if [[ -z "$ZSHENV_LOADED" ]]; then
     export ZSHENV_LOADED=1
-    typeset -gU PATH
+    typeset -gUx path
 
     export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_CACHE_HOME="$HOME/.cache"
@@ -62,30 +62,31 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 
-    PATH="$HOME/.local/bin:$PATH"
-    PATH="$GOPATH/bin:$PATH"
-    PATH="$CARGO_HOME/bin:$PATH"
-    PATH="$COURSIER_INSTALL_DIR:$PATH"
-    PATH="$DENO_INSTALL/bin:$PATH"
-    PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-    PATH="$ANDROID_HOME/platform-tools:$PATH"
-    PATH="$ANDROID_HOME/emulator:$PATH"
-    PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
-    PATH="$PNPM_HOME:$PATH"
-    PATH="/Library/TeX/texbin:$PATH" # MacTeX
-    PATH="$HOME/.dotnet/tools:$PATH"
-    PATH="$FVM_CACHE_PATH/bin:$PATH" # fvm
-    PATH="$FVM_CACHE_PATH/default/bin:$PATH" # global flutter installed by fvm
-    PATH="$XDG_DATA_HOME/ghcup/bin:$PATH"
+    path=(
+        "$HOME/.local/bin"(N-/)
+        "$GOPATH/bin"(N-/)
+        "$CARGO_HOME/bin"(N-/)
+        "$COURSIER_INSTALL_DIR"(N-/)
+        "$DENO_INSTALL/bin"(N-/)
+        "$ANDROID_HOME/cmdline-tools/latest/bin"(N-/)
+        "$ANDROID_HOME/platform-tools"(N-/)
+        "$ANDROID_HOME/emulator"(N-/)
+        "$NPM_CONFIG_PREFIX/bin"(N-/)
+        "$PNPM_HOME"(N-/)
+        "/Library/TeX/texbin"(N-/) # MacTeX
+        "$HOME/.dotnet/tools"(N-/)
+        "$FVM_CACHE_PATH/bin"(N-/) # fvm
+        "$FVM_CACHE_PATH/default/bin"(N-/) # global flutter installed by fvm
+        "$XDG_DATA_HOME/ghcup/bin"(N-/)
+        $path
+    )
 
     # set by command
     if command -v ruby >/dev/null; then
         # user local gem path
         # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
-        PATH="$(ruby -e "print Gem.user_dir")/bin:$PATH"
+        path=("$(ruby -e "print Gem.user_dir")/bin"(N-/) $path)
     fi
-
-    export PATH
 
     # Conditional variables
     if command -v sccache >/dev/null ; then
