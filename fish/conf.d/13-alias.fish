@@ -68,7 +68,7 @@ if status is-interactive
     end
 
     if type -q lazydocker && type -q podman
-        alias lpo="DOCKER_HOST=unix://(podman info --format '{{.Host.RemoteSocket.Path}}') lazydocker"
+        alias lpo="DOCKER_HOST=$PODMAN_HOST lazydocker"
     end
 
     # Workaround for https://github.com/flutter/flutter/issues/59430

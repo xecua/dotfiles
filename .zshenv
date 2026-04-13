@@ -93,6 +93,18 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
         export RUSTC_WRAPPER=$(command -v sccache)
     fi
 
+    if command -v podman >/dev/null; then
+        export PODMAN_HOST
+        case (uname) in
+            Darwin)
+                PODMAN_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
+                ;;
+            Linux)
+                PODMAN_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
+                ;;
+        esac
+    fi
+
     export ZSHENV_VARS=(XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME PATH
          GTK_USE_PORTAL GHCUP_USE_XDG_DIRS DFT_COLOR DFT_DISPLAY EDITOR
          BUNDLE_USER_CONFIG DOCKER_CONFIG NPM_CONFIG_USERCONFIG WGETRC RIPGREP_CONFIG_PATH NBRC_PATH
