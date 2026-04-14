@@ -70,6 +70,7 @@ def main():
     make_symlink('.zshrc', home)
 
     make_symlink('fzf-preview.sh', binary_path)
+    make_symlink('env-sync.zsh', binary_path)
     make_symlink('fzfrc', config_home)
     make_symlink('lesskey', config_home)
     make_symlink('starship.toml', config_home)

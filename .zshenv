@@ -2,6 +2,12 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     export ZSHENV_LOADED=1
     typeset -gUx path
 
+    # path_helperはカス
+    setopt no_global_rcs
+    if [[ -x /usr/libexec/path_helper ]]; then
+        eval "$(/usr/libexec/path_helper -s)"
+    fi
+
     export XDG_CONFIG_HOME="$HOME/.config"
     export XDG_CACHE_HOME="$HOME/.cache"
     export XDG_DATA_HOME="$HOME/.local/share"
@@ -95,7 +101,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
 
     if command -v podman >/dev/null; then
         export PODMAN_HOST
-        case (uname) in
+        case "$(uname)" in
             Darwin)
                 PODMAN_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
                 ;;
@@ -113,7 +119,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
          GEM_HOME GOPATH GRADLE_USER_HOME OPAMROOT NPM_CONFIG_PREFIX PNPM_HOME
          POETRY_HOME RUSTUP_HOME STACK_ROOT FVM_CACHE_PATH VITE_PLUS_HOME
          COPILOT_HOME CLAUDE_CONIFG_DIR FZF_DEFAULT_OPTS_FILE LESS LESSCHARSET
-         MOZ_ENABLE_WAYLAND RUSTC_WRAPPER
+         MOZ_ENABLE_WAYLAND RUSTC_WRAPPER PODMAN_HOST
     )
 
     # Describe machine specific configurations in ~/.profile.local

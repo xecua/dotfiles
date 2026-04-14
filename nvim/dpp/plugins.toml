@@ -849,7 +849,7 @@ repo = 'mustache/vim-mustache-handlebars'
 # Idris2
 [[plugins]]
 repo = 'idris-community/idris2-nvim'
-# on_ft= 'idris2'
+on_ft= 'idris2'
 lua_source = 'require("idris2").setup({})'
 [plugins.ftplugin]
 lua_idris2 = """
