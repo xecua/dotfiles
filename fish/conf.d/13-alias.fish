@@ -71,6 +71,10 @@ if status is-interactive
         alias lpo="DOCKER_HOST=$PODMAN_HOST lazydocker"
     end
 
+    if type -q podman && type -q devcontainer
+        alias poddevcontainer="DOCKER_HOST=$PODMAN_HOST devcontainer"
+    end
+
     # Workaround for https://github.com/flutter/flutter/issues/59430
     if type -q flutter
         alias flutter='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command flutter'
@@ -82,6 +86,10 @@ if status is-interactive
     # ghcup uses undefined variable XDG_BIN_HOME for installed binary
     if type -q ghcup
         alias ghcup='XDG_BIN_HOME=$XDG_DATA_HOME/ghcup/bin command ghcup'
+    end
+
+    if type -q mdv && test -n "$GHOSTTY_RESOURCES_DIR"
+        alias mdv="TERM_PROGRAM=ghostty command mdv"
     end
 
     if type -q phantom
