@@ -93,7 +93,6 @@ require("obsidian").setup({
     follow_url_func = function(url)
         vim.ui.open(url)
     end,
-    ui = { enable = false },
     workspaces = {
         {
             name = vim.fs.basename(default_vault),

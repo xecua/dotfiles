@@ -72,7 +72,7 @@ if status is-interactive
     end
 
     if type -q podman && type -q devcontainer
-        alias poddevcontainer="DOCKER_HOST=$PODMAN_HOST devcontainer"
+        alias poddevcontainer="devcontainer --docker-path podman"
     end
 
     # Workaround for https://github.com/flutter/flutter/issues/59430
@@ -95,6 +95,8 @@ if status is-interactive
     if type -q phantom
         alias ph=phantom
     end
+
+    alias mdless='nvim +MdRenderPager'
 
     alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 

@@ -21,13 +21,13 @@ vim.lsp.enable({
     "kotlin_language_server",
     "lemminx",
     "nil_ls",
-    "pyright",
     "rumdl",
     "sourcekit",
     "sqls",
     "stylelint_lsp",
     -- "tombi", -- キーでソートする機能あるけどいらない…… oxfmtで
     "tsp_server",
+    "ty",
     "vimls",
     -- "typos_lsp",
 })
