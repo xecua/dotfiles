@@ -39,6 +39,7 @@ def main():
     make_symlink('git', config_home)
     make_symlink('jj/config.toml', config_home)
     make_symlink('jj/conf.d', config_home)
+    make_symlink('containers/containers.conf.d/00-common.conf', config_home)
     make_symlink('niri', config_home)
     make_symlink('npm', config_home)
     make_symlink('gtk-3.0', config_home)
@@ -53,7 +54,7 @@ def main():
     make_symlink('.satysfi/local/packages',
                  home,
                  target=script_dir / 'satysfi' / 'packages')
-    make_symlink('libskk', config_home, True, target=script_dir /'skk' / 'libskk')
+    make_symlink('libskk', config_home, True, target=script_dir / 'skk' / 'libskk')
     make_symlink('systemd/user', config_home, True)
     make_symlink('tmux', config_home, True)
     make_symlink('elephant', config_home)
