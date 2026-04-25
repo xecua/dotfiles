@@ -1,5 +1,6 @@
 config-file = ?config.local
 font-family = "UDEV Gothic 35NFLG"
+font-family = "Noto Sans Mono CJK JP"
 font-family = "Noto Color Emoji"
 font-feature = -glib
 font-size = 12
