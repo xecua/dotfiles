@@ -1,4 +1,19 @@
--- vim.lsp.config('*', {})
+-- workspace file operation capabilities を全 LSP サーバに宣言する
+-- LSP サーバ側が willRenameFiles 等を登録するために必要
+vim.lsp.config("*", {
+    capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {
+        workspace = {
+            fileOperations = {
+                didCreate = true,
+                willCreate = true,
+                didRename = true,
+                willRename = true,
+                didDelete = true,
+                willDelete = true,
+            },
+        },
+    }),
+})
 
 vim.lsp.enable({
     "denols",
