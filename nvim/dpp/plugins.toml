@@ -112,7 +112,7 @@ end
 repo = 'delphinus/md-render.nvim'
 lua_add = """
 vim.keymap.set("n", "<Leader>mp", "<Plug>(md-render-preview)",     { desc = "Markdown preview (toggle)" })
-vim.keymap.set("n", "<Leader>mt", "<Plug>(md-render-preview-tab)", { desc = "Markdown preview in tab (toggle)" })
+vim.keymap.set("n", "<Leader>mv", "<Plug>(md-render-preview-tab)", { desc = "Markdown preview in tab (toggle)" })
 """
 
 # Submode
@@ -358,6 +358,15 @@ require("mason").setup({
         "github:mason-org/mason-registry",
     },
 })
+
+local mason_base = vim.env.MASON .. "/share"
+local bundles = vim.list_extend(
+  vim.split(vim.fn.glob(mason_base .. "/java-debug-adapter/com.microsoft.java.debug.plugin.jar"), "\\n"),
+  vim.split(vim.fn.glob(mason_base .. "/java-test/*.jar"), "\\n")
+)
+vim.lsp.config("jdtls", {
+    init_options = { bundles = bundles },
+})
 """
 
 [[plugins]]
@@ -372,7 +381,7 @@ vim.lsp.config("*", {
 """
 
 [[plugins]]
-repo = 'mfussenegger/nvim-jdtls'
+repo = 'https://codeberg.org/mfussenegger/nvim-jdtls'
 depends = ['nvim-dap']
 on_lua = 'jdtls'
 
@@ -408,7 +417,7 @@ repo = 'creativenull/efmls-configs-nvim'
 ## Rust tooltip
 [[plugins]]
 repo = 'mrcjkb/rustaceanvim'
-# depends = ['mason.nvim']
+depends = ['mason.nvim']
 lua_add = """
 vim.g.rustaceanvim = function()
   local config = {
@@ -831,7 +840,7 @@ repo = 'mustache/vim-mustache-handlebars'
 # Idris2
 [[plugins]]
 repo = 'idris-community/idris2-nvim'
-on_ft= 'idris2'
+on_ft = 'idris2'
 lua_source = 'require("idris2").setup({})'
 [plugins.ftplugin]
 lua_idris2 = """

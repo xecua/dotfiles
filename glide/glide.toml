@@ -73,8 +73,8 @@ status_icon.color = true
 "Alt + Minus" = { split = "horizontal" }
 # Change the parent node to a horizontal or vertical group, also known as
 # "tabbed" and "stacked" respectively.
-"Alt + V" = { group = "horizontal" }
-"Alt + G" = { group = "vertical" }
+"Alt + V" = { group = "vertical" }
+"Alt + G" = { group = "horizontal" }
 "Alt + E" = "ungroup"
 # Float the current node. Floating windows are allowed to overlap and keep
 # whatever size and position you give them. Note that they do not actually

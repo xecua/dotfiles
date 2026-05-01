@@ -1,36 +1,27 @@
-local ok, fs = pcall(require, "efmls-configs.fs")
-if not ok then
-    return {}
-end
-
-local phpcs = require("efmls-configs.linters.phpcs")
-phpcs.lintCommand = string.format(
-    ' %s --no-colors --exclude=Generic.Files.LineLength --report=emacs --stdin-path="${INPUT}" -',
-    fs.executable("phpcs", fs.Scope.COMPOSER)
-)
-
-local prettier = require("efmls-configs.formatters.prettier")
-prettier.rootMarkers = {
-    ".prettierrc",
-    ".prettierrc.json",
-    ".prettierrc.yml",
-    ".prettierrc.yaml",
-    ".prettierrc.json5",
-    ".prettierrc.js",
-    "prettier.config.js",
-    ".prettierrc.ts",
-    "prettier.config.ts",
-    ".prettierrc.mjs",
-    "prettier.config.mjs",
-    ".prettierrc.mts",
-    "prettier.config.mts",
-    ".prettierrc.cjs",
-    "prettier.config.cjs",
-    "prettier.config.cts",
-    ".prettierrc.cts",
-    ".prettierrc.toml",
-}
-prettier.requireMarker = true
+--- lua_source {{{
+local prettier = vim.tbl_extend(require("efmls-configs.formatters.prettier"), {
+    rootMarkers = {
+        ".prettierrc",
+        ".prettierrc.json",
+        ".prettierrc.yml",
+        ".prettierrc.yaml",
+        ".prettierrc.json5",
+        ".prettierrc.js",
+        "prettier.config.js",
+        ".prettierrc.ts",
+        "prettier.config.ts",
+        ".prettierrc.mjs",
+        "prettier.config.mjs",
+        ".prettierrc.mts",
+        "prettier.config.mts",
+        ".prettierrc.cjs",
+        "prettier.config.cjs",
+        "prettier.config.cts",
+        ".prettierrc.cts",
+        ".prettierrc.toml",
+    },
+    requireMarker = true,
+})
 
 local languages = {
     html = { prettier },
@@ -58,8 +49,8 @@ local languages = {
         require("efmls-configs.formatters.stylua"),
     },
     php = {
-        phpcs,
-        -- require("efmls-configs.formatters.phpcbf"),
+        require("efmls-configs.formatters.php-cs-fixer"),
+        require("efmls-configs.linters.phpstan"),
     },
     python = {
         require("efmls-configs.formatters.yapf"),
@@ -69,11 +60,15 @@ local languages = {
     },
 }
 
-return {
+vim.lsp.config("efm", {
     filetypes = vim.tbl_keys(languages),
     init_options = {
         documentFormatting = true,
         documentRangeFormatting = true,
     },
     settings = { languages = languages },
-}
+})
+
+vim.lsp.enable("efm")
+
+--- }}}

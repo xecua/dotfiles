@@ -2,9 +2,9 @@
 
 vim.lsp.enable({
     "denols",
-    "efm",
     "intelephense",
     "jsonls",
+    "jdtls",
     "lua_ls", -- clangでコンパイルすると動かないかも(gcc libunwindが必要なため)
     "oxfmt",
     "oxlint",
@@ -33,24 +33,6 @@ vim.lsp.enable({
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "java" },
-    group = augroup,
-    callback = function()
-        local registry = require("mason-registry")
-
-        -- DAP: both of java-debug-adapter and java-test are ought to be installed. (https://github.com/mfussenegger/nvim-jdtls#debugger-via-nvim-dap)
-        local debug_adapter_dir = registry.get_package("java-debug-adapter"):get_install_path()
-        local java_test_dir = registry.get_package("java-test"):get_install_path()
-
-        local bundles = { vim.fn.glob(debug_adapter_dir .. "/extension/server/com.microsoft.java.debug.plugin-*.jar") }
-        vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_dir .. "/extension/server/*.jar"), "\n"))
-
-        require("jdtls").start_or_attach({ cmd = "jdtls", init_options = { bundles = bundles } })
-    end,
-})
-
 local format_autocmd_defined = {}
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,

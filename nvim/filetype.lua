@@ -3,6 +3,7 @@ vim.filetype.add({
         er = "python", -- erg
         hx = "haxe",
         mdc = "markdown",
+        neon = "yaml",
     },
     pattern = {
         [".textlintrc"] = "json",

@@ -1,7 +1,3 @@
-local ok, util = pcall(require, "lspconfig.util")
-if not ok then
-    return {}
-end
 
 return {
     cmd = function(dispatchers, config)
@@ -20,6 +16,7 @@ return {
         end
 
         local fname = vim.api.nvim_buf_get_name(bufnr)
+        local util = require( "lspconfig.util")
         local root_markers = util.insert_package_json({ ".oxfmtrc.json", ".oxfmtrc.jsonc" }, "oxfmt", fname)
         on_dir(vim.fs.dirname(vim.fs.find(root_markers, { path = fname, upward = true })[1]))
     end,
