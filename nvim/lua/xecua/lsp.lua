@@ -214,8 +214,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 {}
             )
             vim.keymap.set("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>", { buffer = buffer, silent = true })
-
-            require("jdtls").setup_dap({ hotcodereplace = "auto" })
         end
     end,
 })
