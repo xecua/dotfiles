@@ -19,7 +19,7 @@ end
 
 function fzf-git-switch -w 'git switch'
     set -f branch $argv[1]
-    if [ -z "$branch" ]; or not git show-ref --quiet $branch
+    if test -z "$branch"; or not git show-ref --quiet $branch
         set -f branch (git branch -a | cut -c 3- | sed -E 's#^remotes/[0-9a-zA-Z_-]+/##;/^HEAD/d' | sort | uniq | fzf -1 -q "$branch")
     end
     git switch $branch
@@ -27,13 +27,13 @@ end
 
 function ghqcd
     set -l ghqdir (ghq list | fzf -1 -q "$argv[1]")
-    if [ -n "$ghqdir" ]
+    if test -n "$ghqdir"
         cd (ghq root)/$ghqdir
     end
 end
 
 function randomstring
-    if [ -z "$argv[1]" ]
+    if test -z "$argv[1]"
         echo "usage: randomstring width" >&2
         return 1
     end
@@ -43,7 +43,7 @@ end
 # get user confirmation with given message or fallback message, and return 0 if y or Y given
 function get-confirmation
     set -l message "$argv[1]"
-    if [ -z "$argv[1]" ]
+    if test -z "$argv[1]"
         set message "Are you sure?"
     end
 
@@ -56,7 +56,7 @@ function go-update
     # https://zenn.dev/kyoh86/articles/291618538dcf0d
     pushd $HOME
     set gobin (go env GOBIN)
-    if [ -z "$gobin" ]
+    if test -z "$gobin"
         set gobin (go env GOPATH)/bin
     end
 
@@ -70,7 +70,7 @@ end
 # https://qiita.com/mkeeda/items/c5fa878436f1cc957892
 function attach_tmux_session_if_needed
     set -f ID (tmux list-sessions)
-    if [ -z "$ID" ]
+    if test -z "$ID"
         exec tmux new-session
         return
     end
@@ -79,18 +79,18 @@ function attach_tmux_session_if_needed
     set -f no_session "Start shell without tmux"
     set -f ID (string collect $ID $new_session $no_session | fzf | cut -d: -f1)
 
-    if [ "$ID" = "$new_session" ]
+    if test "$ID" = "$new_session"
         exec tmux new-session
-    else if [ "$ID" = "$no_session" ]
+    else if test "$ID" = "$no_session"
         return
-    else if [ -n "$ID" ]
+    else if test -n "$ID"
         exec tmux attach-session -t "$ID"
     end
 end
 
 # mkdir and cd
 function mkcd
-    if [ -z "$argv[1]" ]
+    if test -z "$argv[1]"
         echo "usage: mkcd dirname" >&2
         return 1
     end
@@ -110,7 +110,7 @@ function lscolors
 end
 
 function test-echo
-    if [ (eval "$argv[1]") ]
+    if test (eval "$argv[1]")
         echo ok
     else
         echo ng
@@ -119,11 +119,11 @@ end
 
 # switch `delta` option when teminal size changed (https://github.com/dandavison/delta/issues/359#issuecomment-799628302)
 function __delta-switch-flag --on-signal WINCH
-    if [ "$COLUMNS" -ge 120 ]; and not contains side-by-side "$DELTA_FEATURES"
+    if test "$COLUMNS" -ge 120; and not contains side-by-side "$DELTA_FEATURES"
         set -gxp DELTA_FEATURES side-by-side
-    else if [ "$COLUMNS" -lt 120 ]
+    else if test "$COLUMNS" -lt 120
         set -l i (contains --index "side-by-side" "$DELTA_FEATURES")
-        if [ -n "$i" ]
+        if test -n "$i"
             set -e DELTA_FEATURES[$i]
         end
     end
@@ -134,10 +134,10 @@ __delta-switch-flag # on created
 function fish_title
     # emacs' "term" is basically the only term that can't handle it.
     if not set -q INSIDE_EMACS; or string match -vq '*,term:*' -- $INSIDE_EMACS
-        if [ (status current-command) = fish ]
-            if [ (string match -qe '.git' (pwd)) ]
+        if test (status current-command) = fish
+            if test (string match -qe '.git' (pwd))
                 string join '' 'fish: ' (prompt_pwd)
-                elseif [ (git rev-parse --git-dir 2>/dev/null) ]
+            else if test (git rev-parse --git-dir 2>/dev/null)
                 # inside git repository
                 string join '' 'fish: ' (string split '/' (git rev-parse --show-toplevel))[-1] / \
                     (string replace -ar '(\.?[^/])[^/]*/' '$1/' (string trim -rc / (git rev-parse --show-prefix)))
