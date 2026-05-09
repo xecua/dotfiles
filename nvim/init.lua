@@ -41,3 +41,10 @@ if has_ui2 then
 end
 
 vim.cmd("filetype plugin on")
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    once = true,
+    callback = function()
+        require("xecua.clock").setup()
+    end,
+})
