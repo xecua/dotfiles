@@ -42,7 +42,7 @@ def main():
     make_symlink('containers/containers.conf.d/00-common.conf', config_home)
     make_symlink('niri', config_home)
     make_symlink('npm', config_home)
-    make_symlink('gtk-3.0', config_home)
+    make_symlink('gtk-3.0/settings.ini', config_home)
     make_symlink('ideavim', config_home)
     if (kanshi_config := script_dir / 'kanshi' / uname.nodename).exists():
         make_symlink('kanshi/config', config_home, target=kanshi_config)

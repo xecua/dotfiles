@@ -103,7 +103,7 @@ lua_markdown = """
 local client = require("obsidian").get_client()
 local current_path = vim.api.nvim_buf_get_name(0)
 if client:path_is_note(current_path, client.current_workspace) then
-    vim.opt_local.conceallevel = w
+    vim.opt_local.conceallevel = 2
     vim.opt_local.concealcursor = "nc"
 end
 """
@@ -413,6 +413,7 @@ repo = 'nvim-neotest/nvim-nio'
 ## efm-langserver presets
 [[plugins]]
 repo = 'creativenull/efmls-configs-nvim'
+hooks_file = '$STD_CONFIG/dpp/efmls.lua'
 
 ## Rust tooltip
 [[plugins]]

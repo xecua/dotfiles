@@ -1,5 +1,5 @@
 --- lua_source {{{
-local prettier = vim.tbl_extend(require("efmls-configs.formatters.prettier"), {
+local prettier = vim.tbl_extend('force', require("efmls-configs.formatters.prettier"), {
     rootMarkers = {
         ".prettierrc",
         ".prettierrc.json",
@@ -49,7 +49,7 @@ local languages = {
         require("efmls-configs.formatters.stylua"),
     },
     php = {
-        require("efmls-configs.formatters.php-cs-fixer"),
+        require("efmls-configs.formatters.php_cs_fixer"),
         require("efmls-configs.linters.phpstan"),
     },
     python = {
