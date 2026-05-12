@@ -66,7 +66,7 @@ if status --is-interactive
         end
     end
 
-    if test -e "$VITE_PLUS_HOME/env.fish"
-        source "$VITE_PLUS_HOME/env.fish"
+    if test -e "$VP_HOME/env.fish"
+        source "$VP_HOME/env.fish"
     end
 end
