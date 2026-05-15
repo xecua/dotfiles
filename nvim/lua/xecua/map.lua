@@ -3,6 +3,7 @@ vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>silent cclose<CR><Bar><Cmd>silent lclose<CR>")
 vim.keymap.set("n", "zK", "<Cmd>normal! zszH<CR>")
+vim.keymap.set("n", "<Leader>u", "<Cmd>Undotree<CR>")
 vim.keymap.set("n", "<C-w>o", "<nop>")
 vim.keymap.set("n", "<C-w><C-o>", "<nop>")
 -- vimgrep under cursor in current file

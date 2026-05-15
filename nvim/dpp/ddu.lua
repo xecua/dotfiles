@@ -56,11 +56,11 @@ end, {})
 vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>ffd", "<Cmd>DduFileWithIgnored<CR>") -- 別のfd生やすならffdiとか
 vim.keymap.set("n", "<Leader>ffg", "<Cmd>DduRgLiveRoot<CR>") -- 別のfg生やすならffgrとか
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
 vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
+vim.keymap.set("n", "<Leader>fj", "<Cmd>DduJvgrepLive<CR>")
 vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
 vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
 

@@ -583,14 +583,6 @@ require('gitsigns').setup({
 repo = 'cohama/lexima.vim'
 hooks_file = '$STD_CONFIG/dpp/lexima.lua'
 
-# undo
-[[plugins]]
-repo = 'mbbill/undotree'
-lua_add = """
-vim.g.undotree_SetFocusWhenToggle = 1
-vim.keymap.set('n', '<Leader>u', '<Cmd>UndotreeToggle<CR>')
-"""
-
 # statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'

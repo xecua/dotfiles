@@ -25,6 +25,7 @@ end
 -- plugin manager
 require("xecua.dpp").setup("nvim")
 
+vim.cmd.packadd("nvim.undotree")
 pcall(require, "xecua.local")
 
 local has_ui2, ui2 = pcall(require, "vim._core.ui2")
