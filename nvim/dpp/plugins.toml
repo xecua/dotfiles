@@ -47,6 +47,12 @@ lua_add = """
 vim.g.previm_hard_line_break = 1
 """
 
+[[plugins]]
+repo = "3rd/image.nvim"
+lua_source = '''
+require('image').setup({})
+'''
+
 # nonsense animation
 [[plugins]]
 repo = 'eandrju/cellular-automaton.nvim'

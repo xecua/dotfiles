@@ -2,7 +2,7 @@
 
 vim.lsp.enable({
     "denols",
-    "intelephense",
+    -- "intelephense",
     "jsonls",
     "jdtls",
     "lua_ls", -- clangでコンパイルすると動かないかも(gcc libunwindが必要なため)
@@ -21,18 +21,22 @@ vim.lsp.enable({
     "kotlin_language_server",
     "lemminx",
     "nil_ls",
+    "phpantom_lsp",
     "rumdl",
     "sourcekit",
     "sqls",
     "stylelint_lsp",
-    -- "tombi", -- キーでソートする機能あるけどいらない…… oxfmtで
+    "tombi",
     "tsp_server",
     "ty",
     "vimls",
     -- "typos_lsp",
+    "zls",
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
+vim.g.format_disabled_servers = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
+vim.g.format_disabled_servers_onsave = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
 local format_autocmd_defined = {}
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
@@ -43,7 +47,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         assert(client ~= nil)
         if client.name == "GitHub Copilot" then
             if vim.fn["copilot#Enabled"]() == 0 then
-                -- VimEnterで起動するときはg:copilot_filetypesが無視される(PR案件な気もするけど)
+                -- VimEnterで起動するときはg:copilot_filetypesが無視される
                 client:stop()
                 return
             end
@@ -90,13 +94,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
                 vim.lsp.buf.format({
                     filter = function(c)
-                        return not vim.tbl_contains({ "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }, c.name)
+                        return not vim.tbl_contains(vim.g.format_disabled_servers, c.name)
                     end,
+                    async = true,
                 })
             end, { range = client:supports_method("textDocument/rangeFormatting") })
             if not format_autocmd_defined[buffer] then
                 format_autocmd_defined[buffer] = true
-                vim.api.nvim_create_autocmd("BufWritePre", { group = augroup, buffer = buffer, command = "LspFormat" })
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    group = augroup,
+                    buffer = buffer,
+                    callback = function()
+                vim.lsp.buf.format({
+                    filter = function(c)
+                        return not vim.tbl_contains(vim.g.format_disabled_servers_onsave, c.name)
+                    end,
+                })
+                    end,
+                })
             end
         end
 

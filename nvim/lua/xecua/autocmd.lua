@@ -58,11 +58,22 @@ vim.api.nvim_create_autocmd("BufEnter", {
     group = augroup,
     pattern = "*",
     callback = function()
-        local path = string.gsub(vim.fn.expand("%:p"), "^" .. vim.fn.expand("$HOME"), "~")
+        local path = vim.fn.expand("%:p")
         if path == "" then
             path = vim.fn.getcwd()
         end
-        vim.opt.titlestring = "nvim: " .. vim.fn.pathshorten(path)
+        local cwd = vim.fn.fnamemodify(path, ":h")
+        local out = vim.system({ "git", "-C", cwd, "rev-parse", "--show-toplevel" }, { text = true, stderr = false })
+            :wait()
+        if out.code == 0 then
+            local git_root_path = string.gsub(out.stdout, "\n", "")
+            path = string.gsub(path, "^" .. vim.pesc(git_root_path), "")
+            local git_root_name = vim.fn.fnamemodify(git_root_path, ":t")
+            vim.opt.titlestring = "nvim: " .. git_root_name .. vim.fn.pathshorten(path)
+        else
+            path = string.gsub(path, "^" .. vim.pesc(vim.env.HOME), "~")
+            vim.opt.titlestring = "nvim: " .. vim.fn.pathshorten(path)
+        end
     end,
 })
 

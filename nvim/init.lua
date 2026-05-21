@@ -31,13 +31,8 @@ pcall(require, "xecua.local")
 local has_ui2, ui2 = pcall(require, "vim._core.ui2")
 if has_ui2 then
     ui2.enable({
-        msg = {
-            target = "msg",
-            -- targets = {} -- <- |ui-messages|のkey -> "cmd"/"msg"/"pager"。dialogは使えない
-        },
-        cmd = {
-            target = "msg",
-        },
+        msg = { targets = "msg" },
+        cmd = { targets = "msg" },
     })
 end
 
