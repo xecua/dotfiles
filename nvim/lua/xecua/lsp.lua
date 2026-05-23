@@ -26,6 +26,7 @@ vim.lsp.enable({
     "sourcekit",
     "sqls",
     "stylelint_lsp",
+    'stylua',
     "tombi",
     "tsp_server",
     "ty",

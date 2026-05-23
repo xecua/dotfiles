@@ -1,5 +1,5 @@
 --- lua_source {{{
-local prettier = vim.tbl_extend('force', require("efmls-configs.formatters.prettier"), {
+local prettier = vim.tbl_extend("force", require("efmls-configs.formatters.prettier"), {
     rootMarkers = {
         ".prettierrc",
         ".prettierrc.json",
@@ -46,7 +46,6 @@ local languages = {
     },
     lua = {
         require("efmls-configs.linters.luacheck"),
-        require("efmls-configs.formatters.stylua"),
     },
     php = {
         require("efmls-configs.formatters.php_cs_fixer"),
@@ -65,8 +64,20 @@ vim.lsp.config("efm", {
     init_options = {
         documentFormatting = true,
         documentRangeFormatting = true,
+        documentSymbol = false,
+        completion = false,
+        codeAction = false,
+        hover = false,
     },
     settings = { languages = languages },
+    capabilities = {
+        textDocument = {
+            documentSymbol = false,
+            completion = false,
+            codeAction = false,
+            hover = false,
+        },
+    },
 })
 
 vim.lsp.enable("efm")
