@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@^11.3.0",
+    "@std/fs": "jsr:@std/fs@^1.0.23",
+    "@denops/std": "jsr:@denops/std@^8.2.0",
+    "@shougo/ddu-kind-file": "jsr:@shougo/ddu-kind-file@^1.0.0"
+  }
+}

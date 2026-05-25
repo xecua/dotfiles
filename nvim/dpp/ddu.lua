@@ -6,18 +6,18 @@ vim.api.nvim_create_user_command("DduRgLive", function()
         sources = { { name = "rg", options = { volatile = true, matchers = {}, sorters = {} } } },
     })
 end, {})
-vim.api.nvim_create_user_command("DduLspDocumentSymbol", function()
-    vim.fn["ddu#start"]({
-        sources = { "lsp_documentSymbol" },
-        uiParams = { ff = { displayTree = true } },
-    })
-end, {})
-vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
-    vim.fn["ddu#start"]({
-        sources = { { name = "lsp_workspaceSymbol", options = { volatile = true } } },
-        uiParams = { ff = { displayTree = true } },
-    })
-end, {})
+-- vim.api.nvim_create_user_command("DduLspDocumentSymbol", function()
+--     vim.fn["ddu#start"]({
+--         sources = { "lsp_documentSymbol" },
+--         uiParams = { ff = { displayTree = true } },
+--     })
+-- end, {})
+-- vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
+--     vim.fn["ddu#start"]({
+--         sources = { { name = "lsp_workspaceSymbol", options = { volatile = true } } },
+--         uiParams = { ff = { displayTree = true } },
+--     })
+-- end, {})
 vim.api.nvim_create_user_command("DduDpp", function()
     vim.fn["ddu#start"]({
         sources = { "dpp" },
@@ -61,8 +61,8 @@ vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
 vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 vim.keymap.set("n", "<Leader>fj", "<Cmd>DduJvgrepLive<CR>")
-vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
-vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
+-- vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
+-- vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
 
 vim.api.nvim_create_user_command("DduFiler", function()
     vim.fn["ddu#start"]({

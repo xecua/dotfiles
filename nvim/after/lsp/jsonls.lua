@@ -2,4 +2,14 @@ return {
     init_options = {
         provideFormatter = false,
     },
+    root_dir = function(bufnr, on_dir)
+        -- Give the root markers equal priority by wrapping them in a table
+        local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+        root_markers = { root_markers, { ".git" } }
+        if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
+            return
+        end
+
+        on_dir(vim.fs.root(bufnr, root_markers))
+    end,
 }

@@ -26,7 +26,7 @@ vim.lsp.enable({
     "sourcekit",
     "sqls",
     "stylelint_lsp",
-    'stylua',
+    "stylua",
     "tombi",
     "tsp_server",
     "ty",
@@ -38,6 +38,27 @@ vim.lsp.enable({
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 vim.g.format_disabled_servers = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
 vim.g.format_disabled_servers_onsave = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
+
+-- @see vim.lsp.ListOpts
+local function on_list(what)
+    vim.fn.setqflist({}, " ", what)
+    if
+        #what.items == 1
+        and what.context.method ~= "textDocument/implementation"
+        and what.context.method ~= "textDocument/references"
+    then
+        local tagstack = { { tagname = tagname, from = from } }
+        vim.fn.settagstack(vim.fn.win_getid(win), { items = tagstack }, "t")
+        vim.cmd("cfirst")
+    else
+        -- dduで開く
+        vim.fn["ddu#start"]({
+            sources = { { name = "qf", params = { what = what } } },
+            uiParams = { ff = { displayTree = true } },
+        })
+    end
+end
+
 local format_autocmd_defined = {}
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
@@ -106,11 +127,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     group = augroup,
                     buffer = buffer,
                     callback = function()
-                vim.lsp.buf.format({
-                    filter = function(c)
-                        return not vim.tbl_contains(vim.g.format_disabled_servers_onsave, c.name)
-                    end,
-                })
+                        vim.lsp.buf.format({
+                            filter = function(c)
+                                return not vim.tbl_contains(vim.g.format_disabled_servers_onsave, c.name)
+                            end,
+                        })
                     end,
                 })
             end
@@ -136,16 +157,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if client:supports_method("textDocument/references") then
-            vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
+            vim.api.nvim_buf_create_user_command(buffer, "LspReferences", function()
+                vim.lsp.buf.references(nil, { loclist = false, on_list = on_list })
+            end, {})
             vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", mapopts)
         end
 
         if client:supports_method("textDocument/definition") then
-            vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
+            vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", function()
+                vim.lsp.buf.definition({ loclist = false, on_list = on_list })
+            end, {})
             vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", mapopts)
         end
         if client:supports_method("textDocument/typeDefinition") then
-            vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
+            vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", function()
+                vim.lsp.buf.type_definition({ loclist = false, on_list = on_list })
+            end, {})
             vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", mapopts)
         end
         if client:supports_method("typeHierarchy/subtypes") then
@@ -162,7 +189,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", "<Leader>lsp", "<Cmd>LspSupertypes<CR>", mapopts)
         end
         if client:supports_method("textDocument/implementation") then
-            vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
+            vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", function()
+                vim.lsp.buf.implementation({ loclist = false, on_list = on_list })
+            end, {})
             vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", mapopts)
         end
         if client:supports_method("textDocument/codeAction") then
@@ -189,6 +218,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/documentSymbol") then
             require("nvim-navic").attach(client, buffer)
+            vim.api.nvim_buf_create_user_command(buffer, "LspDocumentSymbol", function()
+                vim.lsp.buf.document_symbol({ loclist = false, on_list = on_list })
+            end, {})
+            vim.keymap.set("n", "<Leader>lfs", "<Cmd>LspDocumentSymbol<CR>", mapopts)
+        end
+
+        if client:supports_method("workspace/symbol") then
+            vim.api.nvim_buf_create_user_command(buffer, "LspWorkspaceSymbol", function()
+                vim.lsp.buf.workspace_symbol(nil, { loclist = false, on_list = on_list })
+            end, {})
+            vim.keymap.set("n", "<Leader>lfw", "<Cmd>LspDocumentSymbol<CR>", mapopts)
         end
 
         if client:supports_method("textDocument/inlayHint") then
