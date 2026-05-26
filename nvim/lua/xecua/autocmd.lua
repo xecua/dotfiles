@@ -60,7 +60,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         local path = vim.fn.expand("%:p")
         if path == "" then
-            path = vim.fn.getcwd()
+            local p, e = vim.uv.cwd()
+            assert(p, e)
+            path = p
         end
         local cwd = vim.fn.fnamemodify(path, ":h")
         local out = vim.system({ "git", "-C", cwd, "rev-parse", "--show-toplevel" }, { text = true, stderr = false })
