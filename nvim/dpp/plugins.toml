@@ -94,7 +94,7 @@ require("obsidian").setup({
     templates = {
         subdir = "templates",
     },
-    daily_notes = { folder = "dailynotes", date_format = "%Y-%m-%d", template = "dailynote.md" },
+    daily_notes = { folder = "dailynotes", date_format = "%Y/%m-%d", template = "dailynote.md" },
     disable_frontmatter = true,
     follow_url_func = function(url)
         vim.ui.open(url)
