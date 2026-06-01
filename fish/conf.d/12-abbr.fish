@@ -75,5 +75,5 @@ if type -q emerge
     abbr --add udon --set-cursor $emerge_update
     abbr --add うどん --set-cursor $emerge_update
 
-    abbr --add ec --set-cursor 'bat (equery w %)'
+    abbr --add ec --set-cursor 'bat (equery w -m %)'
 end
