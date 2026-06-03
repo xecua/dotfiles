@@ -1,10 +1,6 @@
-;; extends
-((comment) @injection.content
-  (#set! injection.language "comment")
-)
+; extends
 
 ; #gsub!とか使ってまとめられないかなあ
-; あと複数のファイルタイプに対応できないかも
 (pair
   (bare_key) @bare_key
   (#match? @bare_key "^lua_[a-zA-Z_]+$")

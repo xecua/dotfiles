@@ -12,7 +12,7 @@ repo = 'Shougo/ddt-ui-shell'
 ## open new tabpage instead of start nested instance
 [[plugins]]
 repo = 'lambdalisue/vim-guise'
-hook_add = "let g:guise#disable_vim = 1"
+lua_add = "vim.g['guise#disable_vim'] = 1"
 
 [[plugins]]
 repo = 'Joakker/lua-json5'
@@ -102,24 +102,12 @@ require("obsidian").setup({
     workspaces = {
         { name = vim.fs.basename(default_vault), path = default_vault }
     },
+    ui = { enable = false }
 })
-"""
-[plugins.ftplugin]
-lua_markdown = """
-local client = require("obsidian").get_client()
-local current_path = vim.api.nvim_buf_get_name(0)
-if client:path_is_note(current_path, client.current_workspace) then
-    vim.opt_local.conceallevel = 2
-    vim.opt_local.concealcursor = "nc"
-end
 """
 
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
-lua_add = """
-vim.keymap.set("n", "<Leader>mp", "<Plug>(md-render-preview)",     { desc = "Markdown preview (toggle)" })
-vim.keymap.set("n", "<Leader>mv", "<Plug>(md-render-preview-tab)", { desc = "Markdown preview in tab (toggle)" })
-"""
 
 # Submode
 [[plugins]]
@@ -240,7 +228,7 @@ require('ccc').setup({ highlighter = { auto_enable = true } })
 
 [[plugins]]
 repo = 'glacambre/firenvim'
-hook_post_update = 'call firenvim#install(0)'
+lua_post_update = "vim.fn['firenvim#install'](0)"
 lua_add = """
 vim.g.firenvim_config = {
     globalSettings = {},
@@ -605,7 +593,7 @@ require("scrollbar.handlers.gitsigns").setup()
 # mark
 [[plugins]]
 repo = 'vim-scripts/ShowMarks'
-hook_add = "let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyz'"
+lua_add = "vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyz'"
 
 # comment
 [[plugins]]
@@ -628,10 +616,7 @@ require("Comment").setup({
 
 ## jsx/tsx helper
 [[plugins]]
-# repo = 'JoosepAlviste/nvim-ts-context-commentstring'
-# https://github.com/JoosepAlviste/nvim-ts-context-commentstring/pull/124
-repo = 'amadeus/nvim-ts-context-commentstring'
-rev = 'neovim-nightly-fix'
+repo = 'JoosepAlviste/nvim-ts-context-commentstring'
 
 # helpの日本語化
 [[plugins]]
@@ -640,7 +625,7 @@ repo = 'vim-jp/vimdoc-ja'
 # Open README.md
 [[plugins]]
 repo = '4513ECHO/vim-readme-viewer'
-hook_add = "let g:readme_viewer#plugin_manager = 'dpp.vim'"
+lua_add = "vim.g['readme_viewer#plugin_manager'] = 'dpp.vim'"
 
 # ペースト時にpasteモードに
 [[plugins]]
@@ -660,7 +645,7 @@ require('nvim-ts-autotag').setup({
 # color scheme
 [[plugins]]
 repo = 'tomasr/molokai'
-hook_add = "colorscheme molokai"
+lua_add = "vim.cmd.colorscheme('molokai')"
 
 # snippets
 [[plugins]]
@@ -688,9 +673,6 @@ repo = 'RRethy/vim-illuminate'
 lua_source = """
 require('illuminate').configure({
     modes_denylist = { 'i' } ,
-    filetype_overrides = {
-        toml = { providers = { 'regex' } },
-    },
 })
 """
 
@@ -817,9 +799,9 @@ repo = 'direnv/direnv.vim'
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
-hook_add = """
-let g:go_doc_keywordprg_enabled = 0
-let g:go_echo_command_info = 0
+lua_add = """
+vim.g.go_doc_keywordprg_enabled = 0
+vim.g.go_echo_command_info = 0
 """
 
 # Haxe
