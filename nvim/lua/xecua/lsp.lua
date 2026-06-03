@@ -21,12 +21,11 @@ vim.lsp.enable({
     "kotlin_language_server",
     "lemminx",
     "nil_ls",
-    "phpantom_lsp",
     "rumdl",
     "sourcekit",
     "sqls",
     "stylelint_lsp",
-    'stylua',
+    "stylua",
     "tombi",
     "tsp_server",
     "ty",
@@ -37,8 +36,9 @@ vim.lsp.enable({
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 vim.g.format_disabled_servers = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
-vim.g.format_disabled_servers_onsave = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
-local format_autocmd_defined = {}
+-- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
+vim.g.format_disabled_servers_onsave = {}
+local autocmd_defined = { nes = {}, format = {}, signature = {}, lens = {} }
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
     callback = function(args)
@@ -68,7 +68,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end, { buffer = true, desc = "Clear NES" })
 
             local ok, nes = pcall(require, "copilot-lsp.nes")
-            if ok then
+            if ok and not autocmd_defined.nes[buffer] then
+                autocmd_defined.nes[buffer] = true
                 vim.api.nvim_create_autocmd("TextChanged", {
                     callback = function()
                         nes.request_nes(client)
@@ -89,28 +90,33 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end
         end
 
+        -- 無効化する (configのcapabilitiesだとうまいこといかんっぽい)
+        if vim.list_contains(vim.g.format_disabled_servers, client.name) then
+            client.server_capabilities.documentFormattingProvider = nil
+            client.server_capabilities.documentRangeFormattingProvider = nil
+        end
+        if client.name == "tombi" then
+            -- そもそもそんなに複雑じゃないし injection効かせたいし
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+
         local mapopts = { buffer = buffer, silent = true }
 
         if client:supports_method("textDocument/formatting") then
             vim.api.nvim_buf_create_user_command(buffer, "LspFormat", function()
-                vim.lsp.buf.format({
-                    filter = function(c)
-                        return not vim.tbl_contains(vim.g.format_disabled_servers, c.name)
-                    end,
-                    async = true,
-                })
+                vim.lsp.buf.format({ async = true })
             end, { range = client:supports_method("textDocument/rangeFormatting") })
-            if not format_autocmd_defined[buffer] then
-                format_autocmd_defined[buffer] = true
+            if not autocmd_defined.format[buffer] then
+                autocmd_defined.format[buffer] = true
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     group = augroup,
                     buffer = buffer,
                     callback = function()
-                vim.lsp.buf.format({
-                    filter = function(c)
-                        return not vim.tbl_contains(vim.g.format_disabled_servers_onsave, c.name)
-                    end,
-                })
+                        vim.lsp.buf.format({
+                            filter = function(c)
+                                return not vim.list_contains(vim.g.format_disabled_servers_onsave, c.name)
+                            end,
+                        })
                     end,
                 })
             end
@@ -127,10 +133,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.api.nvim_buf_create_user_command(buffer, "LspSignatureHelp", function()
                 vim.lsp.buf.signature_help({ border = "single", focusable = false, focus = false, silent = true })
             end, {})
-            vim.api.nvim_create_autocmd(
-                "CursorHoldI",
-                { group = augroup, buffer = buffer, command = "LspSignatureHelp" }
-            )
+            if not autocmd_defined.signature[buffer] then
+                autocmd_defined.signature[buffer] = true
+                vim.api.nvim_create_autocmd(
+                    "CursorHoldI",
+                    { group = augroup, buffer = buffer, command = "LspSignatureHelp" }
+                )
+            end
             vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", mapopts)
             vim.keymap.set({ "i", "s" }, "<C-s>", "<Cmd>LspSignatureHelp<CR>", mapopts)
         end
@@ -197,11 +206,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/codeLens") then
             vim.lsp.codelens.enable()
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-                group = augroup,
-                buffer = buffer,
-                command = "lua vim.lsp.codelens.enable()",
-            })
+            if not autocmd_defined.lens[buffer] then
+                autocmd_defined.lens[buffer] = true
+                vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+                    group = augroup,
+                    buffer = buffer,
+                    command = "lua vim.lsp.codelens.enable()",
+                })
+            end
         end
 
         if client:supports_method("textDocument/inlineCompletion") then
