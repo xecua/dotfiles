@@ -65,13 +65,10 @@ if status is-interactive
 
     if type -q lazydocker
         alias ldo=lazydocker
-    end
-
-    if type -q lazydocker && type -q podman
         alias lpo="DOCKER_HOST=$PODMAN_HOST lazydocker"
     end
 
-    if type -q podman && type -q devcontainer
+    if type -q devcontainer
         alias poddevcontainer="devcontainer --docker-path podman"
     end
 

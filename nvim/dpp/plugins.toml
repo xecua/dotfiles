@@ -108,6 +108,10 @@ require("obsidian").setup({
 
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
+lua_add = """
+vim.keymap.set("n", "<Leader>ms", "<Cmd>MdRnder split<CR>")
+vim.keymap.set("n", "<Leader>mv", "<Cmd>botright vertical MdRnder split<CR>")
+"""
 
 # Submode
 [[plugins]]
