@@ -22,6 +22,7 @@ vim.lsp.enable({
     "lemminx",
     "nil_ls",
     "rumdl",
+    "ruff",
     "sourcekit",
     "sqls",
     "stylelint_lsp",

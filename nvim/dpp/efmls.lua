@@ -51,9 +51,6 @@ local languages = {
         require("efmls-configs.formatters.php_cs_fixer"),
         require("efmls-configs.linters.phpstan"),
     },
-    python = {
-        require("efmls-configs.formatters.yapf"),
-    },
     sql = {
         require("efmls-configs.formatters.sql-formatter"),
     },

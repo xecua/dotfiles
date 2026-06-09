@@ -93,7 +93,7 @@ if status is-interactive
         alias ph=phantom
     end
 
-    alias mdless='nvim +MdRenderPager'
+    alias mdless='nvim +MdRender pager'
 
     alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
 
