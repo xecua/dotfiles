@@ -67,14 +67,6 @@ vim.lsp.config("efm", {
         hover = false,
     },
     settings = { languages = languages },
-    capabilities = {
-        textDocument = {
-            documentSymbol = false,
-            completion = false,
-            codeAction = false,
-            hover = false,
-        },
-    },
 })
 
 vim.lsp.enable("efm")

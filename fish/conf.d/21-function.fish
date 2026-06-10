@@ -32,6 +32,19 @@ function ghqcd
     end
 end
 
+function venv
+    set -f d $PWD
+    while test "$d" != /
+        if test -f "$d/venv/bin/activate.fish"
+            source "$d/venv/bin/activate.fish"
+            return
+        end
+        set -f d (dirname $d)
+    end
+    echo "venv not found" >&2
+    return 1
+end
+
 function randomstring
     if test -z "$argv[1]"
         echo "usage: randomstring width" >&2

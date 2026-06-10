@@ -294,6 +294,9 @@ vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
 require("avante_lib").load()
 require("avante").setup({
     provider = "copilot",
+    acp_providers = {
+        ['copilot-cli'] = { command = "copilot", args = { "acp" } },
+    },
     providers = { copilot = { model = "gpt-5.3-codex" } },
     behaviour = {
         support_paste_from_clipboard = true,
@@ -383,7 +386,7 @@ on_lua = 'jdtls'
 
 ## DAP
 [[plugins]]
-repo = 'mfussenegger/nvim-dap'
+repo = 'https://codeberg.org/mfussenegger/nvim-dap'
 hooks_file = '$STD_CONFIG/dpp/dap.lua'
 
 [[plugins]]

@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end
                 nes.request_nes("GitHub Copilot")
             end, { buffer = true, desc = "Copilot NES" })
-            vim.keymap.set("n", "<Esc>", function()
+            vim.keymap.set("n", "<C-c>", function()
                 require("copilot-lsp.nes").clear()
             end, { buffer = true, desc = "Clear NES" })
 
@@ -99,6 +99,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if client.name == "tombi" then
             -- そもそもそんなに複雑じゃないし injection効かせたいし
             client.server_capabilities.semanticTokensProvider = nil
+        end
+        if client.name == "efm" then
+            client.server_capabilities.documentSymbolProvider = nil
+            client.server_capabilities.completionProvider = nil
+            client.server_capabilities.codeActionProvider = nil
+            client.server_capabilities.hoverProvider = nil
+            client.handlers["textDocument/documentSymbol"] = function() end
+
+            client.handlers["textDocument/completion"] = function() end
+            client.handlers["textDocument/codeAction"] = function() end
+            client.handlers["textDocument/hover"] = function() end
         end
 
         vim.api.nvim_buf_create_user_command(
