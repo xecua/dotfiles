@@ -306,13 +306,6 @@ require("avante").setup({
 """
 
 [[plugins]]
-repo = 'yuucu/cursor_open.nvim'
-if = "get(g:, 'use_cursor', v:false)"
-lua_source = """
-require('cursor_open').setup({})
-"""
-
-[[plugins]]
 repo = 'ravitemer/mcphub.nvim'
 depends = ['plenary.nvim']
 lua_source = """

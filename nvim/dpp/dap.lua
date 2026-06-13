@@ -21,7 +21,7 @@ end, { silent = true, desc = "DAP: Step back" })
 -- lua_source {{{
 require("dap.ext.vscode").json_decode = require("json5").parse
 require("dap").adapters = {
-    debutpy = function(cb, config)
+    debugpy = function(cb, config)
         if config.request == "attach" then
             ---@diagnostic disable-next-line: undefined-field
             local port = (config.connect or config).port

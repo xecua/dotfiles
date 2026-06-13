@@ -2,15 +2,13 @@ import { BaseConfig, ConfigArguments } from "@shougo/ddc-vim/config";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): void {
-    const default_sources = ["lsp", "file", "around", "denippet"];
-
     args.contextBuilder.patchGlobal({
       ui: "pum",
-      sources: default_sources,
+      sources: ["lsp", "file", "around", "denippet"],
+      postFilters: ["sorter_fuzzy"],
       sourceOptions: {
         _: {
           matchers: ["matcher_fuzzy"],
-          sorters: ["sorter_fuzzy"],
           converters: ["converter_fuzzy", "converter_remove_overlap"],
           ignoreCase: true,
         },
@@ -18,14 +16,11 @@ export class Config extends BaseConfig {
         denippet: {
           mark: "snip",
           dup: "keep",
-          matchers: ["matcher_head"],
-          sorters: ["sorter_rank"],
           converters: [],
         },
         lsp: {
           mark: "LSP",
           dup: "force",
-          sorters: ["sorter_fuzzy", "sorter_lsp_kind"],
           forceCompletionPattern: String.raw`\.\w*|:\w*|->\w*`,
           isVolatile: true,
           hideTimeout: 2000,

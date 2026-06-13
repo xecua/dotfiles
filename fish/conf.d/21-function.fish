@@ -35,8 +35,8 @@ end
 function venv
     set -f d $PWD
     while test "$d" != /
-        if test -f "$d/venv/bin/activate.fish"
-            source "$d/venv/bin/activate.fish"
+        if test -f "$d/.venv/bin/activate.fish"
+            source "$d/.venv/bin/activate.fish"
             return
         end
         set -f d (dirname $d)

@@ -10,5 +10,10 @@ macos-option-as-alt = left
 confirm-close-surface = false
 shell-integration = fish
 
+quick-terminal-screen = mouse
+quick-terminal-keyboard-interactivity = exclusive
+
+keybind = global:super+backquote=toggle_quick_terminal
+
 # linux only
 # window-decoration = false

@@ -2,12 +2,21 @@
 
 local M = {}
 
+local function set_no_leading_char()
+    local listchars = vim.opt.listchars:get()
+    listchars.leadmultispace = nil
+    listchars.leadtab = nil
+    vim.opt_local.listchars = listchars
+end
+
 local function set_indent(tabstop, expandtab)
-    if expandtab ~= nil then
-        vim.opt_local.expandtab = expandtab
-    end
     if tabstop ~= nil then
         vim.opt_local.tabstop = tabstop
+        vim.opt_local.listchars =
+            vim.tbl_extend(vim.opt.listchars:get(), { leadmultispace = ">" .. string.rep("･", tabstop - 1) })
+    end
+    if expandtab ~= nil then
+        vim.opt_local.expandtab = expandtab
     end
 end
 
@@ -130,6 +139,10 @@ end
 
 M.gitconfig = function()
     set_indent(nil, false)
+end
+
+M["dap-view"] = function()
+    set_no_leading_char()
 end
 
 return setmetatable(M, {

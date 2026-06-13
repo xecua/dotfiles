@@ -8,7 +8,7 @@ vim.opt.clipboard = { "unnamedplus", "unnamed" }
 vim.opt.number = true
 vim.opt.signcolumn = "number"
 vim.opt.list = true
-vim.opt.listchars = { tab = ">-", lead = "･", multispace = "･", trail = "･", nbsp = "+" }
+vim.opt.listchars = { tab = ">-", leadmultispace = ">･･･", multispace = "･", trail = "･", nbsp = "+" }
 vim.opt.visualbell = true
 vim.opt.helplang = { "ja", "en" }
 vim.opt.cmdheight = 0
