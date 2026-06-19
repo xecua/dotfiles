@@ -34,12 +34,6 @@ export class Config extends BaseConfig {
           forceCompletionPattern: String.raw`\S\s*`,
           isVolatile: true,
         },
-        cmdline_history: {
-          mark: "cmd-hist",
-          matchers: ["matcher_head"],
-          sorters: ["sorter_rank"],
-          converters: [],
-        },
         input: { mark: "input", isVolatile: true },
         line: { mark: "line" },
         shell_native: {
@@ -70,9 +64,9 @@ export class Config extends BaseConfig {
         "CmdlineChanged",
       ],
       cmdlineSources: {
-        [":"]: ["shell_native", "cmdline", "cmdline_history", "around"],
-        ["@"]: ["cmdline_history", "input", "file", "around"],
-        [">"]: ["cmdline_history", "input", "file", "around"],
+        [":"]: ["shell_native", "cmdline", "around"],
+        ["@"]: ["input", "file", "around"],
+        [">"]: ["input", "file", "around"],
         ["/"]: ["around", "line"],
         ["?"]: ["around", "line"],
         ["-"]: ["around", "line"],

@@ -13,7 +13,7 @@ local function set_indent(tabstop, expandtab)
     if tabstop ~= nil then
         vim.opt_local.tabstop = tabstop
         vim.opt_local.listchars =
-            vim.tbl_extend(vim.opt.listchars:get(), { leadmultispace = ">" .. string.rep("･", tabstop - 1) })
+            vim.tbl_extend("force", vim.opt.listchars:get(), { leadmultispace = ">" .. string.rep("･", tabstop - 1) })
     end
     if expandtab ~= nil then
         vim.opt_local.expandtab = expandtab
