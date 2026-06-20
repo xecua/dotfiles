@@ -231,7 +231,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- https://www.reddit.com/r/neovim/comments/1gf7kyn/lsp_configuration_debugging/
-local function inspect_lsp_client()
+vim.api.nvim_create_user_command("LspInspectClient", function()
     vim.ui.input({ prompt = "Enter LSP Client name: " }, function(client_name)
         if client_name then
             local client = vim.lsp.get_clients({ name = client_name })
@@ -280,12 +280,29 @@ local function inspect_lsp_client()
             vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
         end
     end)
-end
-
-vim.api.nvim_create_user_command("LspInspectClient", inspect_lsp_client, {})
+end, {})
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", {})
 vim.api.nvim_create_user_command("LspLog", function()
     vim.cmd(string.format("tabnew %s", vim.lsp.log.get_filename()))
 end, {
     desc = "Opens the Nvim LSP client log.",
 })
+vim.api.nvim_create_user_command("LspCapabilities", function()
+    vim.ui.input(
+        { prompt = "Enter LSP Client name (leave empty for all clients attached to this buffer): " },
+        function(client_name)
+            if client_name == nil then
+                return
+            end
+            local opt = { buffer = true }
+            if client_name ~= "" then
+                opt.name = client_name
+            end
+            local clients = vim.lsp.get_clients(opt)
+            for _, client in ipairs(clients) do
+                print(string.format("--- %s ---", client.name))
+                print(vim.inspect(client.server_capabilities))
+            end
+        end
+    )
+end, {})

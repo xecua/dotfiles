@@ -39,7 +39,7 @@ vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 [[plugins]]
 repo = 'Shougo/ddu-ui-filer'
 group = 'ddu'
-[[plugins.ftplugin]]
+[plugins.ftplugin]
 lua_ddu-filer = """
 -- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)とウィンドウ選んで(適当なプラグインを使おう)ファイルを開けるやつ
 vim.opt_local.number = true

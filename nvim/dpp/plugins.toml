@@ -232,6 +232,7 @@ require('ccc').setup({ highlighter = { auto_enable = true } })
 
 [[plugins]]
 repo = 'glacambre/firenvim'
+merged = false
 lua_post_update = "vim.fn['firenvim#install'](0)"
 lua_add = """
 vim.g.firenvim_config = {

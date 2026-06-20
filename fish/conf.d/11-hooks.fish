@@ -23,10 +23,6 @@ if status --is-interactive
         gibo completion fish | source
     end
 
-    if type -q colima
-        colima completion fish | source
-    end
-
     if type -q xremap
         xremap --completions fish | source
     end
@@ -50,10 +46,6 @@ if status --is-interactive
 
     if type -q zoxide
         zoxide init --cmd=cd fish | source
-    end
-
-    if type -q phantom
-        phantom completion fish | source
     end
 
     if type -q brew
