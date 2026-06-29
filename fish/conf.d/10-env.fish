@@ -8,4 +8,6 @@ if status is-interactive
         # Ghostty supports Kitty graphics protocol
         set -x TIMG_PIXELATION kitty
     end
+
+    set -x FORCE_COLOR 1
 end

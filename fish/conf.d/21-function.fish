@@ -45,6 +45,16 @@ function venv
     return 1
 end
 
+if type -q nix
+    function nix
+        if test "$argv[1]" = develop
+            command nix develop -c zsh $argv[2..-1]
+        else
+            command nix $argv
+        end
+    end
+end
+
 function randomstring
     if test -z "$argv[1]"
         echo "usage: randomstring width" >&2

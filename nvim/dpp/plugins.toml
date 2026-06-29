@@ -18,27 +18,6 @@ lua_add = "vim.g['guise#disable_vim'] = 1"
 repo = 'Joakker/lua-json5'
 extAttrs = { installerBuild = './install.sh' }
 
-# startup
-[[plugins]]
-repo = 'mhinz/vim-startify'
-lua_add = """
-vim.g.startify_change_to_vcs_root = 1
-vim.g.startify_lists = {
-    { type = "files", header = { "   MRU" } },
-    { type = "bookmarks", header = { "   Bookmarks" } },
-    { type = "sessions", header = { "   Sessions" } },
-    { type = "commands", header = { "   Commands" } },
-}
-vim.g.startify_commands = {
-    { "Open Daily Note", "ObsidianToday" },
-}
-vim.g.startify_bookmarks = {
-    "~",
-    "~/.config/nvim",
-    require("xecua.utils").get_local_config().obsidian_dir,
-}
-"""
-
 # Preview
 [[plugins]]
 repo = 'previm/previm'
@@ -52,15 +31,6 @@ repo = "3rd/image.nvim"
 lua_source = '''
 require('image').setup({})
 '''
-
-# nonsense animation
-[[plugins]]
-repo = 'eandrju/cellular-automaton.nvim'
-on_cmd = 'CellularAutomaton'
-lua_add = """
-vim.keymap.set('n', '<Leader>mr', '<Cmd>CellularAutomaton make_it_rain<CR>')
-vim.keymap.set('n', '<Leader>ml', '<Cmd>CellularAutomaton game_of_life<CR>')
-"""
 
 # swap
 [[plugins]]
@@ -109,8 +79,9 @@ require("obsidian").setup({
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
 lua_add = """
-vim.keymap.set("n", "<Leader>ms", "<Cmd>MdRender split<CR>")
-vim.keymap.set("n", "<Leader>mv", "<Cmd>botright vertical MdRender split<CR>")
+vim.keymap.set("n", "<Leader>ms", "<Cmd>lua require('md-render').preview.split({ max_width = 120 })<CR>")
+vim.keymap.set("n", "<Leader>mv", "<Cmd>lua require('md-render').preview.split({ max_width = 120, mods = { vertical = true, split = 'botright' }})<CR>")
+vim.keymap.set("n", "<Leader>mt", "<Cmd>lua require('md-render').preview.toggle({ max_width = 120 })<CR>")
 """
 
 # Submode
@@ -592,7 +563,14 @@ require("scrollbar.handlers.gitsigns").setup()
 # mark
 [[plugins]]
 repo = 'vim-scripts/ShowMarks'
-lua_add = "vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyz'"
+lua_add = """
+vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyz'
+vim.keymap.set('n', '<Leader>st', '<Plug>ShowmarksShowMarksToggle', { silent = true })
+vim.keymap.set('n', '<Leader>so', '<Plug>ShowmarksShowMarksOn', { silent = true })
+vim.keymap.set('n', '<Leader>sh', '<Plug>ShowmarksClearMark', { silent = true })
+vim.keymap.set('n', '<Leader>sa', '<Plug>ShowmarksClearAll', { silent = true })
+vim.keymap.set('n', '<Leader>sm', '<Plug>ShowmarksPlaceMark', { silent = true })
+"""
 
 # comment
 [[plugins]]
