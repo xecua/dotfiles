@@ -28,9 +28,10 @@ vim.g.previm_hard_line_break = 1
 
 [[plugins]]
 repo = "3rd/image.nvim"
-lua_source = '''
+on_if = "!exists('g:neovide')"
+lua_source = """
 require('image').setup({})
-'''
+"""
 
 # swap
 [[plugins]]
@@ -89,38 +90,8 @@ vim.keymap.set("n", "<Leader>mt", "<Cmd>lua require('md-render').preview.toggle(
 repo = 'kana/vim-submode'
 hooks_file = '$STD_CONFIG/dpp/submode.lua'
 
-# task runner
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
-extAttrs = { installerBuild = 'make' }
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
-lua_add = """
-vim.g.quickrun_no_default_key_mappings = 1
-vim.g.quickrun_config = {
-    _ = {
-        runner = "vimproc",
-        ["runner/vimproc/updatetime"] = 40,
-        outputter = "error",
-        ["outputter/error/error"] = "quickfix",
-        ["outputter/quickfix/into"] = 1,
-    },
-    cpp = { command = "g++" },
-    tex = { command = "latexmk" },
-    satysfi = { command = "satysfi" },
-    rust = { type = "rust/cargo" },
-}
-"""
-lua_source = """
-vim.fn["quickrun#module#register"]({
-    name = "close_quickfix_on_success",
-    kind = "hook",
-    on_success = function(_, _)
-        vim.api.nvim_command("cclose")
-    end,
-}, 1)
-"""
+repo = 'stevearc/overseer.nvim'
 
 # quickfix
 [[plugins]]
@@ -269,7 +240,7 @@ require("avante").setup({
     acp_providers = {
         ['copilot-cli'] = { command = "copilot", args = { "acp" } },
     },
-    providers = { copilot = { model = "gpt-5.3-codex" } },
+    providers = { copilot = { model = "gpt-5.5" } },
     behaviour = {
         support_paste_from_clipboard = true,
         auto_set_keymaps = true,
@@ -540,6 +511,11 @@ require('gitsigns').setup({
     vim.keymap.set('n', '<Leader>gR', gitsigns.reset_buffer, { buffer = true, desc = "Gitsigns: reset current buffer" })
   end
 })
+"""
+[plugins.ftplugin]
+lua_gitsigns-blame = """
+vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = 0 })
+vim.keymap.del("n", { "sa", "sd", "sr" }, { buffer = 0 })
 """
 
 # autocomplete matching brace/quotation

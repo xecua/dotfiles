@@ -48,7 +48,7 @@ end
 if type -q nix
     function nix
         if test "$argv[1]" = develop
-            command nix develop -c zsh $argv[2..-1]
+            command nix develop $argv[2..-1] -c zsh
         else
             command nix $argv
         end

@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.api.nvim_create_autocmd(
     { "BufWritePost", "FileWritePost" },
-    { group = augroup, pattern = { "*.saty", "*.tex" }, command = "QuickRun" }
+    { group = augroup, pattern = { "*.saty", "*.tex", "*.typ" }, command = "make" }
 )
 if vim.fn.executable("pdftotext") == 1 then
     vim.api.nvim_create_autocmd({ "BufRead" }, {
@@ -36,7 +36,7 @@ end
 -- automatically open QuickFix window after grep
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     group = augroup,
-    pattern = { "grep", "vimgrep" },
+    pattern = { "grep", "vimgrep", "make" },
     command = "copen",
 })
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
