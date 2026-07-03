@@ -5,6 +5,6 @@
     "@shougo/ddu-ui-filer": "jsr:@shougo/ddu-ui-filer@^3.2.0",
     "@shougo/ddu-vim": "jsr:@shougo/ddu-vim@^11.3.0",
     "@shougo/dpp-vim": "jsr:@shougo/dpp-vim@^6.6.0",
-    "@std/fs": "jsr:@std/fs@^1.0.23"
+    "@std/fs": "jsr:@std/fs@^1.0.24"
   }
 }

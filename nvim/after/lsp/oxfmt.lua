@@ -1,8 +1,7 @@
-
 return {
     cmd = function(dispatchers, config)
         local cmd = "oxfmt"
-        local local_cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/oxfmt"
+        local local_cmd = config.root_dir .. "/node_modules/.bin/oxfmt"
         if local_cmd and vim.fn.executable(local_cmd) == 1 then
             cmd = local_cmd
         end
@@ -16,7 +15,7 @@ return {
         end
 
         local fname = vim.api.nvim_buf_get_name(bufnr)
-        local util = require( "lspconfig.util")
+        local util = require("lspconfig.util")
         local root_markers = util.insert_package_json({ ".oxfmtrc.json", ".oxfmtrc.jsonc" }, "oxfmt", fname)
         on_dir(vim.fs.dirname(vim.fs.find(root_markers, { path = fname, upward = true })[1]))
     end,

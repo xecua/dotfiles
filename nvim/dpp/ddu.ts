@@ -40,7 +40,10 @@ export class Config extends BaseConfig {
         rg: { maxEnqueSize: 1000, args: ["--json"] },
       },
       sourceOptions: {
-        _: { matchers: ["matcher_fzf"], sorters: ["sorter_fzf"] },
+        _: {
+          matchers: ["matcher_fzf"],
+          sorters: ["sorter_alpha", "sorter_fzf"],
+        },
         file_external: {
           // columns : ["icon_filename_ff"] ,
           converters: ["converter_hl_dir"],

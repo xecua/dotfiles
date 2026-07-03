@@ -67,6 +67,7 @@ require("obsidian").setup({
     },
     daily_notes = { folder = "dailynotes", date_format = "%Y/%m-%d", template = "dailynote.md" },
     disable_frontmatter = true,
+    picker = { name = 'fzf-lua' },
     follow_url_func = function(url)
         vim.ui.open(url)
     end,
@@ -155,7 +156,6 @@ depends = ['nvim-web-devicons']
 lua_source = """
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({'fzf-vim'})
-fzf_lua.register_ui_select()
 """
 
 [[plugins]]
@@ -241,6 +241,7 @@ require("avante").setup({
         ['copilot-cli'] = { command = "copilot", args = { "acp" } },
     },
     providers = { copilot = { model = "gpt-5.5" } },
+    selector = { provider = "fzf_lua" },
     behaviour = {
         support_paste_from_clipboard = true,
         auto_set_keymaps = true,

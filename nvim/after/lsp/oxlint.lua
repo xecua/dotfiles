@@ -1,7 +1,7 @@
 return {
     cmd = function(dispatchers, config)
         local cmd = "oxlint"
-        local local_cmd = (config or {}).root_dir and config.root_dir .. "/node_modules/.bin/oxlint"
+        local local_cmd = config.root_dir .. "/node_modules/.bin/oxlint"
         if local_cmd and vim.fn.executable(local_cmd) == 1 then
             cmd = local_cmd
         end
