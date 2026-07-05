@@ -93,6 +93,25 @@ hooks_file = '$STD_CONFIG/dpp/submode.lua'
 
 [[plugins]]
 repo = 'stevearc/overseer.nvim'
+lua_add = """
+vim.keymap.set("n", "<Leader>r", "<Cmd>OverseerRun<CR>")
+vim.keymap.set("n", "<Leader>rr", "<Cmd>OverseerToggle<CR>")
+"""
+lua_source = """
+require('overseer').setup({
+    strategy = "jobstart",
+    component_aliases = {
+        default = {
+            "on_exit_set_status",
+            "on_complete_notify",
+            { "on_complete_dispose", require_view = { "SUCCESS", "FAILURE" } },
+            -- ここまでオリジナル
+            -- ↓templateごとに定義した方がいいかもなあ(少なくともtypstは)
+            { "on_output_quickfix", set_diagnostics = true, open = true, close = true },
+        }
+    }
+})
+"""
 
 # quickfix
 [[plugins]]

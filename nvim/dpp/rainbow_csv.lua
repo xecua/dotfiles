@@ -1,10 +1,9 @@
--- lua_add {{{
+-- lua_csv {{{
 -- cannot use submode.vim because it is not resolved for each key press
 
-local leave_submode, handle_key, enter_submode
 local is_submode = false
 
-leave_submode = function()
+local leave_submode = function()
     if is_submode then
         is_submode = false
         vim.keymap.del("n", "h", { buffer = true })
@@ -15,7 +14,8 @@ leave_submode = function()
     end
 end
 
-enter_submode = function()
+local handle_key
+local enter_submode = function()
     vim.keymap.set("n", "h", handle_key("h"), { buffer = true, desc = "Move to Left" })
     vim.keymap.set("n", "j", handle_key("j"), { buffer = true, desc = "Move to Down" })
     vim.keymap.set("n", "k", handle_key("k"), { buffer = true, desc = "Move to Up" })
