@@ -224,7 +224,6 @@ vim.g.copilot_filetypes = {
     ["dap-view"] = false,
     ["dap-view-term"] = false,
     ["dap-view-help"] = false,
-    AvanteInput= false,
 }
 vim.g.copilot_no_tab_map = true
 -- docにはないけど、これでセットしてくれるみたい
@@ -242,37 +241,23 @@ vim.g.copilot_lsp_settings = {
 repo = 'copilotlsp-nvim/copilot-lsp'
 if = "get(g:, 'use_copilot', v:false)"
 
-## integration
 [[plugins]]
-repo = 'yetone/avante.nvim'
-# mergeするとダメらしい
-merged = false
-# on_ifはfalseでもsourceされる。なんかミスってる?
-if = "get(g:, 'use_copilot', v:false)"
-depends = ['plenary.nvim', 'nui.nvim', 'nvim-web-devicons']
-extAttrs = { installerBuild = 'make' }
+repo = 'carlos-algms/agentic.nvim'
+lua_add = """
+vim.api.nvim_create_user_command("AgenticToggle", "lua require('agentic').toggle()", {})
+vim.keymap.set("n", "<Leader>a", "<Cmd>AgenticToggle<CR>")
+"""
 lua_source = """
-vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
-require("avante_lib").load()
-require("avante").setup({
-    provider = "copilot",
-    acp_providers = {
-        ['copilot-cli'] = { command = "copilot", args = { "acp" } },
+require("agentic").setup({
+    provider = "copilot-acp",
+    provider_swithcer = {
+        hide_unhealthy_providers = true
     },
-    providers = { copilot = { model = "gpt-5.5" } },
-    selector = { provider = "fzf_lua" },
-    behaviour = {
-        support_paste_from_clipboard = true,
-        auto_set_keymaps = true,
+    acp_providers = {
+        ['claude-agent-acp'] ={ initial_model = "sonnet" },
+        ['copilot-acp'] = { initial_model = "gpt-5.5" },
     },
 })
-"""
-
-[[plugins]]
-repo = 'ravitemer/mcphub.nvim'
-depends = ['plenary.nvim']
-lua_source = """
-require('mcphub').setup({})
 """
 
 [[plugins]]
@@ -801,6 +786,7 @@ repo = 'mustache/vim-mustache-handlebars'
 repo = 'idris-community/idris2-nvim'
 on_ft = 'idris2'
 lua_source = 'require("idris2").setup({})'
+depends = ['nui.nvim']
 [plugins.ftplugin]
 lua_idris2 = """
 vim.keymap.set("n", "<LocalLeader>cs", "<Cmd>lua require'idris2.code_action'.case_split()<CR>", {buffer = true})

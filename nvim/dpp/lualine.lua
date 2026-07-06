@@ -126,6 +126,6 @@ require("lualine").setup({
     inactive_winbar = {
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
     },
-    extensions = { "fern", "man", "quickfix", "fugitive", "avante", "mason" },
+    extensions = { "fern", "man", "quickfix", "fugitive", "mason" },
 })
 -- }}}
