@@ -77,6 +77,10 @@ M.typespec = function()
     set_indent(2)
 end
 
+M.nix = function()
+    set_indent(2)
+end
+
 M.json = function()
     set_indent(2)
 end
