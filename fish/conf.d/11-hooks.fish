@@ -28,11 +28,12 @@ if status --is-interactive
         zoxide init --cmd=cd fish | source
     end
 
+    if type -q elio
+        elio shell init fish | source
+    end
+
     if test -e "$VP_HOME/env.fish"
         source "$VP_HOME/env.fish"
     end
 
-    if test -q elio
-        elio shell init fish | source
-    end
 end

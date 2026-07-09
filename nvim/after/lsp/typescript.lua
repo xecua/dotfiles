@@ -1,8 +1,29 @@
 return {
+    settings = {
+        typescript = {
+            inlayHints = {
+                parameterNames = {
+                    enabled = "literals",
+                    suppressWhenArgumentMatchesName = true,
+                },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+            },
+        },
+    },
     init_options = {
         preferences = {
             includeCompletionsWithInsertText = false,
         },
+    },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
     },
     cmd = function(dispatchers, config)
         local cmd = "tsc"
