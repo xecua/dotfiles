@@ -26,47 +26,6 @@ local function ddu()
     return string.format("[%s-%s] %d/%d", vim.o.ft, status.name, vim.fn.line("$"), status.maxItems)
 end
 
-local mcp_hub = {
-    function()
-        -- Check if MCPHub is loaded
-        if not vim.g.loaded_mcphub then
-            return "󰐻 -"
-        end
-
-        local count = vim.g.mcphub_servers_count or 0
-        local status = vim.g.mcphub_status or "stopped"
-        local executing = vim.g.mcphub_executing
-
-        -- Show "-" when stopped
-        if status == "stopped" then
-            return "󰐻 -"
-        end
-
-        -- Show spinner when executing, starting, or restarting
-        if executing or status == "starting" or status == "restarting" then
-            local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-            local frame = math.floor(vim.loop.now() / 100) % #frames + 1
-            return "󰐻 " .. frames[frame]
-        end
-
-        return "󰐻 " .. count
-    end,
-    color = function()
-        if not vim.g.loaded_mcphub then
-            return { fg = "#6c7086" } -- Gray for not loaded
-        end
-
-        local status = vim.g.mcphub_status or "stopped"
-        if status == "ready" or status == "restarted" then
-            return { fg = "#50fa7b" } -- Green for connected
-        elseif status == "starting" or status == "restarting" then
-            return { fg = "#ffb86c" } -- Orange for connecting
-        else
-            return { fg = "#ff5555" } -- Red for error/stopped
-        end
-    end,
-}
-
 local function navic_fallback()
     local navic = require("nvim-navic")
     if navic.is_available() then
@@ -88,6 +47,11 @@ require("lualine").setup({
                 "dap-view",
                 "dap-view-term",
                 "dap-view-help",
+                "AgenticChat",
+                "AgenticInput",
+                "AgenticCode",
+                "AgenticFiles",
+                "AgenticDiagnostics",
             },
         },
     },
@@ -101,7 +65,6 @@ require("lualine").setup({
             "searchcount",
             "diagnostics",
             { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
-            mcp_hub,
         },
         lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
         lualine_z = { "location" },
@@ -126,6 +89,6 @@ require("lualine").setup({
     inactive_winbar = {
         lualine_b = { { "filename", path = 1, symbols = { readonly = "[readonly]" } } },
     },
-    extensions = { "fern", "man", "quickfix", "fugitive", "mason" },
+    extensions = { "fern", "man", "quickfix", "fugitive", "mason", "overseer" },
 })
 -- }}}

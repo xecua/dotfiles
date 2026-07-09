@@ -9,7 +9,7 @@ vim.lsp.enable({
     "oxfmt",
     "oxlint",
     "texlab",
-    "tsgo",
+    "typescript",
     "yamlls",
 
     "astro",
@@ -38,7 +38,7 @@ vim.lsp.enable({
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
-vim.g.format_disabled_servers = { "tsgo", "lua_ls", "sqls", "yamlls", "tombi" }
+vim.g.format_disabled_servers = { "typescript", "lua_ls", "sqls", "yamlls", "tombi" }
 -- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
 vim.g.format_disabled_servers_onsave = {}
 local command_defined = { general = {}, nes = {}, format = {}, signature = {}, lens = {}, inline_completion = {} }

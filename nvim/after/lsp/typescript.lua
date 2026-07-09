@@ -5,28 +5,15 @@ return {
         },
     },
     cmd = function(dispatchers, config)
-        local cmd = "tsgo"
-        local local_tsc = config.root_dir .. "/node_modules/.bin/tsc"
-        local local_tsgo = config.root_dir .. "/node_modules/.bin/tsgo"
+        local cmd = "tsc"
+        local local_cmd = config.root_dir .. "/node_modules/.bin/tsc"
+
         if
-            vim.fn.executable(local_tsc) == 1
-            and (vim.system({ local_tsc, "--version" }, { text = true }):wait().stdout or ""):match("^Version 7")
+            vim.fn.executable(local_cmd) == 1
+            and (vim.system({ local_cmd, "--version" }, { text = true }):wait().stdout or ""):match("^Version 7")
         then
-            cmd = local_tsc
-            goto execute
+            cmd = local_cmd
         end
-        if vim.fn.executable(local_tsgo) == 1 then
-            cmd = local_tsgo
-            goto execute
-        end
-        if
-            vim.fn.executable("tsc") == 1
-            and (vim.system({ "tsc", "--version" }, { text = true }):wait().stdout or ""):match("^Version 7")
-        then
-            cmd = "tsc"
-            goto execute
-        end
-        ::execute::
         return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
     end,
     workspace_required = true,

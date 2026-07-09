@@ -91,17 +91,6 @@
 	required = true
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/
-[tig]
-	ignore-case = smart-case
-	mouse = true
-	main-view-id = true
-	refresh-mode = periodic
-[tig "bind"]
-	generic = g move-first-line
-	generic = G move-last-line
-	main = R !git rebase -i %(commit)
-	main = C "@printf '\\e]52;;'$(echo -n $1|base64)'\\e\\\\'"
-	diff = R !git rebase -i %(commit)
 [ghq]
 	root = ~/Documents/repos
 [include]

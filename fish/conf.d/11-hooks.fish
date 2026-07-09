@@ -31,4 +31,8 @@ if status --is-interactive
     if test -e "$VP_HOME/env.fish"
         source "$VP_HOME/env.fish"
     end
+
+    if test -q elio
+        elio shell init fish | source
+    end
 end

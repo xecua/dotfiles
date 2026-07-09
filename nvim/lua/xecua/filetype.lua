@@ -122,6 +122,10 @@ M.go = function()
     set_indent(nil, false)
 end
 
+M.make = function()
+    set_indent(nil, false)
+end
+
 M.csv = function()
     vim.opt_local.wrap = false
 end

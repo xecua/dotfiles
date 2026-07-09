@@ -249,14 +249,15 @@ vim.keymap.set("n", "<Leader>a", "<Cmd>AgenticToggle<CR>")
 """
 lua_source = """
 require("agentic").setup({
-    provider = "copilot-acp",
-    provider_swithcer = {
+    provider = 'claude-agent-acp',
+    provider_switcher = {
         hide_unhealthy_providers = true
     },
     acp_providers = {
         ['claude-agent-acp'] ={ initial_model = "sonnet" },
         ['copilot-acp'] = { initial_model = "gpt-5.5" },
     },
+    file_picker = { enable = false },
 })
 """
 
