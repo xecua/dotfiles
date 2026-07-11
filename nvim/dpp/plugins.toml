@@ -174,7 +174,7 @@ repo = 'ibhagwan/fzf-lua'
 depends = ['nvim-web-devicons']
 lua_source = """
 local fzf_lua = require('fzf-lua')
-fzf_lua.setup({'fzf-vim'})
+fzf_lua.setup({})
 """
 
 [[plugins]]
@@ -610,7 +610,7 @@ lua_add = "vim.cmd.colorscheme('molokai')"
 [[plugins]]
 repo = 'uga-rosa/denippet.vim'
 lua_source = """
-for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.*', true, true)) do
+for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.ts', true, true)) do
     vim.fn['denippet#load'](snip)
 end
 for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do

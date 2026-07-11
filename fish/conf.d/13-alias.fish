@@ -16,14 +16,15 @@ if status is-interactive
     end
 
     if type -q eza # actively maintained fork
-        set -l eza_command 'eza --header --git --time-style=iso --modified --created'
+        set -l eza_command 'eza --header --git --time-style=iso --modified --created --icons auto --group'
+        set -l eza_long_opt '--long --loc'
         alias l="$eza_command"
-        alias ls="$eza_command --icons"
-        alias ll="$eza_command --icons --long"
-        alias la="$eza_command --icons --long --all"
-        alias lt="$eza_command --icons --tree --git-ignore"
-        alias llt="$eza_command --icons --tree --long"
-        alias lat="$eza_command --icons --tree --long --all"
+        alias ls="$eza_command"
+        alias ll="$eza_command $eza_long_opt"
+        alias la="$eza_command $eza_long_opt --all"
+        alias lt="$eza_command --tree --git-ignore"
+        alias llt="$eza_command $eza_long_opt --tree"
+        alias lat="$eza_command $eza_long_opt --tree --all"
     else
         alias l='ls -C'
         alias ll='ls -alF'
