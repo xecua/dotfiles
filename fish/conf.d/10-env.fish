@@ -9,5 +9,9 @@ if status is-interactive
         set -x TIMG_PIXELATION kitty
     end
 
+    if type -q brew; and brew ls --versions llvm 2>&1 >/dev/null
+        fish_add_path (brew --prefix llvm)/bin
+    end
+
     set -x FORCE_COLOR 1
 end

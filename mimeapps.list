@@ -10,3 +10,6 @@ image/jpeg=vivaldi-stable.desktop
 image/png=vivaldi-stable.desktop
 application/pdf=vivaldi-stable.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/claude=com.anthropic.Claude.desktop
+
+[Added Associations]

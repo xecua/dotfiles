@@ -544,14 +544,14 @@ require("scrollbar.handlers.gitsigns").setup()
 
 # mark
 [[plugins]]
-repo = 'vim-scripts/ShowMarks'
+repo = 'dimtion/guttermarks.nvim'
 lua_add = """
-vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyz'
-vim.keymap.set('n', '<Leader>st', '<Plug>ShowmarksShowMarksToggle', { silent = true })
-vim.keymap.set('n', '<Leader>so', '<Plug>ShowmarksShowMarksOn', { silent = true })
-vim.keymap.set('n', '<Leader>sh', '<Plug>ShowmarksClearMark', { silent = true })
-vim.keymap.set('n', '<Leader>sa', '<Plug>ShowmarksClearAll', { silent = true })
-vim.keymap.set('n', '<Leader>sm', '<Plug>ShowmarksPlaceMark', { silent = true })
+vim.keymap.set("n", "<Leader>mm", "<Cmd>GutterMarks toggle<CR>")
+vim.keymap.set("n", "<Leader>mr", "<Cmd>GutterMarks refresh<CR>")
+vim.keymap.set("n", "<Leader>md", "<Cmd>delm!<CR>")
+"""
+lua_source = """
+require('guttermarks').setup({})
 """
 
 # comment

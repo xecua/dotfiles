@@ -42,6 +42,60 @@ vim.g.format_disabled_servers = { "typescript", "lua_ls", "sqls", "yamlls", "tom
 -- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
 vim.g.format_disabled_servers_onsave = {}
 local command_defined = { general = {}, nes = {}, format = {}, signature = {}, lens = {}, inline_completion = {} }
+
+--- @param client vim.lsp.Client
+--- @param buffer integer
+local on_capability_updated = function(client, buffer)
+    if client:supports_method("textDocument/formatting") and not command_defined.format[buffer] then
+        command_defined.format[buffer] = true
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = buffer,
+            callback = function()
+                vim.lsp.buf.format({
+                    filter = function(c)
+                        return not vim.list_contains(vim.g.format_disabled_servers_onsave, c.name)
+                    end,
+                })
+            end,
+        })
+    end
+    if client:supports_method("textDocument/signatureHelp") and not command_defined.signature[buffer] then
+        command_defined.signature[buffer] = true
+        vim.api.nvim_create_autocmd("CursorHoldI", { group = augroup, buffer = buffer, command = "LspSignatureHelp" })
+    end
+
+    if client:supports_method("textDocument/documentSymbol") then
+        require("nvim-navic").attach(client, buffer)
+    end
+
+    if client:supports_method("textDocument/inlayHint") then
+        vim.lsp.inlay_hint.enable()
+    end
+
+    if client:supports_method("textDocument/codeLens") then
+        vim.lsp.codelens.enable()
+        if not command_defined.lens[buffer] then
+            command_defined.lens[buffer] = true
+            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+                group = augroup,
+                buffer = buffer,
+                command = "lua vim.lsp.codelens.enable()",
+            })
+        end
+    end
+
+    if client:supports_method("textDocument/inlineCompletion") then
+        vim.lsp.inline_completion.enable()
+        if not command_defined.inline_completion[buffer] then
+            command_defined.inline_completion[buffer] = true
+            vim.keymap.set("i", "<C-l>", function()
+                return vim.lsp.inline_completion.get() and "" or "<C-l>"
+            end, { silent = true, expr = true, buffer = buffer })
+        end
+    end
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,
     callback = function(args)
@@ -178,59 +232,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", mapopts)
         end
 
-        if client:supports_method("textDocument/formatting") and not command_defined.format[buffer] then
-            command_defined.format[buffer] = true
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = buffer,
-                callback = function()
-                    vim.lsp.buf.format({
-                        filter = function(c)
-                            return not vim.list_contains(vim.g.format_disabled_servers_onsave, c.name)
-                        end,
-                    })
-                end,
-            })
-        end
-        if client:supports_method("textDocument/signatureHelp") and not command_defined.signature[buffer] then
-            command_defined.signature[buffer] = true
-            vim.api.nvim_create_autocmd(
-                "CursorHoldI",
-                { group = augroup, buffer = buffer, command = "LspSignatureHelp" }
-            )
-        end
-
-        if client:supports_method("textDocument/documentSymbol") then
-            require("nvim-navic").attach(client, buffer)
-        end
-
-        if client:supports_method("textDocument/inlayHint") then
-            vim.lsp.inlay_hint.enable()
-        end
-
-        if client:supports_method("textDocument/codeLens") then
-            vim.lsp.codelens.enable()
-            if not command_defined.lens[buffer] then
-                command_defined.lens[buffer] = true
-                vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-                    group = augroup,
-                    buffer = buffer,
-                    command = "lua vim.lsp.codelens.enable()",
-                })
-            end
-        end
-
-        if client:supports_method("textDocument/inlineCompletion") then
-            vim.lsp.inline_completion.enable()
-            if not command_defined.inline_completion[buffer] then
-                command_defined.inline_completion[buffer] = true
-                vim.keymap.set("i", "<C-l>", function()
-                    return vim.lsp.inline_completion.get() and "" or "<C-l>"
-                end, { silent = true, expr = true, buffer = buffer })
-            end
-        end
+        on_capability_updated(client, buffer)
     end,
 })
+
+-- dynamic registrationに対応 (:h LspAttach)
+vim.lsp.handlers["client/registerCapability"] = (function(overridden)
+    return function(err, res, ctx)
+        local result = overridden(err, res, ctx)
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if not client then
+            return
+        end
+        for buffer, _ in pairs(client.attached_buffers) do
+            on_capability_updated(client, buffer)
+        end
+        return result
+    end
+end)(vim.lsp.handlers["client/registerCapability"])
 
 -- https://www.reddit.com/r/neovim/comments/1gf7kyn/lsp_configuration_debugging/
 vim.api.nvim_create_user_command("LspInspectClient", function()
