@@ -16,15 +16,14 @@ if status is-interactive
     end
 
     if type -q eza # actively maintained fork
-        set -l eza_command 'eza --header --git --time-style=iso --modified --created --icons auto --group'
-        set -l eza_long_opt '--long --loc'
+        set -l eza_command 'eza --header --git --time-style=iso --modified --created --group --smart-group --icons auto'
         alias l="$eza_command"
         alias ls="$eza_command"
-        alias ll="$eza_command $eza_long_opt"
-        alias la="$eza_command $eza_long_opt --all"
+        alias ll="$eza_command --long"
+        alias la="$eza_command --long --all"
         alias lt="$eza_command --tree --git-ignore"
-        alias llt="$eza_command $eza_long_opt --tree"
-        alias lat="$eza_command $eza_long_opt --tree --all"
+        alias llt="$eza_command --long --tree"
+        alias lat="$eza_command --long --tree --all"
     else
         alias l='ls -C'
         alias ll='ls -alF'
@@ -67,6 +66,10 @@ if status is-interactive
     if type -q lazydocker
         alias ldo=lazydocker
         alias lpo="DOCKER_HOST=$PODMAN_HOST lazydocker"
+    end
+
+    if type -q lazysql
+        alias lq=lazysql
     end
 
     if type -q devcontainer
