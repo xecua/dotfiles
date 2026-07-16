@@ -1,6 +1,7 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+format = '$all${env_var.ZMX_SESSION}$character'
 add_newline = true
 
 [character]
@@ -71,3 +72,9 @@ symbol = " " # U+E7A8, Devicons
 symbol = " " # U+E737, Devicons
 [swift]
 symbol = " " # U+E755, Devicons
+
+[env_var.ZMX_SESSION]
+symbol = " "
+format = "[$symbol$env_value]($style) "
+description = "zmx session name"
+style = "bold magenta"
