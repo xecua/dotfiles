@@ -19,5 +19,5 @@
 
 if test -z "$ZMX_SESSION" && status --is-interactive && type -q zmx
     # 基本的に常にやりたいような気がする?
-    attach_zmx_session_if_needed
+    new_zmx_session
 end

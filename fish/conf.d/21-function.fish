@@ -111,41 +111,35 @@ function attach_tmux_session_if_needed
     end
 end
 
-function attach_zmx_session_if_needed
-    # zmx session内だとzmx lsの先頭に現在のセッション名の先頭に\u2192がつく。これを除去する……か、普通に二重起動を拒否するか
-    set -f existing (zmx ls 2>/dev/null)
-    if test -z "$existing"
-        zmx attach (string join '-' (shuf -n 2 /usr/share/dict/words))
-        return
-    end
+function new_zmx_session
+    exec zmx attach (string join '-' (shuf -n 2 /usr/share/dict/words))
+end
 
+function switch_zmx_session
+    # zmx lsの先頭に現在のセッション名の先頭に\u2192がつく するとfzfの見た目が悪くなるのでいい感じにしたい
+    set -f existing (zmx ls 2>/dev/null)
     set -f candidates # empty list
     for session in $existing
+        set -l is_current (string match -rq '^→' $session)
+        if test -n "$is_current"
+            set session (string replace -r '^→' '' $session)
+        end
         # @fish-lsp-disable-next-line 4004
         string trim $session | read -l -d (printf '\t') name pid clients _unused dir
         set -l _name (string replace 'name=' '' $name)
         set -l _pid (string replace 'pid=' '' $pid)
         set -l _clients (string replace 'clients=' '' $clients)
         set -l _dir (string replace 'start_dir=' '' $dir)
-        set -a candidates (printf "%-20s (pid:%-8s clients:%-2s %s)\n" "$_name" "$_pid" "$_clients" "$_dir")
+        set -a candidates (printf "%-2s %-20s (pid:%-8s clients:%-2s %s)\n" "$is_current" "$_name" "$_pid" "$_clients" "$_dir")
     end
 
-    set -a candidates "Create New Session"
-    set -a candidates "Start shell without zmx"
     set -f selected (printf '%s\n' $candidates | fzf \
-        --preview='zmx history {1}'\
-        --preview-window=right:60%:follow)
+        --preview='zmx history --vt {1}'\
+        --preview-window=right:60%:follow \
+    )
 
-    set -f selected_name (echo $selected | sed -E 's/^(\S+).*/\1/')
-
-    if test -n "$selected_name"
-        if test "$selected_name" = Create
-            zmx attach (string join '-' (shuf -n 2 /usr/share/dict/words))
-        else if test "$selected_name" = Start
-            return
-        else
-            zmx attach $selected_name
-        end
+    if test -n "$selected"
+        zmx attach (echo $selected | sed -E 's/^(\S+).*/\1/')
     end
 end
 
