@@ -557,6 +557,15 @@ require('guttermarks').setup({})
 # comment
 [[plugins]]
 repo = 'numToStr/Comment.nvim'
+lua_add = """
+-- ghosttyなど一部ターミナルだとc-_がc-s--になる?
+vim.keymap.set("n", "<C-_><C-_>", "<Plug>(comment_toggle_linewise_current)")
+vim.keymap.set("n", "<C-S--><C-S-->", "<Plug>(comment_toggle_linewise_current)")
+vim.keymap.set("v", "<C-_><C-_>", "<Plug>(comment_toggle_linewise_visual)")
+vim.keymap.set("v", "<C-S--><C-S-->", "<Plug>(comment_toggle_linewise_visual)")
+vim.keymap.set("v", "<C-_>b", "<Plug>(comment_toggle_blockwise_visual)")
+vim.keymap.set("v", "<C-S-->", "<Plug>(comment_toggle_blockwise_visual)")
+"""
 lua_source = """
 require("Comment").setup({
     ignore = "^$",
