@@ -32,12 +32,23 @@
 	j = jump
 	jm = jump merge
 	d = diff
-	dft = -c diff.external=difft diff
-	ds = -c diff.external=difft show --ext-diff
-	dl = -c diff.external=difft log -p --ext-diff
+
+	dt = -c diff.external=difft diff
+	sdt = -c diff.external=difft show --ext-diff
+	ldt = -c diff.external=difft log -p --ext-diff
+
+	dd = -c core.pager=delta diff
+	sdd = -c core.pager=delta show
+	ldd = -c core.pager=delta log -p
+
+	dh = -c core.pager='hunk pager' diff
+	sdh = -c core.pager='hunk pager' show
+	ldh = -c core.pager='hunk pager' log -p
+
 	l = log --date=iso-local
 	ls = log --date=iso-local --stat
 	lp = log --date=iso-local --remerge-diff
+
 	g = log --graph --date=short --pretty=short-oneline
 	ri = rebase -i
 	rc = rebase --continue
@@ -95,3 +106,5 @@
 	root = ~/Documents/repos
 [include]
 	path = ~/.gitconfig.local
+
+# vim:noet:ft=gitconfig
