@@ -1,0 +1,65 @@
+config-file = ?config.local.ghostty
+font-family = "UDEV Gothic 35NFLG"
+font-family = "Noto Sans Mono CJK JP"
+font-family = "Noto Color Emoji"
+font-feature = -glib
+font-size = 12
+theme = Molokai
+window-inherit-working-directory = true
+macos-option-as-alt = left
+confirm-close-surface = false
+shell-integration = fish
+
+quick-terminal-screen = mouse
+quick-terminal-keyboard-interactivity = exclusive
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 30s
+
+keybind = clear
+keybind = ctrl+shift+n=new_window
+keybind = global:super+backquote=toggle_quick_terminal
+keybind = ctrl+==increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
+keybind = ctrl+shift+f=start_search
+keybind = performable:escape=end_search
+keybind = ctrl+shift+p=toggle_command_palette
+keybind = super+ctrl+shift+j=write_screen_file:copy,plain
+keybind = ctrl+shift+c=copy_to_clipboard:mixed
+keybind = copy=copy_to_clipboard:mixed
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = paste=paste_from_clipboard
+keybind = shift+arrow_left=adjust_selection:left
+keybind = shift+arrow_right=adjust_selection:right
+keybind = shift+arrow_up=adjust_selection:up
+keybind = shift+arrow_down=adjust_selection:down
+keybind = ctrl+shift+page_up=jump_to_prompt:-1
+keybind = ctrl+shift+page_down=jump_to_prompt:1
+keybind = ctrl+shift+a=select_all
+
+keybind = ctrl+q>[=activate_key_table:visual
+# reset
+keybind = visual/
+keybind = visual/k=scroll_page_lines:-1
+keybind = visual/j=scroll_page_lines:1
+# keybind = visual/k=csi:A
+# keybind = visual/j=csi:B
+# keybind = visual/h=csi:D
+# keybind = visual/l=csi:C
+keybind = visual/[=jump_to_prompt:-1
+keybind = visual/]=jump_to_prompt:1
+# 選択はマウスでやるしかなさそう
+keybind = visual/y=copy_to_clipboard
+keybind = visual/ctrl+y=scroll_page_up
+keybind = visual/ctrl+e=scroll_page_down
+keybind = visual/ctrl+u=scroll_page_fractional:-0.5
+keybind = visual/ctrl+d=scroll_page_fractional:0.5
+keybind = visual/g>g=scroll_to_top
+keybind = visual/shift+g=scroll_to_bottom
+keybind = visual/enter=scroll_to_bottom
+keybind = chain=deactivate_key_table
+keybind = visual/slash=start_search
+keybind = visual/n=navigate_search:next
+keybind = visual/ctrl+shift+p=toggle_command_palette
+keybind = visual/catch_all=ignore

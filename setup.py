@@ -13,85 +13,87 @@ import sys
 import os
 from pathlib import Path
 from typing import Any
+
 # import subprocess
 import tomli_w
 
 script_dir = Path(__file__).parent
 
 argv = sys.argv[1:]
-force = '--force' in argv
+force = "--force" in argv
 
 home = Path.home()
-config_home = Path(os.getenv("XDG_CONFIG_HOME", home / '.config'))
-cache_home = Path(os.getenv("XDG_CACHE_HOME", home / '.cache'))
-data_home = Path(os.getenv("XDG_DATA_HOME", home / '.local' / 'share'))
-binary_path = home / '.local' / 'bin'
+config_home = Path(os.getenv("XDG_CONFIG_HOME", home / ".config"))
+cache_home = Path(os.getenv("XDG_CACHE_HOME", home / ".cache"))
+data_home = Path(os.getenv("XDG_DATA_HOME", home / ".local" / "share"))
+binary_path = home / ".local" / "bin"
 uname = os.uname()
 
 
 def main():
-    make_symlink('dunst', config_home)
-    make_symlink('fd', config_home)
-    make_symlink('fish', config_home, True)
-    make_symlink('fontconfig', config_home)
-    make_symlink('ghostty/config', config_home)  # themeをうっかり入れるとライセンス違反になる
-    make_symlink('clipse', config_home)
-    make_symlink('git', config_home)
-    make_symlink('jj/config.toml', config_home)
-    make_symlink('jj/conf.d', config_home)
-    make_symlink('containers/containers.conf.d/00-common.conf', config_home)
-    make_symlink('niri', config_home)
-    make_symlink('npm', config_home)
-    make_symlink('gtk-3.0/settings.ini', config_home)
-    make_symlink('ideavim', config_home)
-    if (kanshi_config := script_dir / 'kanshi' / uname.nodename).exists():
-        make_symlink('kanshi/config', config_home, target=kanshi_config)
-    make_symlink('karabiner', config_home, True)
-    make_symlink('latexmk', config_home, True)
-    make_symlink('lazygit', config_home, True)
-    make_symlink('nvim', config_home)
-    make_symlink('ripgrep', config_home)
-    make_symlink('.satysfi/local/packages',
-                 home,
-                 target=script_dir / 'satysfi' / 'packages')
-    make_symlink('libskk', config_home, True, target=script_dir / 'skk' / 'libskk')
-    make_symlink('systemd/user', config_home, True)
-    make_symlink('tmux', config_home, True)
-    make_symlink('elephant', config_home)
-    make_symlink('walker', config_home, True)
-    make_symlink('waybar', config_home)
-    make_symlink('xremap', config_home)
-    make_symlink('zathura', config_home)
-    make_symlink('glide', config_home)
+    make_symlink("dunst", config_home)
+    make_symlink("fd", config_home)
+    make_symlink("fish", config_home, True)
+    make_symlink("fontconfig", config_home)
+    make_symlink(
+        "ghostty/config.ghostty", config_home
+    )  # themeをうっかり入れるとライセンス違反になる
+    make_symlink("clipse", config_home)
+    make_symlink("git", config_home)
+    make_symlink("jj/config.toml", config_home)
+    make_symlink("jj/conf.d", config_home)
+    make_symlink("containers/containers.conf.d/00-common.conf", config_home)
+    make_symlink("niri", config_home)
+    make_symlink("npm", config_home)
+    make_symlink("gtk-3.0/settings.ini", config_home)
+    make_symlink("ideavim", config_home)
+    if (kanshi_config := script_dir / "kanshi" / uname.nodename).exists():
+        make_symlink("kanshi/config", config_home, target=kanshi_config)
+    make_symlink("karabiner", config_home, True)
+    make_symlink("latexmk", config_home, True)
+    make_symlink("lazygit", config_home, True)
+    make_symlink("nvim", config_home)
+    make_symlink("ripgrep", config_home)
+    make_symlink(
+        ".satysfi/local/packages", home, target=script_dir / "satysfi" / "packages"
+    )
+    make_symlink("libskk", config_home, True, target=script_dir / "skk" / "libskk")
+    make_symlink("systemd/user", config_home, True)
+    make_symlink("tmux", config_home, True)
+    make_symlink("elephant", config_home)
+    make_symlink("walker", config_home, True)
+    make_symlink("waybar", config_home)
+    make_symlink("xremap", config_home)
+    make_symlink("zathura", config_home)
+    make_symlink("glide", config_home)
 
-    make_symlink('.clang-format', home)
-    make_symlink('.mutagen.yml', home)
-    make_symlink('.myclirc', home)
-    make_symlink('.zshenv', home)
-    make_symlink('.zshrc', home)
+    make_symlink(".clang-format", home)
+    make_symlink(".mutagen.yml", home)
+    make_symlink(".myclirc", home)
+    make_symlink(".zshenv", home)
+    make_symlink(".zshrc", home)
 
-    make_symlink('fzf-preview.sh', binary_path)
-    make_symlink('env-sync.zsh', binary_path)
-    make_symlink('fzfrc', config_home)
-    make_symlink('lesskey', config_home)
-    make_symlink('starship.toml', config_home)
-    make_symlink('nb', config_home)
-    make_symlink('mimeapps.list', config_home)
+    make_symlink("fzf-preview.sh", binary_path)
+    make_symlink("env-sync.zsh", binary_path)
+    make_symlink("fzfrc", config_home)
+    make_symlink("lesskey", config_home)
+    make_symlink("starship.toml", config_home)
+    make_symlink("nb", config_home)
+    make_symlink("mimeapps.list", config_home)
 
-    write_file(config_home / 'wgetrc', [
-        f'hsts-file = {cache_home / 'wget-hsts'}'
-    ])
+    write_file(config_home / "wgetrc", [f"hsts-file = {cache_home / 'wget-hsts'}"])
 
-    write_file(home / '.indentconfig.yaml', [
-        f'paths:',
-        f'  - {script_dir / 'latexindent' / 'setting.yaml'}'
-    ])
+    write_file(
+        home / ".indentconfig.yaml",
+        [f"paths:", f"  - {script_dir / 'latexindent' / 'setting.yaml'}"],
+    )
 
     # WSLとかでフォントサイズいじりたいので
-    neovide_config: dict[str, Any] = { "fork": True, 'title-hidden': True }
-    if uname.sysname == 'Darwin':
-        neovide_config['frame'] = 'buttonless'
-    write_file(config_home / 'neovide' / 'config.toml', tomli_w.dumps(neovide_config))
+    neovide_config: dict[str, Any] = {"fork": True, "title-hidden": True}
+    if uname.sysname == "Darwin":
+        neovide_config["frame"] = "buttonless"
+    write_file(config_home / "neovide" / "config.toml", tomli_w.dumps(neovide_config))
+
 
 def write_file(path: Path, lines: str | list[str]):
     lines = lines if isinstance(lines, list) else [lines]
@@ -100,16 +102,18 @@ def write_file(path: Path, lines: str | list[str]):
     if path.exists():
         print(f"{path} exists. Skipped.")
         return
-    with open(path, 'w') as f:
-        print(*lines, sep='\n', file=f)
+    with open(path, "w") as f:
+        print(*lines, sep="\n", file=f)
         print(f"Created: {path}", file=sys.stderr)
 
 
-def make_symlink(name: str | os.PathLike,
-                 link_base: Path,
-                 recursive=False,
-                 *,
-                 target: str | os.PathLike | None = None):
+def make_symlink(
+    name: str | os.PathLike,
+    link_base: Path,
+    recursive=False,
+    *,
+    target: str | os.PathLike | None = None,
+):
     link = link_base / name
     if not link.parent.exists():
         link.parent.mkdir(parents=True, exist_ok=True)
@@ -142,5 +146,5 @@ def make_symlink(name: str | os.PathLike,
         print(f"Linked: {link} -> {target}", file=sys.stderr)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
