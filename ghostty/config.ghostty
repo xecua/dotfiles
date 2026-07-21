@@ -17,26 +17,40 @@ notify-on-command-finish = unfocused
 notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 30s
 
+# LinuxはctrlがよくてmacOSはsuperがいい。key-remapはctrlが仕事しなくなるので渋い
+# ということで各々localにコピペするしかねえ(home-manager案件?)
 keybind = clear
-keybind = ctrl+shift+n=new_window
+# keybind = ctrl+shift+n=new_window
+# keybind = ctrl+==increase_font_size:1
+# keybind = ctrl+-=decrease_font_size:1
+# keybind = ctrl+shift+f=start_search
+# keybind = ctrl+shift+p=toggle_command_palette
+# keybind = ctrl+shift+j=write_screen_file:copy,plain
+# keybind = ctrl+shift+page_up=jump_to_prompt:-1
+# keybind = ctrl+shift+page_down=jump_to_prompt:1
+# keybind = ctrl+shift+a=select_all
+# keybind = ctrl+shift+c=copy_to_clipboard:mixed
+# keybind = ctrl+shift+v=paste_from_clipboard
+#
+# keybind = super+shift+n=new_window
+# keybind = super+==increase_font_size:1
+# keybind = super+-=decrease_font_size:1
+# keybind = super+shift+f=start_search
+# keybind = super+shift+p=toggle_command_palette
+# keybind = super+shift+j=write_screen_file:copy,plain
+# keybind = super+shift+page_up=jump_to_prompt:-1
+# keybind = super+shift+page_down=jump_to_prompt:1
+# keybind = super+shift+a=select_all
+# keybind = super+shift+c=copy_to_clipboard:mixed
+# keybind = super+shift+v=paste_from_clipboard
 keybind = global:super+backquote=toggle_quick_terminal
-keybind = ctrl+==increase_font_size:1
-keybind = ctrl+-=decrease_font_size:1
-keybind = ctrl+shift+f=start_search
 keybind = performable:escape=end_search
-keybind = ctrl+shift+p=toggle_command_palette
-keybind = super+ctrl+shift+j=write_screen_file:copy,plain
-keybind = ctrl+shift+c=copy_to_clipboard:mixed
 keybind = copy=copy_to_clipboard:mixed
-keybind = ctrl+shift+v=paste_from_clipboard
 keybind = paste=paste_from_clipboard
 keybind = shift+arrow_left=adjust_selection:left
 keybind = shift+arrow_right=adjust_selection:right
 keybind = shift+arrow_up=adjust_selection:up
 keybind = shift+arrow_down=adjust_selection:down
-keybind = ctrl+shift+page_up=jump_to_prompt:-1
-keybind = ctrl+shift+page_down=jump_to_prompt:1
-keybind = ctrl+shift+a=select_all
 
 keybind = ctrl+q>[=activate_key_table:visual
 # reset
