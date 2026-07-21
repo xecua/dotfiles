@@ -101,6 +101,6 @@ if status is-interactive
     end
 
     if type -q home-manager
-        alias hu='home-manager switch --flake .#(whoami)@(hostname) --impure'
+        alias hu='home-manager switch --flake .#(whoami)@(hostname)'
     end
 end
