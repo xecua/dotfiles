@@ -23,6 +23,10 @@ if status --is-interactive
         zmx completions fish | source
     end
 
+    if type -q mcat
+        mcat --generate fish | source
+    end
+
     if type -q brew
         if test -d (brew --prefix)"/share/fish/completions"
             set -p fish_complete_path (brew --prefix)/share/fish/completions
