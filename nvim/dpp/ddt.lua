@@ -12,15 +12,13 @@ vim.keymap.set("n", "<Leader>p", "<Cmd>DdtTerm<CR>")
 -- }}}
 
 -- lua_source {{{
-local is_darwin = require("xecua.utils").get_os_string() == "Darwin"
-
 vim.fn["ddt#custom#patch_global"]({
     ui = "terminal",
     uiParams = {
         terminal = {
             -- toggle = true,
             split = "horizontal",
-            command = is_darwin and "zsh" or "bash",
+            command = "zsh",
             startInsert = true,
             winHeight = 10,
         },
