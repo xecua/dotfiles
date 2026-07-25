@@ -5,7 +5,7 @@ export class Config extends BaseConfig {
     args.contextBuilder.patchGlobal({
       ui: "pum",
       sources: ["lsp", "file", "around", "denippet"],
-      postFilters: ["sorter_fuzzy"],
+      postFilters: ["postfilter_score"],
       sourceOptions: {
         _: {
           matchers: ["matcher_fuzzy"],
