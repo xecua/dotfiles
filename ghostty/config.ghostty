@@ -64,8 +64,8 @@ keybind = visual/[=jump_to_prompt:-1
 keybind = visual/]=jump_to_prompt:1
 # 選択はマウスでやるしかなさそう
 keybind = visual/y=copy_to_clipboard
-keybind = visual/ctrl+y=scroll_page_up
-keybind = visual/ctrl+e=scroll_page_down
+keybind = visual/ctrl+y=scroll_page_lines:-1
+keybind = visual/ctrl+e=scroll_page_lines:1
 keybind = visual/ctrl+u=scroll_page_fractional:-0.5
 keybind = visual/ctrl+d=scroll_page_fractional:0.5
 keybind = visual/ctrl+f=scroll_page_down
