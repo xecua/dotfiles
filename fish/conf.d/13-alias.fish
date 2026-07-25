@@ -72,10 +72,6 @@ if status is-interactive
         alias lq=lazysql
     end
 
-    if type -q devcontainer
-        alias poddevcontainer="devcontainer --docker-path podman"
-    end
-
     # Workaround for https://github.com/flutter/flutter/issues/59430
     if type -q flutter
         alias flutter='XDG_CONFIG_HOME=$XDG_CONFIG_HOME/flutter command flutter'

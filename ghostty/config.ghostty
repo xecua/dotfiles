@@ -10,7 +10,6 @@ macos-option-as-alt = left
 confirm-close-surface = false
 shell-integration = fish
 
-quick-terminal-screen = mouse
 quick-terminal-keyboard-interactivity = exclusive
 
 notify-on-command-finish = unfocused
@@ -32,17 +31,17 @@ keybind = clear
 # keybind = ctrl+shift+c=copy_to_clipboard:mixed
 # keybind = ctrl+shift+v=paste_from_clipboard
 #
-# keybind = super+shift+n=new_window
+# keybind = super+n=new_window
 # keybind = super+==increase_font_size:1
 # keybind = super+-=decrease_font_size:1
-# keybind = super+shift+f=start_search
+# keybind = super+f=start_search
 # keybind = super+shift+p=toggle_command_palette
 # keybind = super+shift+j=write_screen_file:copy,plain
 # keybind = super+shift+page_up=jump_to_prompt:-1
 # keybind = super+shift+page_down=jump_to_prompt:1
-# keybind = super+shift+a=select_all
-# keybind = super+shift+c=copy_to_clipboard:mixed
-# keybind = super+shift+v=paste_from_clipboard
+# keybind = super+a=select_all
+# keybind = super+c=copy_to_clipboard:mixed
+# keybind = super+v=paste_from_clipboard
 keybind = global:super+backquote=toggle_quick_terminal
 keybind = performable:escape=end_search
 keybind = copy=copy_to_clipboard:mixed
@@ -69,6 +68,8 @@ keybind = visual/ctrl+y=scroll_page_up
 keybind = visual/ctrl+e=scroll_page_down
 keybind = visual/ctrl+u=scroll_page_fractional:-0.5
 keybind = visual/ctrl+d=scroll_page_fractional:0.5
+keybind = visual/ctrl+f=scroll_page_down
+keybind = visual/ctrl+b=scroll_page_up
 keybind = visual/g>g=scroll_to_top
 keybind = visual/shift+g=scroll_to_bottom
 keybind = visual/enter=scroll_to_bottom

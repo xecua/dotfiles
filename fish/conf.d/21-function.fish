@@ -55,6 +55,17 @@ if type -q nix
     end
 end
 
+if type -q devcontainer
+    function poddevcontainer --wraps devcontainer
+        if contains -- $argv[1] outdated features templates
+            # docker-pathをオプションに取らないサブコマンド
+            devcontainer $argv
+        else
+            devcontainer $argv[1] --docker-path podman $argv[2..-1]
+        end
+    end
+end
+
 function randomstring
     if test -z "$argv[1]"
         echo "usage: randomstring width" >&2
@@ -73,21 +84,6 @@ function get-confirmation
     set message (string join '' $message "[y/N] ")
     read -l answer -P "$message"
     test "$answer" = y -o "$answer" = Y
-end
-
-function go-update
-    # https://zenn.dev/kyoh86/articles/291618538dcf0d
-    pushd $HOME
-    set gobin (go env GOBIN)
-    if test -z "$gobin"
-        set gobin (go env GOPATH)/bin
-    end
-
-    for ex in $(find $gobin -type f -executable)
-        set -l pkg (go version -m $ex | head -2 | tail -1 | awk '{print $2}')
-        go install "$pkg@latest"
-    end
-    popd
 end
 
 # https://qiita.com/mkeeda/items/c5fa878436f1cc957892

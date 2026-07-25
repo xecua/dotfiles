@@ -245,7 +245,9 @@ if = "get(g:, 'use_copilot', v:false)"
 repo = 'carlos-algms/agentic.nvim'
 lua_add = """
 vim.api.nvim_create_user_command("AgenticToggle", "lua require('agentic').toggle()", {})
-vim.keymap.set("n", "<Leader>a", "<Cmd>AgenticToggle<CR>")
+vim.api.nvim_create_user_command("AgenticNewSession", "lua require('agentic').new_session()", {})
+vim.keymap.set("n", "<Leader>aa", "<Cmd>AgenticToggle<CR>")
+vim.keymap.set("n", "<Leader>an", "<Cmd>AgenticNewSession<CR>")
 """
 lua_source = """
 require("agentic").setup({
@@ -255,7 +257,7 @@ require("agentic").setup({
     },
     acp_providers = {
         ['claude-agent-acp'] ={ initial_model = "sonnet" },
-        ['copilot-acp'] = { initial_model = "gpt-5.5" },
+        ['copilot-acp'] = { initial_model = "gpt-5.6-sol" },
     },
     file_picker = { enable = false },
 })
@@ -656,26 +658,20 @@ repo = 'mattn/vim-maketable'
 
 # Syntax Highlighting
 [[plugins]]
-# repo = 'nvim-treesitter/nvim-treesitter'
-# rev = 'main'
-# hook_post_update = "TSUpdate"
-# lua_source = """
-# require("nvim-treesitter").setup({
-#     install_dir = vim.fn.stdpath("cache") .. "/parsers",
-#     textobjects = {
-#         select = { enable = true },
-#         keymaps = {
-#             af = "@function.outer",
-#             ["if"] = "@function.inner",
-#         },
-#     },
-# })
-# """
-repo = 'romus204/tree-sitter-manager.nvim'
+repo = 'nvim-treesitter/nvim-treesitter'
+rev = 'main'
+hook_post_update = "TSUpdate"
 lua_source = """
-require('tree-sitter-manager').setup({})
+require("nvim-treesitter").setup({
+    textobjects = {
+        select = { enable = true },
+        keymaps = {
+            af = "@function.outer",
+            ["if"] = "@function.inner",
+        },
+    },
+})
 """
-
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-context'
