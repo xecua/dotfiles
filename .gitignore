@@ -3,3 +3,4 @@ nvim/lua/xecua/local-pre.lua
 nvim/dpp/local.toml
 .envrc
 jj/conf.d/local.toml
+.direnv
