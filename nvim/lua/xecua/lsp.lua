@@ -117,22 +117,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 return
             end
 
-            vim.keymap.set("n", "<C-l>", function()
-                local bufnr = vim.api.nvim_get_current_buf()
-                local state = vim.b[bufnr].nes_state
-                local nes = require("copilot-lsp.nes")
-                if state and not nes.walk_cursor_start_edit() then
-                    nes.apply_pending_nes()
-                    nes.walk_cursor_end_edit()
-                end
-                nes.request_nes("GitHub Copilot")
-            end, { buffer = true, desc = "Copilot NES" })
-            vim.keymap.set("n", "<C-c>", function()
-                require("copilot-lsp.nes").clear()
-            end, { buffer = true, desc = "Clear NES" })
-
             local ok, nes = pcall(require, "copilot-lsp.nes")
             if ok and not command_defined.nes[buffer] then
+                vim.keymap.set("n", "<C-l>", function()
+                    local bufnr = vim.api.nvim_get_current_buf()
+                    local state = vim.b[bufnr].nes_state
+                    if state and not nes.walk_cursor_start_edit() then
+                        nes.apply_pending_nes()
+                        nes.walk_cursor_end_edit()
+                    end
+                    nes.request_nes("GitHub Copilot")
+                end, { buffer = true, desc = "Copilot NES" })
+                vim.keymap.set("n", "<C-c>", function()
+                    nes.clear()
+                end, { buffer = true, desc = "Clear NES" })
+
                 command_defined.nes[buffer] = true
                 vim.api.nvim_create_autocmd("TextChanged", {
                     callback = function()
