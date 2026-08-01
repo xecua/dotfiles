@@ -38,7 +38,6 @@ def main():
     make_symlink(
         "ghostty/config.ghostty", config_home
     )  # themeをうっかり入れるとライセンス違反になる
-    make_symlink("clipse", config_home)
     make_symlink("git", config_home)
     make_symlink("jj/config.toml", config_home)
     make_symlink("jj/conf.d", config_home)
@@ -78,7 +77,6 @@ def main():
     make_symlink("fzfrc", config_home)
     make_symlink("lesskey", config_home)
     make_symlink("starship.toml", config_home)
-    make_symlink("nb", config_home)
     make_symlink("mimeapps.list", config_home)
 
     write_file(config_home / "wgetrc", [f"hsts-file = {cache_home / 'wget-hsts'}"])
