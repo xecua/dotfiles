@@ -2,6 +2,11 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     export ZSHENV_LOADED=1
     typeset -gUx path
 
+    # nix
+    if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+    fi
+
     # path_helperはカス
     setopt no_global_rcs
     if [[ -x /usr/libexec/path_helper ]]; then
