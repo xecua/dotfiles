@@ -386,7 +386,6 @@ hooks_file = '$STD_CONFIG/dpp/skkeleton.lua'
 [[plugins]]
 repo = 'delphinus/skkeleton_indicator.nvim'
 depends = ['skkeleton']
-rev = 'v2'
 lua_source = """
 require('skkeleton_indicator').setup({
   eijiText = "a",

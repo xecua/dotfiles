@@ -108,7 +108,7 @@ function attach_tmux_session_if_needed
 end
 
 function new_zmx_session
-    exec zmx attach (string join '-' (shuf -n 2 /usr/share/dict/words))
+    exec zmx attach (string join '-' (shuf -n 2 /usr/share/dict/words)) fish
 end
 
 function switch_zmx_session

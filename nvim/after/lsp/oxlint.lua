@@ -1,22 +1,34 @@
 return {
-    cmd = function(dispatchers, config)
-        local cmd = "oxlint"
-        local local_cmd = config.root_dir .. "/node_modules/.bin/oxlint"
-        if local_cmd and vim.fn.executable(local_cmd) == 1 then
-            cmd = local_cmd
-        end
-        return vim.lsp.rpc.start({ cmd, "--type-aware", "--lsp" }, dispatchers)
-    end,
-    workspace_required = true,
-    root_dir = function(bufnr, on_dir)
-        if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
-            -- deno lint使うやろ
-            return
-        end
+	cmd = function(dispatchers, config)
+		local cmd = "oxlint"
+		local local_cmd = config.root_dir .. "/node_modules/.bin/oxlint"
+		if local_cmd and vim.fn.executable(local_cmd) == 1 then
+			cmd = local_cmd
+		end
+		return vim.lsp.rpc.start({ cmd, "--type-aware", "--lsp" }, dispatchers)
+	end,
+	workspace_required = true,
+	root_dir = function(bufnr, on_dir)
+		if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
+			-- deno lint使うやろ
+			return
+		end
 
-        local fname = vim.api.nvim_buf_get_name(bufnr)
-        local util = require("lspconfig.util")
-        local root_markers = util.insert_package_json({ ".oxlintrc.json" }, "oxlint", fname)
-        on_dir(vim.fs.dirname(vim.fs.find(root_markers, { path = fname, upward = true })[1]))
-    end,
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		local util = require("lspconfig.util")
+		local root_markers = util.insert_package_json(
+			{ ".oxlintrc.json", ".oxlintrc.jsonc", "oxlint.config.ts" },
+			{ "oxlint", "vite%-plus" },
+			fname
+		)
+		-- find vite plus config with lint field
+		root_markers = util.root_markers_with_field(
+			root_markers,
+			{ "vite.config.ts" },
+			{ "vite%-plus", "lint:" },
+			fname,
+			"all"
+		)
+		on_dir(vim.fs.root(bufnr, root_markers))
+	end,
 }

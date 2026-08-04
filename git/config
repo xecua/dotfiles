@@ -32,6 +32,7 @@
 	j = jump
 	jm = jump merge
 	d = diff
+	h = history
 
 	dt = -c diff.external=difft diff
 	sdt = -c diff.external=difft show --ext-diff

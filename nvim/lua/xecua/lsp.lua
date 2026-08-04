@@ -1,6 +1,7 @@
 -- vim.lsp.config('*', {})
 
 vim.lsp.enable({
+	"copilot",
 	"denols",
 	-- "intelephense",
 	"jsonls",
