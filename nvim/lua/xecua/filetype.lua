@@ -1,6 +1,6 @@
 -- https://zenn.dev/rapan931/articles/45b09b774512fc
 
-local M = {}
+local hooks = {}
 
 local function set_no_leading_char()
     local listchars = vim.opt.listchars:get()
@@ -19,6 +19,15 @@ local function set_indent(tabstop, expandtab)
         vim.opt_local.expandtab = expandtab
     end
 end
+local function load_editorconfig()
+    local editorconfig = vim.b.editorconfig or {}
+    if editorconfig.indent_style then
+        set_indent(nil, editorconfig.indent_style == "space")
+    end
+    if editorconfig.indent_size then
+        set_indent(tonumber(editorconfig.indent_size))
+    end
+end
 
 local function register_javascript_regex()
     -- regex string as text object
@@ -28,135 +37,154 @@ local function register_javascript_regex()
     vim.keymap.set("v", "a/", "<Cmd>normal! F/of/<CR>", { buffer = true })
 end
 
-M.astro = function()
+hooks.astro = function()
     set_indent(2)
     register_javascript_regex()
 end
 
-M.c = function()
+hooks.c = function()
     set_indent(2)
 end
 
-M.cpp = function()
+hooks.cpp = function()
     set_indent(2)
 end
 
-M.dart = function()
+hooks.dart = function()
     set_indent(2)
 end
 
-M.css = function()
+hooks.css = function()
     set_indent(2)
 end
 
-M.html = function()
+hooks.html = function()
     set_indent(2)
 end
 
-M.javascript = function()
-    set_indent(2)
-    register_javascript_regex()
-end
-
-M.javascriptreact = function()
+hooks.javascript = function()
     set_indent(2)
     register_javascript_regex()
 end
 
-M.typescript = function()
+hooks.javascriptreact = function()
     set_indent(2)
     register_javascript_regex()
 end
 
-M.typescriptreact = function()
+hooks.typescript = function()
     set_indent(2)
     register_javascript_regex()
 end
 
-M.typespec = function()
-    set_indent(2)
-end
-
-M.nix = function()
-    set_indent(2)
-end
-
-M.json = function()
-    set_indent(2)
-end
-
-M.jsonc = function()
-    set_indent(2)
-end
-
-M.rst = function()
-    set_indent(2)
-end
-
-M.satysfi = function()
-    set_indent(2)
-end
-
-M.sql = function()
-    set_indent(2)
-end
-
-M.vim = function()
-    set_indent(2)
-end
-
-M.vue = function()
+hooks.typescriptreact = function()
     set_indent(2)
     register_javascript_regex()
 end
 
-M.xml = function()
+hooks.typespec = function()
     set_indent(2)
 end
 
-M.yaml = function()
+hooks.nix = function()
     set_indent(2)
 end
 
-M.go = function()
+hooks.json = function()
+    set_indent(2)
+end
+
+hooks.jsonc = function()
+    set_indent(2)
+end
+
+hooks.rst = function()
+    set_indent(2)
+end
+
+hooks.satysfi = function()
+    set_indent(2)
+end
+
+hooks.sql = function()
+    set_indent(2)
+end
+
+hooks.vim = function()
+    set_indent(2)
+end
+
+hooks.vue = function()
+    set_indent(2)
+    register_javascript_regex()
+end
+
+hooks.xml = function()
+    set_indent(2)
+end
+
+hooks.yaml = function()
+    set_indent(2)
+end
+
+hooks.go = function()
     set_indent(nil, false)
 end
 
-M.make = function()
+hooks.make = function()
     set_indent(nil, false)
 end
 
-M.csv = function()
+hooks.csv = function()
     vim.opt_local.wrap = false
 end
 
-M.tsv = function()
+hooks.tsv = function()
     set_indent(nil, false)
     vim.opt_local.wrap = false
 end
 
-M.snippets = function()
+hooks.snippets = function()
     vim.opt_local.softtabstop = -1
     vim.opt_local.shiftwidth = 0
     set_indent(2, false)
 end
 
-M.tex = function()
+hooks.tex = function()
     vim.opt_local.makeprg = "latexmk"
 end
 
-M.gitconfig = function()
+hooks.gitconfig = function()
     set_indent(nil, false)
 end
 
-M["dap-view"] = function()
+hooks["dap-view"] = function()
     set_no_leading_char()
 end
 
+hooks.php = function()
+    -- テンプレートの場合はhtmlのルールに
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if
+        bufname:match("%.blade%.") -- Laravel Blade
+        or bufname:match("%.twig%.") -- Twig (Symfony, Craft CMS)
+        or bufname:match("%.ctp") -- CakePHP <= 3.x
+        or bufname:match("/templates/") -- CakePHP >= 4.x
+    then
+        hooks.html()
+    end
+end
+
+local M = {}
 return setmetatable(M, {
-    __index = function()
+    __index = function(_, key)
         return function()
-            -- do nothing
+            if hooks[key] then
+                hooks[key]()
+            end
+
+            -- editorconfigを優先
+            load_editorconfig()
         end
     end,
 })

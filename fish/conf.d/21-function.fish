@@ -46,7 +46,7 @@ function venv
 end
 
 if type -q nix
-    function nix
+    function nix --wraps nix
         if test "$argv[1]" = develop
             command nix develop $argv[2..-1] -c zsh
         else

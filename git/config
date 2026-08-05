@@ -56,6 +56,7 @@
 	ra = rebase --abort
 	rs = restore
 	rss = restore --staged
+	rws = restore --worktree --staged
 	st = stash
 	sts = stash show
 	stl = stash list

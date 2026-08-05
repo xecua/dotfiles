@@ -1,8 +1,4 @@
 if status --is-interactive
-    if type -q mise
-        mise activate fish | source
-    end
-
     if type -q direnv
         eval (direnv hook fish)
     end
