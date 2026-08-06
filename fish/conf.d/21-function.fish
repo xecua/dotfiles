@@ -45,27 +45,6 @@ function venv
     return 1
 end
 
-if type -q nix
-    function nix --wraps nix
-        if test "$argv[1]" = develop
-            command nix develop $argv[2..-1] -c zsh
-        else
-            command nix $argv
-        end
-    end
-end
-
-if type -q devcontainer
-    function poddevcontainer --wraps devcontainer
-        if contains -- $argv[1] outdated features templates
-            # docker-pathをオプションに取らないサブコマンド
-            devcontainer $argv
-        else
-            devcontainer $argv[1] --docker-path podman $argv[2..-1]
-        end
-    end
-end
-
 function randomstring
     if test -z "$argv[1]"
         echo "usage: randomstring width" >&2

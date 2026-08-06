@@ -20,6 +20,13 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function(args)
         filetype_callback[args.match]()
+
+        local ok, _ = pcall(vim.treesitter.start)
+        if ok then
+            vim.wo.foldmethod = "expr"
+            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
     end,
 })
 vim.api.nvim_create_autocmd(
@@ -75,20 +82,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
         else
             path = string.gsub(path, "^" .. vim.pesc(vim.env.HOME), "~")
             vim.opt.titlestring = "nvim: " .. vim.fn.pathshorten(path)
-        end
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    group = augroup,
-    pattern = "*",
-    callback = function()
-        -- pcallでエラーを無視することでパーサーやクエリがあるか気にしなくてすむ
-        local ok, _ = pcall(vim.treesitter.start)
-        if ok then
-            vim.wo.foldmethod = "expr"
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
     end,
 })

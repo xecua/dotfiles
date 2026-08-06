@@ -26,3 +26,4 @@
 **/.jj
 
 **/.claude/settings.local.json
+.sql-formatter.json

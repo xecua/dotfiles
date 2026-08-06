@@ -1,16 +1,48 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = '$all${env_var.ZMX_SESSION}$character'
+format = """
+$directory\
+${env_var.ZMX_SESSION}\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$nix_shell\
+$cmd_duration\
+$line_break\
+$jobs\
+$status\
+$character"""
 add_newline = true
 
+[directory]
+fish_style_pwd_dir_length = 1
+
+[env_var.ZMX_SESSION]
+symbol = " "
+format = "[$symbol$env_value]($style) "
+description = "zmx session name"
+style = "bold magenta"
+
 [character]
-success_symbol = '''\(´∀`\)[INSERT❯](bold green)'''
-error_symbol = '''\(ﾉ∀`\)[INSERT❯](bold green)'''
+success_symbol = '''[INSERT❯](bold green)'''
+error_symbol = '''[INSERT❯](bold red)'''
 vimcmd_symbol = "[NORMAL❯](bold blue)"
 vimcmd_replace_one_symbol = "[REPLACE❯](bold purple)"
 vimcmd_replace_symbol = "[REPLACE❯](bold purple)"
 vimcmd_visual_symbol = "[VISUAL❯](bold yellow)"
+
+[status]
+disabled = false
+format = '[$symbol]($style)'
+symbol = '''\(ﾉ∀`\)'''
+success_symbol = '''\(´∀`\)'''
+style = 'bold'
+
+[git_branch]
+symbol = " " # U+E702, Devicons
 
 [git_commit]
 tag_disabled = false
@@ -19,62 +51,5 @@ tag_max_candidates = 1
 [line_break]
 disabled = true
 
-[directory]
-fish_style_pwd_dir_length = 1
-
-[time]
-disabled = true
-
-[battery]
-disabled = true
-
-[hg_branch]
-disabled = false
-
-[sudo]
-disabled = false
-
-[aws]
-symbol = " " # U+E7AD, Devicons
-[azure]
-symbol = "󿴃 "
-[dart]
-symbol = " " # U+E798, Devicons
-[docker_context]
-symbol = " " # U+E7B0, Devicons
-[dotnet]
-symbol = " " # U+E77F, Devicons
-[gcloud]
-symbol = " " # U+E7B2, Devicons
-[git_branch]
-symbol = " " # U+E702, Devicons
-[golang]
-symbol = " " # U+E724, Devicons
-[java]
-symbol = " " # U+E738, Devicons
-[julia]
-symbol = " " # U+E624, Seti-UI + Custom
-[lua]
-symbol = " " # U+E620, Seti-UI + Custom
-[nodejs]
-symbol = " " # U+E718, Devicons
-[perl]
-symbol = " " # U+E769, Devicons
-[php]
-symbol = " " # U+E73D, Devicons
-[python]
-symbol = " " # U+E73C, Devicons
-[ruby]
-symbol = " " # U+E739, Devicons
-[rust]
-symbol = " " # U+E7A8, Devicons
-[scala]
-symbol = " " # U+E737, Devicons
-[swift]
-symbol = " " # U+E755, Devicons
-
-[env_var.ZMX_SESSION]
-symbol = " "
-format = "[$symbol$env_value]($style) "
-description = "zmx session name"
-style = "bold magenta"
+[nix_shell]
+symbol = ' ' # U+E843, Devicons

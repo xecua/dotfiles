@@ -212,7 +212,13 @@ end
 # LLM
 [[plugins]]
 repo = 'copilotlsp-nvim/copilot-lsp'
-if = "get(g:, 'use_copilot', v:false)"
+lua_source = """
+require('copilot-lsp').setup({
+  nes = {
+    move_count_threshold = 3,   -- Clear after 3 cursor movements
+  }
+})
+"""
 
 [[plugins]]
 repo = 'carlos-algms/agentic.nvim'
