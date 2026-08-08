@@ -92,7 +92,7 @@ if status is-interactive
     alias cbcopy=fish_clipboard_copy
     alias cbpaste=fish_clipboard_paste
 
-    if test (uname) = Darwin; and test -d /Applications/Neovide.app; or test -d $HOME/Applications/Neovide.app
+    if test -d /Applications/Neovide.app; or test -d $HOME/Applications/Neovide.app
         alias neovide='open -a Neovide --args --chdir (pwd)'
     end
 

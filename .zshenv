@@ -72,10 +72,15 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
         export MOZ_ENABLE_WAYLAND=1
     fi
 
-    # Update PATH
-    # Homebrewってどっちかというとシステムのものっぽさ
     if [ -r /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+        export HOMEBREW_PREFIX="/opt/homebrew";
+        export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+        export HOMEBREW_REPOSITORY="/opt/homebrew";
+        fpath[1,0]="/opt/homebrew/share/zsh/site-functions";
+        export FPATH;
+        eval "$(/usr/bin/env PATH_HELPER_ROOT="/opt/homebrew" /usr/libexec/path_helper -s)"
+        [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
+        export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
     fi
 
     path=(
@@ -98,18 +103,12 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     )
 
     # set by command
-    if command -v ruby >/dev/null; then
-        # user local gem path
-        # https://wiki.archlinux.jp/index.php/Ruby#.E3.82.BB.E3.83.83.E3.83.88.E3.82.A2.E3.83.83.E3.83.97
-        path=("$(ruby -e "print Gem.user_dir")/bin"(N-/) $path)
-    fi
-
     # Conditional variables
-    if command -v sccache >/dev/null ; then
-        export RUSTC_WRAPPER=$(command -v sccache)
+    if (( $+commands[sccache] )); then
+        export RUSTC_WRAPPER="sccache"
     fi
 
-    if command -v podman >/dev/null; then
+    if (( $+commands[podman] )); then
         export PODMAN_HOST
         case "$(uname)" in
             Darwin)
@@ -122,8 +121,8 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     fi
 
     # depend on path
-    if command -v batpipe; then
-        export LESSOPEN "|batpipe %s"
+    if (( $+commands[batpipe] )); then
+        export LESSOPEN="|batpipe %s"
     fi
 
     export ZSHENV_VARS=(XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME PATH
@@ -136,6 +135,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
          COPILOT_HOME COPILOT_CACHE_HOME CLAUDE_CONIFG_DIR CODEX_HOME
          FZF_DEFAULT_OPTS_FILE LESS LESSCHARSET LESSOPEN BATPIPE
          MOZ_ENABLE_WAYLAND RUSTC_WRAPPER PODMAN_HOST
+         HOMEBREW_PREFIX HOMEBREW_CELLAR HOMEBREW_REPOSITORY MANPATH INFOPATHHOMB
     )
 
     # Describe machine specific configurations in ~/.profile.local

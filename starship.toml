@@ -10,11 +10,14 @@ $git_state\
 $git_metrics\
 $git_status\
 $nix_shell\
-$cmd_duration\
-$line_break\
 $jobs\
 $status\
 $character"""
+
+right_format = """
+$time\
+"""
+
 add_newline = true
 
 [directory]
@@ -47,9 +50,6 @@ symbol = " " # U+E702, Devicons
 [git_commit]
 tag_disabled = false
 tag_max_candidates = 1
-
-[line_break]
-disabled = true
 
 [nix_shell]
 symbol = ' ' # U+E843, Devicons
