@@ -115,7 +115,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             if
                 vim.list_contains({
                     "markdown",
-                    "fern",
                     "ddu-filter",
                     "dap-repl",
                     "dap-view",
@@ -130,6 +129,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
             local ok, nes = pcall(require, "copilot-lsp.nes")
             if ok and not command_defined.nes[buffer] then
+                command_defined.nes[buffer] = true
                 nes.lsp_on_init(client, augroup)
 
                 vim.keymap.set("n", "<C-l>", function()
@@ -144,8 +144,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 vim.keymap.set("n", "<C-c>", function()
                     nes.clear()
                 end, { buffer = true, desc = "Clear NES" })
-
-                command_defined.nes[buffer] = true
                 vim.api.nvim_create_autocmd("ModeChanged", {
                     pattern = "i:n",
                     callback = function()
@@ -183,6 +181,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         if not command_defined.general[buffer] then
+            command_defined.general[buffer] = true
             vim.api.nvim_buf_create_user_command(
                 buffer,
                 "LspFormat",

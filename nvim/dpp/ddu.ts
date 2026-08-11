@@ -1,7 +1,6 @@
 import type { Params as FFParams } from "@shougo/ddu-ui-ff";
 import type { Params as FilerParams } from "@shougo/ddu-ui-filer";
 import { BaseConfig, ConfigArguments } from "@shougo/ddu-vim/config";
-import type { DduItem } from "@shougo/ddu-vim/types";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): void {
@@ -19,17 +18,11 @@ export class Config extends BaseConfig {
         } satisfies Partial<FFParams>,
         filer: {
           split: "vertical",
-          winWidth: "&columns / 6", // これでいいらしい
-          sort: "custom",
-          sortCustom: (_, args) => {
-            return (args.items as DduItem[]).sort((a, b) => {
-              if (a.isTree === b.isTree) {
-                return a.word.localeCompare(b.word);
-              } else {
-                return a.isTree ? -1 : 1;
-              }
-            });
-          },
+          splitDirection: "topleft",
+          winWidth: "&columns / 6",
+          overwriteStatusline: false,
+          sort: "natural",
+          sortTreesFirst: true,
         } satisfies Partial<FilerParams>,
       },
       uiOptions: {

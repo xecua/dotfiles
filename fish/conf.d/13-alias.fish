@@ -95,8 +95,4 @@ if status is-interactive
     if test -d /Applications/Neovide.app; or test -d $HOME/Applications/Neovide.app
         alias neovide='open -a Neovide --args --chdir (pwd)'
     end
-
-    if type -q home-manager
-        alias hu='home-manager switch --flake .#(whoami)@(hostname)'
-    end
 end

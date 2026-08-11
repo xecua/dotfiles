@@ -1,57 +1,57 @@
 return {
-	settings = {
-		typescript = {
-			inlayHints = {
-				parameterNames = {
-					enabled = "literals",
-					suppressWhenArgumentMatchesName = true,
-				},
-				parameterTypes = { enabled = true },
-				variableTypes = { enabled = true },
-				propertyDeclarationTypes = { enabled = true },
-				functionLikeReturnTypes = { enabled = true },
-				enumMemberValues = { enabled = true },
-			},
-		},
-	},
-	init_options = {
-		preferences = {
-			includeCompletionsWithInsertText = false,
-		},
-	},
-	filetypes = {
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact",
-	},
-	cmd = function(dispatchers, config)
-		local cmd = "tsc"
-		local local_cmd = config.root_dir .. "/node_modules/.bin/tsc"
+    settings = {
+        typescript = {
+            inlayHints = {
+                parameterNames = {
+                    enabled = "literals",
+                    suppressWhenArgumentMatchesName = true,
+                },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+            },
+        },
+    },
+    init_options = {
+        preferences = {
+            includeCompletionsWithInsertText = false,
+        },
+    },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    },
+    cmd = function(dispatchers, config)
+        local cmd = "tsc"
+        local local_cmd = config.root_dir .. "/node_modules/.bin/tsc"
 
-		if
-			vim.fn.executable(local_cmd) == 1
-			and (vim.system({ local_cmd, "--version" }, { text = true }):wait().stdout or ""):match("^Version 7")
-		then
-			cmd = local_cmd
-		end
-		return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
-	end,
-	workspace_required = false,
-	root_dir = function(bufnr, on_dir)
-		if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
-			return
-		end
+        if
+            vim.fn.executable(local_cmd) == 1
+            and (vim.system({ local_cmd, "--version" }, { text = true }):wait().stdout or ""):match("^Version 7")
+        then
+            cmd = local_cmd
+        end
+        return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
+    end,
+    workspace_required = false,
+    root_dir = function(bufnr, on_dir)
+        if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
+            return
+        end
 
-		-- Give the root markers equal priority by wrapping them in a table
-		local root_markers = {
-			"package-lock.json",
-			"yarn.lock",
-			"pnpm-lock.yaml",
-			"bun.lockb",
-			"bun.lock",
-			".git",
-		}
-		on_dir(vim.fs.root(bufnr, root_markers) or vim.fn.getcwd())
-	end,
+        -- Give the root markers equal priority by wrapping them in a table
+        local root_markers = {
+            "package-lock.json",
+            "yarn.lock",
+            "pnpm-lock.yaml",
+            "bun.lockb",
+            "bun.lock",
+            ".git",
+        }
+        on_dir(vim.fs.root(bufnr, root_markers) or vim.fn.getcwd())
+    end,
 }

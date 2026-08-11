@@ -1,10 +1,10 @@
 return {
-	settings = {
-		telemetry = {
-			telemetryLevel = "off",
-		},
-		nextEditSuggestions = {
-			enabled = true,
-		},
-	},
+    settings = {
+        telemetry = {
+            telemetryLevel = "off",
+        },
+        nextEditSuggestions = {
+            enabled = true,
+        },
+    },
 }

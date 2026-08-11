@@ -41,7 +41,7 @@ repo = 'Shougo/ddu-ui-filer'
 group = 'ddu'
 [plugins.ftplugin]
 lua_ddu-filer = """
--- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)とウィンドウ選んで(適当なプラグインを使おう)ファイルを開けるやつ
+-- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)
 vim.opt_local.number = true
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
@@ -65,7 +65,7 @@ vim.keymap.set("n", "v", function()
 end, opts)
 vim.keymap.set("n", "t", function()
     if not vim.fn["ddu#ui#get_item"]()["isTree"] then
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "tab drop" } })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "tabedit" } })
     end
 end, opts)
 vim.keymap.set("n", "e", function()
@@ -114,7 +114,6 @@ vim.keymap.set(
 )
 
 vim.keymap.set("n", "!", function()
-    -- これdocに記載されてるやり方だから↑のヒントになりそう
     local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
     local matchers = ((current["sourceOptions"] or {})["file"] or {})["matchers"] or {}
     if #matchers == 0 then
@@ -122,8 +121,6 @@ vim.keymap.set("n", "!", function()
     else
         matchers = {}
     end
-
-    vim.print(current["sourceOptions"])
 
     vim.fn["ddu#ui#do_action"]("updateOptions", {
         sourceOptions = { file = { matchers = matchers } },
