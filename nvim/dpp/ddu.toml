@@ -45,6 +45,7 @@ lua_ddu-filer = """
 vim.opt_local.number = true
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
+vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
 vim.keymap.set("n", "N", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newFile' })<CR>", opts)
@@ -116,10 +117,12 @@ vim.keymap.set(
 vim.keymap.set("n", "!", function()
     local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
     local matchers = ((current["sourceOptions"] or {})["file"] or {})["matchers"] or {}
-    if #matchers == 0 then
-        matchers = { "matcher_hidden" }
+    if vim.list_contains(matchers, 'matcher_hidden') then
+        matchers = vim.tbl_filter(function(matcher)
+            return matcher ~= "matcher_hidden"
+        end, matchers)
     else
-        matchers = {}
+        table.insert(matchers, "matcher_hidden")
     end
 
     vim.fn["ddu#ui#do_action"]("updateOptions", {
@@ -135,7 +138,7 @@ repo = 'Shougo/ddu-filter-matcher_hidden'
 group = 'ddu'
 
 [[plugins]]
-repo = 'mityu/ddu-filter-matcher_multi_regex'
+repo = 'Shougo/ddu-filter-matcher_substring'
 group = 'ddu'
 
 [[plugins]]

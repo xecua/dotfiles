@@ -52,11 +52,13 @@ vim.keymap.set("v", "?", "<Esc>?\\%V")
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
 vim.keymap.set("n", "<Leader>rn", "<Cmd>set relativenumber!<CR>")
 
--- _default.lua
-vim.keymap.del("n", "grn")
+-- |default-mappings|
 vim.keymap.del({ "n", "x" }, "gra")
-vim.keymap.del("n", "grr")
 vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "grt")
+vim.keymap.del("n", "grx")
 vim.keymap.del("n", "gO")
 
 vim.keymap.set("n", "gf", function()
