@@ -6,6 +6,66 @@ export class Config extends BaseConfig {
   override config(args: ConfigArguments): void {
     args.setAlias("_", "column", "icon_filename_ff", "icon_filename");
 
+    args.contextBuilder.setLocal("rg-live", {
+      ui: "ff",
+      sources: [{
+        name: "rg",
+        options: { volatile: true, matchers: [], sorters: [] },
+      }],
+    });
+
+    args.contextBuilder.setLocal("document-symbol", {
+      ui: { name: "ff", params: { displayTree: true } },
+      sources: ["lsp_documentSymbol"],
+    });
+
+    args.contextBuilder.setLocal("workspace-symbol", {
+      ui: { name: "ff", params: { displayTree: true } },
+      sources: [{ name: "lsp_workspaceSymbol", options: { volatile: true } }],
+    });
+
+    args.contextBuilder.setLocal("dpp", {
+      ui: "ff",
+      sources: ["dpp"],
+      kindOptions: { file: { defaultAction: "cd" } },
+    });
+
+    args.contextBuilder.setLocal("fd", {
+      ui: "ff",
+      sources: [{
+        name: "file_external",
+        params: {
+          cmd: ["fd", "--type", "file", "--hidden"],
+        },
+      }],
+    });
+    args.contextBuilder.setLocal("fd-all", {
+      ui: "ff",
+      sources: [{
+        name: "file_external",
+        params: {
+          cmd: ["fd", "--type", "file", "--hidden", "--no-ignore-vcs"],
+        },
+      }],
+    });
+
+    args.contextBuilder.setLocal("fd-filer", {
+      ui: {
+        name: "filer",
+        options: { toggle: true },
+      },
+      sources: [{
+        name: "file_external",
+        params: { cmd: ["fd", "--max-depth", "1", "--hidden"] },
+        options: { columns: ["icon_filename"] },
+      }],
+      sourceOptions: {
+        // sourcesと分けとかないとupdateOptionsしても効かなさそう
+        file_external: { matchers: ["matcher_hidden", "matcher_substring"] },
+      },
+      actionOptions: { _: { quit: false } },
+    });
+
     args.contextBuilder.patchGlobal({
       ui: "ff",
       uiParams: {
@@ -25,11 +85,7 @@ export class Config extends BaseConfig {
           sortTreesFirst: true,
         } satisfies Partial<FilerParams>,
       },
-      uiOptions: {
-        filer: { toggle: true },
-      },
       sourceParams: {
-        file_external: { cmd: ["fd", ".", "-t", "f", "-H"] },
         rg: { maxEnqueSize: 1000, args: ["--json"] },
       },
       sourceOptions: {
@@ -45,7 +101,6 @@ export class Config extends BaseConfig {
           // columns : ["icon_filename_ff"] ,
           converters: ["converter_hl_dir"],
         },
-        source: { defaultAction: "execute" },
         dpp: { defaultAction: "cd" },
         lsp_documentSymbol: { converters: ["converter_lsp_symbol"] },
         lsp_workspaceSymbol: { converters: ["converter_lsp_symbol"] },

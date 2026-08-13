@@ -163,18 +163,6 @@ repo = 'Shougo/ddu-source-action'
 group = 'ddu'
 
 [[plugins]]
-repo = 'matsui54/ddu-source-help'
-group = 'ddu'
-
-[[plugins]]
-repo = 'matsui54/ddu-source-man'
-group = 'ddu'
-
-[[plugins]]
-repo = '4513ECHO/ddu-source-source'
-group = 'ddu'
-
-[[plugins]]
 repo = 'matsui54/ddu-source-file_external'
 group = 'ddu'
 
@@ -184,10 +172,6 @@ group = 'ddu'
 
 [[plugins]]
 repo = 'shun/ddu-source-rg'
-group = 'ddu'
-
-[[plugins]]
-repo = 'Shougo/ddu-source-register'
 group = 'ddu'
 
 [[plugins]]

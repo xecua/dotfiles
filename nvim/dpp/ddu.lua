@@ -1,37 +1,11 @@
 -- lua_add {{{
 -- vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
 
-vim.api.nvim_create_user_command("DduRgLive", function()
-    vim.fn["ddu#start"]({
-        sources = { { name = "rg", options = { volatile = true, matchers = {}, sorters = {} } } },
-    })
-end, {})
-vim.keymap.set("n", "<Leader>fg", "<Cmd>DduRgLive<CR>")
-
-vim.api.nvim_create_user_command("DduLspDocumentSymbol", function()
-    vim.fn["ddu#start"]({
-        sources = { "lsp_documentSymbol" },
-        uiParams = { ff = { displayTree = true } },
-    })
-end, {})
-vim.keymap.set("n", "<Leader>fls", "<Cmd>DduLspDocumentSymbol<CR>")
-
-vim.api.nvim_create_user_command("DduLspWorkspaceSymbol", function()
-    vim.fn["ddu#start"]({
-        sources = { { name = "lsp_workspaceSymbol", options = { volatile = true } } },
-        uiParams = { ff = { displayTree = true } },
-    })
-end, {})
-vim.keymap.set("n", "<Leader>flw", "<Cmd>DduLspWorkspaceSymbol<CR>")
-
-vim.api.nvim_create_user_command("DduDpp", function()
-    vim.fn["ddu#start"]({
-        sources = { "dpp" },
-        kindOptions = { file = { defaultAction = "cd" } },
-    })
-end, {})
-
-vim.api.nvim_create_user_command("DduRgLiveRoot", function()
+vim.keymap.set("n", "<Leader>fg", "<Cmd>call ddu#start(#{ name: 'rg-live'})<CR>")
+vim.keymap.set("n", "<Leader>fls", "<Cmd>call ddu#start(#{ name: 'document-symbol'})<CR>")
+vim.keymap.set("n", "<Leader>flw", "<Cmd>call ddu#start(#{ name: 'lsp-workspace-symbol'})<CR>")
+vim.keymap.set("n", "<Leader>fp", "<Cmd>call ddu#start(#{ name: 'dpp'})<CR>")
+vim.keymap.set("n", "<Leader>ffg", function()
     -- バッファがあればそのディレクトリ、なければカレントディレクトリを初期値にする
     local default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) or vim.uv.cwd()
     vim.ui.input({
@@ -40,58 +14,19 @@ vim.api.nvim_create_user_command("DduRgLiveRoot", function()
         completion = "dir",
     }, function(input)
         vim.fn["ddu#start"]({
-            sources = {
-                {
-                    name = "rg",
-                    options = { volatile = true, matchers = {}, sorters = {}, path = input },
-                },
-            },
+            name = "rg-live",
+            sourceOptions = { rg = { path = input } },
         })
     end)
-end, {})
-vim.keymap.set("n", "<Leader>ffg", "<Cmd>DduRgLiveRoot<CR>") -- 別のfg生やすならffgrとか
+end)
 
-vim.api.nvim_create_user_command("DduFileWithIgnored", function()
-    vim.fn["ddu#start"]({
-        sources = {
-            {
-                name = "file_external",
-                params = { cmd = { "fd", ".", "-t", "f", "-H", "--no-ignore-vcs" } },
-            },
-        },
-    })
-end, {})
-vim.keymap.set("n", "<Leader>ffd", "<Cmd>DduFileWithIgnored<CR>") -- 別のfd生やすならffdiとか
-
-vim.keymap.set("n", "<Leader>fd", "<Cmd>Ddu file_external<CR>")
+vim.keymap.set("n", "<Leader>fd", "<Cmd>call ddu#start(#{ name: 'fd' })<CR>")
+vim.keymap.set("n", "<Leader>ffd", "<Cmd>call ddu#start(#{ name: 'fd-all' })<CR>")
 vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
 vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 
-vim.api.nvim_create_user_command("DduFiler", function()
-    vim.fn["ddu#start"]({
-        ui = "filer",
-        input = vim.fn.expand("%:h") .. "/",
-        sources = {
-            {
-                name = "file_external",
-                params = { cmd = { "fd", "--max-depth", "1", "--hidden" } },
-            },
-        },
-        sourceOptions = {
-            -- 分けとかないとupdateOptionsしても効かなさそう
-            file_external = {
-                columns = { "icon_filename" },
-                matchers = { "matcher_hidden" },
-                sorters = {},
-            },
-        },
-        actionOptions = {
-            _ = { quit = false },
-        },
-    })
-end, {})
-vim.keymap.set("n", "<C-n>", "<Cmd>DduFiler<CR>")
+vim.keymap.set("n", "<C-n>", "<Cmd>call ddu#start(#{ name: 'fd-filer'})<CR>")
 
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
 vim.api.nvim_create_autocmd("User", {
@@ -109,33 +44,6 @@ vim.api.nvim_create_autocmd("User", {
         vim.fn["ddc#custom#patch_global"]("ui", "pum")
     end,
 })
-
--- vim.api.nvim_create_autocmd("BufEnter", {
---     group = ddu_group_id,
---     pattern = "ddu-filer-*",
---     callback = function()
---         -- fernのreveal相当のことをやりたい i.e. カーソルを代替バッファのパスに移動する。必要があれば親ディレクトリをexpandする
---         -- autocmdでdo_actionするとダメらしい……
---         local path = vim.fn.expand("#:p")
---         -- cwd以下じゃないなら何もしない
---         local relpath = vim.fs.relpath(vim.fn.getcwd(), path)
---         if relpath == nil then
---             return
---         end
---         for _, part in ipairs(vim.split(relpath, "/")) do
---             local items = vim.fn["ddu#ui#get_items"]()
---             local found = false
---             for i, item in ipairs(items) do
---                 if item.path == part then
---                     vim.fn["ddu#ui#set_cursor"](i)
---                     found = true
---                     break
---                 end
---             end
-
---         end
---     end,
--- })
 
 -- ddu-filerが最後のウィンドウになったら閉じる (fernと同様の挙動)
 vim.api.nvim_create_autocmd("WinEnter", {
