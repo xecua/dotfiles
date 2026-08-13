@@ -60,6 +60,7 @@ vim.keymap.del("n", "grr")
 vim.keymap.del("n", "grt")
 vim.keymap.del("n", "grx")
 vim.keymap.del("n", "gO")
+vim.keymap.del("n", "<C-l>")
 
 vim.keymap.set("n", "gf", function()
     local cfile = vim.fs.normalize(vim.fn.expand("<cfile>"))

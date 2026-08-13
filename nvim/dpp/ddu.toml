@@ -116,7 +116,7 @@ vim.keymap.set(
 
 vim.keymap.set("n", "!", function()
     local current = vim.fn["ddu#custom#get_current"](vim.b.ddu_ui_name)
-    local matchers = ((current["sourceOptions"] or {})["file"] or {})["matchers"] or {}
+    local matchers = ((current["sourceOptions"] or {})["file_external"] or {})["matchers"] or {}
     if vim.list_contains(matchers, 'matcher_hidden') then
         matchers = vim.tbl_filter(function(matcher)
             return matcher ~= "matcher_hidden"
@@ -126,7 +126,7 @@ vim.keymap.set("n", "!", function()
     end
 
     vim.fn["ddu#ui#do_action"]("updateOptions", {
-        sourceOptions = { file = { matchers = matchers } },
+        sourceOptions = { file_external = { matchers = matchers } },
     })
     vim.fn["ddu#ui#do_action"]("redraw", { method = "refreshItems" })
 end, opts)
@@ -172,10 +172,6 @@ group = 'ddu'
 
 [[plugins]]
 repo = '4513ECHO/ddu-source-source'
-group = 'ddu'
-
-[[plugins]]
-repo = 'Shougo/ddu-source-file'
 group = 'ddu'
 
 [[plugins]]

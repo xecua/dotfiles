@@ -71,10 +71,16 @@ vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 vim.api.nvim_create_user_command("DduFiler", function()
     vim.fn["ddu#start"]({
         ui = "filer",
-        sources = { "file" },
+        input = vim.fn.expand("%:h") .. "/",
+        sources = {
+            {
+                name = "file_external",
+                params = { cmd = { "fd", "--max-depth", "1", "--hidden" } },
+            },
+        },
         sourceOptions = {
             -- 分けとかないとupdateOptionsしても効かなさそう
-            file = {
+            file_external = {
                 columns = { "icon_filename" },
                 matchers = { "matcher_hidden" },
                 sorters = {},

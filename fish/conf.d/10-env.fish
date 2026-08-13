@@ -13,5 +13,9 @@ if status is-interactive
         fish_add_path /opt/homebrew/opt/llvm/bin
     end
 
+    if test -d /opt/homebrew/opt/binutils/bin
+        fish_add_path /opt/homebrew/opt/binutils/bin
+    end
+
     set -x FORCE_COLOR 1
 end
