@@ -59,3 +59,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 -- lua_source {{{
 vim.fn["ddu#custom#load_config"](vim.fn.stdpath("config") .. "/dpp/ddu.ts")
 -- }}}
+-- lua_ddu-ff_ddu-filer {{{
+vim.opt_local.cursorline = true
+-- }}}
