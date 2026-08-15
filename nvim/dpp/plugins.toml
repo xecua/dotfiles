@@ -33,17 +33,23 @@ lua_source = """
 require('image').setup({})
 """
 
-# swap
-[[plugins]]
-repo = 'wesQ3/vim-windowswap'
-lua_add = """
-vim.g.windowswap_map_keys = 0
-vim.keymap.set('n', '<Leader>ww', '<Cmd>call WindowSwap#EasyWindowSwap()<CR>')
-"""
-
 # select
 [[plugins]]
 repo = 's1n7ax/nvim-window-picker'
+lua_add = """
+vim.api.nvim_create_user_command("SwapWindow", function()
+    local picked_window_id = require("window-picker").pick_window()
+    if not picked_window_id then
+        return
+    end
+    local picked_window_buffer = vim.api.nvim_win_get_buf(picked_window_id)
+    local current_window_id = vim.api.nvim_get_current_win()
+    local current_window_buffer = vim.api.nvim_win_get_buf(current_window_id)
+    vim.api.nvim_win_set_buf(picked_window_id, current_window_buffer)
+    vim.api.nvim_win_set_buf(current_window_id, picked_window_buffer)
+end, { desc = "Swap the current window with a picked window" })
+vim.keymap.set("n", "<Leader>ww", "<Cmd>SwapWindow<CR>")
+"""
 lua_source = """
 require("window-picker").setup({})
 """

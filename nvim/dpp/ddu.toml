@@ -44,8 +44,6 @@ lua_ddu-filer = """
 -- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)
 vim.opt_local.number = true
 local opts = { buffer = true, silent = true }
-vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
-vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
 vim.keymap.set("n", "N", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newFile' })<CR>", opts)
@@ -53,6 +51,8 @@ vim.keymap.set("n", "K", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newD
 vim.keymap.set("n", "R", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'rename' })<CR>", opts)
 vim.keymap.set("n", "y", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'yank' })<CR>", opts)
 vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'paste' })<CR>", opts)
+vim.keymap.set("n", "r", "<Cmd>call ddu#ui#do_action('redraw', #{ method: 'refreshItems' })<CR>", opts)
+
 
 vim.keymap.set("n", "s", function()
     if not vim.fn["ddu#ui#get_item"]()["isTree"] then

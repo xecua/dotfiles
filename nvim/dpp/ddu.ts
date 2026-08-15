@@ -57,7 +57,7 @@ export class Config extends BaseConfig {
       resume: true,
       sources: [{
         name: "file_external",
-        params: { cmd: ["fd", "--max-depth", "1", "--hidden"] },
+        params: { cmd: ["fd", "--max-depth", "1", "--hidden", "--no-ignore"] },
         options: { columns: ["icon_filename"] },
       }],
       sourceOptions: {
