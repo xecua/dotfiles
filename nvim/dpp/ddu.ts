@@ -54,15 +54,16 @@ export class Config extends BaseConfig {
         name: "filer",
         options: { toggle: true },
       },
-      resume: true,
       sources: [{
         name: "file_external",
-        params: { cmd: ["fd", "--max-depth", "1", "--hidden", "--no-ignore"] },
-        options: { columns: ["icon_filename"] },
+        params: { cmd: ["fd", "--max-depth", "1", "--unrestricted"] },
       }],
       sourceOptions: {
         // sourcesと分けとかないとupdateOptionsしても効かなさそう
-        file_external: { matchers: ["matcher_hidden", "matcher_substring"] },
+        file_external: {
+          matchers: ["matcher_hidden", "matcher_substring"],
+          columns: ["icon_filename"],
+        },
       },
       actionOptions: { _: { quit: false } },
     });

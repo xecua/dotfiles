@@ -80,7 +80,8 @@ recent-windows {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn-sh "ghostty +new-window"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn-sh "ghostty"; }
+    // Mod+Return hotkey-overlay-title="Open a Terminal" { spawn-sh "ghostty +new-window"; }
     Mod+P hotkey-overlay-title="Powermenu" { spawn-sh "walker -n -m menus:power"; }
     Mod+Space hotkey-overlay-title="Launchpad" { spawn-sh "walker"; }
     Mod+V hotkey-overlay-title="Clipboard Manager" { spawn-sh "walker -n -m clipboard"; }

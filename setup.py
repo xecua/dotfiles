@@ -98,7 +98,7 @@ def write_file(path: Path, lines: str | list[str]):
     if not path.parent.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
-        print(f"{path} exists. Skipped.")
+        print(f"{path} already exists. Skipped.")
         return
     with open(path, "w") as f:
         print(*lines, sep="\n", file=f)
@@ -120,13 +120,16 @@ def make_symlink(
         if link.is_dir(follow_symlinks=False):
             # symlinkでないディレクトリ: recursiveなら中身で判定。そうでなければreturn
             if not recursive:
-                print(f"{link} exists. Skipped.")
+                print(f"{link} already exists. Skipped.")
                 return
         elif force:
             # fileかsymlink: forece
             link.unlink()
         else:
-            print(f"{link} exists. Skipped.")
+            if link.is_symlink():
+                print(f"{link} is already symlink. Skipped.")
+            else:
+                print(f"{link} exists and but is not a symlink.", file=sys.stderr)
             return
 
     if target is None:
