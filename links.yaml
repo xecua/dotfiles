@@ -1,0 +1,143 @@
+# シンボリックリンクの宣言的定義
+#
+# 各エントリのフィールド:
+#   name      : リンクを作成するパス。base からの相対パス
+#   base      : リンクの起点。"config" (XDG_CONFIG_HOME) / "home" (~) / "bin" (~/.local/bin)
+#   recursive : true の場合、target がディレクトリなら中身1つずつにリンクを張る (既存の非symlinkディレクトリと共存させたい場合)
+#   target    : リンク先。省略時はリポジトリルート直下の `name`。リポジトリルートからの相対パスで指定する
+#               "{hostname}" はホスト名 (uname().nodename) に置換される
+#   condition : "exists" を指定すると、解決後の target (target 省略時は name) が存在しない場合そのエントリ自体をスキップする
+
+links:
+  - name: dunst
+    base: config
+
+  - name: fd
+    base: config
+
+  - name: fish
+    base: config
+    recursive: true
+
+  - name: fontconfig
+    base: config
+
+  # themeをうっかり入れるとライセンス違反になる
+  - name: ghostty/config.ghostty
+    base: config
+
+  - name: git
+    base: config
+
+  - name: jj/config.toml
+    base: config
+
+  - name: jj/conf.d
+    base: config
+
+  - name: containers/containers.conf.d/00-common.conf
+    base: config
+
+  - name: niri
+    base: config
+
+  - name: npm
+    base: config
+
+  - name: gtk-3.0/settings.ini
+    base: config
+
+  - name: ideavim
+    base: config
+
+  - name: kanshi/config
+    base: config
+    target: kanshi/{hostname}
+    condition: exists
+
+  - name: karabiner
+    base: config
+    recursive: true
+
+  - name: latexmk
+    base: config
+    recursive: true
+
+  - name: lazygit
+    base: config
+    recursive: true
+
+  - name: nvim
+    base: config
+
+  - name: ripgrep
+    base: config
+
+  - name: .satysfi/local/packages
+    base: home
+    target: satysfi/packages
+
+  - name: libskk
+    base: config
+    recursive: true
+    target: skk/libskk
+
+  - name: systemd/user
+    base: config
+    recursive: true
+
+  - name: tmux
+    base: config
+    recursive: true
+
+  - name: elephant
+    base: config
+
+  - name: walker
+    base: config
+    recursive: true
+
+  - name: waybar
+    base: config
+
+  - name: xremap
+    base: config
+
+  - name: zathura
+    base: config
+
+  - name: glide
+    base: config
+
+  - name: .clang-format
+    base: home
+
+  - name: .mutagen.yml
+    base: home
+
+  - name: .myclirc
+    base: home
+
+  - name: .zshenv
+    base: home
+
+  - name: .zshrc
+    base: home
+
+  - name: fzf-preview.sh
+    base: bin
+
+  - name: env-sync.zsh
+    base: bin
+
+  - name: fzfrc
+    base: config
+
+  - name: lesskey
+    base: config
+
+  - name: starship.toml
+    base: config
+
+  - name: mimeapps.list
+    base: config

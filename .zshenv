@@ -2,6 +2,8 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     export ZSHENV_LOADED=1
     typeset -gUx path
 
+    uname="$(uname)"
+
     # nix
     if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
         . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
@@ -24,6 +26,12 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     export DFT_DISPLAY=side-by-side-show-both
     export MCAT_THEME=monokai
     export EDITOR=nvim
+
+    export NEOVIDE_FORK=1
+    if [[ "$uname" = "Darwin" ]]; then
+        export NEOVIDE_TITLE_HIDDEN=1
+        export NEOVIDE_FRAME=buttonless
+    fi
 
     # Language related variables, using XDG Base Directories
     export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
@@ -110,7 +118,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
 
     if (( $+commands[podman] )); then
         export PODMAN_HOST
-        case "$(uname)" in
+        case "$uname" in
             Darwin)
                 PODMAN_HOST="unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')"
                 ;;
@@ -127,6 +135,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
 
     export ZSHENV_VARS=(XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME PATH
          GTK_USE_PORTAL GHCUP_USE_XDG_DIRS DFT_COLOR DFT_DISPLAY MCAT_THEME EDITOR
+         NEOVIDE_FORK NEOVIDE_TITLE_HIDDEN NEOVIDE_FRAME
          BUNDLE_USER_CONFIG DOCKER_CONFIG NPM_CONFIG_USERCONFIG WGETRC RIPGREP_CONFIG_PATH NBRC_PATH
          BUNDLE_USER_CACHE GEM_SPEC_CACHE ANDROID_USER_HOME ANDROID_HOME ANDROID_EMULATOR_HOME ANDROID_AVD_HOME
          BUNDLE_USER_PLUGIN CARGO_HOME COURSIER_INSTALL_DIR DENO_INSTALL DENO_INSTALL_ROOT

@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.13"
 # dependencies = [
-#     "tomli-w",
+#     "pyyaml",
 # ]
 # ///
 #
@@ -11,11 +11,12 @@
 
 import sys
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 # import subprocess
-import tomli_w
+import yaml
 
 script_dir = Path(__file__).parent
 
@@ -30,54 +31,49 @@ binary_path = home / ".local" / "bin"
 uname = os.uname()
 
 
+LINK_BASES = {"config": config_home, "home": home, "bin": binary_path}
+
+
+@dataclass
+class LinkSpec:
+    name: str
+    link_base: Path
+    recursive: bool
+    target: Path | None
+
+
+def load_links(path: Path) -> list[LinkSpec]:
+    with open(path) as f:
+        data = yaml.safe_load(f)
+
+    specs = []
+    for entry in data["links"]:
+        target = entry.get("target")
+        target_path = (
+            script_dir / target.replace("{hostname}", uname.nodename)
+            if target is not None
+            else None
+        )
+
+        if entry.get("condition") == "exists":
+            check_path = target_path if target_path is not None else script_dir / entry["name"]
+            if not check_path.exists():
+                continue
+
+        specs.append(
+            LinkSpec(
+                name=entry["name"],
+                link_base=LINK_BASES[entry["base"]],
+                recursive=entry.get("recursive", False),
+                target=target_path,
+            )
+        )
+    return specs
+
+
 def main():
-    make_symlink("dunst", config_home)
-    make_symlink("fd", config_home)
-    make_symlink("fish", config_home, True)
-    make_symlink("fontconfig", config_home)
-    make_symlink(
-        "ghostty/config.ghostty", config_home
-    )  # themeをうっかり入れるとライセンス違反になる
-    make_symlink("git", config_home)
-    make_symlink("jj/config.toml", config_home)
-    make_symlink("jj/conf.d", config_home)
-    make_symlink("containers/containers.conf.d/00-common.conf", config_home)
-    make_symlink("niri", config_home)
-    make_symlink("npm", config_home)
-    make_symlink("gtk-3.0/settings.ini", config_home)
-    make_symlink("ideavim", config_home)
-    if (kanshi_config := script_dir / "kanshi" / uname.nodename).exists():
-        make_symlink("kanshi/config", config_home, target=kanshi_config)
-    make_symlink("karabiner", config_home, True)
-    make_symlink("latexmk", config_home, True)
-    make_symlink("lazygit", config_home, True)
-    make_symlink("nvim", config_home)
-    make_symlink("ripgrep", config_home)
-    make_symlink(
-        ".satysfi/local/packages", home, target=script_dir / "satysfi" / "packages"
-    )
-    make_symlink("libskk", config_home, True, target=script_dir / "skk" / "libskk")
-    make_symlink("systemd/user", config_home, True)
-    make_symlink("tmux", config_home, True)
-    make_symlink("elephant", config_home)
-    make_symlink("walker", config_home, True)
-    make_symlink("waybar", config_home)
-    make_symlink("xremap", config_home)
-    make_symlink("zathura", config_home)
-    make_symlink("glide", config_home)
-
-    make_symlink(".clang-format", home)
-    make_symlink(".mutagen.yml", home)
-    make_symlink(".myclirc", home)
-    make_symlink(".zshenv", home)
-    make_symlink(".zshrc", home)
-
-    make_symlink("fzf-preview.sh", binary_path)
-    make_symlink("env-sync.zsh", binary_path)
-    make_symlink("fzfrc", config_home)
-    make_symlink("lesskey", config_home)
-    make_symlink("starship.toml", config_home)
-    make_symlink("mimeapps.list", config_home)
+    for spec in load_links(script_dir / "links.yaml"):
+        make_symlink(spec.name, spec.link_base, spec.recursive, target=spec.target)
 
     write_file(config_home / "wgetrc", [f"hsts-file = {cache_home / 'wget-hsts'}"])
 
@@ -85,12 +81,6 @@ def main():
         home / ".indentconfig.yaml",
         [f"paths:", f"  - {script_dir / 'latexindent' / 'setting.yaml'}"],
     )
-
-    # WSLとかでフォントサイズいじりたいので
-    neovide_config: dict[str, Any] = {"fork": True, "title-hidden": True}
-    if uname.sysname == "Darwin":
-        neovide_config["frame"] = "buttonless"
-    write_file(config_home / "neovide" / "config.toml", tomli_w.dumps(neovide_config))
 
 
 def write_file(path: Path, lines: str | list[str]):
