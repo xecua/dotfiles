@@ -43,6 +43,9 @@ vim.keymap.set("n", "<C-n>", function()
     local stat = vim.uv.fs_stat(buffer_name)
     if stat and stat.type == "file" and cwd and vim.startswith(buffer_name, cwd .. "/") then
         ddu_args.searchPath = buffer_name
+        -- sourceが非同期にitemを返すと、searchPathによる展開後の再描画で初期状態に戻ってしまうので、
+        -- 取得完了を待ってから描画する
+        ddu_args.sync = true
     end
 
     vim.fn["ddu#start"](ddu_args)
