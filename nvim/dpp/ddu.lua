@@ -27,27 +27,25 @@ vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 
 vim.keymap.set("n", "<C-n>", function()
-    local sources = {
-        {
-            name = "file_external",
-            params = { cmd = { "fd", "--max-depth", "1", "--unrestricted" } },
+    local ddu_args = {
+        name = "fd-filer",
+        sources = {
+            {
+                name = "file_external",
+                params = { cmd = { "fd", "--max-depth", "1", "--unrestricted" } },
+            },
         },
     }
-    -- local buffer_name = vim.api.nvim_buf_get_name(0)
-    -- local stat = vim.uv.fs_stat(buffer_name)
-    -- if type(stat) == "table" and stat["type"] == "file" then
-    --     -- 現在のファイルを↑とは別に出せばいい説があるけど、source毎に出ちゃうのでやっぱり無理かも
-    --     vim.list_extend(sources, {
-    --         {
-    --             name = "file_external",
-    --             params = { cmd = { "fd", "--unrestricted", buffer_name } },
-    --         },
-    --     })
-    -- end
-    vim.fn["ddu#start"]({
-        name = "fd-filer",
-        sources = sources,
-    })
+
+    -- 直前にフォーカスしていたバッファがカレントディレクトリ以下のファイルなら、そのファイルにカーソルを合わせる
+    local buffer_name = vim.api.nvim_buf_get_name(0)
+    local cwd = vim.uv.cwd()
+    local stat = vim.uv.fs_stat(buffer_name)
+    if stat and stat.type == "file" and cwd and vim.startswith(buffer_name, cwd .. "/") then
+        ddu_args.searchPath = buffer_name
+    end
+
+    vim.fn["ddu#start"](ddu_args)
 end)
 
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
@@ -109,7 +107,6 @@ vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 vim.opt_local.number = true
 vim.opt_local.cursorline = true
 
--- TODO: 開いたときに現在のファイルにカーソルが移動するやつ(頑張るしかない)
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
