@@ -9,6 +9,12 @@
   "modules-left": ["niri/workspaces"],
   "modules-center": ["niri/window"],
   "modules-right": ["group/hardware", "group/media", "clock", "tray"],
+  "niri/workspaces": {
+    "workspace-taskbar": {
+      "enable": true,
+      "icon-size": 14
+    }
+  },
   "group/hardware": {
     "orientation": "inherit",
     "modules": ["network", "cpu", "memory", "battery"]

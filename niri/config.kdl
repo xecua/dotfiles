@@ -54,6 +54,7 @@ spawn-sh-at-startup "fish -c 'while true; awww img -t random (random choice ~/Pi
 spawn-sh-at-startup "systemd-cat -t swayidle swayidle -w lock 'swaylock -fS --indicator --clock --effect-blur 2x2' timeout 1800 'systemctl suspend' before-sleep 'swaylock -fS --indicator --clock --effect-blur 2x2'"
 spawn-sh-at-startup "systemctl --user start wayland-session.target"
 spawn-sh-at-startup "walker --gapplication-service"
+spawn-sh-at-startup "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
 
 hotkey-overlay {
     skip-at-startup
