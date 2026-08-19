@@ -1,0 +1,11 @@
+app-crypt/chntpw gcc
+app-i18n/libskk gcc
+sys-devel/gcc gcc
+dev-debug/rr gcc
+net-analyzer/nmap gcc
+
+x11-drivers/nvidia-drivers lld
+sys-boot/* lld
+>=gui-libs/gtk-4.16 lld
+media-libs/vips lld
+dev-libs/leancrypto lld

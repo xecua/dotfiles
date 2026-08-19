@@ -1,0 +1,33 @@
+# required by gui-apps/kanshi-1.7.0::gentoo
+# required by kanshi (argument)
+=dev-libs/libscfg-0.1.1 ~amd64
+# required by gui-apps/kanshi-1.9.0::gentoo[varlink]
+# required by @selected
+# required by @world (argument)
+=dev-libs/vali-0.1.1 ~amd64
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-libs/tree-sitter-vim-0.8.1 ~amd64
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-lua/luv-1.52.1.0 ~amd64
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-libs/tree-sitter-lua-0.5.0 ~amd64
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-libs/tree-sitter-query-0.8.0 ~amd64
+# required by dev-build/cmake-4.2.4::gentoo
+# required by dev-lua/luv-1.52.1.0::gentoo
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-libs/libuv-1.52.1 ~amd64
+# required by app-i18n/fcitx-skk-5.1.10::gentoo-zh
+# required by @selected
+# required by @world (argument)
+=app-i18n/libskk-1.1.1 ~amd64

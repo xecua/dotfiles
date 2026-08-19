@@ -1,0 +1,38 @@
+app-admin/doas persist
+app-admin/pass -X
+app-editors/vscode egl
+dev-lang/rust-bin rust-analyzer clippy rust-src
+dev-libs/tree-sitter-bash -python
+dev-qt/qt5compat icu
+dev-qt/qtbase icu libproxy
+dev-vcs/git -perl -webdav keyring
+gui-apps/kanshi varlink
+gui-apps/waybar network tray evdev experimental mpris backlight niri
+gui-apps/xremap wlroots
+gui-libs/greetd man
+llvm-core/lld zstd
+llvm-core/llvm zstd binutils-plugin z3
+media-fonts/noto cjk
+media-fonts/udev-gothic nerdfonts
+media-gfx/chafa webp
+media-gfx/imagemagick xml truetype corefonts
+media-gfx/imv gif heif icu jpegxl tiff
+media-libs/libsdl2 gles2 # required by media-libs/libsdl2[wayland]
+media-libs/libsndfile minimal
+media-sound/mpd flac
+media-sound/playerctl introspection
+media-video/ffmpeg chromium v4l vaapi openal opencl vdpau
+media-video/ffmpeg-chromium nvenc vaapi vdpau
+media-video/obs-studio nvenc lua speex v4l websocket
+media-video/pipewire sound-server extra -jack-client jack-sdk pipewire-alsa v4l gstreamer
+net-analyzer/nmap ncat
+net-analyzer/trippy suid
+net-libs/nodejs npm
+net-misc/openssh libedit
+sys-apps/portage gentoo-dev
+sys-apps/systemd homed cryptsetup policykit
+sys-auth/pambase homed
+sys-boot/refind btrfs ntfs
+sys-kernel/installkernel dracut refind systemd uki # ukify
+www-client/vivaldi proprietary-codecs ffmpeg-chromium
+x11-libs/gdk-pixbuf jpeg tiff

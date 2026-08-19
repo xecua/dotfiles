@@ -1,0 +1,5 @@
+# required by media-libs/mesa-25.3.3::gentoo[vulkan]
+# required by net-im/discord / app-editors/vscode
+>=media-libs/libdisplay-info-0.3.0 abi_x86_32
+# required by kde-frameworks/kdeconnect
+kde-frameworks/kdnssd minimal

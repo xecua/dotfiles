@@ -1,0 +1,37 @@
+app-admin/doas persist
+dev-lang/rust-bin rust-analyzer clippy rust-src
+dev-qt/qt5compat icu
+dev-qt/qtbase icu libproxy
+dev-vcs/git -perl -webdav keyring
+gui-apps/kanshi varlink
+gui-apps/waybar backlight experimental mpris evdev network pipewire tray wifi niri
+gui-apps/xremap wlroots
+gui-libs/wlroots x11-backend
+kde-frameworks/kwallet minimal
+llvm-core/lld zstd
+llvm-core/llvm zstd binutils-plugin # z3
+mail-mta/proton-mail-bridge gui
+media-fonts/noto cjk
+media-fonts/udev-gothic nerdfonts
+media-gfx/feh inotify xinerama
+media-gfx/imagemagick xml corefonts truetype
+media-libs/libsdl2 gles2 # required by media-libs/libsdl2[wayland]
+media-libs/libsndfile minimal
+media-sound/mpd flac
+media-sound/playerctl introspection
+media-video/ffmpeg opus
+media-video/pipewire sound-server extra -jack-client jack-sdk pipewire-alsa v4l gstreamer
+net-analyzer/nmap ncat
+net-analyzer/trippy suid
+net-libs/nodejs npm
+net-misc/openssh libedit
+net-wireless/bluez btpclient
+sys-apps/systemd homed cryptsetup boot policykit
+sys-auth/pambase homed
+sys-boot/refind btrfs ntfs
+sys-kernel/installkernel dracut uki refind # ukify
+sys-libs/ncurses minimal
+www-client/vivaldi proprietary-codecs
+www-client/vivaldi-snapshot proprietary-codecs
+x11-libs/gdk-pixbuf tiff
+x11-terms/ghostty man

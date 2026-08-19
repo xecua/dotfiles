@@ -1,0 +1,23 @@
+diff --git a/include/hyprgraphics/resource/resources/ImageResource.hpp b/include/hyprgraphics/resource/resources/ImageResource.hpp
+index 70998a2..0638ae2 100644
+--- a/include/hyprgraphics/resource/resources/ImageResource.hpp
++++ b/include/hyprgraphics/resource/resources/ImageResource.hpp
+@@ -7,6 +7,7 @@
+ #include "../../color/Color.hpp"
+
+ #include <optional>
++#include <span>
+
+ namespace Hyprgraphics {
+     class CImageResource : public IAsyncResource {
+diff --git a/include/hyprgraphics/resource/resources/StaticImageResource.hpp b/include/hyprgraphics/resource/resources/StaticImageResource.hpp
+index e013554..0f88b7d 100644
+--- a/include/hyprgraphics/resource/resources/StaticImageResource.hpp
++++ b/include/hyprgraphics/resource/resources/StaticImageResource.hpp
+@@ -5,6 +5,7 @@
+ #include "hyprgraphics/image/Image.hpp"
+
+ #include <optional>
++#include <span>
+
+ #include <hyprutils/math/Vector2D.hpp>

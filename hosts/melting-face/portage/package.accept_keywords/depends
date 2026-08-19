@@ -1,0 +1,15 @@
+# required by proton-mail-bridge
+dev-libs/sentry-native
+dev-util/breakpad
+# required by dev-util/breakpad
+dev-embedded/libdisasm
+# required by bat-extras
+dev-util/sh
+# required by gui-apps/waybar, media-sound/mpd, app-i18n/fcitx
+dev-libs/libfmt
+# required by app-editors/neovim
+dev-libs/libutf8proc
+# required by gui-apps/kanshi
+dev-libs/libvarlink
+# required by gui-apps/kanshi
+dev-libs/vali

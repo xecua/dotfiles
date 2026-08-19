@@ -1,0 +1,56 @@
+From fb2c0268645a77403af3b8a4ce8fa7ba5917f15d Mon Sep 17 00:00:00 2001
+From: qxb3 <qxbthree@gmail.com>
+Date: Mon, 9 Dec 2024 02:53:39 +0800
+Subject: [PATCH 1/2] image: add symlink support (#1)
+
+---
+ src/image/Image.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/image/Image.cpp b/src/image/Image.cpp
+index 6ba88f5..d3cd4a4 100644
+--- a/src/image/Image.cpp
++++ b/src/image/Image.cpp
+@@ -31,7 +31,7 @@ Hyprgraphics::CImage::CImage(const std::string& path) : filepath(path) {
+         mime = "image/jxl";
+     } else {
+         // magic is slow, so only use it when no recognized extension is found
+-        auto handle = magic_open(MAGIC_NONE | MAGIC_COMPRESS);
++        auto handle = magic_open(MAGIC_NONE | MAGIC_COMPRESS | MAGIC_SYMLINK);
+         magic_load(handle, nullptr);
+ 
+         const auto type_str   = std::string(magic_file(handle, path.c_str()));
+
+From 0f9b8ca692b319c3cadd10175518805dbdc33ef0 Mon Sep 17 00:00:00 2001
+From: Jan Beich <jbeich@FreeBSD.org>
+Date: Wed, 18 Dec 2024 16:59:51 +0000
+Subject: [PATCH 2/2] color: add missing header for libc++ (#3)
+
+src/color/Color.cpp:71:66: error: no member named 'min' in namespace 'std'; did you mean 'fmin'?
+   71 |     const double vmax = std::max(std::max(r, g), b), vmin = std::min(std::min(r, g), b);
+      |                                                             ~~~~~^~~
+      |                                                                  fmin
+/usr/include/c++/v1/cmath:447:9: note: 'fmin' declared here
+  447 | using ::fmin _LIBCPP_USING_IF_EXISTS;
+      |         ^
+src/color/Color.cpp:71:75: error: no member named 'min' in namespace 'std'; did you mean 'fmin'?
+   71 |     const double vmax = std::max(std::max(r, g), b), vmin = std::min(std::min(r, g), b);
+      |                                                                      ~~~~~^~~
+      |                                                                           fmin
+/usr/include/c++/v1/cmath:447:9: note: 'fmin' declared here
+  447 | using ::fmin _LIBCPP_USING_IF_EXISTS;
+      |         ^
+---
+ src/color/Color.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/color/Color.cpp b/src/color/Color.cpp
+index 3de4454..1a796aa 100644
+--- a/src/color/Color.cpp
++++ b/src/color/Color.cpp
+@@ -1,4 +1,5 @@
+ #include <hyprgraphics/color/Color.hpp>
++#include <algorithm>
+ #include <cmath>
+ 
+ using namespace Hyprgraphics;
