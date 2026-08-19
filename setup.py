@@ -89,12 +89,12 @@ def make_symlink(
 
     if link.exists():
         if link.is_dir(follow_symlinks=False):
-            # symlinkでないディレクトリ: recursiveなら中身で判定。そうでなければreturn
+            # symlinkでないディレクトリ: recursiveでないなら何もしない
             if not recursive:
                 print(f"{link} already exists. Skipped.")
                 return
         elif force:
-            # fileかsymlink: forece
+            # fileかsymlink
             link.unlink()
         else:
             if link.is_symlink():
@@ -102,6 +102,9 @@ def make_symlink(
             else:
                 print(f"{link} exists and but is not a symlink.", file=sys.stderr)
             return
+    elif link.is_symlink() and force:
+        # broken symlink
+        link.unlink(missing_ok=True)
 
     if target is None:
         target = script_dir / name

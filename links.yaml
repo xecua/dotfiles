@@ -106,7 +106,13 @@ links:
   - name: zathura
     base: config
 
-  - name: glide
+  - name: xdg-desktop-portal
+    base: config
+
+  - name: user-dirs.dirs
+    base: config
+
+  - name: user-dirs.locale
     base: config
 
   - name: .clang-format

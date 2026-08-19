@@ -181,7 +181,7 @@ in
     home-manager.enable = true;
     nh = {
       enable = true;
-      homeFlake = "${config.home.homeDirectory}/Documents/repos/github.com/xecua/dotfiles";
+      homeFlake = "${config.xdg.userDirs.projects}/github.com/xecua/dotfiles";
     };
 
     mcp = {
