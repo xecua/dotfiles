@@ -93,10 +93,13 @@ vim.opt_local.cursorline = true
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
+-- LSPのdidChangeとかを発動したい
 vim.keymap.set("n", "N", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newFile' })<CR>", opts)
 vim.keymap.set("n", "K", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'newDirectory' })<CR>", opts)
 vim.keymap.set("n", "R", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'rename' })<CR>", opts)
 vim.keymap.set("n", "y", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'yank' })<CR>", opts)
+vim.keymap.set("n", "c", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'copy' })<CR>", opts)
+vim.keymap.set("n", "m", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'move' })<CR>", opts)
 vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'paste' })<CR>", opts)
 
 vim.keymap.set("n", "s", function()

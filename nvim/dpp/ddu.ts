@@ -66,7 +66,6 @@ export class Config extends BaseConfig {
           columns: ["icon_filename"],
         },
       },
-      actionOptions: { _: { quit: false } },
     });
 
     args.contextBuilder.patchGlobal({
