@@ -129,7 +129,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     "dap-view",
                     "dap-view-term",
                     "dap-view-help",
-                }, vim.opt_local.filetype:get())
+                }, vim.opt_local.filetype:get()) or vim.g.disable_copilot
             then
                 -- VimEnterで起動するときはg:copilot_filetypesが無視される
                 client:stop()
