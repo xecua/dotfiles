@@ -28,7 +28,6 @@ Nixによって得られる再現性のことはあんまり気にしてない
   - flake.nixとかpackage.jsonであるべきだよなあ
   - portage -> home-managerなのかなあ
     - styluaはportageで入れると(現時点で)`lsp` featureが有効にできない。nixの方は引数でfeatureを調整できる。とりあえずhome-managerで
-      - いうてもNeovimの設定ファイル書くときくらいしか使わんのでdotfilesにflake.nix置いとけばとりあえず解決しそう。そうする(これでもfeatureの上書きは必要だけど)
 
 ## portageでもhome-managerでも入らないもの
 
@@ -47,8 +46,6 @@ Nixによって得られる再現性のことはあんまり気にしてない
 - php-debug-adapter
 - phpcs
 - android sdk?
-- jnv
-- gup (go update)
 - modvendor (go)
 
 ## direnv + nix-direnv

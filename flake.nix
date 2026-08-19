@@ -1,9 +1,8 @@
 {
-  description = "xecua's dotfiles (portageでカバーできない分のシステム情報を含む)";
+  description = "dotfiles";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    # NixOSじゃなくてもLinuxはnixos-でいいらしい(darwinはもちろんnixpkgs-26.05-darwin)
+    # NixOSじゃなくてもLinuxはnixos-でいいらしい(darwinはnixpkgs-26.05-darwin)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -45,16 +44,14 @@
         "aarch64-darwin"
       ];
 
-      # 設定ファイルを書くとき用の開発環境。
-      # 更新の速いツールばかりなのでunstableを見る
       perSystem =
-        { system, ... }:
+        { inputs', ... }:
         let
-          pkgsUnstable = import inputs.nixpkgs-unstable { inherit system; };
+          pkgs = inputs'.nixpkgs-unstable.legacyPackages;
         in
         {
-          devShells.default = pkgsUnstable.mkShell {
-            packages = with pkgsUnstable; [
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
               fish-lsp
               lua-language-server
               (stylua.override {
