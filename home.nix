@@ -1,24 +1,24 @@
 {
   pkgs,
   pkgsUnstable,
-  gpuWrapper,
-  nixglPackages,
+  # gpuWrapper,
+  # nixglPackages,
   config,
   inputs,
   lib,
   ...
 }:
 let
-  installScripts =
-    if gpuWrapper == "mesa" then
-      [ "mesa" ]
-    else if gpuWrapper == "nvidia" then
-      [
-        "mesa"
-        "nvidia"
-      ]
-    else
-      [ ];
+  # installScripts =
+  #   if gpuWrapper == "mesa" then
+  #     [ "mesa" ]
+  #   else if gpuWrapper == "nvidia" then
+  #     [
+  #       "mesa"
+  #       "nvidia"
+  #     ]
+  #   else
+  #     [ ];
   chrome-executable =
     if pkgs.stdenv.isDarwin then
       "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
@@ -34,11 +34,11 @@ in
     };
   };
 
-  targets.genericLinux.nixGL = {
-    packages = nixglPackages;
-    defaultWrapper = gpuWrapper;
-    installScripts = installScripts;
-  };
+  # targets.genericLinux.nixGL = {
+  #   packages = nixglPackages;
+  #   defaultWrapper = gpuWrapper;
+  #   installScripts = installScripts;
+  # };
 
   nixpkgs.config.allowUnfreePackages = [
     "claude-code"
@@ -90,14 +90,16 @@ in
       (with pkgs; [
         nil
         nixfmt
+        nix-tree
+
         tinymist
         serve
         unar
         sqls
         lazydocker
         termshot
-        browsr
-        gogup # いるかなあ
+        # browsr
+        # gogup # いるかなあ
         captive-browser
 
         intelephense

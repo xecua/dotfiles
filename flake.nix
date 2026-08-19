@@ -54,6 +54,7 @@
             packages = with pkgs; [
               fish-lsp
               lua-language-server
+              taplo
               (stylua.override {
                 features = [
                   "lua54"
