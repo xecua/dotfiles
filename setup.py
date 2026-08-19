@@ -75,25 +75,6 @@ def main():
     for spec in load_links(script_dir / "links.yaml"):
         make_symlink(spec.name, spec.link_base, spec.recursive, target=spec.target)
 
-    write_file(config_home / "wgetrc", [f"hsts-file = {cache_home / 'wget-hsts'}"])
-
-    write_file(
-        home / ".indentconfig.yaml",
-        [f"paths:", f"  - {script_dir / 'latexindent' / 'setting.yaml'}"],
-    )
-
-
-def write_file(path: Path, lines: str | list[str]):
-    lines = lines if isinstance(lines, list) else [lines]
-    if not path.parent.exists():
-        path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists():
-        print(f"{path} already exists. Skipped.")
-        return
-    with open(path, "w") as f:
-        print(*lines, sep="\n", file=f)
-        print(f"Created: {path}", file=sys.stderr)
-
 
 def make_symlink(
     name: str | os.PathLike,

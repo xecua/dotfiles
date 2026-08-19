@@ -24,6 +24,7 @@ let
       "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
     else
       "/usr/bin/vivaldi";
+  yamlFormatter = pkgs.formats.yaml { };
 in
 {
   _module.args = {
@@ -47,6 +48,15 @@ in
     "intelephense"
   ];
 
+  xdg = {
+    configFile = {
+      wgetrc = {
+        target = "wgetrc";
+        text = "hsts-file = ${config.xdg.cacheHome}/wget-hsts";
+      };
+    };
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home = {
@@ -54,6 +64,16 @@ in
     homeDirectory = "/home/xecua";
     shell.enableShellIntegration = false;
     preferXdgDirectories = true;
+
+    file = {
+      indentconfig = {
+        target = ".indentconfig.yaml";
+        source = yamlFormatter.generate ".indentconfig.yaml" {
+          paths = [ "${./latexindent/setting.yaml}" ];
+        };
+      };
+
+    };
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -97,8 +117,6 @@ in
         tdf
         # (config.lib.nixGL.wrap neovide) # 動かねえ……
         typescript-go
-
-        idris2Packages.pack
 
         (writeShellScriptBin "stylelint-language-server" ''
           exec ${pkgs.nodejs}/bin/node ${pkgs.vscode-extensions.stylelint.vscode-stylelint}/share/vscode/extensions/stylelint.vscode-stylelint/dist/index.js "$@"
