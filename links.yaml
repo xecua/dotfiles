@@ -130,6 +130,9 @@ links:
   - name: env-sync.zsh
     base: bin
 
+  - name: gentoo-backup.sh
+    base: bin
+
   - name: fzfrc
     base: config
 

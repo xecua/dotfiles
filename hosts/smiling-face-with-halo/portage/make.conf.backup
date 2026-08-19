@@ -1,0 +1,38 @@
+# These settings were set by the catalyst build script that automatically
+# built this stage.
+# Please consult /usr/share/portage/config/make.conf.example for a more
+# detailed example.
+COMMON_FLAGS="-O2 -pipe -march=native -flto=thin"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+LD="ld.mold"
+
+COMMON_LDFLAGS="-Wl,-O1 -Wl,--as-needed -Wl,-z,pack-relative-relocs"
+CLANG_LDFLAGS="-rtlib=compiler-rt -unwindlib=libunwind -flto=thin -Wl,--thinlto-cache-dir=/var/cache/thinlto"
+LDFLAGS="${COMMON_LDFLAGS} ${CLANG_LDFLAGS} -fuse-ld=mold"
+
+# This sets the language of build output to English.
+# Please keep this setting intact when reporting bugs.
+LC_MESSAGES=C.utf8
+
+MAKEOPTS="-j13"
+
+VIDEO_CARDS="nvidia"
+
+USE="X symlink luajit bluetooth dbus bdbus udev acl text alsa plseaudio user-session udisks -qt5 qt6 truetype wayland fcitx5 opengl vulkan screencast svg unicode upower usb x264 jpeg mp3 mp4 pdf png sdl webp sound -kde -ibus -networkmanager"
+
+FEATURES="${FEATURES} getbinpkg binpkg-request-signature"
+
+CCACHE_DIR="/var/cache/ccache"
+
+RUSTC_WRAPPER="/usr/bin/sccache"
+# RUSTFLAGS="${RUSTFLAGS} -Clinker-plugin-lto"
+SCCACHE_DIR="/var/cache/sccache"
+SCCACHE_MAX_FRAME_LENGTH=104857600
+
+GENTOO_MIRRORS=" \
+	https://ftp.riken.jp/Linux/gentoo/ \
+	https://ftp.jaist.ac.jp/pub/Linux/Gentoo/ \
+"

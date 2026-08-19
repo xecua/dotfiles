@@ -1,0 +1,122 @@
+# package.use# required by sys-kernel/installkernel-39-r2::gentoo[uki,dracut,systemd-boot]
+# required by sys-kernel/gentoo-kernel-6.6.47::gentoo[initramfs]
+# required by virtual/dist-kernel-6.6.47::gentoo
+>=sys-apps/systemd-255.7-r1 boot ukify
+# required by dev-libs/libayatana-appindicator-0.5.93::gentoo
+# required by net-im/discord-0.0.66::gentoo[appindicator]
+# required by discord (argument)
+>=dev-libs/libdbusmenu-16.04.0-r2 gtk3
+# required by gnome-base/gnome-keyring-42.1-r2::gentoo
+# required by virtual/secret-service-0::gentoo
+# required by app-crypt/libsecret-0.21.1::gentoo
+# required by net-im/discord-0.0.66::gentoo
+# required by discord (argument)
+>=app-crypt/gcr-3.41.1-r2:0 gtk
+# required by sys-devel/llvm-18.1.8-r1::gentoo[z3]
+# required by sys-devel/llvmgold-18::gentoo
+>=sci-mathematics/z3-4.13.0 abi_x86_32
+# required by media-video/obs-studio-30.2.3::gentoo
+# required by obs-studio (argument)
+>=media-video/ffmpeg-6.1.1-r8 opus nvenc
+# required by virtual/rust-1.80.1::gentoo
+# required by sys-apps/bat-extras-2023.09.19-r1::guru
+# required by bat-extras (argument)
+>=dev-lang/rust-bin-1.80.1 rustfmt
+# required by gui-apps/nwg-displays-0.3.22::guru
+# required by nwg-displays (argument)
+>=gui-libs/gtk-layer-shell-0.8.2 introspection
+# required by x11-terms/ghostty-1.0.1-r1::gentoo[system-freetype,system-harfbuzz]
+# required by ghostty (argument)
+>=media-libs/freetype-2.13.3 harfbuzz
+# required by x11-terms/ghostty-terminfo-1.1.2::gentoo
+# required by x11-terms/ghostty-1.1.2::gentoo
+# required by @selected
+# required by @world (argument)
+>=sys-libs/ncurses-6.5_p20250125 minimal
+# required by media-libs/vips-8.16.1::gentoo[pdf]
+# required by gui-apps/walker-0.12.0::guru
+# required by walker (argument)
+>=app-text/poppler-25.03.0 cairo
+# required by kde-frameworks/qqc2-desktop-style-6.16.0::gentoo
+# required by gui-libs/hyprland-qtutils-0.1.4::gentoo
+# required by hyprland-qtutils (argument)
+>=kde-frameworks/sonnet-6.16.0 qml
+# required by x11-libs/cairo-1.18.4-r1::gentoo
+# required by media-libs/harfbuzz-11.4.5::gentoo[cairo]
+# required by media-libs/freetype-2.14.1-r1::gentoo[harfbuzz]
+# required by dev-java/openjdk-bin-25_p36::gentoo
+# required by @selected
+# required by @world (argument)
+>=media-libs/fontconfig-2.17.1 abi_x86_32
+# required by dev-debug/rr-5.9.0-r1::gentoo
+# required by dev-debug/rr (argument)
+>=dev-debug/gdb-16.3 xml
+# required by kde-plasma/libplasma-6.4.5::gentoo
+# required by kde-plasma/polkit-kde-agent-6.4.5::gentoo
+# required by kde-frameworks/kauth-6.18.0::gentoo[policykit]
+# required by kde-frameworks/kio-6.18.0::gentoo
+# required by kde-frameworks/kcmutils-6.18.0::gentoo
+# required by kde-plasma/keditfiletype-6.4.5::gentoo
+>=kde-frameworks/kconfig-6.18.0 qml
+# required by kde-plasma/polkit-kde-agent-6.4.5::gentoo
+# required by kde-frameworks/kauth-6.18.0::gentoo[policykit]
+# required by kde-frameworks/kio-6.18.0::gentoo
+# required by kde-frameworks/kcmutils-6.18.0::gentoo
+# required by kde-plasma/keditfiletype-6.4.5::gentoo
+>=dev-qt/qt5compat-6.9.3 qml
+# required by dev-libs/kirigami-addons-1.10.0::gentoo
+# required by kde-misc/kdeconnect-25.08.3-r1::gentoo
+# required by kdeconnect (argument)
+>=dev-qt/qtmultimedia-6.9.3 qml
+# required by kde-frameworks/kio-6.18.0::gentoo
+# required by kde-frameworks/kcmutils-6.18.0::gentoo
+# required by kde-plasma/keditfiletype-6.4.5::gentoo
+>=dev-qt/qtbase-6.9.3 libproxy
+# required by virtual/minizip-1.3.1::gentoo[-static-libs]
+# required by media-libs/assimp-6.0.2::gentoo
+# required by dev-qt/qtquick3d-6.9.3::gentoo
+# required by dev-qt/qtmultimedia-6.9.3::gentoo[qml]
+# required by dev-libs/kirigami-addons-1.10.0::gentoo
+# required by kde-misc/kdeconnect-25.08.3-r1::gentoo
+# required by kdeconnect (argument)
+>=sys-libs/zlib-1.3.1-r1 minizip
+# required by games-util/steam-launcher-1.0.0.85-r2::steam-overlay[vulkan,video_cards_nvidia]
+# required by @selected
+# required by @world (argument)
+>=media-libs/vulkan-loader-1.4.328.0-r1 abi_x86_32 layers
+# required by media-libs/vulkan-loader-1.4.328.0-r1::gentoo[layers]
+# required by games-util/steam-launcher-1.0.0.85-r2::steam-overlay[vulkan,video_cards_nvidia]
+# required by @selected
+# required by @world (argument)
+>=media-libs/vulkan-layers-1.4.328.0 abi_x86_32
+# required by media-libs/vulkan-layers-1.4.328.0::gentoo
+# required by media-libs/vulkan-loader-1.4.328.0-r1::gentoo[layers]
+# required by games-util/steam-launcher-1.0.0.85-r2::steam-overlay[vulkan,video_cards_nvidia]
+# required by @selected
+# required by @world (argument)
+>=dev-util/glslang-1.4.328.0-r1 abi_x86_32
+# required by media-libs/vulkan-layers-1.4.328.0::gentoo
+# required by media-libs/vulkan-loader-1.4.328.0-r1::gentoo[layers]
+# required by games-util/steam-launcher-1.0.0.85-r2::steam-overlay[vulkan,video_cards_nvidia]
+# required by @selected
+# required by @world (argument)
+>=dev-util/vulkan-utility-libraries-1.4.328.0 abi_x86_32
+# required by media-libs/gegl-0.4.64-r1::gentoo
+# required by media-gfx/gimp-3.0.6::gentoo
+# required by gimp (argument)
+>=media-libs/babl-0.1.116 lcms introspection
+# required by media-gfx/gimp-3.0.6::gentoo
+# required by gimp (argument)
+>=media-libs/gegl-0.4.64-r1 cairo lcms introspection
+# required by app-containers/containers-common-0.64.2::gentoo
+# required by app-containers/podman-5.7.1::gentoo
+# required by app-containers/podman (argument)
+>=net-firewall/iptables-1.8.11-r1 nftables
+# required by x11-drivers/nvidia-drivers-595.58.03::gentoo[wayland]
+# required by @selected
+# required by @world (argument)
+>=gui-libs/egl-wayland2-1.0.1 abi_x86_32
+# required by dev-util/pkgcheck-0.10.39::gentoo[-test]
+# required by dev-util/pkgdev-0.2.14::gentoo
+# required by pkgdev (argument)
+>=dev-libs/tree-sitter-bash-0.25.1 python

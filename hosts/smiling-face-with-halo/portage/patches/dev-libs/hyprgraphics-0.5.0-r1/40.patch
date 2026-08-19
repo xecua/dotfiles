@@ -1,0 +1,23 @@
+diff --git a/include/hyprgraphics/resource/resources/ImageResource.hpp b/include/hyprgraphics/resource/resources/ImageResource.hpp
+index 0162392..70998a2 100644
+--- a/include/hyprgraphics/resource/resources/ImageResource.hpp
++++ b/include/hyprgraphics/resource/resources/ImageResource.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+
+ #include <string>
++#include <span>
+ #include <hyprutils/math/Vector2D.hpp>
+ #include "./AsyncResource.hpp"
+ #include "../../color/Color.hpp"
+diff --git a/src/image/formats/Svg.hpp b/src/image/formats/Svg.hpp
+index 1fec865..9a5908c 100644
+--- a/src/image/formats/Svg.hpp
++++ b/src/image/formats/Svg.hpp
+@@ -3,6 +3,7 @@
+ #include <cairo/cairo.h>
+ #include <string>
+ #include <expected>
++#include <span>
+ #include <png.h>
+ #include <hyprutils/math/Vector2D.hpp>

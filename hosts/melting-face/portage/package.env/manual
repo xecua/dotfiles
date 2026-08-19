@@ -1,0 +1,9 @@
+app-crypt/chntpw gcc
+app-i18n/libskk gcc
+media-video/v4l2loopback gcc
+sys-devel/gcc gcc
+net-analyzer/nmap gcc
+
+sys-boot/* lld
+>=gui-libs/gtk-4.16 lld
+media-libs/vips lld

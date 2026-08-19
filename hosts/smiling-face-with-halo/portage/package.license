@@ -1,0 +1,15 @@
+x11-drivers/nvidia-drivers NVIDIA-2025
+net-im/discord all-rights-reserved
+app-office/obsidian Obsidian-EULA
+www-client/vivaldi Vivaldi
+app-editors/vscode Microsoft-vscode
+sys-kernel/linux-firmware linux-fw-redistributable
+media-fonts/corefonts MSttfEULA
+media-sound/spotify Spotify
+games-util/steam-launcher ValveSteamLicense
+# required by google-chrome (argument)
+>=www-client/google-chrome-146.0.7680.80 google-chrome
+# required by claude-code (argument)
+>=dev-util/claude-code-2.1.83 all-rights-reserved
+# required by claude-desktop (argument)
+>=app-misc/claude-desktop-1.20186.1 Anthropic

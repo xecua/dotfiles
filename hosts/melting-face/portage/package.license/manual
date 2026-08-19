@@ -1,0 +1,10 @@
+sys-kernel/linux-firmware linux-fw-redistributable
+www-client/vivaldi Vivaldi
+www-client/vivaldi-snapshot Vivaldi
+app-editors/vscode Microsoft-vscode
+media-fonts/corefonts MSttfEULA
+app-office/obsidian Obsidian-EULA
+net-im/discord all-rights-reserved
+app-editors/antigravity Google-TOS
+# required by spotify (argument)
+>=media-sound/spotify-1.2.77 Spotify
