@@ -16,7 +16,7 @@ if status is-interactive
     end
 
     if type -q eza # actively maintained fork
-        set -l eza_command 'eza --header --git --time-style=iso --modified --created --group --smart-group --icons auto'
+        set -l eza_command 'eza --header --git --time-style=long-iso --modified --created --group --smart-group --icons auto'
         alias l="$eza_command"
         alias ls="$eza_command"
         alias ll="$eza_command --long"

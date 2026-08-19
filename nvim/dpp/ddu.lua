@@ -27,25 +27,13 @@ vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
 vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
 
 vim.keymap.set("n", "<C-n>", function()
-    local ddu_args = {
-        name = "fd-filer",
-        sources = {
-            {
-                name = "file_external",
-                params = { cmd = { "fd", "--max-depth", "1", "--unrestricted" } },
-            },
-        },
-    }
+    local ddu_args = { name = "fd-filer" }
 
-    -- 直前にフォーカスしていたバッファがカレントディレクトリ以下のファイルなら、そのファイルにカーソルを合わせる
     local buffer_name = vim.api.nvim_buf_get_name(0)
     local cwd = vim.uv.cwd()
     local stat = vim.uv.fs_stat(buffer_name)
     if stat and stat.type == "file" and cwd and vim.startswith(buffer_name, cwd .. "/") then
         ddu_args.searchPath = buffer_name
-        -- sourceが非同期にitemを返すと、searchPathによる展開後の再描画で初期状態に戻ってしまうので、
-        -- 取得完了を待ってから描画する
-        ddu_args.sync = true
     end
 
     vim.fn["ddu#start"](ddu_args)
@@ -87,13 +75,6 @@ vim.fn["ddu#custom#load_config"](vim.fn.stdpath("config") .. "/dpp/ddu.ts")
 vim.opt_local.cursorline = true
 local opts = { buffer = true, silent = true }
 vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
--- function()
---     local item = vim.fn["ddu#ui#get_item"]()
---     if item["__sourceName"] == "rg" then
---       -- wincmd pだとpreviewに行ってしまうのでダメ
---     end
---     vim.fn["ddu#ui#do_action"]("itemAction")
--- end, opts)
 vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
 vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
 vim.keymap.set("n", ",", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
@@ -103,7 +84,6 @@ vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('togglePreview')<CR>", opts
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
 vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
-
 -- }}}
 
 -- lua_ddu-filer {{{
