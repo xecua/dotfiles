@@ -1,0 +1,6 @@
+[Unit]
+Description=Gentoo portage backup
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/gentoo-backup.sh
