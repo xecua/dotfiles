@@ -1,33 +1,8 @@
 -- https://zenn.dev/rapan931/articles/45b09b774512fc
+-- BufRead/BufNewFile -> FileType(これが呼ばれる) -> editorconfigが反映される -> BufReadPost -> modelineが反映される(filetypeがセットされてFileTypeイベントが発火するかも) -> BufWinEnter
+-- なのでeditorconfigをこっちでなんかする必要なさそう
 
 local hooks = {}
-
-local function set_no_leading_char()
-    local listchars = vim.opt.listchars:get()
-    listchars.leadmultispace = nil
-    listchars.leadtab = nil
-    vim.opt_local.listchars = listchars
-end
-
-local function set_indent(tabstop, expandtab)
-    if tabstop ~= nil then
-        vim.opt_local.tabstop = tabstop
-        vim.opt_local.listchars =
-            vim.tbl_extend("force", vim.opt.listchars:get(), { leadmultispace = ">" .. string.rep("･", tabstop - 1) })
-    end
-    if expandtab ~= nil then
-        vim.opt_local.expandtab = expandtab
-    end
-end
-local function load_editorconfig()
-    local editorconfig = vim.b.editorconfig or {}
-    if editorconfig.indent_style then
-        set_indent(nil, editorconfig.indent_style == "space")
-    end
-    if editorconfig.indent_size then
-        set_indent(tonumber(editorconfig.indent_size))
-    end
-end
 
 local function register_javascript_regex()
     -- regex string as text object
@@ -38,101 +13,101 @@ local function register_javascript_regex()
 end
 
 hooks.astro = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.c = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.cpp = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.dart = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.css = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.html = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.javascript = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.javascriptreact = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.typescript = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.typescriptreact = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.typespec = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.nix = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.json = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.jsonc = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.rst = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.satysfi = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.sql = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.vim = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.vue = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
     register_javascript_regex()
 end
 
 hooks.xml = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.yaml = function()
-    set_indent(2)
+    vim.opt_local.tabstop = 2
 end
 
 hooks.go = function()
-    set_indent(nil, false)
+    vim.opt_local.expandtab = false
 end
 
 hooks.make = function()
-    set_indent(nil, false)
+    vim.opt_local.expandtab = false
 end
 
 hooks.csv = function()
@@ -140,14 +115,14 @@ hooks.csv = function()
 end
 
 hooks.tsv = function()
-    set_indent(nil, false)
+    vim.opt_local.expandtab = false
     vim.opt_local.wrap = false
 end
 
 hooks.snippets = function()
     vim.opt_local.softtabstop = -1
     vim.opt_local.shiftwidth = 0
-    set_indent(2, false)
+    vim.opt_local.expandtab = false
 end
 
 hooks.tex = function()
@@ -155,11 +130,7 @@ hooks.tex = function()
 end
 
 hooks.gitconfig = function()
-    set_indent(nil, false)
-end
-
-hooks["dap-view"] = function()
-    set_no_leading_char()
+    vim.opt_local.expandtab = false
 end
 
 hooks.php = function()
@@ -182,9 +153,6 @@ return setmetatable(M, {
             if hooks[key] then
                 hooks[key]()
             end
-
-            -- editorconfigを優先
-            load_editorconfig()
         end
     end,
 })
