@@ -46,11 +46,7 @@ require("dap").adapters = {
             })
         end
     end,
-    codelldb = {
-        type = "server",
-        port = "${port}",
-        executable = { command = "codelldb", args = { "--port", "${port}" } },
-    },
+    lldb = { type = "executable", command = "lldb-dap" },
     go = function(on_config, launchArgs)
         local config = {
             type = "server",

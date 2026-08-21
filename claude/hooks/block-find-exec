@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+set -l command (cat | jaq -r '.tool_input.command // empty')
+# findのexecとかを位置問わず拒否
+if string match -r '\bfind\b+.*\s-exec(dir)?\b' -- $command
+    echo "Blocked: execを伴うfindはファイルシステムを破壊する可能性があるため許可されていません"
+    exit 2
+else if string match -r '\fd\b+.*\s(--exec(-batch)?|-x|-X)\b' -- $command
+    echo "Blocked: execを伴うfdはファイルシステムを破壊する可能性があるため許可されていません"
+    exit 2
+end

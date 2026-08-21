@@ -39,12 +39,6 @@ Nixによって得られる再現性のことはあんまり気にしてない
 - neovide
 - zlib (kevin/cantwell/zlib)
 - xwayland-satellite
-- codelldb
-- java-debug-adapter
-- java-test
-- jdtls
-- php-debug-adapter
-- phpcs
 - android sdk?
 - modvendor (go)
 

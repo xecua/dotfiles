@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash(cd)",
+      "Bash(ls)",
+      "Bash(git status)",
+      "Bash(git show)",
+      "Bash(git log)",
+      "Bash(git diff)",
+      "Bash(git blame)",
+      "Bash(git commit)",
+      "Bash(npm run build)",
+      "Bash(tsc --noEmit)",
+      "Bash(jq)",
+      "Bash(jaq)",
+      "Artifact",
+      "Edit",
+      "EnterWorktree",
+      "NotebookEdit",
+      "Skill",
+      "WebFetch",
+      "Workflow"
+    ],
+    "deny": [
+      "Bash(sudo)",
+      "Bash(rm)",
+      "Bash(git reset *)",
+      "Bash(git restore *)",
+      "Bash(git switch *)",
+      "Bash(git checkout *)",
+      "Bash(git rebase *)",
+      "Bash(git push --force *)",
+      "Bash(telnet)",
+      "Bash(nc)",
+      "Bash(curl)",
+      "Bash(wget)",
+      "Bash(ssh)",
+      "Bash(scp)",
+      "Bash(sftp)",
+      "Read(.env*)",
+      "Edit(.env*)"
+    ],
+    "ask": [
+      "Bash(git push)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "sonnet",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/hooks/block-find-exec"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "advisorModel": "opus",
+  "tui": "fullscreen",
+  "editorMode": "vim",
+  "agentPushNotifEnabled": true,
+  "inputNeededNotifEnabled": true
+}

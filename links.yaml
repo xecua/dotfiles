@@ -67,6 +67,13 @@ links:
     base: config
     recursive: true
 
+  - name: claude/settings.json
+    base: config
+
+  - name: claude/hooks
+    base: config
+    recursive: true
+
   - name: nvim
     base: config
 

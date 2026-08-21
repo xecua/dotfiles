@@ -55,6 +55,16 @@ in
         text = "hsts-file = ${config.xdg.cacheHome}/wget-hsts";
       };
     };
+    dataFile = {
+      #   java-debug = {
+      #     target = "java-debug";
+      #     source = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug";
+      #   };
+      #   java-test = {
+      #     target = "java-test";
+      #     source = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test";
+      #   };
+    };
   };
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -121,8 +131,16 @@ in
         typescript-go
 
         (writeShellScriptBin "stylelint-language-server" ''
-          exec ${pkgs.nodejs}/bin/node ${pkgs.vscode-extensions.stylelint.vscode-stylelint}/share/vscode/extensions/stylelint.vscode-stylelint/dist/index.js "$@"
+          exec ${nodejs}/bin/node ${vscode-extensions.stylelint.vscode-stylelint}/share/vscode/extensions/stylelint.vscode-stylelint/dist/index.js "$@"
         '')
+
+        # (writeShellScriptBin "php-debug-adapter" ''
+        #   exec ${nodejs}/bin/node ${vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js "$@"
+        # '')
+
+        # (writeShellScriptBin "vscode-lldb" ''
+        #   exec ${vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb "$@"
+        # '')
 
         (python3.withPackages (
           ps: with ps; [
@@ -202,91 +220,6 @@ in
       package = pkgsUnstable.claude-code;
       enableMcpIntegration = true;
       configDir = "${config.xdg.configHome}/claude";
-      hooks = {
-        block-find-exec = ''
-          #!/usr/bin/env fish
-          set -l command (cat | jaq -r '.tool_input.command // empty')
-          # findのexecとかを位置問わず拒否
-          if string match -r '\bfind\b+.*\s-exec(dir)?\b' -- $command
-              echo "Blocked: execを伴うfindはファイルシステムを破壊する可能性があるため許可されていません"
-              exit 2
-          else if string match -r '\fd\b+.*\s(--exec(-batch)?|-x|-X)\b' -- $command
-              echo "Blocked: execを伴うfdはファイルシステムを破壊する可能性があるため許可されていません"
-              exit 2
-          end
-        '';
-      };
-      settings = {
-        model = "sonnet";
-        advisorModel = "opus";
-        tui = "fullscreen";
-        editorMode = "vim";
-
-        permissions = {
-          defaultMode = "auto";
-          allow = [
-            "Read"
-            "Bash(cd)"
-            "Bash(ls)"
-            "Bash(git status)"
-            "Bash(git show)"
-            "Bash(git log)"
-            "Bash(git diff)"
-            "Bash(git blame)"
-            "Bash(git commit)"
-            "Bash(npm run build)"
-            "Bash(tsc --noEmit)"
-            "Bash(jq)"
-            "Bash(jaq)"
-            "Artifact"
-            "Edit"
-            "EnterWorktree"
-            "NotebookEdit"
-            "Skill"
-            "WebFetch"
-            "Workflow"
-          ];
-          deny = [
-            "Bash(sudo)"
-            "Bash(rm)"
-            "Bash(git reset *)"
-            "Bash(git restore *)"
-            "Bash(git switch *)"
-            "Bash(git checkout *)"
-            "Bash(git rebase *)"
-            "Bash(git push --force *)"
-            "Bash(telnet)"
-            "Bash(nc)"
-            "Bash(curl)"
-            "Bash(wget)"
-            "Bash(ssh)"
-            "Bash(scp)"
-            "Bash(sftp)"
-            "Read(.env*)"
-            "Edit(.env*)"
-          ];
-          "ask" = [ "Bash(git push)" ];
-        };
-        hooks = {
-          PreToolUse = [
-            {
-              matcher = "Bash";
-              hooks = [
-                {
-                  type = "command";
-                  command = "\${CLAUDE_CONFIG_DIR:-\$HOME/.claude}/hooks/block-find-exec";
-                }
-              ];
-            }
-          ];
-        };
-        enabledPlugins = {
-          "gopls-lsp@claude-plugins-official" = true;
-          "lua-lsp@claude-plugins-official" = true;
-          "pyright-lsp@claude-plugins-official" = true;
-          "typescript-lsp@claude-plugins-official" = true;
-        };
-      };
     };
 
     direnv = {
