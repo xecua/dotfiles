@@ -12,6 +12,16 @@ local function register_javascript_regex()
     vim.keymap.set("v", "a/", "<Cmd>normal! F/of/<CR>", { buffer = true })
 end
 
+hooks.markdown = function()
+    local line_count = vim.api.nvim_buf_line_count(0)
+    if line_count == 1 then
+        local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+        if content[1] == "" then
+            vim.notify("You are going to write markdown. How about use reST or Typst?")
+        end
+    end
+end
+
 hooks.astro = function()
     vim.opt_local.tabstop = 2
     register_javascript_regex()

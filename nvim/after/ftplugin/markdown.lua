@@ -9,5 +9,5 @@ for _, marker in ipairs({ "+", "-", "*", "1." }) do
 end
 
 vim.opt_local.comments:prepend({ "nb:>" })
+
 vim.opt_local.tabstop = 2
-vim.opt_local.listchars = vim.tbl_extend("force", vim.opt.listchars:get(), { leadmultispace = ">･" })

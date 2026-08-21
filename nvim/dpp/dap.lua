@@ -21,13 +21,13 @@ end, { silent = true, desc = "DAP: Step back" })
 -- lua_source {{{
 require("dap.ext.vscode").json_decode = require("json5").parse
 require("dap").adapters = {
-    debugpy = function(cb, config)
-        if config.request == "attach" then
+    debugpy = function(on_config, launchArgs)
+        if launchArgs.request == "attach" then
             ---@diagnostic disable-next-line: undefined-field
-            local port = (config.connect or config).port
+            local port = (launchArgs.connect or launchArgs).port
             ---@diagnostic disable-next-line: undefined-field
-            local host = (config.connect or config).host or "127.0.0.1"
-            cb({
+            local host = (launchArgs.connect or launchArgs).host or "127.0.0.1"
+            on_config({
                 type = "server",
                 port = assert(port, "`connect.port` is required for a python `attach` configuration"),
                 host = host,
@@ -36,17 +36,14 @@ require("dap").adapters = {
                 },
             })
         else
-            cb({
+            on_config({
                 type = "executable",
-                command = "path/to/virtualenvs/debugpy/bin/python",
-                args = { "-m", "debugpy.adapter" },
-                options = {
-                    source_filetype = "python",
-                },
+                command = "debugpy-adapter",
+                args = {},
+                options = { source_filetype = "python" },
             })
         end
     end,
-    lldb = { type = "executable", command = "lldb-dap" },
     go = function(on_config, launchArgs)
         local config = {
             type = "server",

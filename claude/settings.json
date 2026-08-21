@@ -42,9 +42,7 @@
       "Read(.env*)",
       "Edit(.env*)"
     ],
-    "ask": [
-      "Bash(git push)"
-    ],
+    "ask": ["Bash(git push)"],
     "defaultMode": "auto"
   },
   "model": "sonnet",
@@ -70,6 +68,6 @@
   "advisorModel": "opus",
   "tui": "fullscreen",
   "editorMode": "vim",
-  "agentPushNotifEnabled": true,
-  "inputNeededNotifEnabled": true
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
 }
