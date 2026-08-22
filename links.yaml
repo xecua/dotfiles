@@ -67,10 +67,19 @@ links:
     base: config
     recursive: true
 
+  - name: .agents/skills
+    base: home
+    target: agents/skills
+    recursive: true
+
   - name: claude/settings.json
     base: config
 
   - name: claude/hooks
+    base: config
+    recursive: true
+
+  - name: claude/skills
     base: config
     recursive: true
 

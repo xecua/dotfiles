@@ -63,6 +63,12 @@
                   "lsp"
                 ];
               })
+              (python3.withPackages (
+                ps: with ps; [
+                  debugpy
+                  pyyaml
+                ]
+              ))
             ];
           };
         };
