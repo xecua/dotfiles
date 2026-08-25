@@ -2,8 +2,9 @@
   description = "dotfiles";
 
   inputs = {
-    # NixOSじゃなくてもLinuxはnixos-でいいらしい(darwinはnixpkgs-26.05-darwin)
+    # NixOSじゃなくてもLinuxはnixos-でいいらしい
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -54,6 +55,11 @@
             packages = with pkgs; [
               fish-lsp
               lua-language-server
+              (luajit.withPackages (
+                ls: with ls; [
+                  luacheck
+                ]
+              ))
               taplo
               (stylua.override {
                 features = [
@@ -73,24 +79,22 @@
           };
         };
 
-      # home-managerの設定はsystem非依存 (x86_64-linux決め打ち) なのでtop-levelに置く
       flake =
         let
-          system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfreePackages = [
-              "nvidia"
-              "nvidia-x11"
-            ];
+          nixpkgsFor = {
+            x86_64-linux = inputs.nixpkgs;
+            aarch64-darwin = inputs.nixpkgs-darwin;
           };
           mkHomeManagerConfiguration =
             {
+              system,
+              homeModule,
+              gpuWrapper ? null,
               nvidiaVersion ? null,
               nvidiaHash ? null,
-              gpuWrapper,
             }:
             let
+              pkgs = import nixpkgsFor.${system} { inherit system; };
               nixglPackages =
                 if nvidiaVersion == null then
                   nixgl.packages.${system}
@@ -104,25 +108,34 @@
               inherit pkgs;
               modules = [
                 mcp-servers-nix.homeManagerModules.default
-                ./home.nix
+                homeModule
               ];
               extraSpecialArgs = {
-                inherit
-                  inputs
-                  nixglPackages
-                  gpuWrapper
-                  ;
+                inherit inputs;
+              }
+              // nixpkgs.lib.optionalAttrs (gpuWrapper != null) {
+                inherit gpuWrapper nixglPackages;
               };
             };
         in
         {
           homeConfigurations = {
-            "xecua@melting-face" = mkHomeManagerConfiguration { gpuWrapper = "mesa"; };
+            "xecua@melting-face" = mkHomeManagerConfiguration {
+              system = "x86_64-linux";
+              gpuWrapper = "mesa";
+              homeModule = ./gentoo-home.nix;
+            };
             "xecua@smiling-face-with-halo" = mkHomeManagerConfiguration {
+              system = "x86_64-linux";
               gpuWrapper = "nvidia";
               nvidiaVersion = "595.84"; # オープンソース版をclangでビルドするとバージョンが取れないっぽい
               # .runファイルのhash(pureにするために必要)。バージョン上げたときは一旦そのままswitchしてみて、正しい値に置換するとよい
               nvidiaHash = "sha256-mcQE5SExvye8ptoCaNzOPr7cenOrF0BxqZXPGmxeugY=";
+              homeModule = ./gentoo-home.nix;
+            };
+            "xecua@apple" = mkHomeManagerConfiguration {
+              system = "aarch64-darwin";
+              homeModule = ./macos-home.nix;
             };
           };
         };

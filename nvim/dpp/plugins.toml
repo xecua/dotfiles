@@ -456,7 +456,11 @@ require('guttermarks').setup({})
 
 # comment
 [[plugins]]
-repo = 'numToStr/Comment.nvim'
+# repo = 'numToStr/Comment.nvim'
+# 0.12 get_parser() returns true, nil. upstream is not updated over years.
+repo = 'faergeek/Comment.nvim'
+rev = 'nvim-0.12-compatibility'
+depends = ['nvim-ts-context-commentstring']
 lua_add = """
 -- ghosttyなど一部ターミナルだとc-_がc-s--になる?
 vim.keymap.set("n", "<C-_><C-_>", "<Plug>(comment_toggle_linewise_current)")
@@ -476,9 +480,13 @@ require("Comment").setup({
 })
 """
 
-## jsx/tsx helper
 [[plugins]]
 repo = 'JoosepAlviste/nvim-ts-context-commentstring'
+lua_source = """
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
+"""
 
 # helpの日本語化
 [[plugins]]

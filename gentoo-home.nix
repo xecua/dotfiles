@@ -19,11 +19,7 @@ let
   #     ]
   #   else
   #     [ ];
-  chrome-executable =
-    if pkgs.stdenv.isDarwin then
-      "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi"
-    else
-      "/usr/bin/vivaldi";
+  chrome-executable = "/usr/bin/vivaldi";
   yamlFormatter = pkgs.formats.yaml { };
 in
 {
@@ -71,7 +67,7 @@ in
   # manage.
   home = {
     username = "xecua";
-    homeDirectory = "/home/xecua";
+    homeDirectory = "/home/${config.home.username}";
     shell.enableShellIntegration = false;
     preferXdgDirectories = true;
 
@@ -82,7 +78,6 @@ in
           paths = [ "${./latexindent/setting.yaml}" ];
         };
       };
-
     };
 
     # This value determines the Home Manager release that your configuration is
@@ -174,7 +169,6 @@ in
             "--wsEndpoint=wss://api.cloudflare.com/client/v4/accounts/''${account_id}/browser-rendering/devtools/browser?browser=kitesurf&keep_alive=600000" \
             "--wsHeaders=''${ws_headers}"
         '')
-
       ])
       ++ [
         # note: nix flake showでいい感じにoutputが見れる
@@ -215,6 +209,7 @@ in
       package = pkgsUnstable.github-copilot-cli;
       enableMcpIntegration = true;
     };
+
     claude-code = {
       enable = true;
       package = pkgsUnstable.claude-code;
@@ -235,6 +230,5 @@ in
         '';
       });
     };
-
   };
 }
