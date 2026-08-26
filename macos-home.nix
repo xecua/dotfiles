@@ -18,8 +18,28 @@ in
   nixpkgs.config.allowUnfreePackages = [
     "claude-code"
     "claude-agent-acp"
+    "github-copilot-cli"
     "intelephense"
   ];
+
+  xdg = {
+    configFile = {
+      wgetrc = {
+        target = "wgetrc";
+        text = "hsts-file = ${config.xdg.cacheHome}/wget-hsts";
+      };
+    };
+    dataFile = {
+      #   java-debug = {
+      #     target = "java-debug";
+      #     source = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug";
+      #   };
+      #   java-test = {
+      #     target = "java-test";
+      #     source = "${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test";
+      #   };
+    };
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -64,7 +84,7 @@ in
         usql
         rstcheck
 
-        (python314.withPackages (
+        (python3.withPackages (
           ps: with ps; [
             debugpy
           ]

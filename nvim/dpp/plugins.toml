@@ -243,6 +243,7 @@ require("agentic").setup({
     acp_providers = {
         ['claude-agent-acp'] ={ initial_model = "sonnet" },
         ['copilot-acp'] = { initial_model = "gpt-5.6-sol" },
+        opencode = { initial_model = "Qwen 3.8 Max" },
     },
     file_picker = { enable = false },
 })

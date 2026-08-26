@@ -42,9 +42,7 @@
       "Read(.env*)",
       "Edit(.env*)"
     ],
-    "ask": [
-      "Bash(git push)"
-    ],
+    "ask": ["Bash(git push)"],
     "defaultMode": "auto"
   },
   "model": "opus",
@@ -65,7 +63,8 @@
     "gopls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true
   },
   "advisorModel": "opus",
   "tui": "fullscreen",
