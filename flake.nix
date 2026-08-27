@@ -51,6 +51,8 @@
           pkgs = inputs'.nixpkgs-unstable.legacyPackages;
         in
         {
+          formatter = pkgs.nixfmt-tree;
+
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               fish-lsp

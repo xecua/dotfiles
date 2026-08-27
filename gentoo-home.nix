@@ -137,7 +137,7 @@ in
         #   exec ${vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb "$@"
         # '')
 
-        (python3.withPackages (
+        (python314.withPackages (
           ps: with ps; [
             debugpy
           ]
