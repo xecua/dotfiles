@@ -150,13 +150,12 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     # Describe machine specific configurations in ~/.profile.local
     ## example:
     # export XMODIFIERS=@im=fcitx
-    #
     # export LANG=ja_JP.UTF-8
     # export BROWSER=/usr/bin/vivaldi
     # export TERMINAL=/usr/bin/ghostty
     # export EDITOR=/usr/bin/nvim
     # export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    # export CONTAINERD_SNAPSHOTTER="stargz"
+    # export ZSHENV_VARS=($ZSHENV_VARS XMODIFIERS LANG BROWSER TERMINAL EDITOR SSH_AUTH_SOCK)
     if [ -e "$HOME/.zshenv.local" ]; then
         source "$HOME/.zshenv.local"
     fi

@@ -1,0 +1,19 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/xecua/dotfiles#readme",
+  "license": "MIT",
+  "author": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "intelephense": "^1.18.5"
+  }
+}

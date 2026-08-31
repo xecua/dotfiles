@@ -7,6 +7,17 @@
 #   target    : リンク先。省略時はリポジトリルート直下の `name`。リポジトリルートからの相対パスで指定する
 #               "{hostname}" はホスト名 (uname().nodename) に置換される
 #   condition : "exists" を指定すると、解決後の target (target 省略時は name) が存在しない場合そのエントリ自体をスキップする
+#
+# glob:
+#   リンク元 (target、省略時は name) には glob パターン (* ? [] **) を書ける。
+#   マッチしたそれぞれについてリンクが作られ、recursive はそのまま引き継がれる。
+#   マッチが0件ならそのエントリはスキップされる (警告が出る。condition: exists を付けると飛ばす)
+#   glob展開したエントリは recursive を付けなくても、リンク先の親ディレクトリが実体として作られる
+#
+#   - target 省略時: name 自体がパターン。リポジトリルートからの相対パスがそのままリンク名になる
+#       name: "systemd/user/*.service"  ->  $XDG_CONFIG_HOME/systemd/user/foo.service
+#   - target 指定時: パターン先頭の固定部分を取り除いた残りが name の下にぶら下がる
+#       name: jj/conf.d, target: "jj/hosts/*.toml"  ->  $XDG_CONFIG_HOME/jj/conf.d/foo.toml
 
 links:
   - name: dunst
@@ -69,17 +80,20 @@ links:
 
   - name: .agents/skills
     base: home
-    target: agents/skills
-    recursive: true
+    target: skills/*
+
+  - name: copilot/skills
+    base: config
+    target: skills/*
+
+  - name: claude/skills
+    base: config
+    target: skills/*
 
   - name: claude/settings.json
     base: config
 
   - name: claude/hooks
-    base: config
-    recursive: true
-
-  - name: claude/skills
     base: config
     recursive: true
 

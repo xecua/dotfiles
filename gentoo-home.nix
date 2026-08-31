@@ -107,7 +107,6 @@ in
         # gogup # いるかなあ
         captive-browser
 
-        intelephense
         oxfmt
         oxlint
         efm-langserver
@@ -147,6 +146,9 @@ in
         claude-agent-acp
         copilot-language-server
         bitwarden-cli
+
+        # stable is too old
+        intelephense
 
         # v0.* (assuming frequently updated)
         ty

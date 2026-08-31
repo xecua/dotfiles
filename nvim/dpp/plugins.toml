@@ -51,7 +51,9 @@ end, { desc = "Swap the current window with a picked window" })
 vim.keymap.set("n", "<Leader>ww", "<Cmd>SwapWindow<CR>")
 """
 lua_source = """
-require("window-picker").setup({})
+require("window-picker").setup({
+    selection_chars = 'abcdefghijklmnopqrstuvwxyz'
+})
 """
 
 [[plugins]]
@@ -247,6 +249,9 @@ require("agentic").setup({
     },
     file_picker = { enable = false },
 })
+"""
+lua_AgenticInput = """
+vim.keymap.set("i", "<C-u>", "pumvisible() ? '\\<C-e>\\<C-u>' : '\\<C-u>'")
 """
 
 [[plugins]]
