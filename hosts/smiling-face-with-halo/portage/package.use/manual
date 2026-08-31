@@ -1,6 +1,5 @@
 app-admin/doas persist
 app-admin/pass -X
-app-editors/vscode egl
 dev-lang/rust-bin rust-analyzer clippy rust-src
 dev-libs/tree-sitter-bash -python
 dev-qt/qt5compat icu
@@ -21,7 +20,7 @@ media-libs/libsdl2 gles2 # required by media-libs/libsdl2[wayland]
 media-libs/libsndfile minimal
 media-sound/mpd flac
 media-sound/playerctl introspection
-media-video/ffmpeg chromium v4l vaapi openal opencl vdpau
+media-video/ffmpeg v4l vaapi openal opencl vdpau
 media-video/ffmpeg-chromium nvenc vaapi vdpau
 media-video/obs-studio nvenc lua speex v4l websocket
 media-video/pipewire sound-server extra -jack-client jack-sdk pipewire-alsa v4l gstreamer
@@ -35,4 +34,6 @@ sys-auth/pambase homed
 sys-boot/refind btrfs ntfs
 sys-kernel/installkernel dracut refind systemd uki # ukify
 www-client/vivaldi proprietary-codecs ffmpeg-chromium
+www-client/vivaldi-snapshot proprietary-codecs ffmpeg-chromium
 x11-libs/gdk-pixbuf jpeg tiff
+x11-misc/xdg-user-dirs gtk

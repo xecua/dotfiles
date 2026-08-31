@@ -31,3 +31,6 @@
 # required by @selected
 # required by @world (argument)
 =app-i18n/libskk-1.1.1 ~amd64
+# required by www-client/vivaldi-snapshot-8.2.4126.4::gentoo[proprietary-codecs]
+# required by vivaldi-snapshot (argument)
+=media-video/ffmpeg-chromium-152 ~amd64

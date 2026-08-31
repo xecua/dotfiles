@@ -27,6 +27,7 @@ dev-util/opencode-bin
 dev-util/radare2
 dev-util/sccache
 dev-util/vscode-langservers-extracted
+dev-vcs/gibo
 dev-vcs/git
 dev-vcs/git-extras
 dev-vcs/git-filter-repo
@@ -38,7 +39,7 @@ gui-apps/awww
 gui-apps/kanshi
 gui-apps/swaylock-effects
 gui-apps/walker
-gui-apps/waybar
+gui-apps/waybar **
 gui-apps/wayidle
 gui-apps/waylock
 gui-apps/wf-recorder
@@ -61,5 +62,6 @@ sys-apps/hexyl
 sys-devel/wild
 sys-fs/dua-cli
 www-client/vivaldi
+www-client/vivaldi-snapshot
 x11-terms/ghostty
 x11-terms/ghostty-terminfo

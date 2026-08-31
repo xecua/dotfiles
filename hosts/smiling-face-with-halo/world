@@ -15,7 +15,6 @@ app-crypt/yubikey-manager
 app-crypt/yubioath-flutter-bin
 app-doc/eclass-manpages
 app-editors/neovim
-app-editors/vscode
 app-eselect/eselect-python
 app-eselect/eselect-repository
 app-i18n/fcitx
@@ -73,6 +72,7 @@ dev-util/ruff
 dev-util/sccache
 dev-util/tree-sitter-cli
 dev-util/vscode-langservers-extracted
+dev-vcs/gibo
 dev-vcs/git
 dev-vcs/git-extras
 dev-vcs/git-filter-repo
@@ -171,8 +171,10 @@ sys-kernel/gentoo-sources
 sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-process/bottom
+www-client/firefox-bin
 www-client/vivaldi
 x11-drivers/nvidia-drivers
 x11-misc/dunst
+x11-misc/xdg-user-dirs
 x11-terms/ghostty
 x11-themes/adwaita-qt
