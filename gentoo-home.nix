@@ -21,6 +21,57 @@ let
   #     [ ];
   chrome-executable = "/usr/bin/vivaldi";
   yamlFormatter = pkgs.formats.yaml { };
+
+  # codexは信用設定(projects.<path>.trust_level)やモデル選択を$CODEX_HOME/config.tomlに
+  # 書き戻すが、home-managerが張るのはstoreへのシンボリックリンクなので書き込めない。
+  # Unixでは管理者用の読み取り専用レイヤが/etc/codex配下固定なので逃がす先もない。
+  # そこでリンクはやめ、生成物を実ファイルへマージする。
+  codexHome = "${config.xdg.configHome}/codex";
+  # programs/codex.nixのconfigDirと同じ計算 ("/.config/codex/config.toml")
+  codexConfigAttr = "${lib.removePrefix config.home.homeDirectory config.xdg.configHome}/codex/config.toml";
+
+  codexConfigMerge = pkgs.writers.writePython3Bin "codex-config-merge" {
+    libraries = [ pkgs.python3Packages.tomlkit ];
+    flakeIgnore = [ "E501" ];
+  } ''
+    import os
+    import sys
+
+    import tomlkit
+
+
+    def merge(base, over):
+        for key, value in over.items():
+            if key in base and isinstance(base[key], dict) and isinstance(value, dict):
+                merge(base[key], value)
+            else:
+                base[key] = value
+
+
+    src, dst = sys.argv[1], sys.argv[2]
+
+    with open(src) as f:
+        overlay = tomlkit.parse(f.read())
+
+    try:
+        with open(dst) as f:
+            doc = tomlkit.parse(f.read())
+    except FileNotFoundError:
+        doc = tomlkit.document()
+
+    # mcp_serversはNix側を正とするので丸ごと差し替える。
+    # (深いマージだとNixから消したサーバが実ファイルに残り続ける)
+    doc.pop("mcp_servers", None)
+
+    merge(doc, overlay)
+
+    # tmp+renameにすることで、dstが前世代のstoreへのシンボリックリンクのまま
+    # 残っていても(読み取り専用のリンク先ではなく)実ファイルで置き換えられる
+    tmp = dst + ".hm-new"
+    with open(tmp, "w") as f:
+        f.write(tomlkit.dumps(doc))
+    os.replace(tmp, dst)
+  '';
 in
 {
   _module.args = {
@@ -39,6 +90,8 @@ in
   nixpkgs.config.allowUnfreePackages = [
     "claude-code"
     "claude-agent-acp"
+    "codex"
+    "codex-acp"
     "github-copilot-cli"
     "copilot-language-server"
     "intelephense"
@@ -78,7 +131,19 @@ in
           paths = [ "${./latexindent/setting.yaml}" ];
         };
       };
+
+      # 実体はhome.activation.codexConfigが書く。sourceは評価されたまま残るので参照できる
+      ${codexConfigAttr}.enable = lib.mkForce false;
     };
+
+    # linkGenerationの後でなければならない。writeBoundaryの時点では前世代の
+    # シンボリックリンクがまだ残っており、storeへ書きに行って失敗する
+    activation.codexConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      run mkdir -p ${lib.escapeShellArg codexHome}
+      run ${codexConfigMerge}/bin/codex-config-merge \
+        ${config.home.file.${codexConfigAttr}.source} \
+        ${lib.escapeShellArg "${codexHome}/config.toml"}
+    '';
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -144,6 +209,7 @@ in
       ])
       ++ (with pkgsUnstable; [
         claude-agent-acp
+        codex-acp
         copilot-language-server
         bitwarden-cli
 
@@ -209,6 +275,12 @@ in
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;
+      enableMcpIntegration = true;
+    };
+
+    codex = {
+      enable = true;
+      package = pkgsUnstable.codex;
       enableMcpIntegration = true;
     };
 

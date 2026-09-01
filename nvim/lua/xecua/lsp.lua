@@ -39,7 +39,7 @@ vim.lsp.enable({
 })
 
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
-vim.g.format_disabled_servers = { "typescript", "lua_ls", "sqls", "yamlls", "tombi" }
+vim.g.treesitter_disabled_filetypes = { "typescript", "lua_ls", "sqls", "yamlls", "tombi" }
 -- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
 vim.g.format_disabled_servers_onsave = {}
 local command_defined = { general = {}, nes = {}, format = {}, signature = {}, lens = {}, inline_completion = {} }
@@ -48,7 +48,7 @@ local command_defined = { general = {}, nes = {}, format = {}, signature = {}, l
 --- @param buffer integer
 local on_capability_updated = function(client, buffer)
     -- 無効化する (configのcapabilitiesだとうまいこといかんっぽい)
-    if vim.list_contains(vim.g.format_disabled_servers, client.name) then
+    if vim.list_contains(vim.g.treesitter_disabled_filetypes, client.name) then
         client.server_capabilities.documentFormattingProvider = nil
         client.server_capabilities.documentRangeFormattingProvider = nil
     end

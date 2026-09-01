@@ -82,10 +82,6 @@ links:
     base: home
     target: skills/*
 
-  - name: copilot/skills
-    base: config
-    target: skills/*
-
   - name: claude/skills
     base: config
     target: skills/*
