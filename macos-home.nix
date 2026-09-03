@@ -6,7 +6,6 @@
   ...
 }:
 let
-  chrome-executable = "/Applications/Vivaldi.app/Contents/MacOS/Vivaldi";
   yamlFormatter = pkgs.formats.yaml { };
 in
 {
@@ -73,7 +72,8 @@ in
       (with pkgs; [
         nil
         nixfmt
-        intelephense
+
+        # intelephense
         vim-language-server
         mermaid-cli
         vim-language-server
@@ -83,6 +83,7 @@ in
         lemminx
         usql
         rstcheck
+        google-clasp
 
         (python3.withPackages (
           ps: with ps; [
@@ -118,15 +119,7 @@ in
 
   mcp-servers.programs = {
     # mcp-servers-nix part
-    chrome-devtools = {
-      enable = true;
-      executable = chrome-executable;
-    };
     nixos.enable = true;
-    playwright = {
-      enable = true;
-      executable = chrome-executable;
-    };
   };
 
   # Let Home Manager install and manage itself.
@@ -143,6 +136,9 @@ in
       enable = true;
       servers = {
         kitesurf.command = "kitesurf-mcp";
+        postgres.command = "npx @microsoft/postgres-mcp";
+        mysql.command = "uvx mysql-mcp-server";
+        chrome-devtools.command = "chrome-devtools-mcp --auto-connect";
       };
     };
 

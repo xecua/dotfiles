@@ -160,8 +160,8 @@ in
       (with pkgs; [
         nil
         nixfmt
-        nix-tree
 
+        # intelephense
         tinymist
         serve
         unar
@@ -171,6 +171,7 @@ in
         # browsr
         # gogup # いるかなあ
         captive-browser
+        google-clasp
 
         oxfmt
         oxlint
@@ -212,9 +213,7 @@ in
         codex-acp
         copilot-language-server
         bitwarden-cli
-
-        # stable is too old
-        intelephense
+        android-cli
 
         # v0.* (assuming frequently updated)
         ty
@@ -251,10 +250,6 @@ in
       executable = chrome-executable;
     };
     nixos.enable = true;
-    playwright = {
-      enable = true;
-      executable = chrome-executable;
-    };
   };
 
   programs = {
@@ -269,6 +264,9 @@ in
       enable = true;
       servers = {
         kitesurf.command = "kitesurf-mcp";
+        postgres.command = "npx @microsoft/postgres-mcp";
+        mysql.command = "uvx mysql-mcp-server";
+        chrome-devtools.command = "chrome-devtools-mcp --auto-connect";
       };
     };
 
