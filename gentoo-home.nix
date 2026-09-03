@@ -19,9 +19,7 @@ let
   #     ]
   #   else
   #     [ ];
-  chrome-executable = "/usr/bin/vivaldi";
   yamlFormatter = pkgs.formats.yaml { };
-
 in
 {
   _module.args = {
@@ -45,6 +43,7 @@ in
     "github-copilot-cli"
     "copilot-language-server"
     "intelephense"
+    "android-cli"
   ];
 
   xdg = {
@@ -164,6 +163,7 @@ in
         hunk
         tuicr
 
+        # これもprograms.mcpでしか使わんし可能ならそっちに書きたい
         (writeShellScriptBin "kitesurf-mcp" ''
           set -euo pipefail
           account_id=$(${lib.getExe' bitwarden-cli "bw"} get username kitesurf)
@@ -184,10 +184,6 @@ in
 
   mcp-servers.programs = {
     # mcp-servers-nix part
-    chrome-devtools = {
-      enable = true;
-      executable = chrome-executable;
-    };
     nixos.enable = true;
   };
 
@@ -205,7 +201,9 @@ in
         kitesurf.command = "kitesurf-mcp";
         postgres.command = "npx @microsoft/postgres-mcp";
         mysql.command = "uvx mysql-mcp-server";
-        chrome-devtools.command = "chrome-devtools-mcp --auto-connect";
+        chrome-devtools.command = "${
+          lib.getExe inputs.mcp-servers-nix.packages.${pkgs.stdenv.hostPlatform.system}.chrome-devtools-mcp
+        } --auto-connect";
       };
     };
 

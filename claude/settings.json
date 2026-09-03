@@ -42,7 +42,9 @@
       "Read(.env*)",
       "Edit(.env*)"
     ],
-    "ask": ["Bash(git push)"],
+    "ask": [
+      "Bash(git push)"
+    ],
     "defaultMode": "auto"
   },
   "model": "opus",
@@ -64,7 +66,16 @@
     "lua-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
   },
   "advisorModel": "opus",
   "tui": "fullscreen",
