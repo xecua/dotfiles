@@ -1,5 +1,37 @@
 {
   "nodes": {
+    "awesome-copilot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788480488,
+        "narHash": "sha256-xR55lyARHe3R4oUnZIKgICfaCiEqW2xgcg1PonDwXsk=",
+        "owner": "github",
+        "repo": "awesome-copilot",
+        "rev": "7b1ebe6333397841ca918dec904d24d4695fe953",
+        "type": "github"
+      },
+      "original": {
+        "owner": "github",
+        "repo": "awesome-copilot",
+        "type": "github"
+      }
+    },
+    "file-search-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788476510,
+        "narHash": "sha256-YRxP1bHv1+c93cF/5Va35YvbjgQ/M9lvNCPSwqzlFsM=",
+        "owner": "netresearch",
+        "repo": "file-search-skill",
+        "rev": "eef2ae424b8c26b4334d40dbeea8cd0aa75d4bb1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "netresearch",
+        "repo": "file-search-skill",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -203,6 +235,8 @@
     },
     "root": {
       "inputs": {
+        "awesome-copilot": "awesome-copilot",
+        "file-search-skill": "file-search-skill",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "mcp-servers-nix": "mcp-servers-nix",

@@ -9,6 +9,8 @@ let
   yamlFormatter = pkgs.formats.yaml { };
 in
 {
+  imports = [ ./agents.nix ];
+
   _module.args.pkgsUnstable = import inputs.nixpkgs-unstable {
     inherit (pkgs.stdenv.hostPlatform) system;
     inherit (config.nixpkgs) config;
@@ -19,6 +21,7 @@ in
     "claude-agent-acp"
     "github-copilot-cli"
     "intelephense"
+    "android-cli"
   ];
 
   xdg = {
@@ -136,16 +139,26 @@ in
       enable = true;
       servers = {
         kitesurf.command = "kitesurf-mcp";
-        postgres.command = "npx @microsoft/postgres-mcp";
-        mysql.command = "uvx mysql-mcp-server";
-        chrome-devtools.command = "chrome-devtools-mcp --auto-connect";
+        # command にスペースを含めると posix_spawn がそのままの文字列を探して ENOENT になる。command と args を分ける
+        postgres = {
+          command = "npx";
+          args = [ "@microsoft/postgres-mcp" ];
+        };
+        mysql = {
+          command = "uvx";
+          args = [ "mysql-mcp-server" ];
+        };
+        # chrome-devtools は agents.plugins.browser (agents.nix) で定義する
       };
     };
 
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;
-      enableMcpIntegration = true;
+      # true にすると $COPILOT_HOME/mcp-config.json が store へのリンクとして生成され、
+      # Copilot の /mcp add 等が書き戻せない。programs.mcp.servers は
+      # agents.copilot (modules/agents/copilot.nix) が mcp-config.json に部分マージで載せる
+      enableMcpIntegration = false;
     };
 
     claude-code = {

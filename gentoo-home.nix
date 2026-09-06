@@ -22,6 +22,8 @@ let
   yamlFormatter = pkgs.formats.yaml { };
 in
 {
+  imports = [ ./agents.nix ];
+
   _module.args = {
     pkgsUnstable = import inputs.nixpkgs-unstable {
       inherit (pkgs.stdenv.hostPlatform) system;
@@ -151,7 +153,7 @@ in
         codex-acp
         copilot-language-server
         bitwarden-cli
-        android-cli
+        # android-cli は agents.toolSkills (agents.nix) が入れる
 
         # v0.* (assuming frequently updated)
         ty
@@ -199,24 +201,28 @@ in
       enable = true;
       servers = {
         kitesurf.command = "kitesurf-mcp";
-        postgres.command = "npx @microsoft/postgres-mcp";
-        mysql.command = "uvx mysql-mcp-server";
-        chrome-devtools.command = "${
-          lib.getExe inputs.mcp-servers-nix.packages.${pkgs.stdenv.hostPlatform.system}.chrome-devtools-mcp
-        } --auto-connect";
+        postgres = {
+          command = "npx";
+          args = [ "@microsoft/postgres-mcp" ];
+        };
+        mysql = {
+          command = "uvx";
+          args = [ "mysql-mcp-server" ];
+        };
       };
     };
 
+    # agents. enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;
-      enableMcpIntegration = true;
+      enableMcpIntegration = false;
     };
 
     codex = {
       enable = true;
       package = pkgsUnstable.codex;
-      enableMcpIntegration = true;
+      enableMcpIntegration = false;
     };
 
     claude-code = {

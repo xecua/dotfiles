@@ -78,21 +78,6 @@ links:
     base: config
     recursive: true
 
-  - name: .agents/skills
-    base: home
-    target: skills/*
-
-  - name: claude/skills
-    base: config
-    target: skills/*
-
-  - name: claude/settings.json
-    base: config
-
-  - name: claude/hooks
-    base: config
-    recursive: true
-
   - name: nvim
     base: config
 

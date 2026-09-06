@@ -28,6 +28,15 @@
       url = "github:retlehs/quien";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    file-search-skill = {
+      url = "github:netresearch/file-search-skill";
+      flake = false;
+    };
+    awesome-copilot = {
+      url = "github:github/awesome-copilot";
+      flake = false;
+    };
   };
 
   outputs =
@@ -110,6 +119,7 @@
               inherit pkgs;
               modules = [
                 mcp-servers-nix.homeManagerModules.default
+                ./modules/agents
                 homeModule
               ];
               extraSpecialArgs = {
