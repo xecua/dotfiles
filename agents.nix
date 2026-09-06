@@ -41,7 +41,6 @@ in
     };
 
     skills = {
-      ask-copilot = ./skills/ask-copilot;
       id3-tag-editor = ./skills/id3-tag-editor;
       sanitize-artifacts = ./skills/sanitize-artifacts;
       file-search = "${inputs.file-search-skill}/skills/file-search";
