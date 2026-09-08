@@ -110,19 +110,6 @@ in
       ])
       ++ (with pkgsUnstable; [
         claude-agent-acp
-        bitwarden-cli
-
-        (writeShellScriptBin "kitesurf-mcp" ''
-          set -euo pipefail
-          account_id=$(${lib.getExe' bitwarden-cli "bw"} get username kitesurf)
-          api_token=$(${lib.getExe' bitwarden-cli "bw"} get password kitesurf)
-          ws_headers=$(${lib.getExe jq} -nc --arg token "$api_token" '{Authorization: ("Bearer " + $token)}')
-          exec ${
-            lib.getExe inputs.mcp-servers-nix.packages.${stdenv.hostPlatform.system}.chrome-devtools-mcp
-          } \
-            "--wsEndpoint=wss://api.cloudflare.com/client/v4/accounts/''${account_id}/browser-rendering/devtools/browser?browser=kitesurf&keep_alive=600000" \
-            "--wsHeaders=''${ws_headers}"
-        '')
       ]);
   };
 
@@ -144,7 +131,6 @@ in
       # home-manager part
       enable = true;
       servers = {
-        kitesurf.command = "kitesurf-mcp";
         postgres = {
           command = "npx";
           args = [ "@microsoft/postgres-mcp" ];
