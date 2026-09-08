@@ -1,5 +1,10 @@
 -- keymaps
-vim.keymap.set("n", "<Esc><Esc>", "<Cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc><Esc>", function()
+    vim.cmd("nohlsearch")
+    -- clear multicursor
+    local mc_ns = vim.api.nvim_create_namespace("nvim.multicursor")
+    vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end)
 vim.keymap.set("n", "<C-[><C-[>", "<Cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<Leader>x", "<Cmd>silent cclose<CR><Bar><Cmd>silent lclose<CR>")
 vim.keymap.set("n", "zK", "<Cmd>normal! zszH<CR>")

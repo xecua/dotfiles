@@ -31,7 +31,7 @@ modules/agents/{claude-code,codex,copilot,tool-skills}.nix   # 各ホストへ�
 
 | 要素                   | Claude Code                                                                         | Codex                                                  | Copilot                                                        |
 | ---------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------- |
-| `agents.skills`        | `$CLAUDE_CONFIG_DIR/skills/<name>` → store                                          | `~/.agents/skills/<name>` → store                      | `~/.agents/skills` を直接見る                                  |
+| `agents.skills`        | `$CLAUDE_CONFIG_DIR/skills/<name>` → store                                          | `~/.agents/skills/<name>` → store (default.nix が張る) | 同左 (`~/.agents/skills` を直接見る)                           |
 | `agents.toolSkills`    | 同上 → `~/.agents/skills/<name>` (store 外リンク)                                   | CLI が `~/.agents/skills/<name>` に書く                | 同左                                                           |
 | `agents.plugins`       | `$CLAUDE_CONFIG_DIR/skills/<name>` → store (skills-dir plugin、`<name>@skills-dir`) | marketplace を config.toml に登録 + `codex plugin add` | marketplace を settings.json に登録 + `copilot plugin install` |
 | marketplace            | 使わない                                                                            | `$XDG_DATA_HOME/agents/marketplaces/<name>` (安定パス) | 同左                                                           |

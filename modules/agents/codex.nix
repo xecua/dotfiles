@@ -1,8 +1,9 @@
 # Codex CLI
 #
-# A (静的、home.file で store へリンク):
-#   - agents.skills.<name>      -> ~/.agents/skills/<name>   (Codex がネイティブに走査する場所。symlink 可)
-#   - agents.marketplace        -> $XDG_DATA_HOME/agents/marketplaces/<name> (default.nix。安定したパス)
+# A (静的、home.file で store へリンク。いずれも default.nix が張る):
+#   - agents.skills.<name>      -> ~/.agents/skills/<name>   (Codex がネイティブに走査する場所。symlink 可。
+#                                  Copilot も同じ場所を見るので codex.enable に依存させない)
+#   - agents.marketplace        -> $XDG_DATA_HOME/agents/marketplaces/<name> (安定したパス)
 # B (部分マージ、mergedFiles 経由で $CODEX_HOME/config.toml):
 #   - [marketplaces.<name>]  source_type = "local", source = <上の安定パス>
 #   - [plugins."<plugin>@<name>"] enabled = true
@@ -23,8 +24,8 @@
 }:
 let
   cfg = config.agents;
-  xcfg = config.agents.codex;
-  pcfg = config.programs.codex;
+  agents-config = config.agents.codex;
+  programs-config = config.programs.codex;
 
   # home-manager の programs/codex.nix と同じ計算 (preferXdgDirectories なら ~/.config/codex)
   codexHome =
@@ -34,23 +35,25 @@ let
       "${config.home.homeDirectory}/.codex";
 
   # programs/codex.nix の transformedMcpServers と同じ変換
-  sharedMcpServers = lib.optionalAttrs (xcfg.includeSharedMcpServers && config.programs.mcp.enable) (
-    lib.mapAttrs (
-      name: server:
-      lib.hm.mcp.transformMcpServer {
-        inherit server;
-        exclude = [
-          "headers"
-          "type"
-        ];
-        extraTransforms = [
-          (s: s // lib.optionalAttrs (s.headers or { } != { }) { http_headers = s.headers; })
-          lib.hm.mcp.addType
-          (lib.hm.mcp.wrapEnvFilesCommand { inherit pkgs name; })
-        ];
-      }
-    ) config.programs.mcp.servers
-  );
+  sharedMcpServers =
+    lib.optionalAttrs (agents-config.includeSharedMcpServers && config.programs.mcp.enable)
+      (
+        lib.mapAttrs (
+          name: server:
+          lib.hm.mcp.transformMcpServer {
+            inherit server;
+            exclude = [
+              "headers"
+              "type"
+            ];
+            extraTransforms = [
+              (s: s // lib.optionalAttrs (s.headers or { } != { }) { http_headers = s.headers; })
+              lib.hm.mcp.addType
+              (lib.hm.mcp.wrapEnvFilesCommand { inherit pkgs name; })
+            ];
+          }
+        ) config.programs.mcp.servers
+      );
 
   pluginIds = map (p: "${p}@${cfg.marketplace.name}") (
     lib.attrNames (lib.filterAttrs (_: p: lib.elem "codex" p.hosts) cfg.plugins)
@@ -60,7 +63,7 @@ in
   options.agents.codex = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = pcfg.enable;
+      default = programs-config.enable;
       defaultText = lib.literalExpression "config.programs.codex.enable";
       description = "Codex CLI に agents.* を反映する";
     };
@@ -84,17 +87,13 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && xcfg.enable) {
+  config = lib.mkIf (cfg.enable && agents-config.enable) {
     assertions = [
       {
-        assertion = pcfg.settings == { } && !pcfg.enableMcpIntegration;
+        assertion = programs-config.settings == { } && !programs-config.enableMcpIntegration;
         message = "agents.codex: programs.codex.settings / enableMcpIntegration は config.toml 全体を生成するため併用できません。agents.codex.settings / includeSharedMcpServers を使ってください";
       }
     ];
-
-    home.file = lib.mapAttrs' (
-      name: path: lib.nameValuePair ".agents/skills/${name}" { source = path; }
-    ) cfg.skills;
 
     mergedFiles.codex-config = {
       target = "${codexHome}/config.toml";
@@ -110,14 +109,14 @@ in
           });
         }
         // lib.optionalAttrs (sharedMcpServers != { }) { mcp_servers = sharedMcpServers; }
-      ) xcfg.settings;
+      ) agents-config.settings;
     };
 
     # activation 環境には CODEX_HOME (home.sessionVariables) が入っていないので明示する
     home.activation.agentsCodexPlugins = lib.hm.dag.entryAfter [ "mergedFiles" ] (
       lib.concatMapStrings (id: ''
         CODEX_HOME=${lib.escapeShellArg codexHome} run ${pkgs.coreutils}/bin/timeout 120 \
-          ${lib.getExe pcfg.package} plugin add ${lib.escapeShellArg id}
+          ${lib.getExe programs-config.package} plugin add ${lib.escapeShellArg id}
       '') pluginIds
     );
   };

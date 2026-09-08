@@ -2,6 +2,7 @@
 # skill / plugin / MCP を宣言的に管理するための共通モジュール。
 #
 #   agents.skills.<name>  = <SKILL.md を含むディレクトリ>;               # 全ホストの skill 置き場にエントリ単位でリンク
+#                                                                        # (~/.agents/skills/<name> はここで張る。Codex / Copilot 共通)
 #   agents.plugins.<name> = { description; mcpServers; skills; hooks; }; # plugin ディレクトリを derivation として構築
 #   agents.marketplace    = { name; owner; };                            # 上記 plugin 群をまとめた marketplace derivation
 #   agents.toolSkills.<t> = { package; installCommand; };                # サブコマンドで skill を置く CLI のブリッジ (tool-skills.nix)
@@ -204,7 +205,19 @@ in
   config = lib.mkIf cfg.enable {
     agents.marketplace.package = marketplacePackage;
     agents.marketplace.path = "${config.xdg.dataHome}/agents/marketplaces/${cfg.marketplace.name}";
-    home.file.${cfg.marketplace.path}.source = marketplacePackage;
+
+    home.file = lib.mkMerge [
+      { ${cfg.marketplace.path}.source = marketplacePackage; }
+
+      # Codex / Copilot はどちらも ~/.agents/skills をネイティブに走査する。
+      # どちらか一方だけが有効なホスト (macOS は Copilot のみ) でも skill が置かれるよう、
+      # ホスト別モジュールではなくここでリンクする
+      (lib.mkIf (cfg.codex.enable || cfg.copilot.enable) (
+        lib.mapAttrs' (
+          name: path: lib.nameValuePair ".agents/skills/${name}" { source = path; }
+        ) cfg.skills
+      ))
+    ];
 
     assertions = [
       {

@@ -20,16 +20,16 @@
 }:
 let
   cfg = config.agents;
-  ccfg = config.agents.claude-code;
-  pcfg = config.programs.claude-code;
+  agents-config = config.agents.claude-code;
+  programs-config = config.programs.claude-code;
   jsonFormat = pkgs.formats.json { };
-  skillsDir = "${pcfg.configDir}/skills";
+  skillsDir = "${programs-config.configDir}/skills";
 in
 {
   options.agents.claude-code = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = pcfg.enable;
+      default = programs-config.enable;
       defaultText = lib.literalExpression "config.programs.claude-code.enable";
       description = "Claude Code に agents.* を反映する";
     };
@@ -44,10 +44,10 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && ccfg.enable) {
+  config = lib.mkIf (cfg.enable && agents-config.enable) {
     assertions = [
       {
-        assertion = pcfg.settings == { } && pcfg.marketplaces == { };
+        assertion = programs-config.settings == { } && programs-config.marketplaces == { };
         message = "agents.claude-code: programs.claude-code.settings / marketplaces は settings.json 全体を生成するため併用できません。agents.claude-code.settings を使ってください";
       }
     ];
@@ -58,9 +58,9 @@ in
         lib.filterAttrs (_: p: lib.elem "claude-code" p.hosts) cfg.plugins
       );
 
-    mergedFiles.claude-code-settings = lib.mkIf (ccfg.settings != { }) {
-      target = "${pcfg.configDir}/settings.json";
-      fragment = ccfg.settings;
+    mergedFiles.claude-code-settings = lib.mkIf (agents-config.settings != { }) {
+      target = "${programs-config.configDir}/settings.json";
+      fragment = agents-config.settings;
       format = "json";
     };
   };

@@ -152,6 +152,7 @@ in
         claude-agent-acp
         codex-acp
         copilot-language-server
+        spec-kit
         bitwarden-cli
         # android-cli は agents.toolSkills (agents.nix) が入れる
 

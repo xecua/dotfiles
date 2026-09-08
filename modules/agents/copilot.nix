@@ -2,7 +2,8 @@
 #
 # A (静的):
 #   - skill: Copilot は ~/.agents/skills をネイティブに走査する (公式ドキュメント) ので、
-#     codex.nix が張る ~/.agents/skills/<name> と tool-skills.nix の生成物がそのまま見える。追加のリンクは不要
+#     default.nix が張る ~/.agents/skills/<name> と tool-skills.nix の生成物がそのまま見える。追加のリンクは不要
+#     (このリンクは以前 codex.nix にあったため、Codex が無く Copilot だけのホストでは置かれなかった)
 #   - marketplace: default.nix が $XDG_DATA_HOME/agents/marketplaces/<name> に置くものを使う
 # B (部分マージ、mergedFiles 経由):
 #   - $COPILOT_HOME/settings.json   extraKnownMarketplaces.<name> (source = directory) と enabledPlugins."<p>@<name>" = true
@@ -29,8 +30,8 @@
 }:
 let
   cfg = config.agents;
-  ccfg = config.agents.copilot;
-  pcfg = config.programs.github-copilot-cli;
+  agents-config = config.agents.copilot;
+  programs-config = config.programs.github-copilot-cli;
   jsonFormat = pkgs.formats.json { };
 
   # programs/github-copilot-cli.nix と同じ変換
@@ -50,19 +51,21 @@ let
     _: server: !(server.disabled or false) && (server ? url || server ? command)
   ) config.programs.mcp.servers;
 
-  sharedMcpServers = lib.optionalAttrs (ccfg.includeSharedMcpServers && config.programs.mcp.enable) (
-    lib.mapAttrs (
-      name: server:
-      lib.hm.mcp.transformMcpServer {
-        inherit server;
-        extraTransforms = [
-          lib.hm.mcp.addType
-          (lib.hm.mcp.wrapEnvFilesCommand { inherit pkgs name; })
-          forCopilotFormat
-        ];
-      }
-    ) enabledServers
-  );
+  sharedMcpServers =
+    lib.optionalAttrs (agents-config.includeSharedMcpServers && config.programs.mcp.enable)
+      (
+        lib.mapAttrs (
+          name: server:
+          lib.hm.mcp.transformMcpServer {
+            inherit server;
+            extraTransforms = [
+              lib.hm.mcp.addType
+              (lib.hm.mcp.wrapEnvFilesCommand { inherit pkgs name; })
+              forCopilotFormat
+            ];
+          }
+        ) enabledServers
+      );
 
   pluginIds = map (p: "${p}@${cfg.marketplace.name}") (
     lib.attrNames (lib.filterAttrs (_: p: lib.elem "copilot" p.hosts) cfg.plugins)
@@ -72,7 +75,7 @@ in
   options.agents.copilot = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = pcfg.enable;
+      default = programs-config.enable;
       defaultText = lib.literalExpression "config.programs.github-copilot-cli.enable";
       description = "GitHub Copilot CLI に agents.* を反映する";
     };
@@ -97,17 +100,20 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.enable && ccfg.enable) {
+  config = lib.mkIf (cfg.enable && agents-config.enable) {
     assertions = [
       {
-        assertion = pcfg.settings == { } && pcfg.mcpServers == { } && !pcfg.enableMcpIntegration;
+        assertion =
+          programs-config.settings == { }
+          && programs-config.mcpServers == { }
+          && !programs-config.enableMcpIntegration;
         message = "agents.copilot: programs.github-copilot-cli.settings / mcpServers / enableMcpIntegration はファイル全体を生成するため併用できません。agents.copilot.settings / includeSharedMcpServers を使ってください";
       }
     ];
 
     mergedFiles = {
       copilot-settings = {
-        target = "${pcfg.configDir}/settings.json";
+        target = "${programs-config.configDir}/settings.json";
         format = "json";
         fragment = lib.recursiveUpdate {
           extraKnownMarketplaces.${cfg.marketplace.name}.source = {
@@ -115,11 +121,11 @@ in
             path = cfg.marketplace.path;
           };
           enabledPlugins = lib.genAttrs pluginIds (_: true);
-        } ccfg.settings;
+        } agents-config.settings;
       };
 
       copilot-mcp-config = lib.mkIf (sharedMcpServers != { }) {
-        target = "${pcfg.configDir}/mcp-config.json";
+        target = "${programs-config.configDir}/mcp-config.json";
         format = "json";
         fragment = {
           mcpServers = sharedMcpServers;
@@ -130,8 +136,8 @@ in
     # activation 環境には COPILOT_HOME (home.sessionVariables) が入っていないので明示する
     home.activation.agentsCopilotPlugins = lib.hm.dag.entryAfter [ "mergedFiles" ] (
       lib.concatMapStrings (id: ''
-        COPILOT_HOME=${lib.escapeShellArg pcfg.configDir} run ${pkgs.coreutils}/bin/timeout 120 \
-          ${lib.getExe pcfg.package} plugin install ${lib.escapeShellArg id}
+        COPILOT_HOME=${lib.escapeShellArg programs-config.configDir} run ${pkgs.coreutils}/bin/timeout 120 \
+          ${lib.getExe programs-config.package} plugin install ${lib.escapeShellArg id}
       '') pluginIds
     );
   };

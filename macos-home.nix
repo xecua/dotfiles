@@ -11,7 +11,6 @@ in
 {
   imports = [ ./agents.nix ];
 
-  # ask-copilot は Copilot CLI が入っている xecua@apple 限定、かつ Claude Code だけで使う skill
   agents.plugins.ask-copilot = {
     description = "Copilot CLIを使用してコードや文言について相談・レビューを行う";
     hosts = [ "claude-code" ];
@@ -95,7 +94,7 @@ in
         rstcheck
         google-clasp
 
-        (python3.withPackages (
+        (python314.withPackages (
           ps: with ps; [
             debugpy
           ]
@@ -146,7 +145,6 @@ in
       enable = true;
       servers = {
         kitesurf.command = "kitesurf-mcp";
-        # command にスペースを含めると posix_spawn がそのままの文字列を探して ENOENT になる。command と args を分ける
         postgres = {
           command = "npx";
           args = [ "@microsoft/postgres-mcp" ];
@@ -155,16 +153,13 @@ in
           command = "uvx";
           args = [ "mysql-mcp-server" ];
         };
-        # chrome-devtools は agents.plugins.browser (agents.nix) で定義する
       };
     };
 
+    # agents. enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;
-      # true にすると $COPILOT_HOME/mcp-config.json が store へのリンクとして生成され、
-      # Copilot の /mcp add 等が書き戻せない。programs.mcp.servers は
-      # agents.copilot (modules/agents/copilot.nix) が mcp-config.json に部分マージで載せる
       enableMcpIntegration = false;
     };
 
