@@ -32,6 +32,7 @@ app-misc/solaar
 app-misc/tmux
 app-misc/trash-cli
 app-office/obsidian
+app-portage/cpuid2cpuflags
 app-portage/eix
 app-portage/gentoolkit
 app-portage/mirrorselect
@@ -172,6 +173,7 @@ sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-process/bottom
 www-client/firefox-bin
+www-client/floorp-bin
 www-client/vivaldi
 x11-drivers/nvidia-drivers
 x11-misc/dunst

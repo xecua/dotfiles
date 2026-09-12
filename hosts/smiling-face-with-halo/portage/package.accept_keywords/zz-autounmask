@@ -34,3 +34,79 @@
 # required by www-client/vivaldi-snapshot-8.2.4126.4::gentoo[proprietary-codecs]
 # required by vivaldi-snapshot (argument)
 =media-video/ffmpeg-chromium-152 ~amd64
+# required by dev-qt/qtdeclarative-6.11.2-r1::gentoo
+# required by dev-qt/qtquicktimeline-6.11.2::gentoo
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtshadertools-6.11.2 ~amd64
+# required by dev-qt/qtdeclarative-6.11.2-r1::gentoo
+# required by dev-qt/qtquicktimeline-6.11.2::gentoo
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtbase-6.11.2-r2 ~amd64
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtquick3d-6.11.2 ~amd64
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtquicktimeline-6.11.2 ~amd64
+# required by app-i18n/fcitx-configtool-5.1.15::gentoo
+# required by @selected
+# required by @world (argument)
+=app-i18n/fcitx-5.1.22 ~amd64
+# required by dev-qt/qtbase-6.11.2-r2::gentoo[nls]
+# required by dev-qt/qtsvg-6.11.2::gentoo
+# required by dev-qt/qtdeclarative-6.11.2-r1::gentoo[svg]
+# required by dev-qt/qtquicktimeline-6.11.2::gentoo
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qttranslations-6.11.2 ~amd64
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtmultimedia-6.11.2 ~amd64
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtdeclarative-6.11.2-r1 ~amd64
+# required by dev-qt/qttranslations-6.11.2::gentoo
+# required by dev-qt/qtbase-6.11.2-r2::gentoo[nls]
+# required by dev-qt/qtsvg-6.11.2::gentoo
+# required by dev-qt/qtdeclarative-6.11.2-r1::gentoo[svg]
+# required by dev-qt/qtquicktimeline-6.11.2::gentoo
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qttools-6.11.2 ~amd64
+# required by dev-qt/qtdeclarative-6.11.2-r1::gentoo[svg]
+# required by dev-qt/qtquicktimeline-6.11.2::gentoo
+# required by dev-qt/qtquick3d-6.11.2::gentoo
+# required by dev-qt/qtmultimedia-6.11.2::gentoo[qml]
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qtsvg-6.11.2 ~amd64
+# required by kde-frameworks/qqc2-desktop-style-6.27.0::gentoo
+# required by kde-misc/kdeconnect-26.08.1::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-qt/qt5compat-6.11.2 ~amd64
+# required by @__auto_slot_operator_replace_installed__ (argument)
+=dev-qt/qtwayland-6.11.2 ~amd64
