@@ -563,7 +563,6 @@ repo = 'mattn/vim-maketable'
 # Syntax Highlighting
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-rev = 'main'
 hook_post_update = "TSUpdate"
 lua_source = """
 require("nvim-treesitter").setup({
@@ -585,7 +584,6 @@ require('treesitter-context').setup({})
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-textobjects'
-rev = 'main'
 lua_add = """
 -- select
 vim.keymap.set({ "x", "o" }, "am", function()

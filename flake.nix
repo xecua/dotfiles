@@ -28,6 +28,10 @@
       url = "github:retlehs/quien";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sabiql = {
+      url = "github:riii111/sabiql";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     file-search-skill = {
       url = "github:netresearch/file-search-skill";

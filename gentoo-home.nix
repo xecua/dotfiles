@@ -121,7 +121,6 @@ in
         lemminx
         typos-lsp
 
-        usql
         hayagriva
         # xwayland-satellite # これもnixGLいりそう
         usage
@@ -182,6 +181,9 @@ in
       ++ [
         # note: nix flake showでいい感じにoutputが見れる
         inputs.quien.packages.${pkgs.stdenv.hostPlatform.system}.quien
+        (inputs.sabiql.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (oldAttrs: {
+          doCheck = false;
+        }))
       ];
   };
 

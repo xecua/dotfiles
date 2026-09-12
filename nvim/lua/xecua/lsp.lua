@@ -42,7 +42,7 @@ local augroup = vim.api.nvim_create_augroup("Lsp", {})
 vim.g.treesitter_disabled_filetypes = { "typescript", "lua_ls", "sqls", "yamlls", "tombi" }
 -- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
 vim.g.format_disabled_servers_onsave = {}
-local command_defined = { general = {}, nes = {}, format = {}, signature = {}, lens = {}, inline_completion = {} }
+local command_defined = { general = {}, nes = {}, format = {}, signature = {}, inline_completion = {} }
 
 --- @param client vim.lsp.Client
 --- @param buffer integer
@@ -91,14 +91,6 @@ local on_capability_updated = function(client, buffer)
 
     if client:supports_method("textDocument/codeLens") then
         vim.lsp.codelens.enable(true, { client_id = client.id })
-        if not command_defined.lens[buffer] then
-            command_defined.lens[buffer] = true
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-                group = augroup,
-                buffer = buffer,
-                command = "lua vim.lsp.codelens.enable()",
-            })
-        end
     end
 
     if client:supports_method("textDocument/inlineCompletion") then
@@ -233,6 +225,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.api.nvim_buf_create_user_command(buffer, "LspWorkspaceSymbol", "lua vim.lsp.buf.workspace_symbol()", {})
             vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
             vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
+            vim.api.nvim_buf_create_user_command(buffer, "LspCodeLensRun", "lua vim.lsp.codelens.run()", {})
             vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
 
             local mapopts = { buffer = buffer, silent = true }
@@ -247,14 +240,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", "<Leader>lsp", "<Cmd>LspSupertypes<CR>", mapopts)
             vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", mapopts)
             vim.keymap.set({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lci", "<Cmd>LspIncomingCalls<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lco", "<Cmd>LspOutgoingCalls<CR>", mapopts)
-            vim.keymap.set(
-                "n",
-                "<Leader>ll",
-                "<Cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>",
-                mapopts
-            )
+            vim.keymap.set("n", "<Leader>l,", "<Cmd>LspIncomingCalls<CR>", mapopts) -- ,+shift = < のきもち
+            vim.keymap.set("n", "<Leader>l.", "<Cmd>LspOutgoingCalls<CR>", mapopts) --.+shift = >
+            vim.keymap.set("n", "<Leader>lc", "<Cmd>LspCodeLensRun<CR>", mapopts)
+            vim.keymap.set("n", "<Leader>ll", function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
+            end, mapopts)
             vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", mapopts)
         end
 

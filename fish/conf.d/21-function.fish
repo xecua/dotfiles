@@ -107,8 +107,8 @@ function switch_zmx_session
     end
 
     set -f selected (printf '%s\n' $candidates | fzf \
-        --preview='zmx history --vt $(echo {} | sed -E "s/→?\s+(\S+).*/\1/")'\
-        --preview-window=right:60%:follow \
+        --preview='zmx history --vt $(echo {} | sed -E "s/→?[[:space:]]+([^[:space:]]+).*/\1/")'\
+        --preview-window=right,60%,follow \
     )
 
     if test -n "$selected"

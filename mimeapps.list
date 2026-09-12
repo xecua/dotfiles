@@ -1,8 +1,8 @@
 [Default Applications]
 x-scheme-handler/obsidian=obsidian.desktop
-text/html=vivaldi-snapshot.desktop
-x-scheme-handler/http=vivaldi-snapshot.desktop
-x-scheme-handler/https=vivaldi-snapshot.desktop
+text/html=userapp-Firefox-9O4VV3.desktop
+x-scheme-handler/http=userapp-Firefox-9O4VV3.desktop
+x-scheme-handler/https=userapp-Firefox-9O4VV3.desktop
 x-scheme-handler/webcal=vivaldi-snapshot.desktop
 x-scheme-handler/jetbrains=jetbrainsd.desktop
 x-scheme-handler/apidog=apidog.desktop
@@ -12,5 +12,22 @@ application/pdf=vivaldi-snapshot.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/claude=com.anthropic.Claude.desktop
 x-scheme-handler/bitwarden=bitwarden.desktop
+x-scheme-handler/chrome=userapp-Firefox-9O4VV3.desktop
+application/x-extension-htm=userapp-Firefox-9O4VV3.desktop
+application/x-extension-html=userapp-Firefox-9O4VV3.desktop
+application/x-extension-shtml=userapp-Firefox-9O4VV3.desktop
+application/xhtml+xml=userapp-Firefox-9O4VV3.desktop
+application/x-extension-xhtml=userapp-Firefox-9O4VV3.desktop
+application/x-extension-xht=userapp-Firefox-9O4VV3.desktop
 
 [Added Associations]
+x-scheme-handler/http=userapp-Firefox-9O4VV3.desktop;
+x-scheme-handler/https=userapp-Firefox-9O4VV3.desktop;
+x-scheme-handler/chrome=userapp-Firefox-9O4VV3.desktop;
+text/html=userapp-Firefox-9O4VV3.desktop;
+application/x-extension-htm=userapp-Firefox-9O4VV3.desktop;
+application/x-extension-html=userapp-Firefox-9O4VV3.desktop;
+application/x-extension-shtml=userapp-Firefox-9O4VV3.desktop;
+application/xhtml+xml=userapp-Firefox-9O4VV3.desktop;
+application/x-extension-xhtml=userapp-Firefox-9O4VV3.desktop;
+application/x-extension-xht=userapp-Firefox-9O4VV3.desktop;
