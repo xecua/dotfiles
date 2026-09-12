@@ -8,8 +8,9 @@ git:
   branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
   allBranchesLogCmds:
     - git log --all --graph --date=short --pretty=short-oneline --color=always
-  pagers:
-    - externalDiffCommand: "difft --color=always --display=inline"
+  diffRenderers:
+    - command: "difft --color=always --display=inline"
+      type: extDiff
 keybinding:
   universal:
     quit: <c-c>
