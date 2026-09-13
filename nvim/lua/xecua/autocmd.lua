@@ -41,14 +41,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
-    group = augroup,
-    callback = function()
-        if vim.opt_local.readonly:get() then
-            vim.diagnostic.enable(false, { bufnr = 0 })
-        end
-    end,
-})
 vim.api.nvim_create_autocmd("VimResized", {
     group = augroup,
     callback = function()

@@ -18,3 +18,13 @@ vim.diagnostic.config({
     float = { border = "single", format = format_diag, suffix = "" },
     signs = false,
 })
+
+local augroup = vim.api.nvim_create_augroup("xecua.diagnostic", { clear = true })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
+    group = augroup,
+    callback = function()
+        if vim.opt_local.readonly:get() then
+            vim.diagnostic.enable(false, { bufnr = 0 })
+        end
+    end,
+})

@@ -243,9 +243,9 @@ require("agentic").setup({
         hide_unhealthy_providers = true
     },
     acp_providers = {
-        ['claude-agent-acp'] ={ initial_model = "sonnet" },
-        ['copilot-acp'] = { initial_model = "gpt-5.6-sol" },
-        ['codex-acp'] = { initial_model = "gpt-5.6-sol" },
+        ['claude-agent-acp'] ={ initial_model = "opus" },
+        ['copilot-acp'] = { initial_model = "gpt-6-astra" },
+        ['codex-acp'] = { initial_model = "gpt-5.6-luna", default_thought_level = "max" },
         opencode = { initial_model = "Qwen 3.8 Max" },
     },
     file_picker = { enable = false },

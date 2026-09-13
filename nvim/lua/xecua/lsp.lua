@@ -114,17 +114,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client.name == "copilot" then
             if
-                vim.list_contains({
+                vim.g.disable_copilot
+                or vim.opt_local.readonly:get()
+                or vim.list_contains({
                     "markdown",
-                    "ddu-filter",
+                    "asciidoc",
+                    "rst",
+                    "textile",
+                    "satysfi",
+                    "typst",
                     "dap-repl",
                     "dap-view",
                     "dap-view-term",
                     "dap-view-help",
-                }, vim.opt_local.filetype:get()) or vim.g.disable_copilot
+                }, vim.opt_local.filetype:get())
             then
-                -- VimEnterで起動するときはg:copilot_filetypesが無視される
-                client:stop()
+                vim.lsp.buf_detach_client(buffer, client.id)
                 return
             end
 
