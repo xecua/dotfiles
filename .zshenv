@@ -152,6 +152,7 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
     # export XMODIFIERS=@im=fcitx
     # export LANG=ja_JP.UTF-8
     # export BROWSER=/usr/bin/vivaldi
+    # export BROWSER=/usr/bin/floorp
     # export TERMINAL=/usr/bin/ghostty
     # export EDITOR=/usr/bin/nvim
     # export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"

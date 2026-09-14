@@ -91,31 +91,24 @@ function new_zmx_session
 end
 
 function switch_zmx_session
-    # zmx lsの先頭に現在のセッション名の先頭に\u2192がつく するとfzfの見た目が悪くなるのでいい感じにしたい
-    set -f existing (zmx ls 2>/dev/null)
-    set -f candidates # empty list
-    for session in $existing
-        set -l current_marker (string match -r '^→' $session)
-        set session (string replace -r '^→' '' $session)
-        # @fish-lsp-disable-next-line 4004
-        string trim $session | read -l -d (printf '\t') name pid clients _unused dir
-        set -l _name (string replace 'name=' '' $name)
-        set -l _pid (string replace 'pid=' '' $pid)
-        set -l _clients (string replace 'clients=' '' $clients)
-        set -l _dir (string replace 'start_dir=' '' $dir)
-        set -a candidates (printf "%-2s %-20s (pid:%-8s clients:%-2s %s)\n" "$current_marker" "$_name" "$_pid" "$_clients" "$_dir")
-    end
-
-    set -f selected (printf '%s\n' $candidates | fzf \
-        --preview='zmx history --vt $(echo {} | sed -E "s/→?[[:space:]]+([^[:space:]]+).*/\1/")'\
+    set -f selected (zmx ls --short | fzf \
+        --preview='zmx history --vt {}'\
         --preview-window=right,60%,follow \
     )
 
     if test -n "$selected"
-        zmx attach $s (echo $selected | sed -E 's/→?\s+(\S+).*/\1/')
-    else
-        zmx attach $current_session
+        zmx attach $s (echo $selected)
     end
+end
+
+function kill_zmx_sessions
+    set -f selected (zmx ls --short | fzf \
+        --multi \
+        --preview='zmx history --vt {}'\
+        --preview-window=right,60%,follow \
+    )
+
+    zmx kill $selected
 end
 
 # mkdir and cd

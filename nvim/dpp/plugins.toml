@@ -679,6 +679,10 @@ on_ft = 'swift'
 repo = 'kaarmu/typst.vim'
 on_ft = 'typst'
 
+[[plugins]]
+repo = 'chomosuke/typst-preview.nvim'
+on_ft = 'typst'
+
 # Handlebars
 [[plugins]]
 repo = 'mustache/vim-mustache-handlebars'

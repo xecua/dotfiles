@@ -42,10 +42,11 @@
       "Read(.env*)",
       "Edit(.env*)"
     ],
-    "ask": [
-      "Bash(git push)"
-    ],
+    "ask": ["Bash(git push)"],
     "defaultMode": "auto"
+  },
+  "env": {
+    "CLAUDE_CODE_THRIFTY_SONIC": "false"
   },
   "model": "opus",
   "hooks": {
@@ -77,7 +78,6 @@
       }
     }
   },
-  "advisorModel": "opus",
   "tui": "fullscreen",
   "editorMode": "vim",
   "inputNeededNotifEnabled": true,
