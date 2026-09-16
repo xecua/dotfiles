@@ -12,7 +12,17 @@ local function register_javascript_regex()
     vim.keymap.set("v", "a/", "<Cmd>normal! F/of/<CR>", { buffer = true })
 end
 
+local function indent_by_space(size)
+    vim.opt_local.shiftwidth = size
+end
+
+local function indent_by_tab()
+    vim.opt_local.expandtab = false
+    vim.opt_local.shiftwidth = 0 -- -> use tabstop
+end
+
 hooks.markdown = function()
+    indent_by_space(2)
     local line_count = vim.api.nvim_buf_line_count(0)
     if line_count == 1 then
         local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)
@@ -23,101 +33,101 @@ hooks.markdown = function()
 end
 
 hooks.astro = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.c = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.cpp = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.dart = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.css = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.html = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.javascript = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.javascriptreact = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.typescript = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.typescriptreact = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.typespec = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.nix = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.json = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.jsonc = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.rst = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.satysfi = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.sql = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.vim = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.vue = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
     register_javascript_regex()
 end
 
 hooks.xml = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.yaml = function()
-    vim.opt_local.tabstop = 2
+    indent_by_space(2)
 end
 
 hooks.go = function()
-    vim.opt_local.expandtab = false
+    indent_by_tab()
 end
 
 hooks.make = function()
-    vim.opt_local.expandtab = false
+    indent_by_tab()
 end
 
 hooks.csv = function()
@@ -125,14 +135,12 @@ hooks.csv = function()
 end
 
 hooks.tsv = function()
-    vim.opt_local.expandtab = false
+    indent_by_tab()
     vim.opt_local.wrap = false
 end
 
 hooks.snippets = function()
-    vim.opt_local.softtabstop = -1
-    vim.opt_local.shiftwidth = 0
-    vim.opt_local.expandtab = false
+    indent_by_tab()
 end
 
 hooks.tex = function()
@@ -140,7 +148,7 @@ hooks.tex = function()
 end
 
 hooks.gitconfig = function()
-    vim.opt_local.expandtab = false
+    indent_by_tab()
 end
 
 hooks.php = function()

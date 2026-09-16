@@ -109,4 +109,4 @@
 [include]
 	path = ~/.gitconfig.local
 
-# vim:noet:ft=gitconfig
+# vim:noet:sts=4:sw=4:ts=4:ft=gitconfig

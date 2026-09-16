@@ -15,10 +15,10 @@
 #   3. installCommand を実行する
 #
 # 各ホストからの見え方:
-#   - Codex / Copilot: ~/.agents/skills をネイティブに走査するのでブリッジ不要
-#   - Claude Code: $CLAUDE_CONFIG_DIR/skills/<name> -> ~/.agents/skills/<name> の
-#     (store 外への) シンボリックリンクを張る。CLI 側の `--skills claude` は
-#     CLAUDE_CONFIG_DIR を見ず ~/.claude/skills に書くので使わない
+#   - Codex: ~/.agents/skills をネイティブに走査するのでブリッジ不要
+#   - Claude Code / Copilot: $CLAUDE_CONFIG_DIR/skills/<name>, $COPILOT_HOME/skills/<name>
+#     -> ~/.agents/skills/<name> の (store 外への) シンボリックリンクを張る。
+#     CLI 側の `--skills claude` は CLAUDE_CONFIG_DIR を見ず ~/.claude/skills に書くので使わない
 {
   config,
   lib,
@@ -29,6 +29,7 @@ let
   cfg = config.agents;
   tcfg = config.agents.toolSkills;
   agentsSkillsDir = "${config.home.homeDirectory}/.agents/skills";
+  copilotSkillsDir = "${config.programs.github-copilot-cli.configDir}/skills";
   claudeSkillsDir = "${config.programs.claude-code.configDir}/skills";
 
   toolModule =
@@ -100,16 +101,21 @@ in
       )
     );
 
-    # Claude Code へのブリッジ (store 外へのリンク)
-    home.file = lib.optionalAttrs cfg.claude-code.enable (
-      lib.listToAttrs (
-        map (
-          skill:
-          lib.nameValuePair "${claudeSkillsDir}/${skill}" {
-            source = config.lib.file.mkOutOfStoreSymlink "${agentsSkillsDir}/${skill}";
-          }
-        ) allToolSkills
-      )
-    );
+    # Claude Code / Copilot へのブリッジ (store 外へのリンク)
+    home.file =
+      let
+        bridge =
+          dir:
+          lib.listToAttrs (
+            map (
+              skill:
+              lib.nameValuePair "${dir}/${skill}" {
+                source = config.lib.file.mkOutOfStoreSymlink "${agentsSkillsDir}/${skill}";
+              }
+            ) allToolSkills
+          );
+      in
+      lib.optionalAttrs cfg.claude-code.enable (bridge claudeSkillsDir)
+      // lib.optionalAttrs cfg.copilot.enable (bridge copilotSkillsDir);
   };
 }

@@ -31,8 +31,8 @@ vim.opt.exrc = true
 
 vim.opt.expandtab = true -- tabstop個の連続したスペースをtabに変換しない
 vim.opt.softtabstop = -1 -- <Tab>・<BS>での移動幅(-1 => shiftwidth)
-vim.opt.shiftwidth = 0 -- 改行・<</>>でのインデント量(0 => tabstop)
-vim.opt.tabstop = 4 -- tab文字の幅
+vim.opt.shiftwidth = 4 -- 改行・<</>>でのインデント量(0 => tabstop)
+vim.opt.tabstop = 4 -- tab文字がN*tabstop列目にalignする
 vim.opt.smartindent = true
 
 vim.opt.ignorecase = true

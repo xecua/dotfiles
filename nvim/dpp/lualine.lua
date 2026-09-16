@@ -10,10 +10,11 @@ local function fileformat()
 end
 
 local function shiftwidth()
-    -- インデントがタブかどうか、タブ幅はどうか(expandtabとtabstopしかいじらないようにしてるのでその2つで判別可能)
-    local indentation = vim.o.expandtab and "Space" or "Tab"
-    local width = vim.o.tabstop
-    return indentation .. ":" .. width
+    if vim.o.expandtab then
+        return "Space:" .. vim.o.shiftwidth
+    else
+        return "Tab"
+    end
 end
 
 local function ddu()

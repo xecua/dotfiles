@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     group = augroup,
     callback = function()
         -- FileType/editorconfig/modelineを経て確定したtabstopをlistcharsに反映
-        local leadmultispace = ">" .. string.rep("･", vim.bo.tabstop - 1)
+        local leadmultispace = ">" .. string.rep("･", vim.bo.shiftwidth - 1)
         vim.opt_local.listchars = vim.tbl_extend("force", vim.opt.listchars:get(), { leadmultispace = leadmultispace })
     end,
 })
