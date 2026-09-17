@@ -142,7 +142,7 @@ in
       };
     };
 
-    # agents. enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
+    # agents.enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;

@@ -46,6 +46,7 @@ in
     "copilot-language-server"
     "intelephense"
     "android-cli"
+    "antigravity-cli"
   ];
 
   xdg = {
@@ -215,7 +216,7 @@ in
       };
     };
 
-    # agents. enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
+    # agents.enableMcpIntegration=trueにするとstoreへのsymlinkになるのでfalseにして、activate時に設定から部分マージする
     github-copilot-cli = {
       enable = true;
       package = pkgsUnstable.github-copilot-cli;
@@ -233,6 +234,12 @@ in
       package = pkgsUnstable.claude-code;
       enableMcpIntegration = true;
       configDir = "${config.xdg.configHome}/claude";
+    };
+
+    antigravity-cli = {
+      enable = true;
+      package = pkgsUnstable.antigravity-cli;
+      enableMcpIntegration = false;
     };
 
     direnv = {

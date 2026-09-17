@@ -3,7 +3,7 @@
 home-manager (flake) で管理する個人用 dotfiles。Gentoo (`gentoo-home.nix`) と macOS (`macos-home.nix`) の 2 系統。
 シンボリックリンクだけの設定は `links.yaml` + `setup.py`、Nix で扱うものは `*.nix` に書く。
 
-## AI エージェント (Claude Code / Codex CLI / Copilot CLI) 設定
+## AI エージェント (Claude Code / Codex CLI / Copilot CLI / Antigravity CLI) 設定
 
 skill・plugin・MCP の宣言は `agents.nix`、機構は `modules/` にある。
 
@@ -15,7 +15,7 @@ skills/<name>/SKILL.md        # 自作 skill
 pkgs/playwright-cli.nix       # @playwright/cli (nixpkgs に無い)
 modules/merged-files.nix      # mergedFiles.<name> = { target; fragment; format = "json"|"toml"; }
 modules/agents/default.nix    # agents.* オプション、plugin / marketplace derivation
-modules/agents/{claude-code,codex,copilot,tool-skills}.nix   # 各ホストへの繋ぎ込み
+modules/agents/{claude-code,codex,copilot,antigravity,tool-skills}.nix   # 各ホストへの繋ぎ込み
 ```
 
 ### ファイルは A / B に分ける
@@ -25,7 +25,7 @@ modules/agents/{claude-code,codex,copilot,tool-skills}.nix   # 各ホストへ�
 - **B. ツール自身が実行時に書く** (`$CLAUDE_CONFIG_DIR/settings.json`、`$CODEX_HOME/config.toml`、
   `$COPILOT_HOME/{settings,mcp-config}.json`): `mergedFiles` で部分マージ。
   `programs.claude-code.settings` / `programs.codex.settings` / `programs.*.enableMcpIntegration` /
-  `programs.github-copilot-cli.settings` のような「ファイル全体を生成する」オプションは使わない (assertion で禁止済み)。
+  `programs.github-copilot-cli.settings` / `programs.antigravity-cli.{settings,mcpServers}` のような「ファイル全体を生成する」オプションは使わない (assertion で禁止済み)。
 
 ### 置き場所
 
@@ -41,6 +41,11 @@ modules/agents/{claude-code,codex,copilot,tool-skills}.nix   # 各ホストへ�
 - plugin の `.mcp.json` は `{"mcpServers": {...}}`。`${VAR}` は使わず store パスなど静的な値を書く。
 - Copilot の `copilot mcp list` は plugin 由来のサーバーを表示しない (セッション内 `/mcp` で確認する)。
 - plugin の `hosts = [ "claude-code" ... ]` で配布先を絞れる (例: `github` は Copilot に組み込みがあるので Claude のみ)。
+- Antigravity CLI (マシンごとに `programs.antigravity-cli = { enable; package = pkgsUnstable.antigravity-cli; }` で有効化し `agents.antigravity` が追従。unfree なので `allowUnfreePackages` に要追加。IDE 用の `programs.antigravity` とは別) は AGY / CLI / IDE 共通の `~/.gemini/config` を使う:
+  skill → `skills/<name>`、plugin → `plugins/<name>` (どちらも store へリンク。plugin はルートに `plugin.json` / `mcp_config.json` を置く別 derivation)、
+  toolSkills → `skills/<name>` (store 外リンク)、`programs.mcp.servers` → `mcp_config.json` に部分マージ、
+  `agents.antigravity.settings` → `~/.gemini/antigravity-cli/settings.json` に部分マージ。
+  MCP は `url` ではなく `serverUrl`、`headersHelper` と plugin の hooks (Claude 形式) は非対応 (assertion)。marketplace / install は不要
 
 ### 追加のしかた
 

@@ -1,4 +1,4 @@
-# AI コーディングエージェント (Claude Code / Codex CLI / GitHub Copilot CLI) 向けの
+# AI コーディングエージェント (Claude Code / Codex CLI / GitHub Copilot CLI / Antigravity CLI) 向けの
 # skill / plugin / MCP を宣言的に管理するための共通モジュール。
 #
 #   agents.skills.<name>  = <SKILL.md を含むディレクトリ>;               # 全ホストの skill 置き場にエントリ単位でリンク
@@ -7,7 +7,7 @@
 #   agents.marketplace    = { name; owner; };                            # 上記 plugin 群をまとめた marketplace derivation
 #   agents.toolSkills.<t> = { package; installCommand; };                # サブコマンドで skill を置く CLI のブリッジ (tool-skills.nix)
 #
-# ホストごとの繋ぎ込みは同ディレクトリの claude-code.nix / codex.nix / copilot.nix が行う。
+# ホストごとの繋ぎ込みは同ディレクトリの claude-code.nix / codex.nix / copilot.nix / antigravity.nix が行う。
 {
   config,
   lib,
@@ -56,12 +56,14 @@ let
               "claude-code"
               "codex"
               "copilot"
+              "antigravity"
             ]
           );
           default = [
             "claude-code"
             "codex"
             "copilot"
+            "antigravity"
           ];
           description = ''
             この plugin を有効にするホスト。marketplace には常に含まれるが、列挙されていないホストではリンク / install / enable をしない
@@ -142,6 +144,7 @@ in
     ./claude-code.nix
     ./codex.nix
     ./copilot.nix
+    ./antigravity.nix
     ./tool-skills.nix
   ];
 

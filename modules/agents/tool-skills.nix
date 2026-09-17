@@ -16,7 +16,8 @@
 #
 # 各ホストからの見え方:
 #   - Codex: ~/.agents/skills をネイティブに走査するのでブリッジ不要
-#   - Claude Code / Copilot: $CLAUDE_CONFIG_DIR/skills/<name>, $COPILOT_HOME/skills/<name>
+#   - Claude Code / Copilot / Antigravity: $CLAUDE_CONFIG_DIR/skills/<name>, $COPILOT_HOME/skills/<name>,
+#     ~/.gemini/config/skills/<name>
 #     -> ~/.agents/skills/<name> の (store 外への) シンボリックリンクを張る。
 #     CLI 側の `--skills claude` は CLAUDE_CONFIG_DIR を見ず ~/.claude/skills に書くので使わない
 {
@@ -31,6 +32,7 @@ let
   agentsSkillsDir = "${config.home.homeDirectory}/.agents/skills";
   copilotSkillsDir = "${config.programs.github-copilot-cli.configDir}/skills";
   claudeSkillsDir = "${config.programs.claude-code.configDir}/skills";
+  antigravitySkillsDir = "${cfg.antigravity.configDir}/skills";
 
   toolModule =
     { name, ... }:
@@ -116,6 +118,7 @@ in
           );
       in
       lib.optionalAttrs cfg.claude-code.enable (bridge claudeSkillsDir)
-      // lib.optionalAttrs cfg.copilot.enable (bridge copilotSkillsDir);
+      // lib.optionalAttrs cfg.copilot.enable (bridge copilotSkillsDir)
+      // lib.optionalAttrs cfg.antigravity.enable (bridge antigravitySkillsDir);
   };
 }
