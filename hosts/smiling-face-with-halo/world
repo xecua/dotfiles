@@ -65,7 +65,6 @@ dev-scheme/chez
 dev-util/cargo-license
 dev-util/difftastic
 dev-util/github-cli
-dev-util/herdr-bin
 dev-util/opencode-bin
 dev-util/pkgdev
 dev-util/radare2
@@ -172,8 +171,6 @@ sys-kernel/gentoo-sources
 sys-kernel/installkernel
 sys-kernel/linux-firmware
 sys-process/bottom
-www-client/firefox-bin
-www-client/floorp-bin
 www-client/vivaldi
 x11-drivers/nvidia-drivers
 x11-misc/dunst

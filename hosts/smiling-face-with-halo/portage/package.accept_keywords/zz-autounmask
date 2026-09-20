@@ -110,3 +110,7 @@
 =dev-qt/qt5compat-6.11.2 ~amd64
 # required by @__auto_slot_operator_replace_installed__ (argument)
 =dev-qt/qtwayland-6.11.2 ~amd64
+# required by app-editors/neovim-9999::gentoo
+# required by @selected
+# required by @world (argument)
+=dev-libs/tree-sitter-markdown-inline-0.5.3 ~amd64
