@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 local filetype_callback = require("xecua.filetype")
-vim.g.treesitter_disabled_filetypes = { "csv" }
+vim.g.treesitter_disabled_filetypes = { "csv", "msg", "cmd", "dialog", "paper" }
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup,
     pattern = "*",
@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
             if ok then
                 vim.wo.foldmethod = "expr"
                 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
         end
     end,
