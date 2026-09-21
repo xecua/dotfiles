@@ -13,10 +13,6 @@
     "workspace-taskbar": {
       "enable": true,
       "icon-size": 14
-    },
-    "window-rewrite": {
-      "app_id<firefox>": "󰈹",
-      "app_id<firefox-bin>": "󰈹"
     }
   },
   "group/hardware": {

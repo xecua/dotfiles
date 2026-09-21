@@ -102,6 +102,10 @@ hooks_file = '$STD_CONFIG/dpp/submode.lua'
 [[plugins]]
 repo = 'stevearc/overseer.nvim'
 lua_add = """
+vim.api.nvim_create_autocmd(
+    { "BufWritePost", "FileWritePost" },
+    { group = augroup, pattern = { "*.saty", "*.tex", "*.typ" }, command = "OverseerRun" }
+)
 vim.keymap.set("n", "<Leader>r", "<Cmd>OverseerRun<CR>")
 vim.keymap.set("n", "<Leader>rr", "<Cmd>OverseerToggle<CR>")
 """

@@ -47,10 +47,6 @@ vim.api.nvim_create_autocmd("VimResized", {
         vim.cmd("wincmd =")
     end,
 })
-vim.api.nvim_create_autocmd(
-    { "BufWritePost", "FileWritePost" },
-    { group = augroup, pattern = { "*.saty", "*.tex", "*.typ" }, command = "OverseerRun" }
-)
 if vim.fn.executable("pdftotext") == 1 then
     vim.api.nvim_create_autocmd({ "BufRead" }, {
         group = augroup,
