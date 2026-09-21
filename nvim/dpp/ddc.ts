@@ -2,6 +2,16 @@ import { BaseConfig, ConfigArguments } from "@shougo/ddc-vim/config";
 
 export class Config extends BaseConfig {
   override config(args: ConfigArguments): void {
+    args.contextBuilder.setContextGlobal(async () => {
+      if (await args.denops.call("skkeleton#is_enabled")) {
+        return {
+          sources: ["skkeleton", "skkeleton_okuri"],
+          postFilters: [],
+        };
+      } else {
+        return {};
+      }
+    });
     args.contextBuilder.patchGlobal({
       ui: "pum",
       sources: ["lsp", "file", "around", "denippet"],
@@ -42,6 +52,19 @@ export class Config extends BaseConfig {
           isVolatile: true,
           // enabledIf: String
           //   .raw`getcmdline() =~? "^\(!\|make\s+\|g\s+\|git\s+\)" ? v:true : v:false`,
+        },
+        skkeleton: {
+          matchers: [],
+          converters: [],
+          isVolatile: true,
+          maxItems: 1,
+          minAutoCompleteLength: 1,
+        },
+        skkeleton_okuri: {
+          matchers: [],
+          converters: [],
+          maxItems: 1,
+          isVolatile: true,
         },
       },
       sourceParams: {

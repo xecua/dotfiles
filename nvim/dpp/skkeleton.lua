@@ -674,11 +674,20 @@ vim.api.nvim_create_autocmd("User", {
         vim.fn["skkeleton#register_keymap"]("henkan", "<S-x>", "")
         vim.fn["skkeleton#register_keymap"]("henkan", "<", "purgeCandidate")
 
+        vim.cmd([[
+            call skkeleton#register_completion_backend('pum.vim', #{
+                  \   complete_info:
+                  \     { -> pum#complete_info(['pum_visible', 'selected']) },
+                  \   confirm_key: '<Cmd>call pum#map#confirm()',
+                  \ })
+        ]])
+
         vim.fn["skkeleton#config"]({
             eggLikeNewline = true,
             immediatelyCancel = false,
             showCandidatesCount = 1,
             kanaTable = "azik",
+            completionBackend = "pum.vim",
             setUndoPoint = false,
             globalDictionaries = require("xecua.utils").get_local_config().skkeleton_dictionaries,
             markerHenkan = "",
@@ -693,7 +702,6 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-enable-pre",
     callback = function()
-        vim.fn["ddc#custom#patch_buffer"]("ui", "none")
         if vim.fn.mode() == "c" then
             vim.fn["skkeleton#config"]({
                 markerHenkan = "▽",
@@ -705,7 +713,6 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd("User", {
     pattern = "skkeleton-disable-pre",
     callback = function()
-        vim.fn["ddc#custom#patch_buffer"]("ui", "pum")
         vim.fn["skkeleton#config"]({
             markerHenkan = "",
             markerHenkanSelect = "",
