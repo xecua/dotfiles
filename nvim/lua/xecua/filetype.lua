@@ -170,6 +170,8 @@ return setmetatable(M, {
         return function()
             if hooks[key] then
                 hooks[key]()
+            else
+                indent_by_space(4)
             end
         end
     end,
