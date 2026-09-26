@@ -1,10 +1,13 @@
 local augroup = vim.api.nvim_create_augroup("xecua_langswitch", { clear = true })
-local filetype_callback = require("xecua.filetype")
+local filetype = require("xecua.filetype")
 
 local buf_last_lang = {}
 
 local function on_lang_change(buf, lang)
-    filetype_callback[lang]()
+    if lang == "comment" then
+        return
+    end
+    filetype.configure_indent_by_lang(lang)
 end
 
 local function update_lang()
