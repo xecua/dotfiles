@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 local filetype_callback = require("xecua.filetype")
-vim.g.treesitter_disabled_filetypes = { "csv", "msg", "cmd", "dialog", "paper" }
+vim.g.treesitter_disabled_filetypes = { "csv", "msg", "cmd", "dialog", "pager" }
 vim.api.nvim_create_autocmd("FileType", {
     group = augroup,
     pattern = "*",
