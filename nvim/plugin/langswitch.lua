@@ -3,8 +3,25 @@ local filetype = require("xecua.filetype")
 
 local buf_last_lang = {}
 
+local SID_MODELINE = -1
+
+-- editorconfigやmodelineでインデント設定が明示されているバッファでは触らない
+local function has_local_indent_config(buf)
+    local ec = vim.b[buf].editorconfig
+    if type(ec) == "table" and (ec.indent_style or ec.indent_size or ec.tab_width) then
+        return true
+    end
+    for _, name in ipairs({ "expandtab", "shiftwidth", "tabstop", "softtabstop" }) do
+        local info = vim.api.nvim_get_option_info2(name, { buf = buf })
+        if info.last_set_sid == SID_MODELINE then
+            return true
+        end
+    end
+    return false
+end
+
 local function on_lang_change(buf, lang)
-    if lang == "comment" then
+    if lang == "comment" or has_local_indent_config(buf) then
         return
     end
     filetype.configure_indent_by_lang(lang)
