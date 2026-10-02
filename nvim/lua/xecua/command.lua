@@ -16,5 +16,18 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command("Restart", function()
     -- tempname()のファイルだとrestartを乗り越えられない
     local session = vim.fs.joinpath(vim.fn.stdpath("run"), vim.fn.rand() .. ".vim")
-    vim.cmd(string.format("mks! %s | restart source %s", session, session))
+    -- restart後のプロセスは環境変数を引き継ぐので、guise.vimが反応しないように消しておく
+    -- (VimLeavePreでは間に合わない)
+    local saved_env = {}
+    for _, name in ipairs({ "GUISE_NVIM_ADDRESS", "GUISE_VIM_ADDRESS" }) do
+        saved_env[name] = vim.env[name]
+        vim.env[name] = nil
+    end
+    local ok, err = pcall(vim.cmd, string.format("mks! %s | restart source %s", session, session))
+    if not ok then
+        for name, value in pairs(saved_env) do
+            vim.env[name] = value
+        end
+        error(err, 0)
+    end
 end, {})
