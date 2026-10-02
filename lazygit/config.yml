@@ -9,8 +9,15 @@ git:
   allBranchesLogCmds:
     - git log --all --graph --date=short --pretty=short-oneline --color=always
   diffRenderers:
-    - command: "difft --color=always --display=inline"
+    - name: difft
       type: extDiff
+      command: difft --color=always --context={{diffContext}}
+    - name: delta
+      type: stdinFilter
+      command: delta --dark --paging=never
+    - name: native
+      type: rawGit
+      args: [--color-words]
 keybinding:
   universal:
     quit: <c-c>

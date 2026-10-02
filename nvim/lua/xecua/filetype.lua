@@ -2,6 +2,7 @@
 -- BufRead/BufNewFile -> FileType(これが呼ばれる) -> editorconfigが反映される -> BufReadPost -> modelineが反映される(filetypeがセットされてFileTypeイベントが発火するかも) -> BufWinEnter
 -- なのでeditorconfigをこっちでなんかする必要なさそう
 
+local M = {}
 local hooks = {}
 
 local function register_javascript_regex()
@@ -67,11 +68,9 @@ hooks.php = function()
         or bufname:match("%.ctp") -- CakePHP <= 3.x
         or bufname:match("/templates/") -- CakePHP >= 4.x
     then
-        hooks.html()
+        M.html()
     end
 end
-
-local M = {}
 
 -- インデント幅。タブインデントは-1
 M.indent_config = {
