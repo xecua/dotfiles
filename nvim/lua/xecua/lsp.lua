@@ -12,6 +12,7 @@ vim.lsp.enable({
     "texlab",
     "typescript",
     "yamlls",
+    "zeta",
 
     "astro",
     "clangd",

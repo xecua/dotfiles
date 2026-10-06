@@ -45,6 +45,8 @@ in
       sanitize-artifacts = ./skills/sanitize-artifacts;
       file-search = "${inputs.file-search-skill}/skills/file-search";
       conventional-commit = "${inputs.awesome-copilot}/skills/conventional-commit";
+      # claudeで重複しないか? これ
+      yomiyasu = "${inputs.yomiyasu}/skills/yomiyasu";
     };
 
     plugins.browser = {

@@ -185,6 +185,7 @@ in
         (inputs.sabiql.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (oldAttrs: {
           doCheck = false;
         }))
+        inputs.zeta.packages.${pkgs.stdenv.hostPlatform.system}.zeta
       ];
   };
 

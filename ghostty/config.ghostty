@@ -50,6 +50,7 @@ keybind = shift+arrow_left=adjust_selection:left
 keybind = shift+arrow_right=adjust_selection:right
 keybind = shift+arrow_up=adjust_selection:up
 keybind = shift+arrow_down=adjust_selection:down
+keybind = ctrl+\=ignore
 
 keybind = ctrl+q>[=activate_key_table:visual
 # reset

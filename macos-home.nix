@@ -110,7 +110,10 @@ in
       ])
       ++ (with pkgsUnstable; [
         claude-agent-acp
-      ]);
+      ])
+      ++ [
+        inputs.zeta.packages.${pkgs.stdenv.hostPlatform.system}.zeta
+      ];
   };
 
   mcp-servers.programs = {

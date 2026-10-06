@@ -42,7 +42,16 @@
       "Read(.env*)",
       "Edit(.env*)"
     ],
-    "ask": ["Bash(git push)"],
+    "ask": [
+      "Bash(git push)",
+      "Bash(npm i *)",
+      "Bash(npm install *)",
+      "Bash(pip install *)",
+      "Bash(uv add *)",
+      "Bash(composer require *)",
+      "Bash(go get *)",
+      "Bash(cargo install *)"
+    ],
     "defaultMode": "auto"
   },
   "env": {
@@ -68,13 +77,20 @@
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "yomiyasu@yomiyasu": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "yomiyasu": {
+      "source": {
+        "source": "github",
+        "repo": "nanaism/yomiyasu"
       }
     }
   },

@@ -57,13 +57,11 @@ export class Config extends BaseConfig {
           matchers: [],
           converters: [],
           isVolatile: true,
-          maxItems: 1,
           minAutoCompleteLength: 1,
         },
         skkeleton_okuri: {
           matchers: [],
           converters: [],
-          maxItems: 1,
           isVolatile: true,
         },
       },

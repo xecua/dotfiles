@@ -32,6 +32,10 @@
       url = "github:riii111/sabiql";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zeta = {
+      url = "github:lentilus/zeta";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     file-search-skill = {
       url = "github:netresearch/file-search-skill";
@@ -39,6 +43,10 @@
     };
     awesome-copilot = {
       url = "github:github/awesome-copilot";
+      flake = false;
+    };
+    yomiyasu = {
+      url = "github:nanaism/yomiyasu";
       flake = false;
     };
   };
