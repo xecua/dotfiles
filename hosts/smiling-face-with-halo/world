@@ -139,6 +139,7 @@ net-analyzer/nmap
 net-analyzer/traceroute
 net-analyzer/trippy
 net-im/discord
+net-libs/ldns
 net-libs/nodejs
 net-misc/ipcalc
 net-wireless/blueman
