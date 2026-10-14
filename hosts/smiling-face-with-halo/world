@@ -43,6 +43,7 @@ app-shells/fzf
 app-shells/starship
 app-shells/zoxide
 app-shells/zsh
+app-text/markdown-oxide
 app-text/texlab
 app-text/typst
 dev-build/just
