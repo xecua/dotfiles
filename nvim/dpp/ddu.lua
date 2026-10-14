@@ -56,6 +56,21 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
+-- ddu-filerからファイルを開く先として、最後にいた通常のウィンドウを覚えておく
+-- (`wincmd p` はプラグイン側のwin_gotoidなどで前のウィンドウが変わってしまい当てにならない)
+vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
+    group = ddu_group_id,
+    callback = function()
+        if
+            vim.api.nvim_win_get_config(0).relative == ""
+            and vim.bo.buftype == ""
+            and not vim.startswith(vim.bo.filetype, "ddu-")
+        then
+            vim.t.ddu_filer_target_win = vim.api.nvim_get_current_win()
+        end
+    end,
+})
+
 -- ddu-filerが最後のウィンドウになったら閉じる (fernと同様の挙動)
 vim.api.nvim_create_autocmd("WinEnter", {
     group = ddu_group_id,
@@ -91,6 +106,16 @@ vim.opt_local.number = true
 vim.opt_local.cursorline = true
 
 local opts = { buffer = true, silent = true }
+
+-- 最後にいた通常のウィンドウに移動してからcmdを実行するコマンド文字列
+local function open_command(cmd)
+    local win = vim.t.ddu_filer_target_win
+    if win and vim.api.nvim_win_is_valid(win) then
+        return string.format("call win_gotoid(%d)|%s", win, cmd)
+    end
+    return "wincmd p|" .. cmd
+end
+
 vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
 vim.keymap.set("n", "d", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'trash' })<CR>", opts)
 -- LSPのdidChangeとかを発動したい
@@ -104,12 +129,18 @@ vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('itemAction', #{name: 'past
 
 vim.keymap.set("n", "s", function()
     if not vim.fn["ddu#ui#get_item"]()["isTree"] then
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|wincmd s|drop" } })
+        vim.fn["ddu#ui#do_action"](
+            "itemAction",
+            { name = "open", params = { command = open_command("wincmd s|drop") } }
+        )
     end
 end, opts)
 vim.keymap.set("n", "v", function()
     if not vim.fn["ddu#ui#get_item"]()["isTree"] then
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|wincmd v|drop" } })
+        vim.fn["ddu#ui#do_action"](
+            "itemAction",
+            { name = "open", params = { command = open_command("wincmd v|drop") } }
+        )
     end
 end, opts)
 vim.keymap.set("n", "t", function()
@@ -133,7 +164,7 @@ vim.keymap.set("n", "l", function()
         -- isInTreeがtrueなら↓も呼んでくれてはいるんだけど効かん……
         vim.fn["ddu#ui#do_action"]("cursorNext")
     else
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = open_command("drop") } })
     end
 end, opts)
 vim.keymap.set("n", "<LeftRelease>", function()
@@ -143,7 +174,7 @@ vim.keymap.set("n", "<LeftRelease>", function()
     elseif item["isTree"] then
         vim.fn["ddu#ui#do_action"]("expandItem", { isInTree = true })
     else
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = open_command("drop") } })
     end
 end, opts)
 
@@ -151,7 +182,7 @@ vim.keymap.set("n", "<CR>", function()
     if vim.fn["ddu#ui#get_item"]()["isTree"] then
         vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
     else
-        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = "wincmd p|drop" } })
+        vim.fn["ddu#ui#do_action"]("itemAction", { name = "open", params = { command = open_command("drop") } })
     end
 end, opts)
 
