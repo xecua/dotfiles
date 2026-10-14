@@ -113,6 +113,7 @@ in
         # gogup # いるかなあ
         captive-browser
         google-clasp
+        f2
 
         oxfmt
         oxlint

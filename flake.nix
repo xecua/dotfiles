@@ -94,8 +94,10 @@
               })
               (python3.withPackages (
                 ps: with ps; [
-                  debugpy
-                  pyyaml
+                  debugpy.override
+                  { doCheck = false; }
+                  pyyaml.override
+                  { doCheck = false; }
                 ]
               ))
             ];

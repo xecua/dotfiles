@@ -20,8 +20,6 @@ vim.opt.laststatus = 3
 vim.opt.formatoptions = "jonqB"
 vim.opt.diffopt:append({ "indent-heuristic", "algorithm:histogram" })
 vim.opt.foldopen:remove({ "search" })
-vim.opt.scrolloff = 2
-vim.opt.sidescrolloff = 2
 vim.opt.title = true
 vim.opt.wildoptions:append("fuzzy")
 vim.opt.pumblend = 25

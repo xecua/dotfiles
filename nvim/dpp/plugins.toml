@@ -28,7 +28,7 @@ vim.g.previm_hard_line_break = 1
 
 [[plugins]]
 repo = "3rd/image.nvim"
-on_if = "!exists('g:neovide')"
+on_if = "!exists('g:neovide') && !exists('g:started_by_firenvim')"
 lua_source = """
 require('image').setup({})
 """

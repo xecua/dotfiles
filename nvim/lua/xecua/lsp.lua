@@ -20,6 +20,7 @@ vim.lsp.enable({
     "fish_lsp",
     "gopls",
     "html",
+    "markdown_oxide",
     "kotlin_language_server",
     "lemminx",
     "nil_ls",
