@@ -43,8 +43,301 @@ vim.lsp.enable({
 local augroup = vim.api.nvim_create_augroup("Lsp", {})
 vim.g.format_disabled_servers = { "typescript", "lua_ls", "sqls", "yamlls", "tombi" }
 -- ↑に入っているものはserver capabilities自体を無効にするので、差分だけ入れればOK
-vim.g.format_disabled_servers_onsave = {}
-local command_defined = { general = {}, nes = {}, format = {}, signature = {}, inline_completion = {} }
+
+--- バッファに登録したもの(autocmd/keymap/command等)をまとめて後で消せるようにする
+--- @param buffer integer
+local function new_scope(buffer)
+    --- @type (fun())[]
+    local undo = {}
+    local scope = {}
+
+    --- @param event string|string[]
+    --- @param opts vim.api.keyset.create_autocmd
+    function scope.autocmd(event, opts)
+        local id =
+            vim.api.nvim_create_autocmd(event, vim.tbl_extend("force", { group = augroup, buffer = buffer }, opts))
+        table.insert(undo, function()
+            pcall(vim.api.nvim_del_autocmd, id)
+        end)
+    end
+
+    --- @param mode string|string[]
+    --- @param lhs string
+    --- @param rhs string|function
+    --- @param opts? vim.keymap.set.Opts
+    function scope.map(mode, lhs, rhs, opts)
+        vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", { silent = true }, opts or {}, { buffer = buffer }))
+        table.insert(undo, function()
+            pcall(vim.keymap.del, mode, lhs, { buffer = buffer })
+        end)
+    end
+
+    --- @param name string
+    --- @param command string|function
+    --- @param opts? vim.api.keyset.user_command
+    function scope.command(name, command, opts)
+        vim.api.nvim_buf_create_user_command(buffer, name, command, opts or {})
+        table.insert(undo, function()
+            pcall(vim.api.nvim_buf_del_user_command, buffer, name)
+        end)
+    end
+
+    --- @param fn fun()
+    function scope.on_teardown(fn)
+        table.insert(undo, function()
+            pcall(fn)
+        end)
+    end
+
+    local function teardown()
+        for i = #undo, 1, -1 do
+            undo[i]()
+        end
+    end
+
+    return scope, teardown
+end
+
+--- @alias xecua.lsp.FeatureSetup fun(scope: table, client: vim.lsp.Client, buffer: integer)
+
+--- @class xecua.lsp.Feature
+--- @field owners table<integer, true> この機能をサポートしているclientのid
+--- @field bound_client integer setupに渡したclientのid
+--- @field setup xecua.lsp.FeatureSetup
+--- @field teardown fun()
+
+--- features[buffer][name]
+--- @type table<integer, table<string, xecua.lsp.Feature>>
+local features = {}
+
+--- bufferにおけるclientがこの機能をサポートしていることを登録する。最初の1つのときだけsetupが走る
+--- @param name string
+--- @param client vim.lsp.Client
+--- @param buffer integer
+--- @param setup xecua.lsp.FeatureSetup
+local function acquire(name, client, buffer, setup)
+    features[buffer] = features[buffer] or {}
+    local feature = features[buffer][name]
+    if not feature then
+        local scope, teardown = new_scope(buffer)
+        setup(scope, client, buffer)
+        feature = {
+            owners = {},
+            bound_client = client.id,
+            setup = setup,
+            teardown = teardown,
+        }
+        features[buffer][name] = feature
+    end
+    feature.owners[client.id] = true
+end
+
+--- clientがbufferから外れたときに呼ぶ。サポートするclientがいなくなった機能は無効化し、
+--- setupに渡したclientが外れた場合は残っているclientでsetupし直す
+--- @param client_id integer
+--- @param buffer integer
+local function release(client_id, buffer)
+    local buf_features = features[buffer]
+    if not buf_features then
+        return
+    end
+    for name, feature in pairs(buf_features) do
+        if feature.owners[client_id] then
+            feature.owners[client_id] = nil
+            if feature.bound_client == client_id then
+                feature.teardown()
+                -- 残っているclientで作り直す
+                local rebound = false
+                for id, _ in pairs(feature.owners) do
+                    local client = vim.lsp.get_client_by_id(id)
+                    if client then
+                        local scope, teardown = new_scope(buffer)
+                        feature.setup(scope, client, buffer)
+                        feature.teardown = teardown
+                        feature.bound_client = id
+                        rebound = true
+                        break
+                    end
+                    feature.owners[id] = nil
+                end
+                if not rebound then
+                    buf_features[name] = nil
+                end
+            elseif next(feature.owners) == nil then
+                feature.teardown()
+                buf_features[name] = nil
+            end
+        end
+    end
+    if next(buf_features) == nil then
+        features[buffer] = nil
+    end
+end
+
+--- @param name "inlay_hint"|"codelens"|"inline_completion"
+--- @return xecua.lsp.FeatureSetup
+local function capability_feature(name)
+    return function(scope, _, buffer)
+        -- buffer単位で有効にすれば、clientごとのattach/detachやdynamic registrationはNeovim側がやってくれる
+        vim.lsp[name].enable(true, { bufnr = buffer })
+        scope.on_teardown(function()
+            if vim.api.nvim_buf_is_valid(buffer) then
+                vim.lsp[name].enable(false, { bufnr = buffer })
+            end
+        end)
+    end
+end
+
+--- メソッドに依らない機能
+--- @type table<string, xecua.lsp.FeatureSetup>
+local setups = {}
+
+setups.general = function(scope, client)
+    scope.command(
+        "LspFormat",
+        "lua vim.lsp.buf.format({ async = true })",
+        { range = client:supports_method("textDocument/rangeFormatting") }
+    )
+    scope.command(
+        "LspSignatureHelp",
+        "lua vim.lsp.buf.signature_help({ border = 'single', focusable = false, focus = false, silent = true })"
+    )
+    scope.command("LspHover", "lua vim.lsp.buf.hover({ border = 'single' })")
+    scope.command("LspReferences", "lua vim.lsp.buf.references()")
+    scope.command("LspDefinition", "lua vim.lsp.buf.definition()")
+    scope.command("LspTypeDefinition", "lua vim.lsp.buf.type_definition()")
+    scope.command("LspSubtypes", "lua vim.lsp.buf.typehierarchy('subtypes')")
+    scope.command("LspSupertypes", "lua vim.lsp.buf.typehierarchy('supertypes')")
+    scope.command("LspImplementation", "lua vim.lsp.buf.implementation()")
+    scope.command("LspCodeAction", "lua vim.lsp.buf.code_action()", { range = true })
+    scope.command("LspDocumentSymbol", "lua vim.lsp.buf.document_symbol()")
+    scope.command("LspWorkspaceSymbol", "lua vim.lsp.buf.workspace_symbol()")
+    scope.command("LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()")
+    scope.command("LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()")
+    scope.command("LspCodeLensRun", "lua vim.lsp.codelens.run()")
+    scope.command("LspRename", "lua vim.lsp.buf.rename()")
+
+    scope.map("n", "K", "<Cmd>LspHover<CR>")
+    scope.map("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>")
+    scope.map("n", "<Leader>lr", "<Cmd>LspReferences<CR>")
+    scope.map("n", "<Leader>ld", "<Cmd>LspDefinition<CR>")
+    scope.map("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>")
+    scope.map("n", "<Leader>lsd", "<Cmd>LspDocumentSymbol<CR>")
+    scope.map("n", "<Leader>lsw", "<Cmd>LspWorkspaceSymbol<CR>")
+    scope.map("n", "<Leader>lsb", "<Cmd>LspSubtypes<CR>")
+    scope.map("n", "<Leader>lsp", "<Cmd>LspSupertypes<CR>")
+    scope.map("n", "<Leader>li", "<Cmd>LspImplementation<CR>")
+    scope.map({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>")
+    scope.map("n", "<Leader>l,", "<Cmd>LspIncomingCalls<CR>") -- ,+shift = < のきもち
+    scope.map("n", "<Leader>l.", "<Cmd>LspOutgoingCalls<CR>") --.+shift = >
+    scope.map("n", "<Leader>lc", "<Cmd>LspCodeLensRun<CR>")
+    scope.map("n", "<Leader>ll", function()
+        -- inlay hint/codelensはbuffer単位で有効にしているので、トグルもbuffer単位
+        local filter = { bufnr = 0 }
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+        vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled(filter), filter)
+    end)
+    scope.map("n", "<F2>", "<Cmd>LspRename<CR>")
+end
+
+setups.nes = function(scope, client, buffer)
+    local nes = require("copilot-lsp.nes")
+    local debounced_request = require("copilot-lsp.util").debounce(nes.request_nes, 500)
+
+    scope.autocmd("TextChanged", {
+        callback = function()
+            debounced_request(client)
+        end,
+    })
+    scope.autocmd("BufEnter", {
+        callback = function()
+            local td_params = vim.lsp.util.make_text_document_params(buffer)
+            ---@diagnostic disable-next-line: param-type-mismatch
+            client:notify("textDocument/didFocus", { textDocument = { uri = td_params.uri } })
+        end,
+    })
+    scope.autocmd("ModeChanged", {
+        pattern = "i:n",
+        callback = function()
+            debounced_request(client)
+        end,
+    })
+
+    scope.map("n", "<C-l>", function()
+        nes.walk_cursor_start_edit()
+        local changed = nes.apply_pending_nes()
+        nes.walk_cursor_end_edit()
+
+        if not changed then
+            debounced_request(client)
+        end
+    end, { desc = "Copilot NES" })
+    scope.map("n", "<C-c>", function()
+        nes.clear()
+    end, { desc = "Clear NES" })
+
+    scope.on_teardown(function()
+        if vim.api.nvim_buf_is_valid(buffer) then
+            nes.clear_suggestion(buffer)
+        end
+    end)
+end
+
+setups.jdtls = function(scope)
+    scope.command("LspOrganizeImports", 'lua require("jdtls").organize_imports()')
+    scope.map("n", "<Leader>lo", "<Cmd>LspOrganizeImports<CR>")
+
+    scope.command("LspTestClass", 'lua require("jdtls").test_class()')
+    scope.map("n", "<Leader>dc", "<Cmd>LspTestClass<CR>")
+
+    scope.command("LspTestMethod", 'lua require("jdtls").test_nearest_method()')
+    scope.map("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>")
+end
+
+--- メソッドごとの機能
+--- @type table<vim.lsp.protocol.Method.ClientToServer, xecua.lsp.FeatureSetup>
+local method_setups = {}
+
+vim.g.format_disabled_servers_onsave = vim.g.format_disabled_servers_onsave or {}
+method_setups["textDocument/formatting"] = function(scope)
+    scope.autocmd("BufWritePre", {
+        callback = function()
+            vim.lsp.buf.format({
+                filter = function(c)
+                    return not vim.list_contains(vim.g.format_disabled_servers_onsave, c.name)
+                end,
+            })
+        end,
+    })
+end
+
+method_setups["textDocument/signatureHelp"] = function(scope)
+    scope.autocmd("CursorHoldI", { command = "LspSignatureHelp" })
+end
+
+method_setups["textDocument/documentSymbol"] = function(scope, client, buffer)
+    require("nvim-navic").attach(client, buffer)
+    scope.on_teardown(function()
+        vim.api.nvim_clear_autocmds({
+            group = vim.api.nvim_create_augroup("navic", { clear = false }),
+            buffer = buffer,
+        })
+        require("nvim-navic.lib").clear_buffer_data(buffer)
+        if vim.api.nvim_buf_is_valid(buffer) then
+            vim.b[buffer].navic_client_id = nil
+            vim.b[buffer].navic_client_name = nil
+        end
+    end)
+end
+
+method_setups["textDocument/inlayHint"] = capability_feature("inlay_hint")
+method_setups["textDocument/codeLens"] = capability_feature("codelens")
+method_setups["textDocument/inlineCompletion"] = function(scope, client, buffer)
+    capability_feature("inline_completion")(scope, client, buffer)
+    scope.map("i", "<C-l>", function()
+        return vim.lsp.inline_completion.get() and "" or "<C-l>"
+    end, { expr = true })
+end
 
 --- @param client vim.lsp.Client
 --- @param buffer integer
@@ -64,44 +357,9 @@ local on_capability_updated = function(client, buffer)
         client.server_capabilities.hoverProvider = nil
     end
 
-    if client:supports_method("textDocument/formatting") and not command_defined.format[buffer] then
-        command_defined.format[buffer] = true
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = buffer,
-            callback = function()
-                vim.lsp.buf.format({
-                    filter = function(c)
-                        return not vim.list_contains(vim.g.format_disabled_servers_onsave, c.name)
-                    end,
-                })
-            end,
-        })
-    end
-    if client:supports_method("textDocument/signatureHelp") and not command_defined.signature[buffer] then
-        command_defined.signature[buffer] = true
-        vim.api.nvim_create_autocmd("CursorHoldI", { group = augroup, buffer = buffer, command = "LspSignatureHelp" })
-    end
-
-    if client:supports_method("textDocument/documentSymbol") then
-        require("nvim-navic").attach(client, buffer)
-    end
-
-    if client:supports_method("textDocument/inlayHint") then
-        vim.lsp.inlay_hint.enable(true, { client_id = client.id })
-    end
-
-    if client:supports_method("textDocument/codeLens") then
-        vim.lsp.codelens.enable(true, { client_id = client.id })
-    end
-
-    if client:supports_method("textDocument/inlineCompletion") then
-        vim.lsp.inline_completion.enable(true, { client_id = client.id })
-        if not command_defined.inline_completion[buffer] then
-            command_defined.inline_completion[buffer] = true
-            vim.keymap.set("i", "<C-l>", function()
-                return vim.lsp.inline_completion.get() and "" or "<C-l>"
-            end, { silent = true, expr = true, buffer = buffer })
+    for method, setup in pairs(method_setups) do
+        if client:supports_method(method) then
+            acquire(method, client, buffer, setup)
         end
     end
 end
@@ -117,7 +375,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if client.name == "copilot" then
             if
                 vim.g.disable_copilot
-                or vim.opt_local.readonly:get()
+                or vim.bo[buffer].readonly
                 or vim.list_contains({
                     "markdown",
                     "asciidoc",
@@ -129,135 +387,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     "dap-view",
                     "dap-view-term",
                     "dap-view-help",
-                }, vim.opt_local.filetype:get())
+                }, vim.bo[buffer].filetype)
             then
                 vim.lsp.buf_detach_client(buffer, client.id)
                 return
             end
 
-            local ok, nes = pcall(require, "copilot-lsp.nes")
-            if ok and not command_defined.nes[buffer] then
-                command_defined.nes[buffer] = true
-                local debounced_request = require("copilot-lsp.util").debounce(nes.request_nes, 500)
-
-                vim.api.nvim_create_autocmd("TextChanged", {
-                    callback = function()
-                        debounced_request(client)
-                    end,
-                    group = augroup,
-                })
-
-                vim.api.nvim_create_autocmd("BufEnter", {
-                    callback = function()
-                        local td_params = vim.lsp.util.make_text_document_params()
-                        ---@diagnostic disable-next-line: param-type-mismatch
-                        client:notify("textDocument/didFocus", { textDocument = { uri = td_params.uri } })
-                    end,
-                    group = augroup,
-                })
-
-                vim.keymap.set("n", "<C-l>", function()
-                    nes.walk_cursor_start_edit()
-                    local changed = nes.apply_pending_nes()
-                    nes.walk_cursor_end_edit()
-
-                    if not changed then
-                        debounced_request(client)
-                    end
-                end, { buffer = true, desc = "Copilot NES" })
-                vim.keymap.set("n", "<C-c>", function()
-                    nes.clear()
-                end, { buffer = true, desc = "Clear NES" })
-                vim.api.nvim_create_autocmd("ModeChanged", {
-                    pattern = "i:n",
-                    callback = function()
-                        debounced_request(client)
-                    end,
-                })
+            if pcall(require, "copilot-lsp.nes") then
+                acquire("nes", client, buffer, setups.nes)
             end
         elseif client.name == "jdtls" then
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspOrganizeImports",
-                'lua require("jdtls").organize_imports()',
-                {}
-            )
-            vim.keymap.set("n", "<Leader>lo", "<Cmd>LspOrganizeImports<CR>", { buffer = buffer, silent = true })
-
-            vim.api.nvim_buf_create_user_command(buffer, "LspTestClass", 'lua require("jdtls").test_class()', {})
-            vim.keymap.set("n", "<Leader>dc", "<Cmd>LspTestClass<CR>", { buffer = buffer, silent = true })
-
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspTestMethod",
-                'lua require("jdtls").test_nearest_method()',
-                {}
-            )
-            vim.keymap.set("n", "<Leader>dm", "<Cmd>LspTestMethod<CR>", { buffer = buffer, silent = true })
+            acquire("jdtls", client, buffer, setups.jdtls)
         end
 
-        if not command_defined.general[buffer] then
-            command_defined.general[buffer] = true
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspFormat",
-                "lua vim.lsp.buf.format({ async = true })",
-                { range = client:supports_method("textDocument/rangeFormatting") }
-            )
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspSignatureHelp",
-                "lua vim.lsp.buf.signature_help({ border = 'single', focusable = false, focus = false, silent = true })",
-                {}
-            )
-            vim.api.nvim_buf_create_user_command(buffer, "LspHover", "lua vim.lsp.buf.hover({ border = 'single' })", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspReferences", "lua vim.lsp.buf.references()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspDefinition", "lua vim.lsp.buf.definition()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspTypeDefinition", "lua vim.lsp.buf.type_definition()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspSubtypes", "lua vim.lsp.buf.typehierarchy('subtypes')", {})
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspSupertypes",
-                "lua vim.lsp.buf.typehierarchy('supertypes')",
-                {}
-            )
-            vim.api.nvim_buf_create_user_command(buffer, "LspImplementation", "lua vim.lsp.buf.implementation()", {})
-            vim.api.nvim_buf_create_user_command(
-                buffer,
-                "LspCodeAction",
-                "lua vim.lsp.buf.code_action()",
-                { range = true }
-            )
-            vim.api.nvim_buf_create_user_command(buffer, "LspDocumentSymbol", "lua vim.lsp.buf.document_symbol()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspWorkspaceSymbol", "lua vim.lsp.buf.workspace_symbol()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspIncomingCalls", "lua vim.lsp.buf.incoming_calls()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspOutgoingCalls", "lua vim.lsp.buf.outgoing_calls()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspCodeLensRun", "lua vim.lsp.codelens.run()", {})
-            vim.api.nvim_buf_create_user_command(buffer, "LspRename", "lua vim.lsp.buf.rename()", {})
-
-            local mapopts = { buffer = buffer, silent = true }
-            vim.keymap.set("n", "K", "<Cmd>LspHover<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lh", "<Cmd>LspSignatureHelp<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lr", "<Cmd>LspReferences<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>ld", "<Cmd>LspDefinition<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lt", "<Cmd>LspTypeDefinition<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lsd", "<Cmd>LspDocumentSymbol<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lsw", "<Cmd>LspWorkspaceSymbol<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lsb", "<Cmd>LspSubtypes<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>lsp", "<Cmd>LspSupertypes<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>li", "<Cmd>LspImplementation<CR>", mapopts)
-            vim.keymap.set({ "n", "v" }, "<Leader>la", "<Cmd>LspCodeAction<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>l,", "<Cmd>LspIncomingCalls<CR>", mapopts) -- ,+shift = < のきもち
-            vim.keymap.set("n", "<Leader>l.", "<Cmd>LspOutgoingCalls<CR>", mapopts) --.+shift = >
-            vim.keymap.set("n", "<Leader>lc", "<Cmd>LspCodeLensRun<CR>", mapopts)
-            vim.keymap.set("n", "<Leader>ll", function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-                vim.lsp.codelens.enable(not vim.lsp.codelens.is_enabled())
-            end, mapopts)
-            vim.keymap.set("n", "<F2>", "<Cmd>LspRename<CR>", mapopts)
-        end
+        acquire("general", client, buffer, setups.general)
 
         on_capability_updated(client, buffer)
+    end,
+})
+
+vim.api.nvim_create_autocmd("LspDetach", {
+    group = augroup,
+    callback = function(args)
+        release(args.data.client_id, args.buf)
+    end,
+})
+
+-- バッファが先に消えた場合はLspDetachが来ないことがある。バッファローカルなものはバッファと一緒に消える
+vim.api.nvim_create_autocmd("BufWipeout", {
+    group = augroup,
+    callback = function(args)
+        features[args.buf] = nil
     end,
 })
 
