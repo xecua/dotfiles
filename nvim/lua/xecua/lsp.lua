@@ -256,10 +256,12 @@ setups.nes = function(scope, client, buffer)
             client:notify("textDocument/didFocus", { textDocument = { uri = td_params.uri } })
         end,
     })
+    -- バッファローカルなautocmdにはpatternを指定できないので、モードはcallback内で見る
     scope.autocmd("ModeChanged", {
-        pattern = "i:n",
         callback = function()
-            debounced_request(client)
+            if vim.v.event.old_mode == "i" and vim.v.event.new_mode == "n" then
+                debounced_request(client)
+            end
         end,
     })
 
