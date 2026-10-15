@@ -3,6 +3,7 @@ vim.g.maplocalleader = vim.api.nvim_replace_termcodes("_", true, true, true)
 vim.g.loaded_matchparen = true
 vim.g.filetype_recommended_style = 0
 vim.g.loaded_python3_provider = 1
+vim.g.loaded_nvim_dir_plugin = 1
 vim.g.netrw_http_cmd = "curl"
 vim.g.netrw_http_xcmd = "-L -o"
 
