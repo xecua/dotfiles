@@ -18,6 +18,9 @@ from typing import Any
 # import subprocess
 import yaml
 
+if os.name == "nt":
+    sys.exit("Windows では setup.ps1 (links.windows.psd1) を使ってください")
+
 script_dir = Path(__file__).parent
 
 argv = sys.argv[1:]

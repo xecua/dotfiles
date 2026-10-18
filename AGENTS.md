@@ -2,6 +2,7 @@
 
 home-manager (flake) で管理する個人用 dotfiles。Gentoo (`gentoo-home.nix`) と macOS (`macos-home.nix`) の 2 系統。
 シンボリックリンクだけの設定は `links.yaml` + `setup.py`、Nix で扱うものは `*.nix` に書く。
+Windows は別管理で `links.windows.psd1` + `setup.ps1` (PowerShell。Python は前提にしない)。
 
 ## AI エージェント (Claude Code / Codex CLI / Copilot CLI / Antigravity CLI) 設定
 

@@ -1,0 +1,235 @@
+# LeopardWM Configuration
+# https://github.com/jcardama/LeopardWM
+
+[layout]
+# Gap between columns in pixels
+gap = 10
+
+# Outer gaps at the edges of the viewport in pixels
+outer_gap_left = 10
+outer_gap_right = 10
+outer_gap_top = 10
+outer_gap_bottom = 10
+
+# Width presets (fractions of usable viewport width).
+width_presets = [0.333, 0.5, 0.667]
+
+# Which preset new columns open at (1-based index into width_presets).
+# 1 = first preset. Out-of-range values fall back to the first preset.
+default_width_preset = 1
+
+# Height presets (fractions of column height / weight).
+height_presets = [0.333, 0.5, 0.667]
+
+# Centering mode: "center", "just_in_view", or "on_overflow"
+# - center: Always center the focused column
+# - just_in_view: Only scroll if focused column would be outside viewport
+# - on_overflow: Center only when the column is wider than the viewport
+centering_mode = "center"
+
+[appearance]
+
+[behavior]
+# Automatically focus new windows when they appear
+focus_new_windows = true
+
+# Track focus changes from Windows (sync with Alt-Tab, etc.)
+track_focus_changes = true
+
+# Log level: trace, debug, info, warn, error
+log_level = "info"
+
+# Focus follows mouse (hover to focus)
+focus_follows_mouse = false
+
+# Disable Windows 11 Snap Layouts for tiled windows (also disables maximize button)
+# disable_snap_layouts = false
+
+# Check GitHub Releases once a day for a newer version. One anonymous HTTPS GET to
+# api.github.com on startup + every 24h. Disable to skip entirely.
+check_for_updates = true
+
+# Animate Chromium / Electron / Mozilla / Cascadia / .NET windows via DWM
+# thumbnails instead of per-frame SetWindowPos during column scrolls. Eliminates
+# the 1px wobble and renderer stutter on apps that repaint poorly under
+# per-frame moves (Chrome, Edge, Slack, Discord, Beeper, Spotify, VS Code,
+# Firefox, Windows Terminal, and .NET Framework WinForms/WPF apps).
+# Default on since v0.1.18. Set to false to fall back to the legacy
+# per-frame SetWindowPos path.
+# swap_chain_ghost_animation = false
+
+# Where newly opened windows go: "new_column" (default, own column to the
+# right) or "in_column" (stacked into the focused column).
+# new_window_placement = "new_column"
+
+# Hide a window's taskbar button while it isn't visible in the current view
+# (on another workspace, or scrolled out of view). Floating and minimized
+# windows always keep their button. Default true.
+# hide_offscreen_taskbar_buttons = true
+
+# Wrap vertical focus/move at a column's top or bottom edge into the adjacent
+# workspace. When on, focus_up/focus_down at the edge switch workspaces and
+# move_window_up/move_window_down at the edge move the window there. Default false.
+# workspace_edge_wrap = false
+
+# Warp the mouse cursor onto the focused window after a focus-navigation command
+# (the inverse of focus_follows_mouse). Default false.
+# mouse_follows_focus = false
+
+# When a window is fullscreen, carry fullscreen to the next focused window
+# (monocle mode) instead of dropping to the tiled layout. Turn off so fullscreen
+# only affects the one window it was toggled on. Default true.
+# fullscreen_follows_focus = true
+
+[hotkeys]
+# Focus
+"Alt+H" = "focus_left"
+"Alt+L" = "focus_right"
+"Alt+K" = "focus_up"
+"Alt+J" = "focus_down"
+
+# Move column
+"Alt+Shift+H" = "move_column_left"
+"Alt+Shift+L" = "move_column_right"
+"Alt+Shift+Home" = "move_window_down"
+"Alt+Shift+End" = "move_window_up"
+# Consume/Expel window to a new column
+"Alt+[" = "consume_from_left"
+"Alt+]" = "consume_from_right"
+"Alt+Shift+[" = "expel_to_left"
+"Alt+Shift+]" = "expel_to_right"
+
+# Monitor focus
+"Ctrl+Alt+H" = "focus_monitor_left"
+"Ctrl+Alt+L" = "focus_monitor_right"
+"Ctrl+Alt+K" = "focus_monitor_up"
+"Ctrl+Alt+J" = "focus_monitor_down"
+
+# Move window to monitor
+"Ctrl+Alt+Shift+H" = "move_to_monitor_left"
+"Ctrl+Alt+Shift+L" = "move_to_monitor_right"
+"Ctrl+Alt+Shift+K" = "move_to_monitor_up"
+"Ctrl+Alt+Shift+J" = "move_to_monitor_down"
+
+# Window resize
+"Alt+R" = "cycle_width"
+"Alt+Shift+R" = "cycle_height"
+"Ctrl+Alt+R" = "equalize_heights"
+"Alt+F" = "maximize_column"
+
+# Window manage
+"Alt+T" = "toggle_floating"
+"Alt+Shift+F" = "toggle_fullscreen"
+"Alt+W" = "toggle_tabbed"
+"Alt+O" = "toggle_overview"
+
+# Session
+"Win+Ctrl+Escape" = "panic_revert"
+
+# Workspaces
+"Ctrl+Alt+Shift+Left" = "workspace_prev"
+"Ctrl+Alt+Shift+Right" = "workspace_next"
+
+# Move window to workspace
+"Ctrl+Alt+Shift+PageUp" = "move_to_workspace_prev"
+"Ctrl+Alt+Shift+PageDown" = "move_to_workspace_next"
+
+
+# Switch to workspace
+"Alt+1" = "switch_workspace_1"
+"Alt+2" = "switch_workspace_2"
+"Alt+3" = "switch_workspace_3"
+"Alt+4" = "switch_workspace_4"
+"Alt+5" = "switch_workspace_5"
+"Alt+6" = "switch_workspace_6"
+"Alt+7" = "switch_workspace_7"
+"Alt+8" = "switch_workspace_8"
+"Alt+9" = "switch_workspace_9"
+
+# Move window to workspace
+"Alt+Shift+1" = "move_to_workspace_1"
+"Alt+Shift+2" = "move_to_workspace_2"
+"Alt+Shift+3" = "move_to_workspace_3"
+"Alt+Shift+4" = "move_to_workspace_4"
+"Alt+Shift+5" = "move_to_workspace_5"
+"Alt+Shift+6" = "move_to_workspace_6"
+"Alt+Shift+7" = "move_to_workspace_7"
+"Alt+Shift+8" = "move_to_workspace_8"
+"Alt+Shift+9" = "move_to_workspace_9"
+
+[gestures]
+# raw_input = false  # Opt in to native Precision Touchpad swipes; restart required.
+# Requires Windows three- and four-finger touchpad gestures set to Nothing.
+# Touchpad gesture support
+enabled = true
+swipe_left = "focus_left"
+swipe_right = "focus_right"
+swipe_up = "focus_up"
+swipe_down = "focus_down"
+# Startup-only bounded diagnostic capture, in seconds. 0 = off (default).
+# Max 120. Requires `lwm stop` then `lwm run`; `lwm reload` does not start a capture.
+# Writes %LOCALAPPDATA%\leopardwm\logs\leopardwm-gesture-capture.log and replaces any prior report.
+# diagnostic_capture_secs = 0
+
+[snap_hints]
+# Visual snap hint overlays during resize
+enabled = true
+duration_ms = 200
+opacity = 128
+
+[animation]
+# Animation timing. Durations in milliseconds; 0 = snap instantly.
+# easing accepts "linear" | "ease_in" | "ease_out" | "ease_in_out".
+layout_duration_ms = 150            # column move / resize / tab changes
+workspace_switch_duration_ms = 200  # switching workspaces
+scroll_duration_ms = 200            # scrolling a column into view
+overview_duration_ms = 150          # overview open/close zoom
+easing = "ease_out"
+# Skip animations while on battery / Windows power saver (saves power).
+# Set false to keep animations on battery. The Windows "show animations"
+# accessibility setting is always honored regardless.
+reduce_motion_on_battery = true
+
+[overview]
+# Workspace overview card bodies: "live" (default) shows DWM window
+# previews (last frame for windows on hidden workspaces); "snapshot"
+# shows a frame captured right before each window left the screen
+# (icon until one exists); "placeholder" keeps the static app-icon
+# bodies.
+# render = "live"
+
+[workspaces]
+# Optional display names for workspaces 1-9, by position. Shown in
+# `lwm query workspace` and pushed to bars over IPC. Leave an entry empty
+# ("") to keep that workspace's number. Omit the list to name nothing.
+# names = ["web", "code", "chat", "media"]
+
+# Built-in example: Firefox / Zen Picture-in-Picture popups draw their own
+# square frame, so we override the focus-border corner style to match. Edit
+# or remove freely — corner_style accepts "square" | "rounded" | "small_rounded".
+[[window_rules]]
+match_class = "MozillaDialogClass"
+corner_style = "square"
+
+# [[window_rules]]
+# match_class = "Chrome_WidgetWin_1"
+# match_title = ".*DevTools.*"
+# action = "float"
+
+# Per-app open behavior: open on a workspace (1-9), pin to a column slot
+# (open_in_column, 1-based), set the initial column width (viewport fraction),
+# maximize the column, or make the window sticky so it follows you across
+# workspaces (add action = "float" for a floating overlay instead of a column).
+# [[window_rules]]
+# match_executable = "spotify.exe"
+# open_on_workspace = 5
+# column_width = 0.5
+# open_maximized = false
+#
+# [[window_rules]]
+# match_executable = "chrome.exe"
+# open_in_column = 1
+#
+# [[window_rules]]
+# match_executable = "slack.exe"
+# sticky = true
