@@ -25,7 +25,7 @@
     };
 
     quien = {
-      url = "github:retlehs/quien";
+      url = "github:retlehs/quien/v0.12.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sabiql = {

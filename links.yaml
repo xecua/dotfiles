@@ -158,6 +158,3 @@ links:
 
   - name: starship.toml
     base: config
-
-  - name: mimeapps.list
-    base: config
