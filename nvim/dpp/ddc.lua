@@ -11,10 +11,14 @@ vim.keymap.set(
 )
 local function do_completion(delta)
     return function()
-        if delta < 0 and not vim.fn["pum#entered"]() then
-            vim.fn["pum#map#insert_relative"](delta, "loop")
+        if vim.fn["pum#visible"]() then
+            if delta < 0 and not vim.fn["pum#entered"]() then
+                vim.fn["pum#map#insert_relative"](delta, "loop")
+            else
+                vim.fn["pum#map#insert_relative"](delta)
+            end
         else
-            vim.fn["pum#map#insert_relative"](delta)
+            vim.fn["ddc#map#manual_complete"]()
         end
     end
 end
