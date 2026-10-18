@@ -266,6 +266,14 @@ repo = 'MunifTanjim/nui.nvim'
 [[plugins]]
 repo = 'neovim/nvim-lspconfig'
 
+[[plugins]]
+repo = 'otnc/package-license-viewer'
+rtp = 'packages/vim-plugin'
+hook_post_update = """
+!npm ci
+!npm run compile:lsp
+"""
+
 ## breadcrumbs
 [[plugins]]
 repo = 'SmiteshP/nvim-navic'
