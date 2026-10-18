@@ -17,6 +17,11 @@ local function shiftwidth()
     end
 end
 
+local function encoding()
+    -- 組み込みのencodingが使うvim.opt.fileencoding:get()は、nomodifiableなバッファでE21になる
+    return vim.bo.fileencoding
+end
+
 local function ddu()
     if vim.o.ft:find("^ddu") == nil then
         return ""
@@ -67,7 +72,7 @@ require("lualine").setup({
             "diagnostics",
             { "lsp_status", ignore_lsp = { "efm", "GitHub Copilot" } },
         },
-        lualine_y = { fileformat, shiftwidth, "encoding", "filetype" },
+        lualine_y = { fileformat, shiftwidth, encoding, "filetype" },
         lualine_z = { "location" },
     },
     tabline = {
