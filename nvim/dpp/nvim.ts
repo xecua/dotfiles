@@ -45,7 +45,8 @@ export class Config extends BaseConfig {
       loadToml(`${config_base}/dpp/dpp.toml`),
       loadToml(`${config_base}/dpp/common.toml`),
       loadToml(`${config_base}/dpp/ddu.toml`),
-      loadToml(`${config_base}/dpp/ddc.toml`),
+      // loadToml(`${config_base}/dpp/ddc.toml`),
+      loadToml(`${config_base}/dpp/goda.toml`),
       loadToml(`${config_base}/dpp/plugins.toml`),
     ];
 
