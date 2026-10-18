@@ -37,7 +37,7 @@
         @{ Name = 'PowerShell\Microsoft.PowerShell_profile.ps1'; Base = 'Documents'; Target = 'Powershell\Microsoft.PowerShell_profile.ps1' }
 
         # 設定 GUI で保存すると config.toml が書き換えられる
-        @{ Name = 'leopardwm\config\config.toml'; Base = 'AppData'; Target = 'leopardwm\config.toml'; Condition = 'Exists' }
+        @{ Name = 'leopardwm\config\config.toml'; Base = 'AppData'; Target = 'leopardwm\config.toml' }
     )
 
     Env = @{
