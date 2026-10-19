@@ -1,0 +1,53 @@
+# These settings were set by the catalyst build script that automatically
+# built this stage.
+# Please consult /usr/share/portage/config/make.conf.example for a more
+# detailed example.
+
+COMMON_FLAGS="-O2 -pipe -march=native"
+COMMON_LDFLAGS="-Wl,-O1 -Wl,--as-needed -Wl,-z,pack-relative-relocs"
+
+GCC_FLAGS="-flto"
+GCC_LDFLAGS="-flto"
+
+CLANG_FLAGS="-flto=thin"
+CLANG_LDFLAGS="-rtlib=compiler-rt -unwindlib=libunwind -flto=thin -Wl,--thinlto-cache-dir=/var/cache/thinlto"
+
+LD="ld.mold"
+LLD_LDFLAGS="-fuse-ld=lld"
+MOLD_LDFLAGS="-fuse-ld=mold"
+
+CFLAGS="${COMMON_FLAGS} ${CLANG_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS} ${CLANG_FLAGS}"
+FCFLAGS="${COMMON_FLAGS} ${CLANG_FLAGS}"
+FFLAGS="${COMMON_FLAGS} ${CLANG_FLAGS}"
+LDFLAGS="${COMMON_LDFLAGS} ${CLANG_LDFLAGS} ${MOLD_LDFLAGS}"
+
+
+# NOTE: This stage was built with the bindist Use flag enabled
+
+# This sets the language of build output to English.
+# Please keep this setting intact when reporting bugs.
+LC_MESSAGES=C.utf8
+
+MAKEOPTS="-j8"
+
+USE="X symlink luajit policykit bluetooth dbus bdbus udev acl text alsa pulseaudio user-session udisks qt6 truetype wayland fcitx5 opengl vulkan screencast svg unicode upower usb x264 jpeg mp3 mp4 pdf gif tiff png sdl webp sound pipewire libnotify appindicator brotli -qt5 -kde -ibus -networkmanager"
+# radeon required by libdrm[video_cards_radeon], in turn required by mesa[amdgpu], and this is meaningless.
+VIDEO_CARDS="amdgpu radeonsi radeon vesa fbdev"
+
+FEATURES="${FEATURES} getbinpkg binpkg-request-signature"
+# FEATURES=ccache: enable only large package e.g. chromium, libreoffice
+CCACHE_DIR="/var/cache/ccache"
+
+RUSTC_WRAPPER="/usr/bin/sccache"
+# RUSTFLAGS="${RUSTFLAGS} -Clinker-plugin-lto"
+SCCACHE_DIR="/var/cache/sccache"
+SCCACHE_MAX_FRAME_LENGTH=104857600
+
+INPUT_DEVICES="synaptics libinput"
+
+GENTOO_MIRRORS=" \
+    https://ftp.iij.ad.jp/pub/linux/gentoo/ \
+    https://ftp.riken.jp/Linux/gentoo/ \
+    https://ftp.jaist.ac.jp/pub/Linux/Gentoo/ \
+"

@@ -11,44 +11,28 @@
 # required by @selected
 # required by @world (argument)
 =kde-frameworks/kf-env-6 ~amd64
-# required by app-editors/neovim-0.10.1::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/tree-sitter-vimdoc-3.0.0 ~amd64
-# required by app-editors/neovim-0.11.0::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/tree-sitter-lua-0.3.0 ~amd64
 # required by app-editors/neovim-0.11.0::gentoo
 # required by @selected
 # required by @world (argument)
 =dev-libs/unibilium-2.1.2 ~amd64
-# required by app-editors/neovim-0.11.0::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-lua/luv-1.50.0.1 ~amd64
-# required by app-editors/neovim-0.11.0::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/tree-sitter-vim-0.5.0 ~amd64
-# required by app-editors/neovim-0.11.0::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/tree-sitter-markdown-0.4.1 ~amd64
-# required by app-editors/neovim-0.11.0::gentoo
-# required by @selected
-# required by @world (argument)
-=dev-libs/tree-sitter-query-0.5.0 ~amd64
 # required by gui-apps/walker-0.13.26::guru
 # required by walker (argument)
 =gui-libs/gtk4-layer-shell-1.1.1-r1 ~amd64
-# required by dev-db/mycli-1.44.0::gentoo[python_single_target_python3_13]
-# required by mycli (argument)
-=dev-python/pyfzf-0.3.1 ~amd64
-# required by dev-db/mycli-1.44.0::gentoo[python_single_target_python3_13]
-# required by mycli (argument)
-=dev-python/sqlglot-27.29.0 ~amd64
-# required by dev-db/mycli-1.54.1::gentoo[python_single_target_python3_13]
-# required by @selected
-# required by @world (argument)
-=dev-python/cli-helpers-2.10.1 ~amd64
+# required by wild (argument)
+=sys-devel/wild-0.8.0 ~amd64
+# required by idris2 (argument)
+=dev-lang/idris2-0.7.0-r2 ~amd64
+# required by app-containers/container-libs-0.69.0::gentoo[extra]
+# required by app-containers/podman-6.1.2::gentoo
+# required by @__auto_slot_operator_replace_installed__ (argument)
+=app-containers/netavark-2.1.0 ~amd64
+# required by app-containers/netavark-2.1.0::gentoo
+# required by app-containers/container-libs-0.69.0::gentoo[extra]
+# required by app-containers/podman-6.1.2::gentoo
+# required by @__auto_slot_operator_replace_installed__ (argument)
+=app-containers/aardvark-dns-2.1.0 ~amd64
+# required by app-containers/podman-6.1.2::gentoo
+# required by @__auto_slot_operator_replace_installed__ (argument)
+=app-containers/container-libs-0.69.0 ~amd64
+# required by @__auto_slot_operator_replace_installed__ (argument)
+=app-containers/podman-9999 **

@@ -13,10 +13,10 @@ llvm-core/llvm zstd binutils-plugin # z3
 mail-mta/proton-mail-bridge gui
 media-fonts/noto cjk
 media-fonts/udev-gothic nerdfonts
-media-gfx/feh inotify xinerama
 media-gfx/imagemagick xml corefonts truetype
 media-libs/libsdl2 gles2 # required by media-libs/libsdl2[wayland]
 media-libs/libsndfile minimal
+media-sound/kid3 flac mp3 mp4
 media-sound/mpd flac
 media-sound/playerctl introspection
 media-video/ffmpeg opus
@@ -26,6 +26,7 @@ net-analyzer/trippy suid
 net-libs/nodejs npm
 net-misc/openssh libedit
 net-wireless/bluez btpclient
+sci-ml/llama-cpp webui
 sys-apps/systemd homed cryptsetup boot policykit
 sys-auth/pambase homed
 sys-boot/refind btrfs ntfs
@@ -34,4 +35,5 @@ sys-libs/ncurses minimal
 www-client/vivaldi proprietary-codecs
 www-client/vivaldi-snapshot proprietary-codecs
 x11-libs/gdk-pixbuf tiff
+x11-misc/xdg-user-dirs gtk
 x11-terms/ghostty man

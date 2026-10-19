@@ -73,3 +73,8 @@
 # required by @selected
 # required by @world (argument)
 >=net-dns/avahi-0.9_rc3 mdnsresponder-compat
+# required by app-containers/containers-common-0.64.2::gentoo
+# required by app-containers/podman-5.8.6::gentoo
+# required by app-containers/podman-compose-1.6.0::gentoo[-test]
+# required by app-containers/podman-compose (argument)
+>=net-firewall/iptables-1.8.13 nftables

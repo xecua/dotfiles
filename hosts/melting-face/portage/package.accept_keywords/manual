@@ -1,6 +1,8 @@
-app-admin/bitwarden-cli-bin
 app-admin/bitwarden-desktop-bin
 app-admin/doasedit
+app-containers/podman
+app-containers/podman-compose
+app-containers/podman-tui
 app-containers/slirp4netns
 app-crypt/yubioath-flutter-bin
 app-editors/neovim **
@@ -14,10 +16,10 @@ app-misc/ghq
 app-misc/jaq
 app-misc/pastel
 app-office/obsidian
-app-shells/direnv
 app-shells/fzf
 app-shells/vivid
 app-shells/zoxide
+app-text/lemminx-bin::gentoo-zh
 app-text/texlab
 dev-cpp/sdbus-c++
 dev-lang/rust-bin
@@ -28,13 +30,10 @@ dev-libs/tree-sitter*
 dev-lua/luv
 dev-util/act
 dev-util/difftastic
-dev-util/herdr-bin
 dev-util/opencode-bin
 dev-util/radare2
-dev-util/ruff
 dev-util/sccache
 dev-util/tree-sitter-cli
-dev-util/ty
 dev-vcs/gibo
 dev-vcs/git
 dev-vcs/git-extras
@@ -47,7 +46,9 @@ gui-apps/swayidle
 gui-apps/swaylock-effects
 gui-apps/tuigreet
 gui-apps/walker
-gui-apps/waybar
+gui-apps/waybar **
+gui-apps/wayidle
+gui-apps/waylock
 gui-apps/waypipe
 gui-apps/wev
 gui-apps/wf-recorder
@@ -61,6 +62,7 @@ media-sound/bluez-alsa
 media-sound/mpd-mpris
 media-video/ffmpeg-chromium
 media-video/v4l2loopback
+sci-ml/llama-cpp::gentoo-zh
 sys-apps/bat-extras
 sys-apps/hexyl
 sys-apps/rootlesskit

@@ -3,6 +3,8 @@ app-admin/bitwarden-desktop-bin
 app-admin/doas
 app-admin/doasedit
 app-admin/eclean-kernel
+app-containers/podman
+app-containers/podman-compose
 app-containers/slirp4netns
 app-crypt/chntpw
 app-crypt/libu2f-host
@@ -28,15 +30,16 @@ app-office/obsidian
 app-portage/cpuid2cpuflags
 app-portage/eix
 app-portage/gentoolkit
+app-portage/mirrorselect
 app-portage/pycargoebuild
 app-portage/smart-live-rebuild
-app-shells/direnv
 app-shells/fish
 app-shells/fzf
 app-shells/starship
 app-shells/vivid
 app-shells/zoxide
 app-shells/zsh
+app-text/lemminx-bin
 app-text/texlab
 app-text/zathura
 app-text/zathura-pdf-mupdf
@@ -47,6 +50,7 @@ dev-go/gopls
 dev-java/openjdk-bin
 dev-lang/deno-bin
 dev-lang/go
+dev-lang/idris2
 dev-lang/rust-bin
 dev-lang/typescript
 dev-libs/libei
@@ -59,8 +63,9 @@ dev-util/breakpad
 dev-util/ccache
 dev-util/ctags
 dev-util/difftastic
-dev-util/herdr-bin
+dev-util/github-cli
 dev-util/opencode-bin
+dev-util/pkgdev
 dev-util/radare2
 dev-util/sccache
 dev-util/tree-sitter-cli
@@ -95,6 +100,7 @@ kde-frameworks/kiconthemes
 kde-frameworks/kirigami
 kde-frameworks/qqc2-desktop-style
 kde-misc/kdeconnect
+llvm-core/lldb
 media-fonts/corefonts
 media-fonts/noto
 media-fonts/noto-cjk
@@ -108,6 +114,7 @@ media-gfx/timg
 media-libs/exiftool
 media-sound/alsa-utils
 media-sound/bluez-alsa
+media-sound/kid3
 media-sound/mpc
 media-sound/mpd
 media-sound/mpd-mpris
@@ -127,6 +134,7 @@ net-wireless/blueman
 net-wireless/bluez
 net-wireless/iwd
 sci-libs/libqalculate
+sci-ml/llama-cpp
 sys-apps/accountsservice
 sys-apps/bat
 sys-apps/bat-extras
@@ -150,6 +158,7 @@ sys-block/parted
 sys-boot/efibootmgr
 sys-boot/refind
 sys-devel/mold
+sys-devel/wild
 sys-fs/btrfs-progs
 sys-fs/dua-cli
 sys-fs/exfatprogs
@@ -164,10 +173,9 @@ sys-power/power-profiles-daemon
 sys-power/powertop
 sys-process/bottom
 sys-process/lsof
-www-client/firefox-bin
 www-client/vivaldi
-www-client/vivaldi-snapshot
 x11-misc/clipse
 x11-misc/dunst
+x11-misc/xdg-user-dirs
 x11-terms/ghostty
 x11-themes/adwaita-qt
