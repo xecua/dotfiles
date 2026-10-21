@@ -456,9 +456,11 @@ hooks_file = '$STD_CONFIG/dpp/lualine.lua'
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
+rev = 'refactor/v2'
 lua_source = """
-require('scrollbar').setup()
-require("scrollbar.handlers.gitsigns").setup()
+require('scrollbar').setup({
+    providers = { gitsigns = true }
+})
 """
 
 # mark
