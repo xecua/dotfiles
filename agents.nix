@@ -45,9 +45,16 @@ in
       sanitize-artifacts = ./skills/sanitize-artifacts;
       file-search = "${inputs.file-search-skill}/skills/file-search";
       conventional-commit = "${inputs.awesome-copilot}/skills/conventional-commit";
-      # claudeで重複しないか? これ
       yomiyasu = "${inputs.yomiyasu}/skills/yomiyasu";
     };
+
+    # claude.ai に登録して同期で配る skill。Claude Code にはリンクしない
+    # (同期分は anthropic-skills:<name> として読み込まれ、ローカルと重複するため)
+    claude-code.syncedSkills = [
+      "id3-tag-editor"
+      "sanitize-artifacts"
+      "yomiyasu"
+    ];
 
     plugins.browser = {
       description = "Browser automation via chrome-devtools-mcp (auto-connect to a running Chrome)";

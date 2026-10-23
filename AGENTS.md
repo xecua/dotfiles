@@ -56,6 +56,10 @@ modules/agents/{claude-code,codex,copilot,antigravity,tool-skills}.nix   # 各�
 - CLI が置く skill: `agents.toolSkills.<tool> = { package; installCommand; skills; }` (installCommand は絶対パスで、冪等なもの)
 - B ファイル: `mergedFiles.<name> = { target = "/abs/path"; fragment = {...}; format = "json"|"toml"; }`
 - 名前の重複 (skills / plugins / toolSkills) は assertion で落ちる
+- claude.ai に登録した skill: `agents.claude-code.syncedSkills` に名前を足すと Claude Code にだけリンクしない。
+  Claude Code (2.1.275+) は claude.ai で有効な skill を `$CLAUDE_CONFIG_DIR/skills/synced/` に同期し `anthropic-skills:<name>` として読むので、
+  ローカルにもあると重複する (同期 plugin は同名のローカル plugin が優先されるので重複しない)。
+  claude.ai へのアップロードは手作業で、flake input の更新には追従しない
 
 ### マージの挙動 (hm-merge-json / hm-merge-toml)
 
