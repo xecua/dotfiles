@@ -154,6 +154,7 @@ sys-apps/gsmartcontrol
 sys-apps/hexyl
 sys-apps/miscfiles
 sys-apps/pciutils
+sys-apps/portage
 sys-apps/ripgrep
 sys-apps/smartmontools
 sys-apps/usbutils
