@@ -33,6 +33,32 @@ lua_source = """
 require('image').setup({})
 """
 
+[[plugins]]
+repo = 'hakonharnes/img-clip.nvim'
+lua_source = """
+local dirs_override = {}
+-- local obsidian_dir = require('xecua.utils').get_local_config().obsidian_dir
+-- if obsidian_dir then
+--     dirs_override[obsidian_dir] = {
+--     }
+-- end
+if vim.g.typnote_dir then
+    dirs_override[vim.g.typnote_dir] = {
+        filetypes = {
+            typst = { template = '#image("$FILE_PATH", width: 80%)'}
+        }
+    }
+end
+require("img-clip").setup({
+    default = {
+        dir_path = "attachments",
+        relative_to_current_file = true,
+        prompt_for_file_name = false,
+    },
+    dirs = dirs_override
+})
+"""
+
 # select
 [[plugins]]
 repo = 's1n7ax/nvim-window-picker'
@@ -57,7 +83,7 @@ require("window-picker").setup({
 """
 
 [[plugins]]
-repo = 'epwalsh/obsidian.nvim'
+# repo = 'epwalsh/obsidian.nvim'
 depends = 'plenary.nvim'
 lua_add = """
 vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
