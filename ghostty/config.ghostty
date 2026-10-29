@@ -9,6 +9,8 @@ window-inherit-working-directory = true
 macos-option-as-alt = left
 confirm-close-surface = false
 shell-integration = fish
+# 1GB
+scrollback-limit = 1073741824
 
 quick-terminal-keyboard-interactivity = exclusive
 
