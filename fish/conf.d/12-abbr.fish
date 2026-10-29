@@ -20,7 +20,7 @@ abbr --add vi --function expand_vim
 
 function fzf_vim
     set -f vim_command (expand_vim)
-    set -f target (fd | fzf --preview 'fzf-preview.sh {}')
+    set -f target (fd -t f| fzf --preview 'fzf-preview.sh {}')
     if test -z "$target"
         return 1
     end
