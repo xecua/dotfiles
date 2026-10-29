@@ -82,35 +82,35 @@ require("window-picker").setup({
 })
 """
 
-[[plugins]]
+# [[plugins]]
 # repo = 'epwalsh/obsidian.nvim'
-depends = 'plenary.nvim'
-lua_add = """
-vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
-vim.keymap.set("n", "<Leader>bm", "<Cmd>ObsidianTomorrow<CR>")
-vim.keymap.set("n", "<Leader>by", "<Cmd>ObsidianYesterday<CR>")
-vim.keymap.set("n", "<Leader>bs", "<Cmd>ObsidianQuickSwitch<CR>")
-vim.keymap.set("n", "<Leader>bo", "<Cmd>ObsidianOpen<CR>")
-"""
-lua_source = """
-local default_vault = require("xecua.utils").get_local_config().obsidian_dir
-
-require("obsidian").setup({
-    templates = {
-        subdir = "templates",
-    },
-    daily_notes = { folder = "dailynotes", date_format = "%Y/%Y-%m-%d", template = "dailynote.md" },
-    disable_frontmatter = true,
-    picker = { name = 'fzf-lua' },
-    follow_url_func = function(url)
-        vim.ui.open(url)
-    end,
-    workspaces = {
-        { name = vim.fs.basename(default_vault), path = default_vault }
-    },
-    ui = { enable = false }
-})
-"""
+# depends = 'plenary.nvim'
+# lua_add = """
+# vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
+# vim.keymap.set("n", "<Leader>bm", "<Cmd>ObsidianTomorrow<CR>")
+# vim.keymap.set("n", "<Leader>by", "<Cmd>ObsidianYesterday<CR>")
+# vim.keymap.set("n", "<Leader>bs", "<Cmd>ObsidianQuickSwitch<CR>")
+# vim.keymap.set("n", "<Leader>bo", "<Cmd>ObsidianOpen<CR>")
+# """
+# lua_source = """
+# local default_vault = require("xecua.utils").get_local_config().obsidian_dir
+#
+# require("obsidian").setup({
+#     templates = {
+#         subdir = "templates",
+#     },
+#     daily_notes = { folder = "dailynotes", date_format = "%Y/%Y-%m-%d", template = "dailynote.md" },
+#     disable_frontmatter = true,
+#     picker = { name = 'fzf-lua' },
+#     follow_url_func = function(url)
+#         vim.ui.open(url)
+#     end,
+#     workspaces = {
+#         { name = vim.fs.basename(default_vault), path = default_vault }
+#     },
+#     ui = { enable = false }
+# })
+# """
 
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
@@ -451,8 +451,8 @@ require('gitsigns').setup({
 
     vim.keymap.set('n', '<Leader>gb', gitsigns.blame, { buffer = true, desc = "Gitsigns: blame" })
     vim.keymap.set('n', '<Leader>gd', gitsigns.diffthis, { buffer = true, desc = "Gitsigns: diff" })
-    vim.keymap.set('n', '<Leader>g[', function() gitsigns.nav_hunk('prev') end, { buffer = true, desc = "Gitsigns: jump to prev hunk" })
-    vim.keymap.set('n', '<Leader>g]', function() gitsigns.nav_hunk('next') end, { buffer = true, desc = "Gitsigns: jump to next hunk" })
+    vim.keymap.set('n', '[g', function() gitsigns.nav_hunk('prev') end, { buffer = true, desc = "Gitsigns: jump to prev hunk" })
+    vim.keymap.set('n', ']g', function() gitsigns.nav_hunk('next') end, { buffer = true, desc = "Gitsigns: jump to next hunk" })
     vim.keymap.set('n', '<Leader>ga', gitsigns.stage_hunk, { buffer = true, desc = "Gitsigns: stage current hunk" })
     vim.keymap.set('v', '<Leader>ga', function() gitsigns.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { buffer = true, desc = "Gitsigns: stage selected hunk" })
     vim.keymap.set('n', '<Leader>gA', gitsigns.stage_buffer, { buffer = true, desc = "Gitsigns: stage current buffer" })
