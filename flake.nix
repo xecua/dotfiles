@@ -28,9 +28,9 @@
       url = "github:retlehs/quien/v0.12.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sabiql = {
-      url = "github:riii111/sabiql";
-      inputs.nixpkgs.follows = "nixpkgs";
+    elio = {
+      # Rustがlatestじゃないといけないのでnixpkgsを追従させない
+      url = "github:elio-fm/elio/main";
     };
     zeta = {
       url = "github:lentilus/zeta";
