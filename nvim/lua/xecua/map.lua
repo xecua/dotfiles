@@ -54,6 +54,11 @@ vim.keymap.set("c", "<C-v>", function()
 end, { expr = true, desc = "toggle \\v(verymagic) while searching" })
 vim.keymap.set("v", "/", "<Esc>/\\%V") -- \%V: gvで選択される範囲。後ろにも%Vが必要
 vim.keymap.set("v", "?", "<Esc>?\\%V")
+vim.keymap.set("n", "g/", function()
+    local b = vim.fn.line("w0")
+    local e = vim.fn.line("w$")
+    return string.format("/<C-u>\\%%>%dl\\%%<%dl", b, e)
+end, { expr = true, desc = "見えている範囲だけで検索" })
 vim.keymap.set("n", "<F3>", "<Cmd>set cursorline!<Bar>set cursorcolumn!<CR>")
 vim.keymap.set("n", "<Leader>rn", "<Cmd>set relativenumber!<CR>")
 
