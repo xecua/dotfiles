@@ -1,49 +1,112 @@
 package main
 
 import (
+	"slices"
+
 	"github.com/Shougo/goda-cmp.vim/cmp"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/converterremoveoverlap"
 	"github.com/Shougo/goda-cmp.vim/ext/filter/matcherhead"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterlength"
-	"github.com/Shougo/goda-cmp.vim/ext/filter/truncateabbr"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterhead"
+	"github.com/Shougo/goda-cmp.vim/ext/filter/sorterrank"
 	"github.com/Shougo/goda-cmp.vim/ext/source/around"
+	"github.com/Shougo/goda-cmp.vim/ext/source/cmdline"
+	"github.com/Shougo/goda-cmp.vim/ext/source/file"
+	"github.com/Shougo/goda-cmp.vim/ext/source/input"
+	"github.com/Shougo/goda-cmp.vim/ext/source/line"
+	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
+	"github.com/Shougo/goda-cmp.vim/ext/source/shellnative"
+	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
 )
 
 func main() {
 	b := cmp.New()
 
-	// Extensions: anything implementing cmp.Source / cmp.Filter / cmp.UI,
-	// from this repository or from your own modules.
+	b.AddUI(pum.New())
+
+	// TODO: lsp, snippet, skk
 	b.AddSource(around.New(around.Params{MinLength: 2}))
+	b.AddSource(line.New(line.Params{}))
+	b.AddSource(file.New(file.Params{}))
+	b.AddSource(cmdline.New())
+	b.AddSource(input.New())
+	b.AddSource(shellnative.New(shellnative.Params{Shell: "zsh"}))
+
+	// TODO: fuzzy
 	b.AddFilter(matcherhead.New(matcherhead.Params{}))
-	b.AddFilter(sorterlength.New())
-	b.AddFilter(truncateabbr.New(truncateabbr.Params{MaxWidth: 40}))
+	b.AddFilter(sorterrank.New())
+	b.AddFilter(sorterhead.New())
+	b.AddFilter(converterremoveoverlap.New())
 
 	configure(b)
+
 	b.Main()
 }
+
+var (
+	sources = []string{"file", "around"}
+)
 
 func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
 		UI:      "pum",
-		Sources: []string{"around"},
+		Sources: sources,
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
-				Matchers:   []string{"matcher_head"},
-				Sorters:    []string{"sorter_length"},
-				Converters: []string{"converter_truncate_abbr"},
+				Matchers:   []string{"matcherhead"},
+				Sorters:    []string{"sorterrank"},
+				Converters: []string{"converterremoveoverlap"},
 			},
 			"around": {Mark: "A"},
+			"file": {
+				Mark:                   "file",
+				ForceCompletionPattern: `\S\/\S*`,
+			},
+			"cmdline": {
+				Mark:                   "cmd",
+				ForceCompletionPattern: `\S\s*`,
+				IsVolatile:             new(true),
+			},
+			"input": {
+				Mark:       "input",
+				IsVolatile: new(true),
+			},
+			"shellnative": {
+				Mark:       "sh",
+				Matchers:   []string{"matcherhead"},
+				IsVolatile: new(true),
+			},
 		},
-		AutoCompleteDelay: cmp.Ptr(10),
+		// PostFilters: []string{},
+		AutoCompleteDelay: new(150),
+		AutoCompleteEvents: []string{
+			"InsertEnter",
+			"TextChangedI",
+			"TextChangedP",
+			"CmdlineChanged",
+		},
+		CmdlineSources: map[string][]string{
+			":": {"shellnative", "cmdline", "around"},
+			"@": {"input", "file", "around"},
+			">": {"input", "file", "around"},
+			"/": {"around", "line"},
+			"?": {"around", "line"},
+			"-": {"around", "line"},
+			"=": {"input"},
+		},
 	})
 
-	// Per filetype, laid over the global settings.
-	b.PatchFiletype("markdown", cmp.Config{
-		SourceOptions: map[string]cmp.SourceOption{
-			"around": {MinAutoCompleteLength: cmp.Ptr(3)},
-		},
-	})
-	b.PatchFiletypes([]string{"gitcommit", "text"}, cmp.Config{
-		AutoCompleteDelay: cmp.Ptr(100),
+	configureLsp(b)
+}
+
+// LSP: 起動オプションとfiletypeへの紐付け。たぶん別ファイルの方がいい
+func configureLsp(b *cmp.Builder) {
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "gopls",
+		Command:     []string{"gopls"},
+		Filetypes:   []string{"go"},
+		RootMarkers: []string{".git", "go.mod"},
+	}))
+	b.PatchFiletype("go", cmp.Config{
+		Sources: slices.Concat([]string{"gopls"}, sources),
 	})
 }

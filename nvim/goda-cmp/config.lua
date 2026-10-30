@@ -1,7 +1,8 @@
--- lua_add {{
+-- lua_add {{{
 vim.api.nvim_create_autocmd("VimEnter", {
     command = "call goda_cmp#enable()",
 })
+vim.api.nvim_create_user_command("GodaCmpBuild", "call goda_cmp#build()")
 local function do_completion(delta)
     return function()
         if vim.fn["pum#visible"]() then
@@ -28,4 +29,25 @@ vim.keymap.set({ "i", "c", "t" }, "<LeftMouse>", function()
         return "<LeftMouse>"
     end
 end, { expr = true, desc = "Confirm completion item with mouse" })
--- }}
+vim.keymap.set({ "n", "v" }, ":", function()
+    vim.fn["pum#set_option"]({
+        reversed = true,
+        direction = "above",
+    })
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "GodaCmpCmdlineLeave",
+        once = true,
+        callback = function()
+            vim.fn["pum#set_option"]({
+                reversed = false,
+                direction = "auto",
+            })
+        end,
+    })
+
+    vim.fn["goda_cmp#enable_cmdline"]()
+    return ":"
+end, { expr = true })
+
+-- }}}
