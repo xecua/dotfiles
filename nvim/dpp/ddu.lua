@@ -40,7 +40,7 @@ vim.keymap.set("n", "<C-n>", function()
 end)
 
 local ddu_group_id = vim.api.nvim_create_augroup("DduMyCnf", { clear = true })
-vim.api.nvim_create_autocmd("User", {
+--[[ vim.api.nvim_create_autocmd("User", {
     pattern = "Ddu:uiOpenFilterWindow",
     group = ddu_group_id,
     callback = function()
@@ -54,7 +54,7 @@ vim.api.nvim_create_autocmd("User", {
     callback = function()
         vim.fn["ddc#custom#patch_global"]("ui", "pum")
     end,
-})
+}) ]]
 
 -- ddu-filerからファイルを開く先として、最後にいた通常のウィンドウを覚えておく
 -- (`wincmd p` はプラグイン側のwin_gotoidなどで前のウィンドウが変わってしまい当てにならない)
