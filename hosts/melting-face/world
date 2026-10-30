@@ -41,8 +41,7 @@ app-shells/zoxide
 app-shells/zsh
 app-text/lemminx-bin
 app-text/texlab
-app-text/zathura
-app-text/zathura-pdf-mupdf
+app-text/zathura-meta
 dev-cpp/cli11
 dev-cpp/sdbus-c++
 dev-go/delve

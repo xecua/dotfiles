@@ -1,0 +1,4 @@
+post_src_install() {
+    sed -i 's|^Exec=\(.*\)|Exec=\1 --password-store=gnome-libsecret|' \
+        "${ED}"/usr/share/applications/obsidian.desktop
+}

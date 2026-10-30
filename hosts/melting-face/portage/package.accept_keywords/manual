@@ -20,6 +20,7 @@ app-shells/fzf
 app-shells/vivid
 app-shells/zoxide
 app-text/lemminx-bin::gentoo-zh
+app-text/markdown-oxide
 app-text/texlab
 dev-cpp/sdbus-c++
 dev-lang/rust-bin
