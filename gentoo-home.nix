@@ -190,7 +190,10 @@ in
 
   mcp-servers.programs = {
     # mcp-servers-nix part
-    nixos.enable = true;
+    nixos = {
+      enable = true;
+      package = pkgsUnstable.mcp-nixos;
+    };
   };
 
   programs = {
