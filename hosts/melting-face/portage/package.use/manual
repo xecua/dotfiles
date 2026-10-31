@@ -10,7 +10,6 @@ gui-libs/wlroots x11-backend
 kde-frameworks/kwallet minimal
 llvm-core/lld zstd
 llvm-core/llvm zstd binutils-plugin # z3
-mail-mta/proton-mail-bridge gui
 media-fonts/noto cjk
 media-fonts/udev-gothic nerdfonts
 media-gfx/imagemagick xml corefonts truetype
@@ -23,7 +22,6 @@ media-video/ffmpeg opus
 media-video/pipewire sound-server extra -jack-client jack-sdk pipewire-alsa v4l gstreamer
 net-analyzer/nmap ncat
 net-analyzer/trippy suid
-net-libs/nodejs npm
 net-misc/openssh libedit
 net-wireless/bluez btpclient
 sci-ml/llama-cpp webui
@@ -33,8 +31,8 @@ sys-boot/refind btrfs ntfs
 sys-kernel/installkernel dracut uki refind # ukify
 sys-libs/ncurses minimal
 www-client/vivaldi proprietary-codecs
-www-client/vivaldi-snapshot proprietary-codecs
 x11-libs/gdk-pixbuf tiff
 x11-misc/xdg-user-dirs gtk
 x11-terms/ghostty man
 app-text/zathura-meta pdf epub
+gui-apps/xwayland-satellite fontconfoig

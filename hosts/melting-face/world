@@ -92,6 +92,7 @@ gui-apps/wf-recorder
 gui-apps/wl-clipboard
 gui-apps/wlr-randr
 gui-apps/xremap
+gui-apps/xwayland-satellite
 gui-libs/greetd
 gui-libs/wlroots
 gui-wm/niri

@@ -73,3 +73,4 @@ www-client/vivaldi-snapshot
 x11-misc/clipse
 x11-terms/ghostty
 x11-terms/ghostty-terminfo
+gui-apps/xwayland-satellite
