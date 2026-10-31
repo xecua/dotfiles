@@ -384,33 +384,6 @@ vim.fn['pum#set_option']({
 })
 """
 
-## SKK
-[[plugins]]
-repo = 'vim-skk/skkeleton'
-depends = 'denops.vim'
-group = 'ddc'
-hooks_file = '$STD_CONFIG/dpp/skkeleton.lua'
-
-[[plugins]]
-repo = 'delphinus/skkeleton_indicator.nvim'
-depends = ['skkeleton']
-lua_source = """
-require('skkeleton_indicator').setup({
-  eijiText = "a",
-  hiraText = "あ",
-  kataText = "ア",
-  hankataText = "ｱ",
-  zenkakuText = "Ａ"
-})
-"""
-
-[[plugins]]
-repo = 'NI57721/skkeleton-henkan-highlight'
-lua_source = """
-vim.cmd.highlight('SkkeletonHenkan', 'gui=underline term=underline cterm=underline')
-vim.cmd.highlight('SkkeletonHenakanSelect', 'gui=underline,reverse term=underline,reverse cterm=underline,reverse')
-"""
-
 [[plugins]]
 repo = 'skk-dev/dict'
 merged = false

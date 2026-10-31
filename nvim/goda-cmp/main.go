@@ -16,6 +16,9 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 	"github.com/Shougo/goda-cmp.vim/ext/source/shellnative"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
+
+	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
+	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
 )
 
 func main() {
@@ -23,7 +26,7 @@ func main() {
 
 	b.AddUI(pum.New())
 
-	// TODO: lsp, snippet, skk
+	// TODO: snippet
 	b.AddSource(around.New(around.Params{MinLength: 2}))
 	b.AddSource(line.New(line.Params{}))
 	b.AddSource(file.New(file.Params{}))
@@ -37,9 +40,15 @@ func main() {
 	b.AddFilter(sorterhead.New())
 	b.AddFilter(converterremoveoverlap.New())
 
+	p := newSkk()
+	if p != nil {
+		b.AddSource(skk.New(p))
+		b.AddSource(skkokuri.New(p))
+	}
+
 	configure(b)
 
-	b.Main()
+	b.Main(p)
 }
 
 var (
@@ -57,6 +66,21 @@ func configure(b *cmp.Builder) {
 				Converters: []string{"converterremoveoverlap"},
 			},
 			"around": {Mark: "A"},
+			"skk": {
+				Mark:                  "skk",
+				Matchers:              []string{},
+				Sorters:               []string{},
+				Converters:            []string{},
+				IsVolatile:            new(true),
+				MinAutoCompleteLength: new(1),
+			},
+			"skkokuri": {
+				Mark:       "skk",
+				Matchers:   []string{},
+				Sorters:    []string{},
+				Converters: []string{},
+				IsVolatile: new(true),
+			},
 			"file": {
 				Mark:                   "file",
 				ForceCompletionPattern: `\S\/\S*`,

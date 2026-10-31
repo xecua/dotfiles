@@ -1,8 +1,10 @@
 -- lua_add {{{
+local augroup = vim.api.nvim_create_augroup("GodaCmpConfig", { clear = true })
+
 vim.api.nvim_create_autocmd("VimEnter", {
+    group = augroup,
     command = "call goda_cmp#enable()",
 })
-vim.api.nvim_create_user_command("GodaCmpBuild", "call goda_cmp#build()")
 local function do_completion(delta)
     return function()
         if vim.fn["pum#visible"]() then
@@ -37,6 +39,7 @@ vim.keymap.set({ "n", "v" }, ":", function()
 
     vim.api.nvim_create_autocmd("User", {
         pattern = "GodaCmpCmdlineLeave",
+        group = augroup,
         once = true,
         callback = function()
             vim.fn["pum#set_option"]({

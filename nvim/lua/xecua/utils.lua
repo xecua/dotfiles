@@ -24,17 +24,17 @@ function M.get_os_string()
     return os_string
 end
 
----@return { obsidian_dir: string, skkeleton_dictionaries: table<string> }
+---@return { obsidian_dir: string, skk_dictionaries: table<string> }
 function M.get_local_config()
     local obsidian_dir = "/dev/null"
-    local skkeleton_dictionaries = {}
+    local skk_dictionaries = {}
 
     local ok, dpp = pcall(require, "dpp")
     if ok then
         local skkdict_path = dpp.get("dict").path
         local emoji_jisyo_path = dpp.get("skk-emoji-jisyo").path
         local emoji_jisyo_ja_path = dpp.get("SKK-JISYO.emoji-ja").path
-        vim.list_extend(skkeleton_dictionaries, {
+        vim.list_extend(skk_dictionaries, {
             skkdict_path .. "/SKK-JISYO.L",
             skkdict_path .. "/SKK-JISYO.jinmei",
             skkdict_path .. "/SKK-JISYO.geo",
@@ -57,12 +57,12 @@ function M.get_local_config()
 
     if ok then
         obsidian_dir = local_config.obsidian_dir or obsidian_dir
-        vim.list_extend(skkeleton_dictionaries, local_config.skkeleton_dictionaries or {})
+        vim.list_extend(skk_dictionaries, local_config.skk_dictionaries or {})
     end
 
     return {
         obsidian_dir = obsidian_dir,
-        skkeleton_dictionaries = skkeleton_dictionaries,
+        skk_dictionaries = skk_dictionaries,
     }
 end
 
