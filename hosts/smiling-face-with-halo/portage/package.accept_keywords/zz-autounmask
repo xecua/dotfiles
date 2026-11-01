@@ -114,3 +114,18 @@
 # required by @selected
 # required by @world (argument)
 =dev-libs/tree-sitter-markdown-inline-0.5.3 ~amd64
+# required by app-containers/podman-6.1.4::gentoo
+# required by @selected
+# required by @world (argument)
+=app-containers/container-libs-0.70.0 ~amd64
+# required by app-containers/netavark-2.1.0::gentoo
+# required by app-containers/container-libs-0.70.0::gentoo[extra]
+# required by app-containers/podman-6.1.4::gentoo
+# required by @selected
+# required by @world (argument)
+=app-containers/aardvark-dns-2.1.0 ~amd64
+# required by app-containers/container-libs-0.70.0::gentoo[extra]
+# required by app-containers/podman-6.1.4::gentoo
+# required by @selected
+# required by @world (argument)
+=app-containers/netavark-2.1.0 ~amd64

@@ -6,8 +6,6 @@ app-admin/pass
 app-admin/qtpass
 app-arch/zip
 app-containers/podman
-app-containers/podman-compose
-app-containers/podman-tui
 app-containers/slirp4netns
 app-crypt/chntpw
 app-crypt/seahorse
@@ -44,6 +42,7 @@ app-shells/starship
 app-shells/zoxide
 app-shells/zsh
 app-text/markdown-oxide
+app-text/qpdf
 app-text/texlab
 app-text/typst
 dev-build/just

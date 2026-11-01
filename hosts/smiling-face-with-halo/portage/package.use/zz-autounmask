@@ -1,4 +1,4 @@
-# package.use# required by sys-kernel/installkernel-39-r2::gentoo[uki,dracut,systemd-boot]
+# required by sys-kernel/installkernel-39-r2::gentoo[uki,dracut,systemd-boot]
 # required by sys-kernel/gentoo-kernel-6.6.47::gentoo[initramfs]
 # required by virtual/dist-kernel-6.6.47::gentoo
 >=sys-apps/systemd-255.7-r1 boot ukify
@@ -120,3 +120,9 @@
 # required by dev-util/pkgdev-0.2.14::gentoo
 # required by pkgdev (argument)
 >=dev-libs/tree-sitter-bash-0.25.1 python
+# required by app-containers/netavark-2.1.0::gentoo
+# required by app-containers/container-libs-0.70.0::gentoo[extra]
+# required by app-containers/podman-6.1.4::gentoo
+# required by @selected
+# required by @world (argument)
+>=net-firewall/nftables-1.1.7 json

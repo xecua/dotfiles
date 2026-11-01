@@ -34,6 +34,5 @@ sys-auth/pambase homed
 sys-boot/refind btrfs ntfs
 sys-kernel/installkernel dracut refind systemd uki # ukify
 www-client/vivaldi proprietary-codecs ffmpeg-chromium
-www-client/vivaldi-snapshot proprietary-codecs ffmpeg-chromium
 x11-libs/gdk-pixbuf jpeg tiff
 x11-misc/xdg-user-dirs gtk
