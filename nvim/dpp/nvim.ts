@@ -42,10 +42,10 @@ export class Config extends BaseConfig {
     const config_base = await args.denops.call("stdpath", "config");
     const tomls = [
       loadToml(`${config_base}/dpp/denops.toml`),
+      // loadToml(`${config_base}/dpp/ddu.toml`),
+      // loadToml(`${config_base}/dpp/ddc.toml`),
       loadToml(`${config_base}/dpp/dpp.toml`),
       loadToml(`${config_base}/dpp/common.toml`),
-      loadToml(`${config_base}/dpp/ddu.toml`),
-      // loadToml(`${config_base}/dpp/ddc.toml`),
       loadToml(`${config_base}/dpp/goda.toml`),
       loadToml(`${config_base}/dpp/plugins.toml`),
     ];

@@ -1,27 +1,32 @@
 package main
 
 import (
+	"github.com/Shougo/goda-fi.vim/ext/column/filename"
 	"github.com/Shougo/goda-fi.vim/ext/filter/converterhldir"
+	"github.com/Shougo/goda-fi.vim/ext/filter/matcherhidden"
 	"github.com/Shougo/goda-fi.vim/ext/filter/matchersubstring"
 	"github.com/Shougo/goda-fi.vim/ext/filter/sorteralpha"
 	kindfile "github.com/Shougo/goda-fi.vim/ext/kind/file"
 	kindword "github.com/Shougo/goda-fi.vim/ext/kind/word"
 	"github.com/Shougo/goda-fi.vim/ext/source/buffer"
+	"github.com/Shougo/goda-fi.vim/ext/source/file"
 	"github.com/Shougo/goda-fi.vim/ext/source/fileexternal"
 	"github.com/Shougo/goda-fi.vim/ext/source/rg"
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
+	"github.com/Shougo/goda-fi.vim/ui/filer"
 )
 
 func main() {
 	b := fi.New()
 
-	// TODO: filer
 	b.AddUI(ff.New())
+	b.AddUI(filer.New())
 
 	// TODO: lsp symbol
 	b.AddSource(rg.New(rg.Params{MaxEnqueSize: 1000, Args: []string{"--json"}}))
 	b.AddSource(buffer.New())
+	b.AddSource(file.New(file.Params{}))
 	b.AddSourceAs("fd", fileexternal.New(fileexternal.Params{
 		Cmd: []string{"fd", "--type", "file", "--hidden"},
 	}))
@@ -31,12 +36,21 @@ func main() {
 
 	// TODO: fuzzy, column(fileicon)
 	b.AddFilter(matchersubstring.New(matchersubstring.Params{HighlightMatched: "Search"}))
+	b.AddFilter(matcherhidden.New())
 	b.AddFilter(sorteralpha.New())
 	b.AddFilter(converterhldir.New(converterhldir.Params{}))
 
 	b.AddKind(kindfile.New())
 	b.AddKind(kindword.New())
 
+	b.AddColumn(filename.New(filename.DefaultParams()))
+
+	configure(b)
+
+	b.Main()
+}
+
+func configure(b *fi.Builder) {
 	b.PatchGlobal(fi.Options{
 		UI: "ff",
 		UIParams: map[string]fi.Params{
@@ -46,6 +60,17 @@ func main() {
 				"overwriteStatusline": false,
 				"autoAction":          map[string]any{"name": "preview", "sync": false},
 			},
+			"filer": {
+				"split":               "vertical",
+				"splitDirection":      "topleft",
+				"winWidth":            "&columns / 6",
+				"overwriteStatusline": false,
+				"sort":                "natural",
+				"sortTreesFirst":      true,
+			},
+		},
+		UIOptions: map[string]fi.UIOptions{
+			"filer": {Persist: new(true)},
 		},
 		SourceOptions: map[string]fi.SourceOptions{
 			"_": {
@@ -79,5 +104,17 @@ func main() {
 	b.PatchLocal("fd-all", fi.Options{Sources: fi.Sources("fdall")})
 	b.PatchLocal("buffer", fi.Options{Sources: fi.Sources("buffer")})
 
-	b.Main()
+	b.PatchLocal("filer", fi.Options{
+		UI:      "filer",
+		Sync:    new(true),
+		Sources: fi.Sources("file"),
+		SourceOptions: map[string]fi.SourceOptions{
+			"file": {
+				Matchers: []string{"matcherhidden", "matchersubstring"},
+				Sorters:  []string{},
+				Columns:  []string{"filename"},
+			},
+		},
+	})
+
 }

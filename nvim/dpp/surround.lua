@@ -30,8 +30,8 @@ local function is_operator_surround_disabled_buffer()
     local filetype = vim.opt_local.ft:get()
     return vim.tbl_contains({
         "fzf",
-        "ddu-ff",
-        "ddu-filer",
+        "goda-fi-ff",
+        "goda-fi-filer",
         "qf",
         "fugitive",
         "gitsigns-blame",

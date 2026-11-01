@@ -22,14 +22,12 @@ local function encoding()
     return vim.bo.fileencoding
 end
 
-local function ddu()
-    if vim.o.ft:find("^ddu") == nil then
+local function goda_fi()
+    if vim.o.ft:find("^goda%-fi%-") == nil or vim.b.goda_fi_name == nil then
         return ""
     end
 
-    local status = vim.w.ddu_ui_ff_status -- { name = "default", input = "aaa", done = true, maxItems = 30 }
-
-    return string.format("[%s-%s] %d/%d", vim.o.ft, status.name, vim.fn.line("$"), status.maxItems)
+    return string.format("[%s-%s] %d", vim.o.ft, vim.b.goda_fi_name, vim.fn.line("$"))
 end
 
 local function navic_fallback()
@@ -66,7 +64,7 @@ require("lualine").setup({
         lualine_b = {
             { "branch", icon = { "" } }, -- 0xe702 (devicons)
         },
-        lualine_c = { ddu },
+        lualine_c = { goda_fi },
         lualine_x = {
             "searchcount",
             "diagnostics",

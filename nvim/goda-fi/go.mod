@@ -2,6 +2,6 @@ module goda-fi-config
 
 go 1.27.3
 
-require github.com/Shougo/goda-fi.vim v0.0.0-20261031090437-d27717d2b402
+require github.com/Shougo/goda-fi.vim v0.0.0-20261101064535-0a9a19143bd7
 
-require github.com/Shougo/goda.vim v0.4.1 // indirect
+require github.com/Shougo/goda.vim v0.4.3 // indirect
