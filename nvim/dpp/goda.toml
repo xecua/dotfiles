@@ -4,6 +4,7 @@ lua_add = """
 vim.api.nvim_create_user_command("GodaBuild", function()
     -- goda-skk のエンジンも goda-cmp のバイナリに入っている
     vim.fn['goda_cmp#build']()
+    vim.fn['goda_fi#build']()
 end)
 """
 
@@ -14,3 +15,7 @@ hooks_file = '$STD_CONFIG/dpp/goda-cmp.lua'
 [[plugins]]
 repo = 'Shougo/goda-skk.vim'
 hooks_file = '$STD_CONFIG/dpp/goda-skk.lua'
+
+[[plugins]]
+repo = 'Shougo/goda-fi.vim'
+hooks_file = '$STD_CONFIG/dpp/goda-fi.lua'

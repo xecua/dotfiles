@@ -1,31 +1,4 @@
 -- lua_add {{{
--- vim.g.loaded_ddu_rg = 1 -- prevent command definition by plugin
-
-vim.keymap.set("n", "<Leader>fg", "<Cmd>call ddu#start(#{ name: 'rg-live'})<CR>")
-vim.keymap.set("n", "<Leader>fls", "<Cmd>call ddu#start(#{ name: 'document-symbol'})<CR>")
-vim.keymap.set("n", "<Leader>flw", "<Cmd>call ddu#start(#{ name: 'lsp-workspace-symbol'})<CR>")
-vim.keymap.set("n", "<Leader>fp", "<Cmd>call ddu#start(#{ name: 'dpp'})<CR>")
-vim.keymap.set("n", "<Leader>ffg", function()
-    -- バッファがあればそのディレクトリ、なければカレントディレクトリを初期値にする
-    local default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) or vim.uv.cwd()
-    vim.ui.input({
-        prompt = "Base directory: ",
-        default = default,
-        completion = "dir",
-    }, function(input)
-        vim.fn["ddu#start"]({
-            name = "rg-live",
-            sourceOptions = { rg = { path = input } },
-        })
-    end)
-end)
-
-vim.keymap.set("n", "<Leader>fd", "<Cmd>call ddu#start(#{ name: 'fd' })<CR>")
-vim.keymap.set("n", "<Leader>ffd", "<Cmd>call ddu#start(#{ name: 'fd-all' })<CR>")
-vim.keymap.set("n", "<Leader>fb", "<Cmd>Ddu buffer<CR>")
-vim.keymap.set("n", "<Leader>ft", "<Cmd>Ddu ddt_tab<CR>")
-vim.keymap.set("n", "<Leader>fr", "<Cmd>DduRg<CR>")
-
 vim.keymap.set("n", "<C-n>", function()
     local ddu_args = { name = "fd-filer" }
 
@@ -84,21 +57,6 @@ vim.api.nvim_create_autocmd("WinEnter", {
 
 -- lua_source {{{
 vim.fn["ddu#custom#load_config"](vim.fn.stdpath("config") .. "/dpp/ddu.ts")
--- }}}
-
--- lua_ddu-ff {{{
-vim.opt_local.cursorline = true
-local opts = { buffer = true, silent = true }
-vim.keymap.set("n", "<CR>", "<Cmd>call ddu#ui#do_action('itemAction')<CR>", opts)
-vim.keymap.set("n", "a", "<Cmd>call ddu#ui#do_action('chooseAction')<CR>", opts)
-vim.keymap.set("n", "/", "<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>", opts)
-vim.keymap.set("n", ",", "<Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>", opts)
-vim.keymap.set("n", "t", "<Cmd>call ddu#ui#do_action('toggleAllItems')<CR>", opts)
-vim.keymap.set("n", "f", "<Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>", opts)
-vim.keymap.set("n", "p", "<Cmd>call ddu#ui#do_action('togglePreview')<CR>", opts)
-vim.keymap.set("n", "h", "<Cmd>call ddu#ui#do_action('collapseItem')<CR>", opts)
-vim.keymap.set("n", "l", "<Cmd>call ddu#ui#do_action('expandItem')<CR>", opts)
-vim.keymap.set("n", "q", "<Cmd>call ddu#ui#do_action('quit')<CR>", opts)
 -- }}}
 
 -- lua_ddu-filer {{{
