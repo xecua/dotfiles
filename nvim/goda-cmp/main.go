@@ -133,4 +133,68 @@ func configureLsp(b *cmp.Builder) {
 	b.PatchFiletype("go", cmp.Config{
 		Sources: slices.Concat([]string{"gopls"}, sources),
 	})
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "intelephense",
+		Command:     []string{"intelephense", "--stdio"},
+		Filetypes:   []string{"php"},
+		RootMarkers: []string{".git", "composer.json"},
+	}))
+	b.PatchFiletype("php", cmp.Config{
+		Sources: slices.Concat([]string{"intelephense"}, sources),
+	})
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "nil_ls",
+		Command:     []string{"nil", "--stdio"},
+		Filetypes:   []string{"nix"},
+		RootMarkers: []string{".git", "flake.nix"},
+	}))
+	b.PatchFiletype("nix", cmp.Config{
+		Sources: slices.Concat([]string{"nil_ls"}, sources),
+	})
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "markdown_oxide",
+		Command:     []string{"markdown-oxide"},
+		Filetypes:   []string{"markdown"},
+		RootMarkers: []string{".git", ".obsidian"},
+	}))
+	b.PatchFiletype("markdown", cmp.Config{
+		Sources: slices.Concat([]string{"markdown_oxide"}, sources),
+	})
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "rust_analyzer",
+		Command:     []string{"rust-analyzer"},
+		Filetypes:   []string{"rust"},
+		RootMarkers: []string{".git", "Cargo.toml"},
+	}))
+	b.PatchFiletype("rust", cmp.Config{
+		Sources: slices.Concat([]string{"rust_analyzer"}, sources),
+	})
+
+	// denoは使わなくなるかなあ……
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "typescript",
+		Command:     []string{"tsc", "--lsp", "--stdio"},
+		Filetypes:   []string{"javascript", "javascriptreact", "typescript", "typescriptreact"},
+		RootMarkers: []string{".git", "package.json", "tsconfig.json"},
+	}))
+	b.PatchFiletypes(
+		[]string{"javascript", "javascriptreact", "typescript", "typescriptreact"},
+		cmp.Config{
+			Sources: slices.Concat([]string{"typescript"}, sources),
+		},
+	)
+
+	b.AddSource(lsp.New(lsp.Params{
+		Name:        "ty",
+		Command:     []string{"ty", "server"},
+		Filetypes:   []string{"python"},
+		RootMarkers: []string{".git", "pyproject.toml"},
+	}))
+	b.PatchFiletype("python", cmp.Config{
+		Sources: slices.Concat([]string{"ty"}, sources),
+	})
 }
