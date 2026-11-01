@@ -235,7 +235,9 @@ local server_extra_config = {
                 if not ok then
                     return
                 end
-                local debounced_request = require("copilot-lsp.util").debounce(nes.request_nes, 500)
+                local debounced_request = require("copilot-lsp.util").debounce(function()
+                    nes.request_nes("copilot")
+                end, 500)
 
                 scope.autocmd("TextChanged", {
                     callback = function()
