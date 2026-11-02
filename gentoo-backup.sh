@@ -48,7 +48,17 @@ if [[ -z "$branch" ]]; then
   exit 1
 fi
 
-if git_ push origin "$branch"; then
+# PATはlibsecretから。helperでstore/eraseを素通しすると、認証失敗時にキーリングのPATが消えるのでgetだけ
+# PATの登録: printf 'protocol=https\nhost=github.com\nusername=xecua\npassword=<PAT>\n' | git credential-libsecret store
+push_() {
+  GIT_TERMINAL_PROMPT=0 git_ \
+    -c url.https://github.com/.insteadOf=git@github.com: \
+    -c credential.helper= \
+    -c 'credential.helper=!f() { [ "$1" != get ] || exec git credential-libsecret get; }; f' \
+    push origin "$branch"
+}
+
+if push_; then
   exit 0
 fi
 
@@ -61,4 +71,4 @@ if ! git_ pull --rebase --autostash origin "$branch"; then
   echo "rebase failed. The backup commit is left locally. Retry next time." >&2
   exit 1
 fi
-git_ push origin "$branch"
+push_
