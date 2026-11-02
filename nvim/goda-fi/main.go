@@ -15,6 +15,9 @@ import (
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
 	"github.com/Shougo/goda-fi.vim/ui/filer"
+
+	"goda-fi-config/matcherfuzzy"
+	"goda-fi-config/sorterfuzzy"
 )
 
 func main() {
@@ -34,10 +37,12 @@ func main() {
 		Cmd: []string{"fd", "--type", "file", "--hidden", "--no-ignore-vcs"},
 	}))
 
-	// TODO: fuzzy, column(fileicon)
+	// TODO: column(fileicon)
 	b.AddFilter(matchersubstring.New(matchersubstring.Params{HighlightMatched: "Search"}))
 	b.AddFilter(matcherhidden.New())
+	b.AddFilter(matcherfuzzy.New(matcherfuzzy.Params{HighlightMatched: "Search"}))
 	b.AddFilter(sorteralpha.New())
+	b.AddFilter(sorterfuzzy.New())
 	b.AddFilter(converterhldir.New(converterhldir.Params{}))
 
 	b.AddKind(kindfile.New())
@@ -58,7 +63,10 @@ func configure(b *fi.Builder) {
 				"previewWidth":        80,
 				"previewSplit":        "vertical",
 				"overwriteStatusline": false,
-				"autoAction":          map[string]any{"name": "preview", "sync": false},
+				"autoAction": map[string]any{
+					"name": "preview",
+					"sync": false,
+				},
 			},
 			"filer": {
 				"split":               "vertical",
@@ -74,8 +82,8 @@ func configure(b *fi.Builder) {
 		},
 		SourceOptions: map[string]fi.SourceOptions{
 			"_": {
-				Matchers: []string{"matchersubstring"},
-				Sorters:  []string{"sorteralpha"},
+				Matchers: []string{"matcherfuzzy"},
+				Sorters:  []string{"sorteralpha", "sorterfuzzy"},
 			},
 			"fd":     {Converters: []string{"converterhldir"}},
 			"fdall":  {Converters: []string{"converterhldir"}},
