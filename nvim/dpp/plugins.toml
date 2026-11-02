@@ -6,9 +6,6 @@ hooks_file = '$STD_CONFIG/dpp/ddt.lua'
 [[plugins]]
 repo = 'Shougo/ddt-ui-terminal'
 
-[[plugins]]
-repo = 'Shougo/ddt-ui-shell'
-
 ## open new tabpage instead of start nested instance
 [[plugins]]
 repo = 'lambdalisue/vim-guise'
@@ -81,36 +78,6 @@ require("window-picker").setup({
     selection_chars = 'abcdefghijklmnopqrstuvwxyz'
 })
 """
-
-# [[plugins]]
-# repo = 'epwalsh/obsidian.nvim'
-# depends = 'plenary.nvim'
-# lua_add = """
-# vim.keymap.set("n", "<Leader>bt", "<Cmd>ObsidianToday<CR>")
-# vim.keymap.set("n", "<Leader>bm", "<Cmd>ObsidianTomorrow<CR>")
-# vim.keymap.set("n", "<Leader>by", "<Cmd>ObsidianYesterday<CR>")
-# vim.keymap.set("n", "<Leader>bs", "<Cmd>ObsidianQuickSwitch<CR>")
-# vim.keymap.set("n", "<Leader>bo", "<Cmd>ObsidianOpen<CR>")
-# """
-# lua_source = """
-# local default_vault = require("xecua.utils").get_local_config().obsidian_dir
-#
-# require("obsidian").setup({
-#     templates = {
-#         subdir = "templates",
-#     },
-#     daily_notes = { folder = "dailynotes", date_format = "%Y/%Y-%m-%d", template = "dailynote.md" },
-#     disable_frontmatter = true,
-#     picker = { name = 'fzf-lua' },
-#     follow_url_func = function(url)
-#         vim.ui.open(url)
-#     end,
-#     workspaces = {
-#         { name = vim.fs.basename(default_vault), path = default_vault }
-#     },
-#     ui = { enable = false }
-# })
-# """
 
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
@@ -227,7 +194,6 @@ repo = 'uga-rosa/ccc.nvim'
 lua_source = """
 require('ccc').setup({ highlighter = { auto_enable = true } })
 """
-
 
 [[plugins]]
 repo = 'glacambre/firenvim'
@@ -529,16 +495,16 @@ repo = 'tomasr/molokai'
 lua_add = "vim.cmd.colorscheme('molokai')"
 
 # snippets
-[[plugins]]
-repo = 'uga-rosa/denippet.vim'
-lua_source = """
-for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.ts', true, true)) do
-    vim.fn['denippet#load'](snip)
-end
-for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
-    vim.fn['denippet#load'](snip)
-end
-"""
+# [[plugins]]
+# repo = 'uga-rosa/denippet.vim'
+# lua_source = """
+# for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.ts', true, true)) do
+#     vim.fn['denippet#load'](snip)
+# end
+# for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['dpp#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
+#     vim.fn['denippet#load'](snip)
+# end
+# """
 
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
@@ -569,11 +535,7 @@ on_ft = 'python'
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
 
-# markdown util
-[[plugins]]
-repo = 'mattn/vim-maketable'
-
-# Syntax Highlighting
+# treesitter
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
 hook_post_update = "TSUpdate"
@@ -620,10 +582,6 @@ end, { desc = "swap with previous parameter" })
 """
 lua_source = "require('nvim-treesitter-textobjects').setup({})"
 
-## color matching parenthesis
-# [[plugins]]
-# repo = 'hiphish/rainbow-delimiters.nvim'
-
 ## fish
 [[plugins]]
 repo = 'dag/vim-fish'
@@ -660,7 +618,7 @@ on_ft = 'firestore'
 [[plugins]]
 repo = 'vim-skk/skkdict.vim'
 
-## astro.build
+## astro
 [[plugins]]
 repo = 'wuelnerdotexe/vim-astro'
 
@@ -678,11 +636,6 @@ vim.g.go_echo_command_info = 0
 vim.g.go_echo_go_info = 0
 vim.g.go_imports_autosave = 0
 """
-
-# Haxe
-[[plugins]]
-repo = 'jdonaldson/vaxe'
-on_ft = 'haxe'
 
 # Swift
 [[plugins]]
