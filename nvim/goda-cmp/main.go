@@ -127,6 +127,19 @@ func configure(b *cmp.Builder) {
 	configureLsp(b)
 }
 
+func makeLspSourceOptions(name string) map[string]cmp.SourceOption {
+	return map[string]cmp.SourceOption{
+		name: {
+			Mark:                   "LSP",
+			IsVolatile:             new(true),
+			Matchers:               []string{},
+			Dup:                    "force",
+			ForceCompletionPattern: `\.\w*|:\w*|->\w*`,
+			HideTimeout:            new(2000),
+		},
+	}
+}
+
 // LSP: 起動オプションとfiletypeへの紐付け。たぶん別ファイルの方がいい
 func configureLsp(b *cmp.Builder) {
 	b.AddSource(lsp.New(lsp.Params{
@@ -136,7 +149,8 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", "go.mod"},
 	}))
 	b.PatchFiletype("go", cmp.Config{
-		Sources: slices.Concat([]string{"gopls"}, sources),
+		Sources:       slices.Concat([]string{"gopls"}, sources),
+		SourceOptions: makeLspSourceOptions("gopls"),
 	})
 
 	b.AddSource(lsp.New(lsp.Params{
@@ -146,7 +160,8 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", "composer.json"},
 	}))
 	b.PatchFiletype("php", cmp.Config{
-		Sources: slices.Concat([]string{"intelephense"}, sources),
+		Sources:       slices.Concat([]string{"intelephense"}, sources),
+		SourceOptions: makeLspSourceOptions("intelephense"),
 	})
 
 	b.AddSource(lsp.New(lsp.Params{
@@ -156,7 +171,8 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", "flake.nix"},
 	}))
 	b.PatchFiletype("nix", cmp.Config{
-		Sources: slices.Concat([]string{"nil_ls"}, sources),
+		Sources:       slices.Concat([]string{"nil_ls"}, sources),
+		SourceOptions: makeLspSourceOptions("nil_ls"),
 	})
 
 	b.AddSource(lsp.New(lsp.Params{
@@ -166,7 +182,8 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", ".obsidian"},
 	}))
 	b.PatchFiletype("markdown", cmp.Config{
-		Sources: slices.Concat([]string{"markdown_oxide"}, sources),
+		Sources:       slices.Concat([]string{"markdown_oxide"}, sources),
+		SourceOptions: makeLspSourceOptions("markdown_oxide"),
 	})
 
 	b.AddSource(lsp.New(lsp.Params{
@@ -176,7 +193,8 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", "Cargo.toml"},
 	}))
 	b.PatchFiletype("rust", cmp.Config{
-		Sources: slices.Concat([]string{"rust_analyzer"}, sources),
+		Sources:       slices.Concat([]string{"rust_analyzer"}, sources),
+		SourceOptions: makeLspSourceOptions("rust_analyzer"),
 	})
 
 	// denoは使わなくなるかなあ……
@@ -189,7 +207,8 @@ func configureLsp(b *cmp.Builder) {
 	b.PatchFiletypes(
 		[]string{"javascript", "javascriptreact", "typescript", "typescriptreact"},
 		cmp.Config{
-			Sources: slices.Concat([]string{"typescript"}, sources),
+			Sources:       slices.Concat([]string{"typescript"}, sources),
+			SourceOptions: makeLspSourceOptions("typescript"),
 		},
 	)
 
@@ -200,6 +219,7 @@ func configureLsp(b *cmp.Builder) {
 		RootMarkers: []string{".git", "pyproject.toml"},
 	}))
 	b.PatchFiletype("python", cmp.Config{
-		Sources: slices.Concat([]string{"ty"}, sources),
+		Sources:       slices.Concat([]string{"ty"}, sources),
+		SourceOptions: makeLspSourceOptions("ty"),
 	})
 }
