@@ -42,8 +42,6 @@ export class Config extends BaseConfig {
     const config_base = await args.denops.call("stdpath", "config");
     const tomls = [
       loadToml(`${config_base}/dpp/denops.toml`),
-      // loadToml(`${config_base}/dpp/ddu.toml`),
-      // loadToml(`${config_base}/dpp/ddc.toml`),
       loadToml(`${config_base}/dpp/dpp.toml`),
       loadToml(`${config_base}/dpp/common.toml`),
       loadToml(`${config_base}/dpp/goda.toml`),
@@ -89,16 +87,7 @@ export class Config extends BaseConfig {
       },
     )) as MakeLazyStateResult;
 
-    const groups = {
-      ddc: {
-        depends: "denops.vim",
-        on_source: "ddc.vim",
-      },
-      ddu: {
-        depends: "denops.vim",
-        // on_source: "ddu.vim",
-      },
-    };
+    const groups = {};
 
     return {
       ftplugins,
