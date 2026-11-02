@@ -21,8 +21,16 @@ func (sorterfuzzy) Filter(_ context.Context, _ sdk.Host, a fi.FilterArgs) ([]fi.
 	matches := fuzzy.FindFrom(a.Input, sourceItem(a.Items))
 
 	out := make([]fi.Item, 0, len(matches))
+	seen := make([]bool, len(a.Items))
 	for _, m := range matches {
 		out = append(out, a.Items[m.Index])
+		seen[m.Index] = true
+	}
+	// 一致しなかった候補は後ろに回す
+	for i, it := range a.Items {
+		if !seen[i] {
+			out = append(out, it)
+		}
 	}
 	return out, nil
 }
