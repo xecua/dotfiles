@@ -297,7 +297,20 @@ local server_extra_config = {
         },
     },
 
-    typescript = { disabled_capabilities = no_formatting },
+    typescript = {
+        disabled_capabilities = no_formatting,
+        features = {
+            organize_imports = function(scope)
+                scope.command("LspOrganizeImports", function()
+                    vim.lsp.buf.code_action({
+                        context = { only = { "source.organizeImports" }, diagnostic = {} },
+                        apply = true,
+                    })
+                end)
+                scope.map("n", "<Leader>lo", "<Cmd>LspOrganizeImports<CR>")
+            end,
+        },
+    },
     lua_ls = { disabled_capabilities = no_formatting },
     sqls = { disabled_capabilities = no_formatting },
     yamlls = { disabled_capabilities = no_formatting },

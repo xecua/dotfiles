@@ -14,6 +14,9 @@ func New() cmp.Filter { return matcherfuzzy{} }
 func (matcherfuzzy) Name() string { return "matcherfuzzy" }
 
 func (m matcherfuzzy) Filter(_ context.Context, in cmp.FilterInput) ([]cmp.Item, error) {
+	if in.Complete == "" {
+		return in.Items, nil
+	}
 	matches := fuzzy.FindFromNoSort(in.Complete, sourceItem(in.Items))
 	out := make([]cmp.Item, 0, len(matches))
 	for _, m := range matches {
@@ -26,7 +29,7 @@ func (m matcherfuzzy) Filter(_ context.Context, in cmp.FilterInput) ([]cmp.Item,
 type sourceItem []cmp.Item
 
 func (s sourceItem) String(i int) string {
-	return s[i].Word
+	return s[i].Filter()
 }
 
 func (s sourceItem) Len() int {

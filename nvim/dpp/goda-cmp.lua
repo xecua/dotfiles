@@ -53,4 +53,20 @@ vim.keymap.set({ "n", "v" }, ":", function()
     return ":"
 end, { expr = true })
 
+vim.api.nvim_create_autocmd("User", {
+    pattern = "GodaFi:uiOpenFilterWindow",
+    group = augroup,
+    callback = function()
+        vim.fn["goda_cmp#patch_global"]({ ui = "none" })
+    end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "GodaFi:uiCloseFilterWindow",
+    group = augroup,
+    callback = function()
+        vim.fn["goda_cmp#patch_global"]({ ui = "pum" })
+    end,
+})
+
 -- }}}

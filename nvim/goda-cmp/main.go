@@ -15,6 +15,7 @@ import (
 	"github.com/Shougo/goda-cmp.vim/ext/source/line"
 	"github.com/Shougo/goda-cmp.vim/ext/source/lsp"
 	"github.com/Shougo/goda-cmp.vim/ext/source/shellnative"
+	"github.com/Shougo/goda-cmp.vim/ext/ui/none"
 	"github.com/Shougo/goda-cmp.vim/ext/ui/pum"
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
@@ -28,6 +29,7 @@ func main() {
 	b := cmp.New()
 
 	b.AddUI(pum.New())
+	b.AddUI(none.New())
 
 	// TODO: snippet
 	b.AddSource(around.New(around.Params{MinLength: 2}))
@@ -132,7 +134,6 @@ func makeLspSourceOptions(name string) map[string]cmp.SourceOption {
 		name: {
 			Mark:                   "LSP",
 			IsVolatile:             new(true),
-			Matchers:               []string{},
 			Dup:                    "force",
 			ForceCompletionPattern: `\.\w*|:\w*|->\w*`,
 			HideTimeout:            new(2000),
