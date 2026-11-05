@@ -1,7 +1,7 @@
-github.com/Shougo/goda-fi.vim v0.0.0-20261101064535-0a9a19143bd7 h1:TJluvbO/6pyBPKQkhlc93B53ETp89V/WSh0V6JDxgS8=
-github.com/Shougo/goda-fi.vim v0.0.0-20261101064535-0a9a19143bd7/go.mod h1:y9+Fmz9bVQjLMMcmucqinIy7GexmWN4XrGwfwMX3PmM=
-github.com/Shougo/goda.vim v0.4.3 h1:n3Z/dNH+n7zP0l2gg1/lhwh0GQjlEDwP1VqP5MJS66I=
-github.com/Shougo/goda.vim v0.4.3/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda-fi.vim v0.1.2 h1:mr/knXnc5SiIR5mAq1Dc+wnTEM4YxJ8N25UhS222wlE=
+github.com/Shougo/goda-fi.vim v0.1.2/go.mod h1:ljbjZTnU281H1BbWPtPADB2sNSJzJKphTu8CZoApk5U=
+github.com/Shougo/goda.vim v0.6.0 h1:jmHzZ6PzMbnaJWIDRxbgYIdDJgqxXmy2VXz7c5FNcPM=
+github.com/Shougo/goda.vim v0.6.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/kylelemons/godebug v1.1.0 h1:RPNrshWIDI6G2gRW9EHilWtl7Z6Sb1BR0xunSBf0SNc=
 github.com/kylelemons/godebug v1.1.0/go.mod h1:9/0rRGxNHcop5bhtWyNeEfOS8JIWk580+fNqagV/RAw=
 github.com/sahilm/fuzzy v0.1.3 h1:juByESSS32nVD81vr6tHmKmA/8zde7gE+x5CLxrzXPU=

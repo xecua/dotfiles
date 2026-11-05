@@ -3,12 +3,12 @@ module goda-config
 go 1.27.1
 
 require (
-	github.com/Shougo/goda-cmp.vim v0.3.0
-	github.com/Shougo/goda-skk.vim v0.3.0
+	github.com/Shougo/goda-cmp.vim v0.3.2
+	github.com/Shougo/goda-skk.vim v0.3.3
 	github.com/sahilm/fuzzy v0.1.3
 )
 
 require (
-	github.com/Shougo/goda.vim v0.4.0 // indirect
+	github.com/Shougo/goda.vim v0.6.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 )
