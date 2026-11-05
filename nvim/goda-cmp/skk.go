@@ -4,14 +4,18 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"slices"
+	"strconv"
+	"time"
 
+	"github.com/Shougo/goda-skk.vim/dictionary/skkserv"
 	"github.com/Shougo/goda-skk.vim/engine"
 )
 
 func newSkk() *engine.Plugin {
 	p, err := engine.New(engine.Config{
 		KanaTable:    engine.NewKanaTable(azikRules...),
-		Dictionaries: dictionaries(),
+		Dictionaries: slices.Concat(regularDictionaries(), skkDictionary()),
 		Keymaps: map[string]map[string]string{
 			"input": {"'": "henkanPoint"},
 			"henkan": {
@@ -34,10 +38,10 @@ func newSkk() *engine.Plugin {
 	return p
 }
 
-// dictionaries は環境変数 GODA_SKK_DICTIONARIES (JSON) から辞書を作る。
+// regularDictionaries は環境変数 GODA_SKK_DICTIONARIES (JSON) から辞書を作る。
 // 中身は "path" または ["path", "encoding"] の配列 (Lua 側の get_local_config().skk_dictionaries)。
 // 辞書の場所はマシンごとに違う (dpp のリポジトリパスや local.lua) ので、Neovim 側で組み立てて渡す。
-func dictionaries() []engine.Dictionary {
+func regularDictionaries() []engine.Dictionary {
 	raw := os.Getenv("GODA_SKK_DICTIONARIES")
 	if raw == "" {
 		return nil
@@ -66,4 +70,35 @@ func dictionaries() []engine.Dictionary {
 		dicts = append(dicts, engine.NewJisyo(pair[0], enc))
 	}
 	return dicts
+}
+
+func skkDictionary() []engine.Dictionary {
+	addr := os.Getenv("GODA_SKK_SERV_ADDR")
+	if addr == "" {
+		log.Println("GODA_SKK_SERV_ADDR is not set, skkserv is disabled")
+		return []engine.Dictionary{}
+	}
+	params := skkserv.Params{Addr: addr}
+	enc := os.Getenv("GODA_SKK_SERV_ENCODING")
+	if enc != "" {
+		params.Encoding = enc
+	}
+	timeout := os.Getenv("GODA_SKK_SERV_TIMEOUT")
+	if timeout != "" {
+		if t, err := strconv.Atoi(timeout); err != nil {
+			log.Printf("GODA_SKK_SERV_TIMEOUT is not integer, ignored: %v", err)
+		} else {
+			params.Timeout = time.Duration(t)
+		}
+	}
+	maxCompletions := os.Getenv("GODA_SKK_SERV_MAX_COMPLETIONS")
+	if maxCompletions != "" {
+		if m, err := strconv.Atoi(maxCompletions); err != nil {
+			log.Printf("GODA_SKK_SERV_MAX_COMPLETIONS is not integer, ignored: %v", err)
+		} else {
+			params.MaxCompletions = m
+		}
+	}
+
+	return []engine.Dictionary{skkserv.New(params)}
 }
