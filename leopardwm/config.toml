@@ -209,7 +209,22 @@ reduce_motion_on_battery = true
 # or remove freely — corner_style accepts "square" | "rounded" | "small_rounded".
 [[window_rules]]
 match_class = "MozillaDialogClass"
+action = "tile"
 corner_style = "square"
+open_maximized = false
+sticky = false
+
+[[window_rules]]
+match_executable = "ZenlessZoneZero.exe"
+action = "float"
+open_maximized = false
+sticky = false
+
+[[window_rules]]
+match_executable = "vividstasis.exe"
+action = "float"
+open_maximized = false
+sticky = false
 
 # [[window_rules]]
 # match_class = "Chrome_WidgetWin_1"
