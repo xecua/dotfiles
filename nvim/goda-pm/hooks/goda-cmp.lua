@@ -7,6 +7,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 local function do_completion(delta)
     return function()
+        if vim.fn.mode() == "i" and vim.fn.pumvisible() == 1 then
+            vim.api.nvim_feedkeys(vim.keycode(delta > 0 and "<C-n>" or "<C-p>"), "n", false)
+            return
+        end
         if vim.fn["pum#visible"]() then
             if delta < 0 and not vim.fn["pum#entered"]() then
                 vim.fn["pum#map#insert_relative"](delta, "loop")

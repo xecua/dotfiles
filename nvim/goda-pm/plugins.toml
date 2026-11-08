@@ -489,20 +489,62 @@ repo = 'tomasr/molokai'
 lua_add = "vim.cmd.colorscheme('molokai')"
 
 # snippets
-# [[plugins]]
-# repo = 'uga-rosa/denippet.vim'
-# lua_source = """
-# for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn.stdpath('config'), 'mysnippets'), '*.ts', true, true)) do
-#     vim.fn['denippet#load'](snip)
-# end
-# for _, snip in ipairs(vim.fn.globpath(vim.fs.joinpath(vim.fn['goda-pm/hooks#get']('friendly-snippets').path, 'snippets'), '**/*.json', true, true)) do
-#     vim.fn['denippet#load'](snip)
-# end
-# """
-
 [[plugins]]
 repo = 'rafamadriz/friendly-snippets'
 merged = false
+
+[[plugins]]
+repo = 'nvim-mini/mini.snippets'
+depends = 'friendly-snippets'
+lua_source = """
+local MiniSnippets = require('mini.snippets')
+
+local function patterns(...)
+    local ret = {}
+    for _, name in ipairs({ ... }) do
+        vim.list_extend(ret, { name .. '/**/*.json', name .. '/**/*.lua', '**/' .. name .. '.json', '**/' .. name .. '.lua' })
+    end
+    return ret
+end
+
+MiniSnippets.setup({
+    snippets = {
+        MiniSnippets.gen_loader.from_lang({
+            -- friendly-snippets のファイル名が filetype と違うもの
+            lang_patterns = {
+                tex = patterns('latex', 'tex'),
+                plaintex = patterns('latex', 'tex'),
+                sh = patterns('shell', 'sh'),
+                bash = patterns('shell', 'sh', 'bash'),
+                zsh = patterns('shell', 'sh', 'zsh'),
+            },
+        }),
+    },
+    -- <Tab> / <S-Tab> で展開・ジャンプする (下で定義)
+    mappings = { expand = '', jump_next = '', jump_prev = '' },
+    expand = {
+        -- カーソル左が空白のときは展開しない (行頭などで <Tab> を打てるように)
+        match = function(snips)
+            return MiniSnippets.default_match(snips, { pattern_fuzzy = '%S+' })
+        end,
+    },
+})
+
+vim.keymap.set('i', '<Tab>', function()
+    if #MiniSnippets.expand({ insert = false }) > 0 then
+        vim.schedule(MiniSnippets.expand)
+        return ''
+    end
+    if MiniSnippets.session.get() ~= nil then
+        MiniSnippets.session.jump('next')
+        return ''
+    end
+    return '<Tab>'
+end, { expr = true, desc = 'Expand snippet or jump to next tabstop' })
+vim.keymap.set('i', '<S-Tab>', function()
+    MiniSnippets.session.jump('prev')
+end, { desc = 'Jump to previous snippet tabstop' })
+"""
 
 [[plugins]]
 repo = 'junegunn/vim-easy-align'

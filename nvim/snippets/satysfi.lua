@@ -1,0 +1,48 @@
+return {
+    stdjareport = {
+        prefix = "stdjareport",
+        body = {
+            "@require: stdjareport",
+            "@require: azmath/azmath",
+            "@require: mylib/common",
+            "",
+            "document(|",
+            "  title={${1:#:title}};",
+            "  author={${2:#:author}};",
+            "|) '<",
+            "  ${0}",
+            ">",
+        },
+    },
+    slidify = {
+        prefix = "slidify",
+        body = {
+            "@require: class-slydifi/theme/hakodate-custom",
+            "SlydifiHakodate.document(|",
+            "  draft-mode = false;",
+            "|) '<",
+            "  +frame{${1:#:フレームのタイトル}} <",
+            "    ${0}",
+            "  >",
+            ">",
+        },
+    },
+    jlreq = {
+        prefix = "jlreq",
+        body = {
+            "@require: class-jlreq/jlreq",
+            "@require: azmath/azmath",
+            "@require: mylib/common",
+            "",
+            "document(|",
+            "  title={${1:#:title}};",
+            "  author={${2:#:author}};",
+            "  date = {${3:#:date}};",
+            "  show-title = true;",
+            "  show-toc = false;",
+            "|) '<",
+            "  ${0}",
+            ">",
+        },
+    },
+}
