@@ -29,11 +29,11 @@ function M.get_local_config()
     local obsidian_dir = "/dev/null"
     local skk_dictionaries = {}
 
-    local ok, dpp = pcall(require, "dpp")
+    local ok, gp = pcall(require, "goda_pm")
     if ok then
-        local skkdict_path = dpp.get("dict").path
-        local emoji_jisyo_path = dpp.get("skk-emoji-jisyo").path
-        local emoji_jisyo_ja_path = dpp.get("SKK-JISYO.emoji-ja").path
+        local skkdict_path = gp.get("dict").path
+        local emoji_jisyo_path = gp.get("skk-emoji-jisyo").path
+        local emoji_jisyo_ja_path = gp.get("SKK-JISYO.emoji-ja").path
         vim.list_extend(skk_dictionaries, {
             skkdict_path .. "/SKK-JISYO.L",
             skkdict_path .. "/SKK-JISYO.jinmei",

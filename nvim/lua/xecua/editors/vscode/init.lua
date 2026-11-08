@@ -14,4 +14,5 @@ vim.opt.showmode = true
 vim.opt.clipboard = { "unnamedplus", "unnamed" }
 
 require("xecua.editors.vscode.map")
-require("xecua.dpp").setup("vscode")
+-- 用意してない
+-- require("xecua.goda-pm").setup("vscode")

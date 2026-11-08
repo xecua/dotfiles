@@ -43,6 +43,9 @@ vim.keymap.set("n", "<Leader>fr", function()
         })
     end)
 end)
+vim.api.nvim_create_user_command("GodaFi", function(opts)
+    start({ name = opts.args })
+end, { nargs = 1 })
 
 -- filerでpathまでツリーを展開してカーソルを合わせる。
 local function reveal_in_filer(path, root)

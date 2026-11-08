@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "@shougo/ddt-vim": "jsr:@shougo/ddt-vim@^2.0.0",
-    "@shougo/dpp-vim": "jsr:@shougo/dpp-vim@^6.6.0",
-    "@std/fs": "jsr:@std/fs@^1.0.24"
-  }
-}

@@ -28,7 +28,7 @@ vim.g.jumpcursor_marks = jumpcursor_marks
 [[plugins]]
 repo = 'rhysd/vim-operator-surround'
 depends = 'vim-operator-user'
-hooks_file = '$STD_CONFIG/dpp/surround.lua'
+hooks_file = '$STD_CONFIG/goda-pm/hooks/surround.lua'
 
 ## dependency
 [[plugins]]

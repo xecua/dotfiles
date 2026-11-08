@@ -26,7 +26,7 @@ func newSkk() *engine.Plugin {
 		// 可能ならコマンドラインのときだけ▽を出したい
 		MarkerHenkan:        new(""),
 		MarkerHenkanSelect:  new(""),
-		ShowCandidatesCount: 1,
+		ShowCandidatesCount: new(1),
 		LowercaseMap:        map[string]string{":": ";"},
 		EggLikeNewline:      true,
 		ImmediatelyCancel:   new(false),
@@ -40,7 +40,7 @@ func newSkk() *engine.Plugin {
 
 // regularDictionaries は環境変数 GODA_SKK_DICTIONARIES (JSON) から辞書を作る。
 // 中身は "path" または ["path", "encoding"] の配列 (Lua 側の get_local_config().skk_dictionaries)。
-// 辞書の場所はマシンごとに違う (dpp のリポジトリパスや local.lua) ので、Neovim 側で組み立てて渡す。
+// 辞書の場所はマシンごとに違うので、Neovim 側で組み立てて渡す。
 func regularDictionaries() []engine.Dictionary {
 	raw := os.Getenv("GODA_SKK_DICTIONARIES")
 	if raw == "" {

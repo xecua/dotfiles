@@ -11,19 +11,19 @@ end)
 
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
-hooks_file = '$STD_CONFIG/dpp/goda-cmp.lua'
+hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-cmp.lua'
 
 [[plugins]]
 repo = 'Shougo/goda-skk.vim'
-hooks_file = '$STD_CONFIG/dpp/goda-skk.lua'
+hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-skk.lua'
 
 [[plugins]]
 repo = 'Shougo/goda-fi.vim'
-hooks_file = '$STD_CONFIG/dpp/goda-fi.lua'
+hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-fi.lua'
 
 [[plugins]]
 repo = 'Shougo/goda-term.vim'
-hooks_file = '$STD_CONFIG/dpp/goda-term.lua'
+hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-term.lua'
 
 [[plugins]]
 repo = 'Shougo/goda-term-ui-terminal.vim'
