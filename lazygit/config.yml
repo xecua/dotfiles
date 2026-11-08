@@ -5,6 +5,7 @@ gui:
   shortTimeFormat: "15:04"
   language: "ja"
 git:
+  overrideGpg: true
   branchLogCmd: git log --graph --date=short --pretty=short-oneline --color=always
   allBranchesLogCmds:
     - git log --all --graph --date=short --pretty=short-oneline --color=always
