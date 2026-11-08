@@ -235,7 +235,7 @@ vim.api.nvim_create_user_command("AgenticBufferDiagnostics", "lua require('agent
 
 vim.keymap.set("n", "<Leader>aa", "<Cmd>AgenticToggle<CR>")
 vim.keymap.set("n", "<Leader>an", "<Cmd>AgenticNewSession<CR>")
-vim.keymap.set("n", "<Leader>as", "<Cmd>AgenticSelection<CR>")
+vim.keymap.set({"n", "v"}, "<Leader>as", "<Cmd>AgenticSelection<CR>")
 vim.keymap.set("n", "<Leader>ad", "<Cmd>AgenticDiagnostics<CR>")
 vim.keymap.set("n", "<Leader>aD", "<Cmd>AgenticBufferDiagnostics<CR>")
 """

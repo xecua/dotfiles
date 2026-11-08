@@ -135,12 +135,21 @@ in
       enable = true;
       servers = {
         postgres = {
+          type = "stdio";
           command = "npx";
-          args = [ "@microsoft/postgres-mcp" ];
+          args = [
+            "@microsoft/postgres-mcp"
+            "run"
+          ];
         };
         mysql = {
+          type = "stdio";
           command = "uvx";
-          args = [ "mysql-mcp-server" ];
+          args = [
+            "--from"
+            "mysql-mcp-server"
+            "mysql_mcp_server"
+          ];
         };
       };
     };
