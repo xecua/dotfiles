@@ -28,7 +28,7 @@ vim.cmd.packadd("nvim.undotree")
 
 -- plugin
 if vim.g.use_plugin ~= false then
-    require("xecua.dpp").setup("nvim")
+    require("xecua.goda-pm").setup("nvim")
 end
 
 pcall(require, "xecua.local")
