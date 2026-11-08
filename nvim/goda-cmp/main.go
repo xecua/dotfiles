@@ -21,8 +21,8 @@ import (
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
 
-	"goda-config/matcherfuzzy"
-	"goda-config/sorterfuzzy"
+	"goda-cmp-config/matcherfuzzy"
+	"goda-cmp-config/sorterfuzzy"
 )
 
 func main() {

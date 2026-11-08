@@ -1,4 +1,4 @@
-module goda-config
+module goda-cmp-config
 
 go 1.27.1
 
@@ -9,6 +9,6 @@ require (
 )
 
 require (
-	github.com/Shougo/goda.vim v0.6.0 // indirect
+	github.com/Shougo/goda.vim v0.7.2 // indirect
 	golang.org/x/text v0.43.0 // indirect
 )
