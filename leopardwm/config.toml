@@ -16,7 +16,7 @@ width_presets = [0.333, 0.5, 0.667, 1.0]
 
 # Which preset new columns open at (1-based index into width_presets).
 # 1 = first preset. Out-of-range values fall back to the first preset.
-default_width_preset = 1
+default_width_preset = 2
 
 # Height presets (fractions of column height / weight).
 height_presets = [0.333, 0.5, 0.667, 1.0]
