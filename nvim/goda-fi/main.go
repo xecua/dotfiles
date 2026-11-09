@@ -15,6 +15,7 @@ import (
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda-fi.vim/ui/ff"
 	"github.com/Shougo/goda-fi.vim/ui/filer"
+	"github.com/Shougo/goda-pm-ext/ext/fi/pmfi"
 
 	"goda-fi-config/matcherfuzzy"
 	"goda-fi-config/sorterfuzzy"
@@ -36,6 +37,7 @@ func main() {
 	b.AddSourceAs("fdall", fileexternal.New(fileexternal.Params{
 		Cmd: []string{"fd", "--type", "file", "--hidden", "--no-ignore-vcs"},
 	}))
+	b.AddSource(pmfi.New())
 
 	// TODO: column(fileicon)
 	b.AddFilter(matchersubstring.New(matchersubstring.Params{HighlightMatched: "Search"}))

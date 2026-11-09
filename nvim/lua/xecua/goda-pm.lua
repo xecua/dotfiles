@@ -46,6 +46,7 @@ function M.setup(name)
 
     install_plugin("Shougo/goda.vim")
     install_plugin("Shougo/goda-pm.vim")
+    install_plugin("Shougo/goda-pm-ext-lazy.vim")
 
     if require("goda_pm").load_state(goda_pm_base_dir, name) then
         vim.api.nvim_create_autocmd("VimEnter", {
