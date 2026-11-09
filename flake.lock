@@ -3,11 +3,11 @@
     "awesome-copilot": {
       "flake": false,
       "locked": {
-        "lastModified": 1793972433,
-        "narHash": "sha256-NzGLIkz7u85m1nMydq/uFAiNcnFw2DRr+jgHM33ncHc=",
+        "lastModified": 1794194681,
+        "narHash": "sha256-p8+/x2gQiW2+CdlWTh2xZYd6t8E5GJCGGTHaMh5O3zg=",
         "owner": "github",
         "repo": "awesome-copilot",
-        "rev": "797337f33f73e35d08d82f840e21c4b8c4932d88",
+        "rev": "b13e55f85ffdf451d40d09839cb1e337bf3eda98",
         "type": "github"
       },
       "original": {
@@ -21,11 +21,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1793920665,
-        "narHash": "sha256-voDAe/ub1DG+z0YfG39/IHZQYWt9AB3oc1CDeEd1y1Y=",
+        "lastModified": 1794229480,
+        "narHash": "sha256-wIzezmQwJD8zszPN3MmOEgkzZjjUzG5yOYQfkSPNwCc=",
         "owner": "elio-fm",
         "repo": "elio",
-        "rev": "dc35eb5bb378a37160bcaf664fd057b86e2846ae",
+        "rev": "fb37d235f8e9795d5c10add4f64ce24895af4a84",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
     "file-search-skill": {
       "flake": false,
       "locked": {
-        "lastModified": 1793915255,
-        "narHash": "sha256-DTbnIbRNxNjcc5uHhBs+iFNECXFClb8H91BHr5Pji3E=",
+        "lastModified": 1794221514,
+        "narHash": "sha256-w0bJgypCH0MoMQM09CTXS5N6IFKoIJYASmzJugLgD6M=",
         "owner": "netresearch",
         "repo": "file-search-skill",
-        "rev": "3c0fa675923e6f9f42fe215fa20d2b6495e8a63b",
+        "rev": "15cb98982c66dc0a60ba6043ef3a629fd09a6869",
         "type": "github"
       },
       "original": {
