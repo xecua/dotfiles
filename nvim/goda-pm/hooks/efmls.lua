@@ -1,29 +1,41 @@
 --- lua_source {{{
-local prettier = vim.tbl_extend("force", require("efmls-configs.formatters.prettier"), {
-    rootMarkers = {
-        ".prettierrc",
-        ".prettierrc.json",
-        ".prettierrc.yml",
-        ".prettierrc.yaml",
-        ".prettierrc.json5",
-        ".prettierrc.js",
-        "prettier.config.js",
-        ".prettierrc.ts",
-        "prettier.config.ts",
-        ".prettierrc.mjs",
-        "prettier.config.mjs",
-        ".prettierrc.mts",
-        "prettier.config.mts",
-        ".prettierrc.cjs",
-        "prettier.config.cjs",
-        "prettier.config.cts",
-        ".prettierrc.cts",
-        ".prettierrc.toml",
-    },
-    requireMarker = true,
-})
+-- efmls-configs の各モジュールは require 時に executable() / exepath() (golangci_lint は外部コマンドも) を呼ぶ。
+-- Windows だと 1 つ 40ms ほどかかるので、efm を起動するときまで require を遅らせる。
 
-local languages = {
+local function prettier()
+    return vim.tbl_extend("force", require("efmls-configs.formatters.prettier"), {
+        rootMarkers = {
+            ".prettierrc",
+            ".prettierrc.json",
+            ".prettierrc.yml",
+            ".prettierrc.yaml",
+            ".prettierrc.json5",
+            ".prettierrc.js",
+            "prettier.config.js",
+            ".prettierrc.ts",
+            "prettier.config.ts",
+            ".prettierrc.mjs",
+            "prettier.config.mjs",
+            ".prettierrc.mts",
+            "prettier.config.mts",
+            ".prettierrc.cjs",
+            "prettier.config.cjs",
+            "prettier.config.cts",
+            ".prettierrc.cts",
+            ".prettierrc.toml",
+        },
+        requireMarker = true,
+    })
+end
+
+local function load(name)
+    return function()
+        return require("efmls-configs." .. name)
+    end
+end
+
+--- filetype -> tool 設定を返す関数のリスト
+local tools = {
     html = { prettier },
     css = { prettier },
     sass = { prettier },
@@ -41,23 +53,29 @@ local languages = {
     ["yaml.openapi"] = { prettier },
     ["yaml.compose"] = { prettier },
     vue = { prettier },
-    go = {
-        require("efmls-configs.linters.golangci_lint"),
-    },
-    lua = {
-        require("efmls-configs.linters.luacheck"),
-    },
-    php = {
-        require("efmls-configs.formatters.php_cs_fixer"),
-        require("efmls-configs.linters.phpstan"),
-    },
-    sql = {
-        require("efmls-configs.formatters.sql-formatter"),
-    },
+    go = { load("linters.golangci_lint") },
+    lua = { load("linters.luacheck") },
+    php = { load("formatters.php_cs_fixer"), load("linters.phpstan") },
+    sql = { load("formatters.sql-formatter") },
 }
 
+local languages
+local function build_languages()
+    if languages == nil then
+        languages = {}
+        local cache = {}
+        for ft, fns in pairs(tools) do
+            languages[ft] = vim.tbl_map(function(fn)
+                cache[fn] = cache[fn] or fn()
+                return cache[fn]
+            end, fns)
+        end
+    end
+    return languages
+end
+
 vim.lsp.config("efm", {
-    filetypes = vim.tbl_keys(languages),
+    filetypes = vim.tbl_keys(tools),
     init_options = {
         documentFormatting = true,
         documentRangeFormatting = true,
@@ -66,7 +84,11 @@ vim.lsp.config("efm", {
         codeAction = false,
         hover = false,
     },
-    settings = { languages = languages },
+    settings = {},
+    before_init = function(_, config)
+        -- settingsを動的に生成 (efmls-configs の require を遅延させて起動を速くする)
+        config.settings.languages = build_languages()
+    end,
 })
 
 vim.lsp.enable("efm")
