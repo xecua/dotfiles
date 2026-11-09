@@ -5,6 +5,7 @@ end
 
 vim.cmd("filetype plugin indent off")
 vim.cmd("colorscheme sorbet")
+vim.loader.enable()
 
 pcall(require, "xecua.local-pre") -- ないならないで
 
