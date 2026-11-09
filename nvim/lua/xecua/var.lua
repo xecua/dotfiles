@@ -27,3 +27,17 @@ vim.g.terminal_color_12 = "#49a4f8"
 vim.g.terminal_color_13 = "#a47de9"
 vim.g.terminal_color_14 = "#99faf2"
 vim.g.terminal_color_15 = "#ffffff"
+
+-- inline_completionを使わないfiletype
+vim.g.no_inline_completion_filetype = {
+    "markdown",
+    "asciidoc",
+    "rst",
+    "textile",
+    "satysfi",
+    "typst",
+    "dap-repl",
+    "dap-view",
+    "dap-view-term",
+    "dap-view-help",
+}

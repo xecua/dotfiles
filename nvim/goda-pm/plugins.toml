@@ -207,14 +207,9 @@ end
 
 # LLM
 [[plugins]]
-repo = 'copilotlsp-nvim/copilot-lsp'
-lua_source = """
-require('copilot-lsp').setup({
-  nes = {
-    move_count_threshold = 3,   -- Clear after 3 cursor movements
-  }
-})
-"""
+repo = 'cursortab/cursortab.nvim'
+extAttrs = { installerBuild = 'cd server && GOWORK=off go build' } # goda-pmのgo.workに反応してしまう
+hooks_file = '$STD_CONFIG/goda-pm/hooks/cursortab.lua'
 
 [[plugins]]
 repo = 'carlos-algms/agentic.nvim'

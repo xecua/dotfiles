@@ -210,76 +210,15 @@ local no_formatting = { "documentFormattingProvider", "documentRangeFormattingPr
 
 --- @type table<string, xecua.lsp.ServerSpec>
 local server_extra_config = {
+    -- NES: cursortabで。providerがsweepのときはそちらでCopilotごと止める
     copilot = {
         should_attach = function(buffer)
             return not (
                 vim.g.disable_copilot
                 or vim.bo[buffer].readonly
-                or vim.list_contains({
-                    "markdown",
-                    "asciidoc",
-                    "rst",
-                    "textile",
-                    "satysfi",
-                    "typst",
-                    "dap-repl",
-                    "dap-view",
-                    "dap-view-term",
-                    "dap-view-help",
-                }, vim.bo[buffer].filetype)
+                or vim.list_contains(vim.g.no_inline_completion_filetype or {}, vim.bo[buffer].filetype)
             )
         end,
-        features = {
-            nes = function(scope, client, buffer)
-                local ok, nes = pcall(require, "copilot-lsp.nes")
-                if not ok then
-                    return
-                end
-                local debounced_request = require("copilot-lsp.util").debounce(function()
-                    nes.request_nes("copilot")
-                end, 500)
-
-                scope.autocmd("TextChanged", {
-                    callback = function()
-                        debounced_request(client)
-                    end,
-                })
-                scope.autocmd("BufEnter", {
-                    callback = function()
-                        local td_params = vim.lsp.util.make_text_document_params(buffer)
-                        ---@diagnostic disable-next-line: param-type-mismatch
-                        client:notify("textDocument/didFocus", { textDocument = { uri = td_params.uri } })
-                    end,
-                })
-                -- バッファローカルなautocmdにはpatternを指定できないので、モードはcallback内で見る
-                scope.autocmd("ModeChanged", {
-                    callback = function()
-                        if vim.v.event.old_mode == "i" and vim.v.event.new_mode == "n" then
-                            debounced_request(client)
-                        end
-                    end,
-                })
-
-                scope.map("n", "<C-l>", function()
-                    nes.walk_cursor_start_edit()
-                    local changed = nes.apply_pending_nes()
-                    nes.walk_cursor_end_edit()
-
-                    if not changed then
-                        debounced_request(client)
-                    end
-                end, { desc = "Copilot NES" })
-                scope.map("n", "<C-c>", function()
-                    nes.clear()
-                end, { desc = "Clear NES" })
-
-                scope.on_teardown(function()
-                    if vim.api.nvim_buf_is_valid(buffer) then
-                        nes.clear_suggestion(buffer)
-                    end
-                end)
-            end,
-        },
     },
 
     jdtls = {
