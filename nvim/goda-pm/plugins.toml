@@ -559,15 +559,6 @@ require('illuminate').configure({
 })
 """
 
-# indentation
-[[plugins]]
-repo = 'lambdalisue/vim-backslash'
-on_ft = 'vim'
-
-[[plugins]]
-repo = 'hynek/vim-python-pep8-indent'
-on_ft = 'python'
-
 [[plugins]]
 repo = 'preservim/vim-indent-guides'
 
@@ -618,26 +609,17 @@ end, { desc = "swap with previous parameter" })
 """
 lua_source = "require('nvim-treesitter-textobjects').setup({})"
 
-## fish
-[[plugins]]
-repo = 'dag/vim-fish'
-
-## .gitignore file
-[[plugins]]
-repo = 'benknoble/gitignore-vim'
-on_ft = 'gitignore'
-
 ## SATySFi
-[[plugins]]
-repo = 'qnighy/satysfi.vim'
+# [[plugins]]
+# repo = 'qnighy/satysfi.vim'
 
 ## ebuild etc
 [[plugins]]
 repo = 'gentoo/gentoo-syntax'
 
 ## CoPL Derivation Language
-[[plugins]]
-repo = 'ymyzk/vim-copl'
+# [[plugins]]
+# repo = 'ymyzk/vim-copl'
 
 [[plugins]]
 repo = 'hat0uma/csvview.nvim'
@@ -645,38 +627,20 @@ lua_source = """
 require('csvview').setup()
 """
 
-## Firestore Security Rule
-[[plugins]]
-repo = 'delphinus/vim-firestore'
-on_ft = 'firestore'
-
 ## skk-jisyo
 [[plugins]]
 repo = 'vim-skk/skkdict.vim'
 
-## astro
-[[plugins]]
-repo = 'wuelnerdotexe/vim-astro'
-
-# direnv
-[[plugins]]
-repo = 'direnv/direnv.vim'
-
 # Go utility
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-lua_add = """
-vim.g.go_doc_keywordprg_enabled = 0
-vim.g.go_echo_command_info = 0
-vim.g.go_echo_go_info = 0
-vim.g.go_imports_autosave = 0
-"""
-
-# Swift
-[[plugins]]
-repo = 'keith/swift.vim'
-on_ft = 'swift'
+# [[plugins]]
+# repo = 'fatih/vim-go'
+# on_ft = 'go'
+# lua_add = """
+# vim.g.go_doc_keywordprg_enabled = 0
+# vim.g.go_echo_command_info = 0
+# vim.g.go_echo_go_info = 0
+# vim.g.go_imports_autosave = 0
+# """
 
 # Typst
 [[plugins]]
@@ -688,8 +652,8 @@ repo = 'chomosuke/typst-preview.nvim'
 on_ft = 'typst'
 
 # Handlebars
-[[plugins]]
-repo = 'mustache/vim-mustache-handlebars'
+# [[plugins]]
+# repo = 'mustache/vim-mustache-handlebars'
 
 # Idris2
 [[plugins]]
