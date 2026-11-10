@@ -49,6 +49,10 @@
       url = "github:nanaism/yomiyasu";
       flake = false;
     };
+    gh = {
+      url = "github:cli/cli";
+      flake = false;
+    };
   };
 
   outputs =

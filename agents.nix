@@ -10,23 +10,25 @@ let
   chrome-devtools-mcp = inputs.mcp-servers-nix.packages.${system}.chrome-devtools-mcp;
   playwright-cli = pkgs.callPackage ./pkgs/playwright-cli.nix { };
 
-  githubMcpUrl = "https://api.githubcopilot.com/mcp/";
-  githubMcpHeaders = pkgs.writeShellApplication {
-    name = "github-mcp-headers";
-    runtimeInputs = [
-      pkgs.gh
-      pkgs.jq
-    ];
-    text = ''
-      # Claude Code はヘルパに環境変数を渡さない (HOME と PATH だけ) ので、
-      # GH_TOKEN 環境変数ではなく `gh auth login` で gh に保存した資格情報が必要
-      if ! token=$(gh auth token 2>/dev/null); then
-        echo "github-mcp-headers: gh is not logged in; run 'gh auth login' first" >&2
-        exit 1
-      fi
-      jq -nc --arg t "$token" '{ Authorization: ("Bearer " + $t) }'
-    '';
-  };
+  /*
+    githubMcpUrl = "https://api.githubcopilot.com/mcp/";
+    githubMcpHeaders = pkgs.writeShellApplication {
+      name = "github-mcp-headers";
+      runtimeInputs = [
+        pkgs.gh
+        pkgs.jq
+      ];
+      text = ''
+        # Claude Code はヘルパに環境変数を渡さない (HOME と PATH だけ) ので、
+        # GH_TOKEN 環境変数ではなく `gh auth login` で gh に保存した資格情報が必要
+        if ! token=$(gh auth token 2>/dev/null); then
+          echo "github-mcp-headers: gh is not logged in; run 'gh auth login' first" >&2
+          exit 1
+        fi
+        jq -nc --arg t "$token" '{ Authorization: ("Bearer " + $t) }'
+      '';
+    };
+  */
 in
 {
   agents = {
@@ -46,6 +48,7 @@ in
       file-search = "${inputs.file-search-skill}/skills/file-search";
       conventional-commit = "${inputs.awesome-copilot}/skills/conventional-commit";
       yomiyasu = "${inputs.yomiyasu}/skills/yomiyasu";
+      gh = "${inputs.gh}/skills/gh";
     };
 
     # claude.ai に登録して同期で配る skill。Claude Code にはリンクしない
@@ -64,21 +67,24 @@ in
       };
     };
 
-    # claude-code
-    plugins.github = {
-      description = "GitHub remote MCP server (token from gh auth token)";
-      hosts = [ "claude-code" ];
-      mcpServers.github = {
-        type = "http";
-        url = githubMcpUrl;
-        headersHelper = lib.getExe githubMcpHeaders;
+    # 直接gh cli叩けばよくね?
+    /*
+      # claude-code
+      plugins.github = {
+        description = "GitHub remote MCP server (token from gh auth token)";
+        hosts = [ "claude-code" ];
+        mcpServers.github = {
+          type = "http";
+          url = githubMcpUrl;
+          headersHelper = lib.getExe githubMcpHeaders;
+        };
       };
-    };
-    # codex
-    codex.settings.mcp_servers.github = {
-      url = githubMcpUrl;
-      http_headers_helper = lib.getExe githubMcpHeaders;
-    };
+      # codex
+      codex.settings.mcp_servers.github = {
+        url = githubMcpUrl;
+        http_headers_helper = lib.getExe githubMcpHeaders;
+      };
+    */
 
     # サブコマンドで ~/.agents/skills に skill を置く CLI: activation で毎回実行して更新
     toolSkills = {
