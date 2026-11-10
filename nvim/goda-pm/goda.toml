@@ -8,6 +8,7 @@ vim.api.nvim_create_user_command("GodaBuild", function()
     vim.fn['goda_term#build']()
 end)
 """
+hook_post_update = "call goda_pm#build()"
 
 [[plugins]]
 repo = 'Shougo/goda-pm.vim'
@@ -18,6 +19,7 @@ repo = 'Shougo/goda-pm-ext-lazy.vim'
 [[plugins]]
 repo = 'Shougo/goda-cmp.vim'
 hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-cmp.lua'
+hook_post_update = "call goda_cmp#build()"
 
 [[plugins]]
 repo = 'Shougo/goda-skk.vim'
@@ -26,10 +28,12 @@ hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-skk.lua'
 [[plugins]]
 repo = 'Shougo/goda-fi.vim'
 hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-fi.lua'
+hook_post_update = "call goda_fi#build()"
 
 [[plugins]]
 repo = 'Shougo/goda-term.vim'
 hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-term.lua'
+hook_post_update = "call goda_term#build()"
 
 [[plugins]]
 repo = 'Shougo/goda-term-ui-terminal.vim'
