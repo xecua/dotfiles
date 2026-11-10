@@ -9,9 +9,9 @@ local cursortab = require("cursortab")
 --- @type table<string, xecua.cursortab.Provider>
 local providers = {
     copilot = { config = { type = "copilot" }, modes = { "normal" }, copilot_lsp = true },
-    -- llama-server -hf sweepai/sweep-next-edit-1.5b --port 8000
+    -- llama-server -hf sweepai/sweep-next-edit-1.5b --port 43482
     sweep = {
-        config = { type = "sweep", url = "http://localhost:8000" },
+        config = { type = "sweep", url = "http://localhost:43482" },
         modes = { "insert", "normal" },
         copilot_lsp = false,
     },
@@ -74,6 +74,7 @@ local function use_provider(name)
             ignore_filetypes = vim.list_extend({ "", "terminal" }, vim.g.no_inline_completion_filetype or {}),
         },
         provider = provider.config,
+        ui = { jump = { text = " <C-l> " } },
     })
     return true
 end

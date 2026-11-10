@@ -1,0 +1,10 @@
+[Unit]
+Description=llama.cpp server (Sweep next-edit)
+
+[Service]
+ExecStart=llama serve -hf sweepai/sweep-next-edit-1.5b --host 127.0.0.1 --port 43482 --offline
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
