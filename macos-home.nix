@@ -11,12 +11,6 @@ in
 {
   imports = [ ./agents.nix ];
 
-  agents.plugins.ask-copilot = {
-    description = "Copilot CLIを使用してコードや文言について相談・レビューを行う";
-    hosts = [ "claude-code" ];
-    skills.ask-copilot = ./skills/ask-copilot;
-  };
-
   _module.args.pkgsUnstable = import inputs.nixpkgs-unstable {
     inherit (pkgs.stdenv.hostPlatform) system;
     inherit (config.nixpkgs) config;
