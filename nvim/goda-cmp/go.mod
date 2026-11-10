@@ -10,5 +10,5 @@ require (
 
 require (
 	github.com/Shougo/goda.vim v0.8.0 // indirect
-	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 )

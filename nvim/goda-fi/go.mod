@@ -9,4 +9,4 @@ require (
 	github.com/sahilm/fuzzy v0.1.3
 )
 
-require github.com/Shougo/goda-pm.vim v0.1.2-0.20261108231718-aafc18ee236b // indirect
+require github.com/Shougo/goda-pm.vim v0.2.0 // indirect
