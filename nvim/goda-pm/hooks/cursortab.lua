@@ -11,7 +11,12 @@ local providers = {
     copilot = { config = { type = "copilot" }, modes = { "normal" }, copilot_lsp = true },
     -- llama-server -hf sweepai/sweep-next-edit-1.5b --port 43482
     sweep = {
-        config = { type = "sweep", url = "http://localhost:43482" },
+        config = { type = "sweep", url = "http://localhost:43482", max_diff_history_tokens = 1024 },
+        modes = { "insert", "normal" },
+        copilot_lsp = false,
+    },
+    zeta = {
+        config = { type = "zeta-2.1", url = "http://localhost:43482" },
         modes = { "insert", "normal" },
         copilot_lsp = false,
     },

@@ -214,17 +214,12 @@ hooks_file = '$STD_CONFIG/goda-pm/hooks/cursortab.lua'
 [[plugins]]
 repo = 'carlos-algms/agentic.nvim'
 lua_add = """
-vim.api.nvim_create_user_command("AgenticToggle", "lua require('agentic').toggle()", {})
-vim.api.nvim_create_user_command("AgenticNewSession", "lua require('agentic').new_session()", {})
-vim.api.nvim_create_user_command("AgenticSelection", "lua require('agentic').add_selection_or_file_to_context()", {})
-vim.api.nvim_create_user_command("AgenticDiagnostics", "lua require('agentic').add_current_line_diagnostics()", {})
-vim.api.nvim_create_user_command("AgenticBufferDiagnostics", "lua require('agentic').add_buffer_diagnostics()", {})
-
-vim.keymap.set("n", "<Leader>aa", "<Cmd>AgenticToggle<CR>")
-vim.keymap.set("n", "<Leader>an", "<Cmd>AgenticNewSession<CR>")
-vim.keymap.set({"n", "v"}, "<Leader>as", "<Cmd>AgenticSelection<CR>")
-vim.keymap.set("n", "<Leader>ad", "<Cmd>AgenticDiagnostics<CR>")
-vim.keymap.set("n", "<Leader>aD", "<Cmd>AgenticBufferDiagnostics<CR>")
+vim.keymap.set("n", "<Leader>aa", "<Cmd>lua require('agentic').toggle()<CR>")
+vim.keymap.set("n", "<Leader>an", "<Cmd>lua require('agentic').new_session()<CR>")
+vim.keymap.set({"n", "v"}, "<Leader>as", "<Cmd>lua require('agentic').add_selection_or_file_to_context()<CR>")
+vim.keymap.set("n", "<Leader>ad", "<Cmd>lua require('agentic').add_current_line_diagnostics()<CR>")
+vim.keymap.set("n", "<Leader>aD", "<Cmd>lua require('agentic').add_buffer_diagnostics()<CR>")
+vim.keymap.set("n", "<Leader>ar", "<Cmd>lua require('agentic').restore_session()<CR>")
 """
 lua_source = """
 require("agentic").setup({
@@ -234,9 +229,7 @@ require("agentic").setup({
     },
     acp_providers = {
         ['claude-agent-acp'] ={ initial_model = "opus" },
-        ['copilot-acp'] = { initial_model = "gpt-6-astra" },
-        ['codex-acp'] = { initial_model = "gpt-5.6-luna", default_thought_level = "max" },
-        opencode = { initial_model = "Qwen 3.8 Max" },
+        ['codex-acp'] = { initial_model = "gpt-6-luna", default_thought_level = "max" },
     },
     file_picker = { enable = false },
 })
