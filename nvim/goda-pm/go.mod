@@ -5,7 +5,7 @@ go 1.27.3
 require (
 	github.com/Shougo/goda-pm-ext v0.1.0
 	github.com/Shougo/goda-pm-ext-lazy.vim v0.1.0
-	github.com/Shougo/goda-pm.vim v0.2.0
+	github.com/Shougo/goda-pm.vim v0.3.0
 )
 
 require (

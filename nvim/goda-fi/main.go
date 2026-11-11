@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/Shougo/goda-fi.vim/ext/column/filename"
-	"github.com/Shougo/goda-fi.vim/ext/filter/converterhldir"
-	"github.com/Shougo/goda-fi.vim/ext/filter/matcherhidden"
-	"github.com/Shougo/goda-fi.vim/ext/filter/matchersubstring"
-	"github.com/Shougo/goda-fi.vim/ext/filter/sorteralpha"
-	kindfile "github.com/Shougo/goda-fi.vim/ext/kind/file"
-	kindword "github.com/Shougo/goda-fi.vim/ext/kind/word"
-	"github.com/Shougo/goda-fi.vim/ext/source/buffer"
-	"github.com/Shougo/goda-fi.vim/ext/source/file"
-	"github.com/Shougo/goda-fi.vim/ext/source/fileexternal"
-	"github.com/Shougo/goda-fi.vim/ext/source/rg"
+	"github.com/Shougo/goda-fi-ext/ext/column/filename"
+	"github.com/Shougo/goda-fi-ext/ext/filter/converterhldir"
+	"github.com/Shougo/goda-fi-ext/ext/filter/matcherhidden"
+	"github.com/Shougo/goda-fi-ext/ext/filter/matchersubstring"
+	"github.com/Shougo/goda-fi-ext/ext/filter/sorteralpha"
+	kindfile "github.com/Shougo/goda-fi-ext/ext/kind/file"
+	"github.com/Shougo/goda-fi-ext/ext/kind/word"
+	"github.com/Shougo/goda-fi-ext/ext/source/buffer"
+	sourcefile "github.com/Shougo/goda-fi-ext/ext/source/file"
+	"github.com/Shougo/goda-fi-ext/ext/source/fileexternal"
+	"github.com/Shougo/goda-fi-ext/ext/source/rg"
+	"github.com/Shougo/goda-fi-ui-ff.vim/ui/ff"
+	"github.com/Shougo/goda-fi-ui-filer.vim/ui/filer"
 	"github.com/Shougo/goda-fi.vim/fi"
-	"github.com/Shougo/goda-fi.vim/ui/ff"
-	"github.com/Shougo/goda-fi.vim/ui/filer"
 	"github.com/Shougo/goda-pm-ext/ext/fi/pmfi"
 
 	"goda-fi-config/matcherfuzzy"
@@ -30,7 +30,7 @@ func main() {
 	// TODO: lsp symbol
 	b.AddSource(rg.New(rg.Params{MaxEnqueSize: 1000, Args: []string{"--json"}}))
 	b.AddSource(buffer.New())
-	b.AddSource(file.New(file.Params{}))
+	b.AddSource(sourcefile.New(sourcefile.Params{}))
 	b.AddSourceAs("fd", fileexternal.New(fileexternal.Params{
 		Cmd: []string{"fd", "--type", "file", "--hidden"},
 	}))
@@ -48,7 +48,7 @@ func main() {
 	b.AddFilter(converterhldir.New(converterhldir.Params{}))
 
 	b.AddKind(kindfile.New())
-	b.AddKind(kindword.New())
+	b.AddKind(word.New())
 
 	b.AddColumn(filename.New(filename.DefaultParams()))
 

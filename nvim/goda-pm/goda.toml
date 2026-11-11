@@ -22,6 +22,9 @@ hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-cmp.lua'
 hook_post_update = "call goda_cmp#build()"
 
 [[plugins]]
+repo = 'Shougo/goda-cmp-ui-pum.vim'
+
+[[plugins]]
 repo = 'Shougo/goda-skk.vim'
 hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-skk.lua'
 
@@ -29,6 +32,12 @@ hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-skk.lua'
 repo = 'Shougo/goda-fi.vim'
 hooks_file = '$STD_CONFIG/goda-pm/hooks/goda-fi.lua'
 hook_post_update = "call goda_fi#build()"
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-filer.vim'
+
+[[plugins]]
+repo = 'Shougo/goda-fi-ui-ff.vim'
 
 [[plugins]]
 repo = 'Shougo/goda-term.vim'

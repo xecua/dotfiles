@@ -3,8 +3,10 @@ module goda-cmp-config
 go 1.27.1
 
 require (
-	github.com/Shougo/goda-cmp.vim v0.3.2
-	github.com/Shougo/goda-skk.vim v0.3.3
+	github.com/Shougo/goda-cmp-ext v0.1.1
+	github.com/Shougo/goda-cmp-ui-pum.vim v0.1.0
+	github.com/Shougo/goda-cmp.vim v0.4.0
+	github.com/Shougo/goda-skk.vim v0.3.4
 	github.com/sahilm/fuzzy v0.1.3
 )
 
