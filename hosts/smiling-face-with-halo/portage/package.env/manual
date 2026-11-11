@@ -3,6 +3,8 @@ app-i18n/libskk gcc
 sys-devel/gcc gcc
 dev-debug/rr gcc
 net-analyzer/nmap gcc
+x11-terms/ghostty-terminfo gcc
+x11-terms/ghostty gcc
 
 x11-drivers/nvidia-drivers lld
 sys-boot/* lld

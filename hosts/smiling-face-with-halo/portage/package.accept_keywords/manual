@@ -1,3 +1,4 @@
+=media-sound/mpd-0.24.18 # cannot build stable
 app-admin/bitwarden-desktop-bin
 app-admin/doasedit
 app-containers/podman
@@ -56,6 +57,8 @@ media-sound/mpd-mpris
 media-video/obs-studio
 net-im/discord
 net-misc/ipcalc
+sci-misc/llama-cpp
+sci-ml/llama-cpp
 sys-apps/bat-extras
 sys-apps/hexyl
 sys-devel/wild

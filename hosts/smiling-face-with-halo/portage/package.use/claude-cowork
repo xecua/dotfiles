@@ -1,0 +1,3 @@
+# claude desktopでcoworkを使うには
+# app-emulation/qemu と app-emulation/virtiofsd と ↓がいるらしい
+app-emulation/xen-tools ovmf

@@ -3,7 +3,6 @@ app-admin/doas
 app-admin/doasedit
 app-admin/eclean-kernel
 app-admin/pass
-app-admin/qtpass
 app-arch/zip
 app-containers/podman
 app-containers/slirp4netns
@@ -65,7 +64,6 @@ dev-scheme/chez
 dev-util/cargo-license
 dev-util/difftastic
 dev-util/github-cli
-dev-util/opencode-bin
 dev-util/pkgdev
 dev-util/radare2
 dev-util/ruff
@@ -117,7 +115,6 @@ media-fonts/roboto
 media-fonts/symbols-nerd-font
 media-fonts/udev-gothic
 media-gfx/chafa
-media-gfx/gimp
 media-gfx/imagemagick
 media-gfx/imv
 media-gfx/timg
@@ -144,6 +141,7 @@ net-libs/nodejs
 net-misc/ipcalc
 net-wireless/blueman
 sci-libs/libqalculate
+sci-ml/llama-cpp
 sys-apps/bat
 sys-apps/bat-extras
 sys-apps/etckeeper
