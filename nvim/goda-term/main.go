@@ -14,10 +14,9 @@ func main() {
 		UI: "terminal",
 		UIParams: map[string]term.Params{
 			"terminal": {
-				"split":       "horizontal",
+				"split":       "farright",
 				"command":     []string{"zsh"},
 				"startInsert": true,
-				"winHeight":   10,
 			},
 		},
 	})
