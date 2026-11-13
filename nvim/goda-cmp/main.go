@@ -21,8 +21,9 @@ import (
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
 
-	"goda-cmp-config/matcherfuzzy"
-	"goda-cmp-config/sorterfuzzy"
+	"github.com/delphinus/goda-cmp-ext-fuzzy.vim/ext/filter/matcherfuzzy"
+	"github.com/delphinus/goda-cmp-ext-fuzzy.vim/ext/filter/sorterfuzzy"
+	"github.com/delphinus/goda-cmp-ext-fuzzy.vim/ext/filter/sorterglobal"
 )
 
 func main() {
@@ -44,6 +45,7 @@ func main() {
 	b.AddFilter(sorterrank.New())
 	b.AddFilter(sorterhead.New())
 	b.AddFilter(sorterfuzzy.New())
+	b.AddFilter(sorterglobal.New(map[string]int{}))
 	b.AddFilter(converterremoveoverlap.New())
 
 	p := newSkk()
@@ -65,11 +67,11 @@ func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
 		UI:          "pum",
 		Sources:     sources,
-		PostFilters: []string{"sorterfuzzy"},
+		PostFilters: []string{"sorterglobal"},
 		SourceOptions: map[string]cmp.SourceOption{
 			"_": {
 				Matchers:   []string{"matcherfuzzy"},
-				Sorters:    []string{},
+				Sorters:    []string{"sorterfuzzy"},
 				Converters: []string{"converterremoveoverlap"},
 			},
 			"around": {Mark: "A"},

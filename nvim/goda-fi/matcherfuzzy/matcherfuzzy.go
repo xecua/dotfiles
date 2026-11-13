@@ -2,11 +2,12 @@ package matcherfuzzy
 
 import (
 	"context"
+	"unicode/utf8"
 
 	"github.com/Shougo/goda-fi.vim/fi"
 	"github.com/Shougo/goda.vim/sdk"
 
-	"github.com/sahilm/fuzzy"
+	"github.com/delphinus/goda-cmp-ext-fuzzy.vim/fuzzy"
 )
 
 type Params struct {
@@ -28,40 +29,35 @@ func (f matcherfuzzy) Filter(_ context.Context, _ sdk.Host, a fi.FilterArgs) ([]
 	if err := fi.Decode(a.FilterParams, &p); err != nil {
 		return nil, err
 	}
-	matches := fuzzy.FindFromNoSort(a.Input, sourceItem(a.Items))
-	out := make([]fi.Item, 0, len(matches))
-	for _, m := range matches {
-		it := a.Items[m.Index]
-
-		if p.HighlightMatched != "" {
-			it = highlight(it, m, p.HighlightMatched)
+	pat, fold := []rune(a.Input), fuzzy.Fold(a.Input)
+	out := make([]fi.Item, 0, len(a.Items))
+	for _, it := range a.Items {
+		text := []rune(it.MatcherKey())
+		_, pos, ok := fuzzy.Match(text, pat, fold)
+		if !ok {
+			continue
 		}
-
+		if p.HighlightMatched != "" {
+			it = highlight(it, text, pos, p.HighlightMatched)
+		}
 		out = append(out, it)
-
 	}
 	return out, nil
 }
 
-// wrapper of fi.Item to implement fuzzy.Source
-type sourceItem []fi.Item
-
-func (s sourceItem) String(i int) string {
-	return s[i].MatcherKey()
-}
-
-func (s sourceItem) Len() int {
-	return len(s)
-}
-
-func highlight(it fi.Item, m fuzzy.Match, hlgroup string) fi.Item {
+// fuzzy.Match はrune単位の位置を返すが、fi.Highlight はバイト単位なので変換する
+func highlight(it fi.Item, text []rune, pos []int, hlgroup string) fi.Item {
 	hls := append([]fi.Highlight(nil), it.Highlights...)
-	for _, idx := range m.MatchedIndexes {
+	col, ri := 0, 0
+	for _, idx := range pos {
+		for ; ri < idx; ri++ {
+			col += utf8.RuneLen(text[ri])
+		}
 		hls = append(hls, fi.Highlight{
 			Name:    "matched",
 			HlGroup: hlgroup,
-			Col:     idx + 1,
-			Width:   1,
+			Col:     col + 1,
+			Width:   utf8.RuneLen(text[idx]),
 		})
 	}
 	it.Highlights = hls
