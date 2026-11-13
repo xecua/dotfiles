@@ -3,10 +3,6 @@
 repo = 'lambdalisue/vim-guise'
 lua_add = "vim.g['guise#disable_vim'] = 1"
 
-[[plugins]]
-repo = 'Joakker/lua-json5'
-extAttrs = { installerBuild = './install.sh' }
-
 # Preview
 [[plugins]]
 repo = 'previm/previm'
