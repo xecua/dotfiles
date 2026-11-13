@@ -43,9 +43,18 @@ vim.keymap.set("n", "<Leader>fr", function()
         })
     end)
 end)
+-- goda-fi/main.go の PatchLocal の名前 (手動で同期する)
+local godafi_names = { "rg-live", "rg", "fd", "fd-all", "buffer", "filer", "goda-pm" }
 vim.api.nvim_create_user_command("GodaFi", function(opts)
     start({ name = opts.args })
-end, { nargs = 1 })
+end, {
+    nargs = 1,
+    complete = function(arg_lead)
+        return vim.tbl_filter(function(name)
+            return vim.startswith(name, arg_lead)
+        end, godafi_names)
+    end,
+})
 
 -- filerでpathまでツリーを展開してカーソルを合わせる。
 local function reveal_in_filer(path, root)
