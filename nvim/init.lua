@@ -36,9 +36,8 @@ end
 
 pcall(require, "xecua.local")
 
-local has_ui2, ui2 = pcall(require, "vim._core.ui2")
-if has_ui2 then
-    ui2.enable({
+if vim.fn.has("nvim-0.13") then
+    require("vim._core.ui2").enable({
         msg = {
             targets = {
                 default = "msg",
