@@ -501,33 +501,29 @@ MiniSnippets.setup({
                 sh = patterns('shell', 'sh'),
                 bash = patterns('shell', 'sh', 'bash'),
                 zsh = patterns('shell', 'sh', 'zsh'),
+                -- 言語はカーソル位置の treesitter で決まり、Markdown の本文中は markdown_inline になる
+                markdown_inline = patterns('markdown'),
             },
         }),
     },
-    -- <Tab> / <S-Tab> で展開・ジャンプする (下で定義)
+    -- 候補の表示はgoda-cmpで。読み込みと↓のジャンプだけmini.snippetsに頼る
     mappings = { expand = '', jump_next = '', jump_prev = '' },
-    expand = {
-        -- カーソル左が空白のときは展開しない (行頭などで <Tab> を打てるように)
-        match = function(snips)
-            return MiniSnippets.default_match(snips, { pattern_fuzzy = '%S+' })
-        end,
-    },
 })
 
 vim.keymap.set('i', '<Tab>', function()
-    if #MiniSnippets.expand({ insert = false }) > 0 then
-        vim.schedule(MiniSnippets.expand)
-        return ''
-    end
     if MiniSnippets.session.get() ~= nil then
         MiniSnippets.session.jump('next')
         return ''
     end
     return '<Tab>'
-end, { expr = true, desc = 'Expand snippet or jump to next tabstop' })
+end, { expr = true, desc = 'Jump to next snippet tabstop' })
 vim.keymap.set('i', '<S-Tab>', function()
-    MiniSnippets.session.jump('prev')
-end, { desc = 'Jump to previous snippet tabstop' })
+    if MiniSnippets.session.get() ~= nil then
+        MiniSnippets.session.jump('prev')
+        return ''
+    end
+    return '<C-h>'
+end, { expr = true, desc = 'Jump to previous snippet tabstop' })
 """
 
 [[plugins]]

@@ -32,7 +32,7 @@ func main() {
 	b.AddUI(pum.New())
 	b.AddUI(none.New())
 
-	// TODO: snippet
+	b.AddSource(snippetSource{})
 	b.AddSource(around.New(around.Params{MinLength: 2}))
 	b.AddSource(line.New(line.Params{}))
 	b.AddSource(file.New(file.Params{}))
@@ -60,7 +60,7 @@ func main() {
 }
 
 var (
-	sources = []string{"file", "around"}
+	sources = []string{"snippet", "file", "around"}
 )
 
 func configure(b *cmp.Builder) {
@@ -75,6 +75,11 @@ func configure(b *cmp.Builder) {
 				Converters: []string{"converterremoveoverlap"},
 			},
 			"around": {Mark: "A"},
+			"snippet": {
+				Mark: "snip",
+				// "#!/usr/bin/env" のように記号を含む prefix もあるので、空白以外をまとめて補完対象にする
+				KeywordPattern: `\S*`,
+			},
 			"skk": {
 				Mark:                  "skk",
 				Matchers:              []string{},
