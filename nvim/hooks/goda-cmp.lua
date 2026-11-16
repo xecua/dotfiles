@@ -13,9 +13,11 @@ local function do_completion(delta)
         end
         if vim.fn["pum#visible"]() then
             if delta < 0 and not vim.fn["pum#entered"]() then
-                vim.fn["pum#map#insert_relative"](delta, "loop")
+                vim.fn["pum#map#select_relative"](delta, "loop")
+                -- vim.fn["pum#map#insert_relative"](delta, "loop")
             else
-                vim.fn["pum#map#insert_relative"](delta)
+                vim.fn["pum#map#select_relative"](delta)
+                -- vim.fn["pum#map#insert_relative"](delta, "loop")
             end
         else
             vim.fn["goda_cmp#complete"]()
