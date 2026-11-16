@@ -1,2 +1,34 @@
 # Xフラグを徐々に外していくよん
 x11-terms/ghostty -X
+app-crypt/gcr -X
+app-crypt/seahorse -X
+app-crypt/pinentry -X
+www-client/w3m -X
+sys-process/psmisc -X
+sys-apps/hwloc -X
+sys-apps/groff -X
+
+# font: 個別のIUSEにあったら定義してないとダメっぽい
+media-fonts/* -X
+media-fonts/corefonts X # なぜか持ってる
+
+# gtk
+# eix --installed-with-use X --installed-deps gtk
+gui-libs/gtk -X
+sys-apps/xdg-desktop-portal-gnome -X
+gnome-base/gnome-desktop -X
+# x11-libs/gtk+:3.0 -X # nvidia-drivers[tools]が依存している
+# dev-cpp/gtkmm:3.0 -X # gtk+:3.0と同じ状態じゃないとダメ
+app-i18n/fcitx-gtk -X
+
+# qt/kde
+kde-frameworks/* -X
+kde-misc/* -X
+kde-plasma/* -X
+kde-frameworks/kwindowsystem X # libplasma-6.7が依存している
+app-i18n/fcitx-configtool -X
+app-i18n/fcitx-qt -X
+dev-qt/* -X
+dev-qt/qtbase X # obs-studioが依存している
+dev-qt/qtsvg X # obs-studioが依存している
+dev-qt/qtmultimedia X # dev-qt/qtbaseと同じ状態じゃないとダメ
