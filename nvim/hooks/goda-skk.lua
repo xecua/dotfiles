@@ -2,7 +2,28 @@
 local augroup = vim.api.nvim_create_augroup("GodaSkkConfig", { clear = true })
 
 -- 辞書のパスはマシンごとに違うので環境変数でGoに渡す
-vim.env.GODA_SKK_DICTIONARIES = vim.json.encode(require("xecua.utils").get_local_config().skk_dictionaries)
+-- このファイルをロードしている時点でgoda-pm.vimはrtpにいて、関数を呼べる
+local goda_pm = require("goda_pm")
+local skkdict_path = goda_pm.get("dict").path
+local emoji_jisyo_path = goda_pm.get("skk-emoji-jisyo").path
+local emoji_jisyo_ja_path = goda_pm.get("SKK-JISYO.emoji-ja").path
+local base_dicts = {
+    skkdict_path .. "/SKK-JISYO.L",
+    skkdict_path .. "/SKK-JISYO.jinmei",
+    skkdict_path .. "/SKK-JISYO.geo",
+    skkdict_path .. "/SKK-JISYO.law",
+    skkdict_path .. "/SKK-JISYO.station",
+    skkdict_path .. "/SKK-JISYO.propernoun",
+    skkdict_path .. "/SKK-JISYO.pinyin",
+    skkdict_path .. "/SKK-JISYO.itaiji",
+    skkdict_path .. "/SKK-JISYO.itaiji.JIS3_4",
+    skkdict_path .. "/SKK-JISYO.JIS2004",
+    skkdict_path .. "/SKK-JISYO.JIS2",
+    skkdict_path .. "/SKK-JISYO.JIS3_4",
+    emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
+    emoji_jisyo_ja_path .. "/SKK-JISYO.emoji-ja.utf8",
+}
+vim.env.GODA_SKK_DICTIONARIES = vim.json.encode(vim.list_extend(base_dicts, vim.g.skk_dictionaries or {}))
 
 vim.keymap.set({ "i", "c", "l", "t" }, "<C-j>", "<Plug>(goda-skk-enable)")
 

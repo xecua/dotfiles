@@ -39,7 +39,7 @@ func newSkk() *engine.Plugin {
 }
 
 // regularDictionaries は環境変数 GODA_SKK_DICTIONARIES (JSON) から辞書を作る。
-// 中身は "path" または ["path", "encoding"] の配列 (Lua 側の get_local_config().skk_dictionaries)。
+// 中身は "path" または ["path", "encoding"] の配列。
 // 辞書の場所はマシンごとに違うので、Neovim 側で組み立てて渡す。
 func regularDictionaries() []engine.Dictionary {
 	raw := os.Getenv("GODA_SKK_DICTIONARIES")

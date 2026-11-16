@@ -24,46 +24,4 @@ function M.get_os_string()
     return os_string
 end
 
----@return { obsidian_dir: string, skk_dictionaries: table<string> }
-function M.get_local_config()
-    local obsidian_dir = "/dev/null"
-    local skk_dictionaries = {}
-
-    local ok, gp = pcall(require, "goda_pm")
-    if ok then
-        local skkdict_path = gp.get("dict").path
-        local emoji_jisyo_path = gp.get("skk-emoji-jisyo").path
-        local emoji_jisyo_ja_path = gp.get("SKK-JISYO.emoji-ja").path
-        vim.list_extend(skk_dictionaries, {
-            skkdict_path .. "/SKK-JISYO.L",
-            skkdict_path .. "/SKK-JISYO.jinmei",
-            skkdict_path .. "/SKK-JISYO.geo",
-            skkdict_path .. "/SKK-JISYO.law",
-            skkdict_path .. "/SKK-JISYO.station",
-            skkdict_path .. "/SKK-JISYO.propernoun",
-            skkdict_path .. "/SKK-JISYO.pinyin",
-            skkdict_path .. "/SKK-JISYO.itaiji",
-            skkdict_path .. "/SKK-JISYO.itaiji.JIS3_4",
-            skkdict_path .. "/SKK-JISYO.JIS2004",
-            skkdict_path .. "/SKK-JISYO.JIS2",
-            skkdict_path .. "/SKK-JISYO.JIS3_4",
-            emoji_jisyo_path .. "/SKK-JISYO.emoji.utf8",
-            emoji_jisyo_ja_path .. "/SKK-JISYO.emoji-ja.utf8",
-        })
-    end
-
-    local local_config
-    ok, local_config = pcall(require, "xecua.local")
-
-    if ok then
-        obsidian_dir = local_config.obsidian_dir or obsidian_dir
-        vim.list_extend(skk_dictionaries, local_config.skk_dictionaries or {})
-    end
-
-    return {
-        obsidian_dir = obsidian_dir,
-        skk_dictionaries = skk_dictionaries,
-    }
-end
-
 return M

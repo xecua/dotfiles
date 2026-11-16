@@ -13,7 +13,7 @@ vim.g.previm_hard_line_break = 1
 
 [[plugins]]
 repo = "3rd/image.nvim"
-on_if = "!exists('g:neovide') && !exists('g:started_by_firenvim')"
+on_if = "!exists('g:neovide') && !exists('g:started_by_firenvim') && !has('win32')"
 lua_source = """
 require('image').setup({})
 """
@@ -22,9 +22,8 @@ require('image').setup({})
 repo = 'hakonharnes/img-clip.nvim'
 lua_source = """
 local dirs_override = {}
--- local obsidian_dir = require('xecua.utils').get_local_config().obsidian_dir
--- if obsidian_dir then
---     dirs_override[obsidian_dir] = {
+-- if vim.g.mdnote_dir then
+--     dirs_override[vim.g.mdnote_dir] = {
 --     }
 -- end
 if vim.g.typnote_dir then
@@ -78,7 +77,7 @@ vim.keymap.set("n", "<Leader>mt", "<Cmd>lua require('md-render').preview.toggle(
 # Submode
 [[plugins]]
 repo = 'kana/vim-submode'
-hooks_file = '$STD_CONFIG/goda-pm/hooks/submode.lua'
+hooks_file = '$STD_CONFIG/hooks/submode.lua'
 
 [[plugins]]
 repo = 'stevearc/overseer.nvim'
@@ -198,6 +197,7 @@ if vim.g.started_by_firenvim then
     vim.opt.laststatus = 0
     vim.opt.showtabline = 0
     vim.opt.number = false
+    vim.opt.guifont = { "UDEV Gothic 35NFLG:h9", "monospace:h9" }
 end
 """
 
@@ -205,7 +205,7 @@ end
 [[plugins]]
 repo = 'cursortab/cursortab.nvim'
 extAttrs = { installerBuild = 'cd server && GOWORK=off go build' } # goda-pmのgo.workに反応してしまう
-hooks_file = '$STD_CONFIG/goda-pm/hooks/cursortab.lua'
+hooks_file = '$STD_CONFIG/hooks/cursortab.lua'
 
 [[plugins]]
 repo = 'carlos-algms/agentic.nvim'
@@ -272,7 +272,7 @@ on_lua = 'jdtls'
 ## DAP
 [[plugins]]
 repo = 'https://codeberg.org/mfussenegger/nvim-dap'
-hooks_file = '$STD_CONFIG/goda-pm/hooks/dap.lua'
+hooks_file = '$STD_CONFIG/hooks/dap.lua'
 
 [[plugins]]
 repo = 'igorlfs/nvim-dap-view'
@@ -297,7 +297,7 @@ repo = 'nvim-neotest/nvim-nio'
 ## efm-langserver presets
 [[plugins]]
 repo = 'creativenull/efmls-configs-nvim'
-hooks_file = '$STD_CONFIG/goda-pm/hooks/efmls.lua'
+hooks_file = '$STD_CONFIG/hooks/efmls.lua'
 
 ## Rust tooltip
 [[plugins]]
@@ -394,13 +394,13 @@ vim.keymap.del("n", { "sa", "sd", "sr" }, { buffer = 0 })
 # autocomplete matching brace/quotation
 [[plugins]]
 repo = 'cohama/lexima.vim'
-hooks_file = '$STD_CONFIG/goda-pm/hooks/lexima.lua'
+hooks_file = '$STD_CONFIG/hooks/lexima.lua'
 
 # statusline
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 depends = ['nvim-web-devicons', 'nvim-navic']
-hooks_file = '$STD_CONFIG/goda-pm/hooks/lualine.lua'
+hooks_file = '$STD_CONFIG/hooks/lualine.lua'
 
 [[plugins]]
 repo = 'petertriho/nvim-scrollbar'
