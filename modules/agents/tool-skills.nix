@@ -1,5 +1,7 @@
 # 「自分のサブコマンドで ~/.agents/skills/<name> に skill を配置する CLI」のブリッジ。
-# 例: playwright-cli (`install --skills agents --global`)、android-cli (`android init`)。
+# 例: playwright-cli (`install --skills agents --global`)、android-cli (`skills add --agent=common android-cli`)。
+# installCommand は ~/.agents/skills にだけ書くものにする。他ホストの skills ディレクトリにも書くと
+# 下のブリッジ用リンク (linkGeneration で張る) が実ディレクトリで上書きされる。
 #
 #   agents.toolSkills.<tool> = {
 #     package        = <CLI の derivation>;          # home.packages に加える (null 可)
@@ -8,7 +10,7 @@
 #   };
 #
 # activation (linkGeneration の後):
-#   1. ~/.agents/skills を作る (android-cli はこれが無いと別の場所に書く)
+#   1. ~/.agents/skills を作る
 #   2. 生成先がシンボリックリンクなら消す (setup.py や home.file で張っていたリンク。
 #      リンク先は触らない)。実ディレクトリなら chmod -R u+w する
 #      (playwright-cli は store のファイルモードをそのままコピーするので、次回の上書きに失敗する)

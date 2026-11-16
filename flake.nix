@@ -53,6 +53,10 @@
       url = "github:cli/cli";
       flake = false;
     };
+    modern-web-guidance = {
+      url = "github:GoogleChrome/modern-web-guidance";
+      flake = false;
+    };
   };
 
   outputs =

@@ -49,6 +49,8 @@ in
       conventional-commit = "${inputs.awesome-copilot}/skills/conventional-commit";
       yomiyasu = "${inputs.yomiyasu}/skills/yomiyasu";
       gh = "${inputs.gh}/skills/gh";
+      modern-web-guidance = "${inputs.modern-web-guidance}/skills/modern-web-guidance";
+      chrome-extensions = "${inputs.modern-web-guidance}/skills/chrome-extensions";
     };
 
     # claude.ai に登録して同期で配る skill。Claude Code にはリンクしない
@@ -57,6 +59,10 @@ in
       "id3-tag-editor"
       "sanitize-artifacts"
       "yomiyasu"
+      # Claude Desktop から plugin (modern-web-guidance@googlechrome) として入れていて、
+      # modern-web-guidance:<name> として同期されるので Claude Code には置かない
+      "modern-web-guidance"
+      "chrome-extensions"
     ];
 
     plugins.browser = {
@@ -94,8 +100,9 @@ in
       };
       android-cli = {
         package = pkgsUnstable.android-cli;
-        # `android init` は ~/.agents/skills があればそこに android-cli skill を書く
-        installCommand = "${lib.getExe' pkgsUnstable.android-cli "android"} init";
+        # `android init` は検出した全エージェント (~/.gemini/config/skills など) に実ディレクトリを書き、
+        # home.file のブリッジ用リンクを潰すので使わない。--agent=common は ~/.agents/skills にだけ書く
+        installCommand = "${lib.getExe' pkgsUnstable.android-cli "android"} skills add --agent=common android-cli";
       };
     };
 
