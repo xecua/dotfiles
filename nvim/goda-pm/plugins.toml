@@ -69,6 +69,7 @@ require("window-picker").setup({
 [[plugins]]
 repo = 'delphinus/md-render.nvim'
 lua_add = """
+vim.g.md_render_max_width = 240
 vim.keymap.set("n", "<Leader>ms", "<Cmd>lua require('md-render').preview.split({ max_width = 120 })<CR>")
 vim.keymap.set("n", "<Leader>mv", "<Cmd>lua require('md-render').preview.split({ max_width = 120, mods = { vertical = true, split = 'botright' }})<CR>")
 vim.keymap.set("n", "<Leader>mt", "<Cmd>lua require('md-render').preview.toggle({ max_width = 120 })<CR>")
@@ -197,7 +198,7 @@ if vim.g.started_by_firenvim then
     vim.opt.laststatus = 0
     vim.opt.showtabline = 0
     vim.opt.number = false
-    vim.opt.guifont = { "UDEV Gothic 35NFLG:h9", "monospace:h9" }
+    vim.opt.guifont = { "UDEV Gothic 35NFLG:h14", "monospace:h14" }
 end
 """
 

@@ -205,7 +205,6 @@ func configureLsp(b *cmp.Builder) {
 		SourceOptions: makeLspSourceOptions("rust_analyzer"),
 	})
 
-	// denoは使わなくなるかなあ……
 	b.AddSource(lsp.New(lsp.Params{
 		Name:        "typescript",
 		Command:     []string{"tsc", "--lsp", "--stdio"},

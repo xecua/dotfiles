@@ -35,8 +35,6 @@ Nixによって得られる再現性のことはあんまり気にしてない
 
 試してないだけの人もいる
 
-- elio
-- neovide
 - zlib (kevin/cantwell/zlib)
 - xwayland-satellite
 - android sdk?

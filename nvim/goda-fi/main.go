@@ -113,7 +113,12 @@ func configure(b *fi.Builder) {
 	b.PatchLocal("fd", fi.Options{Sources: fi.Sources("fd")})
 	b.PatchLocal("fd-all", fi.Options{Sources: fi.Sources("fdall")})
 	b.PatchLocal("buffer", fi.Options{Sources: fi.Sources("buffer")})
-	b.PatchLocal("goda-pm", fi.Options{Sources: fi.Sources("goda_pm")})
+	b.PatchLocal("goda-pm", fi.Options{
+		Sources: []fi.SourceSpec{{
+			Name:    "goda_pm",
+			Options: new(fi.SourceOptions{DefaultAction: "cd"}),
+		}},
+	})
 
 	b.PatchLocal("filer", fi.Options{
 		UI:      "filer",

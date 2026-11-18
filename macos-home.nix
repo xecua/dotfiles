@@ -84,7 +84,6 @@ in
         # browsr
         serve
         lemminx
-        usql
         rstcheck
         google-clasp
 

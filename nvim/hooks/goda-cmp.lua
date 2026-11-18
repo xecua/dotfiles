@@ -13,14 +13,12 @@ local function do_completion(delta)
         end
         if vim.fn["pum#visible"]() then
             if delta < 0 and not vim.fn["pum#entered"]() then
-                vim.fn["pum#map#select_relative"](delta, "loop")
-                -- vim.fn["pum#map#insert_relative"](delta, "loop")
+                vim.fn["pum#map#insert_relative"](delta, "loop")
             else
-                vim.fn["pum#map#select_relative"](delta)
-                -- vim.fn["pum#map#insert_relative"](delta, "loop")
+                vim.fn["pum#map#insert_relative"](delta)
             end
-        else
-            vim.fn["goda_cmp#complete"]()
+            -- else
+            --     vim.fn["goda_cmp#complete"]()
         end
     end
 end
@@ -37,6 +35,25 @@ vim.keymap.set({ "i", "c", "t" }, "<LeftMouse>", function()
         return "<LeftMouse>"
     end
 end, { expr = true, desc = "Confirm completion item with mouse" })
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "GodaFi:uiOpenFilterWindow",
+    group = augroup,
+    callback = function()
+        vim.fn["goda_cmp#patch_global"]({ ui = "none" })
+    end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+    pattern = "GodaFi:uiCloseFilterWindow",
+    group = augroup,
+    callback = function()
+        vim.fn["goda_cmp#patch_global"]({ ui = "pum" })
+    end,
+})
+
+-- }}}
+-- lua_source {{{
 vim.keymap.set({ "n", "v" }, ":", function()
     vim.fn["pum#set_option"]({
         reversed = true,
@@ -58,21 +75,4 @@ vim.keymap.set({ "n", "v" }, ":", function()
     vim.fn["goda_cmp#enable_cmdline"]()
     return ":"
 end, { expr = true })
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "GodaFi:uiOpenFilterWindow",
-    group = augroup,
-    callback = function()
-        vim.fn["goda_cmp#patch_global"]({ ui = "none" })
-    end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-    pattern = "GodaFi:uiCloseFilterWindow",
-    group = augroup,
-    callback = function()
-        vim.fn["goda_cmp#patch_global"]({ ui = "pum" })
-    end,
-})
-
 -- }}}
