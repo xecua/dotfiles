@@ -108,7 +108,9 @@ function kill_zmx_sessions
         --preview-window=right,60%,follow \
     )
 
-    zmx kill $selected
+    if test -n "$selected"
+        zmx kill $selected
+    end
 end
 
 # mkdir and cd

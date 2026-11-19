@@ -59,3 +59,20 @@ on_func = 'goda_term#'
 [[plugins]]
 repo = 'Shougo/goda-term-ui-terminal.vim'
 on_source = 'goda-term.vim'
+
+[[plugins]]
+repo = 'airRnot1106/goda-mp.vim'
+depends = 'goda.vim'
+on_if = 'exepath("nix")'
+extAttrs = { installerBuild = 'nix build' }
+# lua_source = """
+# if vim.fn.exepath('ghostty') and vim.fn.exepath('terminal-browser') then
+#   vim.g["goda_mp#open_browser_fn"] = function(url)
+#       vim.system({ "ghostty", "-e", "terminal-browser", url })
+#   end
+# end
+# """
+[plugins.ftplugin]
+lua_markdown = """
+vim.keymap.set("n", "<Leader>mv", "<Cmd>PreviewMarkdown<CR>")
+"""

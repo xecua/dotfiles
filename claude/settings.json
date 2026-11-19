@@ -91,5 +91,6 @@
   "editorMode": "vim",
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "remoteControlAtStartup": true
+  "remoteControlAtStartup": true,
+  "externalEditorContext": true
 }
