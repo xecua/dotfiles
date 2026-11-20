@@ -55,12 +55,12 @@ if vim.fn.executable("pdftotext") == 1 then
     })
 end
 -- automatically open QuickFix window after grep
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+vim.g.qfopen_autocmd_id = vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     group = augroup,
     pattern = { "grep", "vimgrep", "make" },
     command = "copen",
 })
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+vim.g.llopen_autocmd_id = vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     group = augroup,
     pattern = { "lgrep", "lvimgrep" },
     command = "lopen",

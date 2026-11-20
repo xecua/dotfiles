@@ -95,10 +95,6 @@ require('overseer').setup({
 repo = 'thinca/vim-qfreplace'
 on_ft = 'qf'
 
-[[plugins]]
-repo = 'kevinhwang91/nvim-bqf'
-on_ft = 'qf'
-
 # diagnostics
 [[plugins]]
 repo = 'folke/todo-comments.nvim'
@@ -144,14 +140,6 @@ require("which-key").setup({
 repo = 'rcarriga/nvim-notify'
 lua_source = """
 vim.notify = require('notify')
-"""
-
-[[plugins]]
-repo = 'ibhagwan/fzf-lua'
-depends = ['nvim-web-devicons']
-lua_source = """
-local fzf_lua = require('fzf-lua')
-fzf_lua.setup({})
 """
 
 [[plugins]]

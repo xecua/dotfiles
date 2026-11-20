@@ -19,6 +19,8 @@ import (
 
 	"goda-fi-config/matcherfuzzy"
 	"goda-fi-config/sorterfuzzy"
+	"goda-fi-config/sourceloclist"
+	"goda-fi-config/sourceqflist"
 )
 
 func main() {
@@ -38,6 +40,8 @@ func main() {
 		Cmd: []string{"fd", "--type", "file", "--hidden", "--no-ignore-vcs"},
 	}))
 	b.AddSource(pmfi.New())
+	b.AddSource(sourceqflist.New())
+	b.AddSource(sourceloclist.New())
 
 	// TODO: column(fileicon)
 	b.AddFilter(matchersubstring.New(matchersubstring.Params{HighlightMatched: "Search"}))
@@ -65,6 +69,7 @@ func configure(b *fi.Builder) {
 				"previewWidth":        80,
 				"previewSplit":        "vertical",
 				"overwriteStatusline": false,
+				"startAutoAction":     true,
 				"autoAction": map[string]any{
 					"name": "preview",
 					"sync": false,
@@ -119,6 +124,8 @@ func configure(b *fi.Builder) {
 			Options: new(fi.SourceOptions{DefaultAction: "cd"}),
 		}},
 	})
+	b.PatchLocal("qflist", fi.Options{Sources: fi.Sources("qflist")})
+	b.PatchLocal("loclist", fi.Options{Sources: fi.Sources("loclist")})
 
 	b.PatchLocal("filer", fi.Options{
 		UI:      "filer",

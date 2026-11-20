@@ -5,7 +5,7 @@ end
 
 vim.keymap.set("n", "<Leader>fg", function()
     start({ name = "rg-live" })
-end)
+end, { desc = "goda-fi: live ripgrep" })
 vim.keymap.set("n", "<Leader>ffg", function()
     -- バッファがあればそのディレクトリ、なければカレントディレクトリを初期値にする
     local default = vim.fs.dirname(vim.api.nvim_buf_get_name(0)) or vim.uv.cwd()
@@ -22,16 +22,16 @@ vim.keymap.set("n", "<Leader>ffg", function()
             sourceOptions = { rg = { path = input } },
         })
     end)
-end)
+end, { desc = "goda-fi: live ripgrep with root" })
 vim.keymap.set("n", "<Leader>fd", function()
     start({ name = "fd" })
-end)
+end, { desc = "goda-fi: fd" })
 vim.keymap.set("n", "<Leader>ffd", function()
     start({ name = "fd-all" })
-end)
+end, { desc = "goda-fi: fd (all files)" })
 vim.keymap.set("n", "<Leader>fb", function()
     start({ name = "buffer" })
-end)
+end, { desc = "goda-fi: buffer" })
 vim.keymap.set("n", "<Leader>fr", function()
     vim.ui.input({ prompt = "Pattern: " }, function(input)
         if input == nil or input == "" then
@@ -42,9 +42,16 @@ vim.keymap.set("n", "<Leader>fr", function()
             sourceParams = { rg = { input = input } },
         })
     end)
-end)
+end, { desc = "goda-fi: ripgrep with root" })
+vim.keymap.set("n", "<Leader>fc", function()
+    start({ name = "qflist" })
+end, { desc = "goda-fi: quickfix" })
+vim.keymap.set("n", "<Leader>fl", function()
+    start({ name = "loclist" })
+end, { desc = "goda-fi: loclist" })
 -- goda-fi/main.go の PatchLocal の名前 (手動で同期する)
-local godafi_names = { "rg-live", "rg", "fd", "fd-all", "buffer", "filer", "goda-pm" }
+local godafi_names = { "rg-live", "rg", "fd", "fd-all", "buffer", "filer", "goda-pm", "qflist", "loclist" }
+
 vim.api.nvim_create_user_command("GodaFi", function(opts)
     start({ name = opts.args })
 end, {
@@ -126,6 +133,21 @@ vim.api.nvim_create_autocmd("WinEnter", {
         end
     end,
 })
+
+--autocmd.luaにプラグイン依存の設定を書きたくないので。ちょっと面倒だけど
+vim.api.nvim_del_autocmd(vim.g.qfopen_autocmd_id)
+vim.g.qfopen_autocmd_id = vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    group = augroup,
+    pattern = { "grep", "vimgrep", "make" },
+    command = "GodaFi qflist",
+})
+vim.api.nvim_del_autocmd(vim.g.llopen_autocmd_id)
+vim.g.llopen_autocmd_id = vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    group = augroup,
+    pattern = { "lgrep", "lvimgrep" },
+    command = "GodaFi loclist",
+})
+
 -- }}}
 
 -- lua_goda-fi-ff {{{
