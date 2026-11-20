@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd(
     { "BufWritePost", "FileWritePost" },
     { group = augroup, pattern = { "*.saty", "*.tex", "*.typ" }, command = "OverseerRun" }
 )
-vim.keymap.set("n", "<Leader>r", "<Cmd>OverseerRun<CR>")
+vim.keymap.set("n", "<Leader>rx", "<Cmd>OverseerRun<CR>")
 vim.keymap.set("n", "<Leader>rr", "<Cmd>OverseerToggle<CR>")
 """
 lua_source = """

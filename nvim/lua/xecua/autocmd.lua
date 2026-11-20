@@ -47,13 +47,6 @@ vim.api.nvim_create_autocmd("VimResized", {
         vim.cmd("wincmd =")
     end,
 })
-if vim.fn.executable("pdftotext") == 1 then
-    vim.api.nvim_create_autocmd({ "BufRead" }, {
-        group = augroup,
-        pattern = "*.pdf",
-        command = [[enew | file #.txt | 0read !pdftotext -layout -nopgbrk "#" -]],
-    })
-end
 -- automatically open QuickFix window after grep
 vim.g.qfopen_autocmd_id = vim.api.nvim_create_autocmd("QuickFixCmdPost", {
     group = augroup,
