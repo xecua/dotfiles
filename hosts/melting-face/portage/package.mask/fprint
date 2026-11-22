@@ -1,0 +1,3 @@
+# patches/sys-auth/libfprint-1.94.10 は 1.94.10(-rN 含む)にしか当たらない。
+# 更新でドライバーが黙って消えないように止めておく(upstream が elanmoc2 を取り込んだら外す)
+>=sys-auth/libfprint-1.94.11

@@ -65,7 +65,6 @@ dev-util/difftastic
 dev-util/github-cli
 dev-util/opencode-bin
 dev-util/pkgdev
-dev-util/radare2
 dev-util/sccache
 dev-util/tree-sitter-cli
 dev-vcs/gibo
@@ -100,6 +99,7 @@ kde-frameworks/kiconthemes
 kde-frameworks/kirigami
 kde-frameworks/qqc2-desktop-style
 kde-misc/kdeconnect
+kde-plasma/polkit-kde-agent
 llvm-core/lldb
 media-fonts/corefonts
 media-fonts/noto
@@ -152,7 +152,9 @@ sys-apps/pv
 sys-apps/ripgrep
 sys-apps/rootlesskit
 sys-apps/xdg-desktop-portal-gtk
+sys-auth/fprintd
 sys-auth/libfprint
+sys-auth/libfprint:2
 sys-auth/pam_u2f
 sys-block/parted
 sys-boot/efibootmgr

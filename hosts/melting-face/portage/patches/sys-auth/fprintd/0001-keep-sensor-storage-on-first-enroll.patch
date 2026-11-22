@@ -1,0 +1,44 @@
+Do not clear the sensor storage before the first enrollment.
+Keeps prints stored by another OS (Windows Hello) on match-on-chip sensors
+that cannot list their prints, such as ELAN 04f3:0c00 with elanmoc2.
+
+diff --git a/src/device.c b/src/device.c
+index b9de3ee..d4125f0 100644
+--- a/src/device.c
++++ b/src/device.c
+@@ -2149,15 +2149,6 @@ enroll_identify_cb (FpDevice *dev, GAsyncResult *res, void *user_data)
+   enroll_start (rdev);
+ }
+ 
+-static gboolean
+-is_first_enrollment (FprintDevice * rdev)
+-{
+-  g_autoptr(GPtrArray) host_prints = NULL;
+-  host_prints = load_all_prints (rdev);
+-
+-  return host_prints->len == 0;
+-}
+-
+ static gboolean
+ fprint_device_enroll_start (FprintDBusDevice      *dbus_dev,
+                             GDBusMethodInvocation *invocation,
+@@ -2209,16 +2200,9 @@ fprint_device_enroll_start (FprintDBusDevice      *dbus_dev,
+   priv->enroll_data = finger;
+   priv->current_action = ACTION_ENROLL;
+ 
+-  if (fp_device_has_feature (priv->dev, FP_DEVICE_FEATURE_STORAGE) &&
+-      !fp_device_has_feature (priv->dev, FP_DEVICE_FEATURE_STORAGE_LIST) &&
+-      is_first_enrollment (rdev))
+-    {
+-      g_autoptr(GError) clear_err = NULL;
+-
+-      if (!fp_device_clear_storage_sync (priv->dev, NULL, &clear_err))
+-        g_warning ("Failed to clear storage before first enrollment: %s",
+-                   clear_err->message);
+-    }
++  /* Local change: do not clear the sensor storage before the first
++   * enrollment. The sensor may hold prints from another OS (e.g. Windows
++   * Hello) that must survive; elanmoc2 never deletes or matches them. */
+ 
+   if (fp_device_has_feature (priv->dev, FP_DEVICE_FEATURE_IDENTIFY))
+     {
