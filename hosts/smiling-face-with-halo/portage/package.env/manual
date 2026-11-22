@@ -5,6 +5,8 @@ dev-debug/rr gcc
 net-analyzer/nmap gcc
 x11-terms/ghostty-terminfo gcc
 x11-terms/ghostty gcc
+gui-apps/waylock gcc
+dev-util/radare2 gcc
 
 x11-drivers/nvidia-drivers lld
 sys-boot/* lld

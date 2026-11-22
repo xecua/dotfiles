@@ -49,7 +49,6 @@ dev-go/delve
 dev-go/go-licenses
 dev-go/gopls
 dev-java/openjdk-bin
-dev-lang/deno-bin
 dev-lang/go
 dev-lang/idris2
 dev-lang/rust-bin
@@ -64,7 +63,6 @@ dev-util/cargo-license
 dev-util/difftastic
 dev-util/github-cli
 dev-util/pkgdev
-dev-util/radare2
 dev-util/ruff
 dev-util/sccache
 dev-util/tree-sitter-cli

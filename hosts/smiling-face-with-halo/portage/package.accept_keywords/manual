@@ -2,7 +2,6 @@
 app-admin/bitwarden-desktop-bin
 app-admin/doasedit
 app-containers/podman
-app-containers/podman-tui
 app-crypt/yubioath-flutter-bin
 app-editors/neovim **
 app-i18n/fcitx-configtool
@@ -23,8 +22,6 @@ dev-libs/libfmt
 dev-libs/libutf8proc
 dev-util/cargo-license
 dev-util/difftastic
-dev-util/opencode-bin
-dev-util/radare2
 dev-util/sccache
 dev-util/vscode-langservers-extracted
 dev-vcs/gibo
@@ -57,7 +54,6 @@ media-sound/mpd-mpris
 media-video/obs-studio
 net-im/discord
 net-misc/ipcalc
-sci-misc/llama-cpp
 sci-ml/llama-cpp
 sys-apps/bat-extras
 sys-apps/hexyl
