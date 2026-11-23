@@ -48,13 +48,10 @@ if [[ -z "$branch" ]]; then
   exit 1
 fi
 
-# PATはlibsecretから。helperでstore/eraseを素通しすると、認証失敗時にキーリングのPATが消えるのでgetだけ
-# PATの登録: printf 'protocol=https\nhost=github.com\nusername=xecua\npassword=<PAT>\n' | git credential-libsecret store
+# timerからはSSH鍵を使えないのでHTTPSでpushする。認証はgit/configのgh auth git-credential (要 gh auth login)
 push_() {
   GIT_TERMINAL_PROMPT=0 git_ \
     -c url.https://github.com/.insteadOf=git@github.com: \
-    -c credential.helper= \
-    -c 'credential.helper=!f() { [ "$1" != get ] || exec git credential-libsecret get; }; f' \
     push origin "$branch"
 }
 
