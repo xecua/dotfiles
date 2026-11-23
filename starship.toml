@@ -15,6 +15,8 @@ $status\
 $character"""
 
 right_format = """
+$username\
+$hostname\
 $time\
 """
 
@@ -51,8 +53,16 @@ symbol = " " # U+E702, Devicons
 tag_disabled = false
 tag_max_candidates = 1
 
-[time]
-disabled = false
-
 [nix_shell]
 symbol = ' ' # U+E843, Devicons
+
+[username]
+show_always = true
+format = "[$user]($style)@"
+
+[hostname]
+ssh_only = false
+format = "[$hostname$ssh_symbol]($style) "
+
+[time]
+disabled = false
