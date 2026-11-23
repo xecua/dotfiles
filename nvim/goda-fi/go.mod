@@ -8,7 +8,7 @@ require (
 	github.com/Shougo/goda-fi-ui-filer.vim v0.1.0
 	github.com/Shougo/goda-fi.vim v0.2.0
 	github.com/Shougo/goda-pm-ext v0.1.1
-	github.com/Shougo/goda.vim v0.11.0
+	github.com/Shougo/goda.vim v0.12.0
 	github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0
 )
 

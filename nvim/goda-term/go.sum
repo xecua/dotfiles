@@ -2,7 +2,7 @@ github.com/Shougo/goda-term-ui-terminal.vim v0.1.0 h1:YyLA9Pn+PqurqO4ohuKbCooujh
 github.com/Shougo/goda-term-ui-terminal.vim v0.1.0/go.mod h1:bkznNoy7oQchrBPicMmhHGGA6a0pXtaKqbGRHk8Ao1U=
 github.com/Shougo/goda-term.vim v0.2.0 h1:+d+HvPCLdv3dLBlHJBgUyua5k9sde7LX4GBElfut7nM=
 github.com/Shougo/goda-term.vim v0.2.0/go.mod h1:d45a0QEF7BOpGYbc7lROroAG0/qL0UZb/OxU+iagY48=
-github.com/Shougo/goda.vim v0.9.0 h1:FVqf1RkS6XgUbU6WFE7LAvLGzA2ETTdQDybXAMRgHqo=
-github.com/Shougo/goda.vim v0.9.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/Shougo/goda.vim v0.11.0 h1:v0Ca5iU8ArvicjIuFCQYYXnBuESD7OJClsRjpQtoHCE=
 github.com/Shougo/goda.vim v0.11.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda.vim v0.12.0 h1:Dr0Ljy4J/oxA8xeMMo7NXdFiiDf1krq1H2v1xPDxNO0=
+github.com/Shougo/goda.vim v0.12.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=

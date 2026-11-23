@@ -7,7 +7,7 @@ require (
 	github.com/Shougo/goda-cmp-ui-pum.vim v0.1.0
 	github.com/Shougo/goda-cmp.vim v0.8.1
 	github.com/Shougo/goda-skk.vim v0.12.0
-	github.com/Shougo/goda.vim v0.11.0
+	github.com/Shougo/goda.vim v0.12.0
 	github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0
 )
 
