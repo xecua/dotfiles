@@ -158,8 +158,8 @@ desktopapplications = [
   { action = "new_instance:keep", label = "new+next", bind = "ctrl alt Return", after = "KeepOpen" },
   { action = "pin", bind = "ctrl i", after = "AsyncReload" },
   { action = "unpin", bind = "ctrl i", after = "AsyncReload" },
-  { action = "pinup", bind = "ctrl n", after = "AsyncReload" },
-  { action = "pindown", bind = "ctrl m", after = "AsyncReload" }
+  { action = "pinup", bind = "ctrl u", after = "AsyncReload" },
+  { action = "pindown", bind = "ctrl d", after = "AsyncReload" }
 ]
 
 # dnfpackages = [
