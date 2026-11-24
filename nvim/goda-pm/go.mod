@@ -9,6 +9,6 @@ require (
 )
 
 require (
-	github.com/Shougo/goda.vim v0.12.0 // indirect
+	github.com/Shougo/goda.vim v0.13.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.4.3 // indirect
 )
