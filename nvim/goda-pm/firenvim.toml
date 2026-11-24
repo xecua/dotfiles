@@ -1,0 +1,4 @@
+[[plugins]]
+repo = 'glacambre/firenvim'
+merged = false
+hook_post_update = "call firenvim#install(0)"

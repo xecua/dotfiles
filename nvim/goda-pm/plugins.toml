@@ -6,7 +6,7 @@ lua_add = "vim.g['guise#disable_vim'] = 1"
 
 [[plugins]]
 repo = "3rd/image.nvim"
-on_if = "!exists('g:neovide') && !exists('g:started_by_firenvim') && !has('win32')"
+on_if = "!exists('g:neovide') && !has('win32')"
 lua_source = """
 require('image').setup({})
 """
@@ -155,26 +155,6 @@ lua_source = """
 require('ccc').setup({ highlighter = { auto_enable = true } })
 """
 
-[[plugins]]
-repo = 'glacambre/firenvim'
-merged = false
-lua_post_update = "vim.fn['firenvim#install'](0)"
-lua_add = """
-vim.g.firenvim_config = {
-    globalSettings = {},
-    localSettings = {
-        [".*"] = { takeover = "never" }
-    }
-}
-if vim.g.started_by_firenvim then
-    vim.opt.laststatus = 0
-    vim.opt.showtabline = 0
-    vim.opt.number = false
-    -- 環境(モニタの解像度)依存……
-    -- vim.opt.guifont = "UDEV Gothic 35NFLG:h14"
-end
-"""
-
 # LLM
 [[plugins]]
 repo = 'cursortab/cursortab.nvim'
@@ -297,28 +277,6 @@ require('flutter-tools').setup({
 """
 
 # Popup
-[[plugins]]
-repo = 'Shougo/pum.vim'
-lua_source = """
-vim.fn['pum#set_option']({
-    preview = true,
-    preview_width = 80,
-    preview_border = 'single',
-})
-"""
-
-[[plugins]]
-repo = 'skk-dev/dict'
-merged = false
-
-[[plugins]]
-repo = 'uasi/skk-emoji-jisyo'
-merged = false
-
-[[plugins]]
-repo = 'ymrl/SKK-JISYO.emoji-ja'
-merged = false
-
 # for good appearance
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'

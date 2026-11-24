@@ -5,7 +5,6 @@ end
 
 vim.cmd("filetype plugin indent off")
 vim.cmd("colorscheme sorbet")
-vim.loader.enable()
 
 vim.loader.enable()
 
@@ -18,20 +17,22 @@ require("xecua.command")
 require("xecua.autocmd")
 require("xecua.diagnostic")
 
+vim.cmd("runtime! ftplugin/man.vim")
+vim.cmd.packadd("nvim.undotree")
+
+if vim.g.started_by_firenvim then
+    require("xecua.editors.firenvim")
+elseif vim.g.neovide ~= nil then
+    require("xecua.editors.neovide")
+end
+
 if vim.g.use_lsp ~= false then
     require("xecua.lsp")
 end
 
-if vim.g.neovide ~= nil then
-    require("xecua.editors.neovide")
-end
-
-vim.cmd("runtime! ftplugin/man.vim")
-vim.cmd.packadd("nvim.undotree")
-
 -- plugin
 if vim.g.use_plugin ~= false then
-    require("xecua.goda-pm").setup("nvim")
+    require("xecua.goda-pm").setup(vim.g.profile or "nvim")
 end
 
 pcall(require, "xecua.local")

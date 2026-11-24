@@ -29,10 +29,33 @@ repo = 'Shougo/goda-cmp-ui-pum.vim'
 on_source = 'goda-cmp.vim'
 
 [[plugins]]
+repo = 'Shougo/pum.vim'
+lua_source = """
+vim.fn['pum#set_option']({
+    preview = true,
+    preview_width = 80,
+    preview_border = 'single',
+})
+"""
+
+[[plugins]]
 repo = 'Shougo/goda-skk.vim'
 depdnds = 'goda.vim'
 hooks_file = '$STD_CONFIG/hooks/goda-skk.lua'
 on_map = { ict = "<Plug>(goda-skk-" }
+
+[[plugins]]
+repo = 'skk-dev/dict'
+merged = false
+
+[[plugins]]
+repo = 'uasi/skk-emoji-jisyo'
+merged = false
+
+[[plugins]]
+repo = 'ymrl/SKK-JISYO.emoji-ja'
+merged = false
+
 
 [[plugins]]
 repo = 'Shougo/goda-fi.vim'

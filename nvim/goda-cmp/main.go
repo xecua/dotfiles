@@ -17,6 +17,8 @@ import (
 	"github.com/Shougo/goda-cmp-ext/ext/ui/none"
 	"github.com/Shougo/goda-cmp-ui-pum.vim/ext/ui/pum"
 	"github.com/Shougo/goda-cmp.vim/cmp"
+	"github.com/Shougo/goda.vim/sdk"
+	"golang.org/x/net/context"
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
@@ -65,7 +67,17 @@ var (
 
 func configure(b *cmp.Builder) {
 	b.PatchGlobal(cmp.Config{
-		UI:          "pum",
+		UI: "pum",
+		DynamicUI: func(ctx context.Context, h sdk.Host, a cmp.DynamicUIArgs) (string, error) {
+			v, err := h.Eval(ctx, "g:started_by_firenvim")
+			if err != nil {
+				return "", err
+			}
+			if v.(bool) {
+				return "none", nil
+			}
+			return "", nil
+		},
 		Sources:     sources,
 		PostFilters: []string{"sorterglobal"},
 		SourceOptions: map[string]cmp.SourceOption{

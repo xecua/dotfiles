@@ -25,12 +25,14 @@ vim.api.nvim_create_autocmd("User", {
 function M.setup(name)
     -- nil を渡すと goda-pm 側の既定値 (v:progname) が効かず、base_dir 直下に state が作られてしまう
     name = name or vim.fn.fnamemodify(vim.v.progname, ":r")
-    vim.api.nvim_create_user_command("GpClearState", function()
+    vim.api.nvim_create_user_command("GpClearState", function(opts)
+        name = opts.args or name
         require("goda_pm").clear_state(name)
-    end, {})
-    vim.api.nvim_create_user_command("GpMakeState", function()
+    end, { nargs = "?" })
+    vim.api.nvim_create_user_command("GpMakeState", function(opts)
+        name = opts.args or name
         require("goda_pm").make_state(goda_pm_base_dir, name)
-    end, {})
+    end, { nargs = "?" })
 
     vim.api.nvim_create_user_command("GpInstall", "call goda_pm#async_ext_action('installer', 'install')", {})
     vim.api.nvim_create_user_command("GpUpdate", function(opts)

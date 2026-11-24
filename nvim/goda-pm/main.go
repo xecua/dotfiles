@@ -20,11 +20,15 @@ func main() {
 	b.AddExt(installer.New())
 
 	b.SetConfig(func(ctx context.Context, c *pm.ConfigArgs) (*pm.ConfigReturn, error) {
-		tomls := []string{
-			"goda.toml",
-			"plugins.toml",
-			"common.toml",
+		tomls := []string{"common.toml"}
+
+		switch c.Name {
+		case "nvim":
+			tomls = append(tomls, "goda.toml", "plugins.toml")
+		case "firenvim":
+			tomls = append(tomls, "goda.toml", "firenvim.toml")
 		}
+
 		if _, err := os.Stat(os.ExpandEnv("$STD_CONFIG/goda-pm/local.toml")); err == nil {
 			tomls = append(tomls, "local.toml")
 		}
