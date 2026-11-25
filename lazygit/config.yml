@@ -10,9 +10,12 @@ git:
   allBranchesLogCmds:
     - git log --all --graph --date=short --pretty=short-oneline --color=always
   diffRenderers:
-    - name: difft
+    - name: difft (side-by-side)
       type: extDiff
-      command: difft --color=always --context={{diffContext}}
+      command: difft --display side-by-side --color=always --context={{diffContext}}
+    - name: difft (inline)
+      type: extDiff
+      command: difft --display inline --color=always --context={{diffContext}}
     - name: delta
       type: stdinFilter
       command: delta --dark --paging=never
