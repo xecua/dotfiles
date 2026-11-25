@@ -54,6 +54,17 @@ keybind = shift+arrow_up=adjust_selection:up
 keybind = shift+arrow_down=adjust_selection:down
 keybind = ctrl+\=ignore
 
+keybind = ctrl+q>c=new_tab
+keybind = ctrl+q>shift+\=new_split:right
+keybind = ctrl+q>-=new_split:down
+keybind = ctrl+q>h=goto_split:left
+keybind = ctrl+q>j=goto_split:down
+keybind = ctrl+q>k=goto_split:up
+keybind = ctrl+q>l=goto_split:right
+keybind = ctrl+q>n=next_tab
+keybind = ctrl+q>p=previous_tab
+keybind = ctrl+q>o=toggle_tab_overview
+
 keybind = ctrl+q>[=activate_key_table:visual
 # reset
 keybind = visual/
