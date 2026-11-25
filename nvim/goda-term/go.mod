@@ -4,7 +4,7 @@ go 1.27.3
 
 require (
 	github.com/Shougo/goda-term-ui-terminal.vim v0.1.0
-	github.com/Shougo/goda-term.vim v0.2.0
+	github.com/Shougo/goda-term.vim v0.3.0
 )
 
-require github.com/Shougo/goda.vim v0.13.0 // indirect
+require github.com/Shougo/goda.vim v0.14.0 // indirect

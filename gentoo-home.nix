@@ -156,6 +156,7 @@ in
         spec-kit
         bitwarden-cli
         # android-cli は agents.toolSkills (agents.nix) が入れる
+        kache
 
         # v0.* (assuming frequently updated)
         ty

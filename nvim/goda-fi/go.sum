@@ -1,5 +1,7 @@
 github.com/Shougo/goda-cmp.vim v0.8.1 h1:POOZQaAtsse+EcA3sJkz6HD5WQx63oiwMlrDKlgE9Pk=
 github.com/Shougo/goda-cmp.vim v0.8.1/go.mod h1:vGkwVW3Zr78RscrIETYizvH6Y0WSqBe2iAXKbtGb2ic=
+github.com/Shougo/goda-cmp.vim v0.9.0 h1:B5ubeyGq3VcT62osulqPl4pxhP7UdxeG6cKskKjIkOs=
+github.com/Shougo/goda-cmp.vim v0.9.0/go.mod h1:J9Zxv3dpsEdU5Wr20W6d9UBvDxeSFputSO4eaHxoDdI=
 github.com/Shougo/goda-fi-ext v0.2.1 h1:OdUhc7MhXVCLKf2s8WYmpj93fRKh1/GX+OhJcBWWMOA=
 github.com/Shougo/goda-fi-ext v0.2.1/go.mod h1:Fdy/qpCrpskOWaCUlTtwHi7WjBeevxiuxYqc2PvmkDU=
 github.com/Shougo/goda-fi-ui-ff.vim v0.2.1 h1:lYSCtLg9UHr3mRtHgwLFs+EFlbejcecMEuTHR1J47K4=
@@ -8,11 +10,15 @@ github.com/Shougo/goda-fi-ui-filer.vim v0.1.0 h1:rDwt6L+uE6moaX4YKWD1Y8PNuYwwRxs
 github.com/Shougo/goda-fi-ui-filer.vim v0.1.0/go.mod h1:Ime0/8ySB935T8GzZCf5kPFKrYZ1Md3ut+bEJ+OamKY=
 github.com/Shougo/goda-fi.vim v0.2.1 h1:HMTWMSCDdmgUap8ZxS2poOB32XkO7cNtAi7LbC/W9OY=
 github.com/Shougo/goda-fi.vim v0.2.1/go.mod h1:TbOnFxmQDZC/qfGpo6LFrLogV3+aPNTRnzq8HDbDbfw=
+github.com/Shougo/goda-fi.vim v0.3.0 h1:w1OzMSFF9NWya9DyLHlIRpyqAElbqr/Il22/qhfrKM0=
+github.com/Shougo/goda-fi.vim v0.3.0/go.mod h1:TbOnFxmQDZC/qfGpo6LFrLogV3+aPNTRnzq8HDbDbfw=
 github.com/Shougo/goda-pm-ext v0.1.1 h1:0BdlKRCQhi2L6IeceUmC3pGQL215Sw5AFKqP5zVY2jk=
 github.com/Shougo/goda-pm-ext v0.1.1/go.mod h1:ANLpLrbTH6iwJxV74ukbBzh9XVNOPwNiMDu+J+XREMU=
 github.com/Shougo/goda-pm.vim v0.4.3 h1:LWs7Yvt3r7j4zINA9COCXhZU0WqpQAGzkU+aR9zhJVg=
 github.com/Shougo/goda-pm.vim v0.4.3/go.mod h1:QQyeGa0IV08dBt9BJcT1LEFTQEvWorMdafRKTp2ELW0=
 github.com/Shougo/goda.vim v0.13.0 h1:F0eYXrXpM1VS7dU2hDC5uYh0L4NwCV3ddoyTdtTBHuI=
 github.com/Shougo/goda.vim v0.13.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
+github.com/Shougo/goda.vim v0.14.0 h1:BlOlzBRf7nLLT2YhIXE3X/yy8ngUSB9aDqaBYe4tzZw=
+github.com/Shougo/goda.vim v0.14.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0 h1:Bsj3IOFuBuKAghAr0sAmBDkSVQs2QpblmhYQDtfrTrs=
 github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0/go.mod h1:zLJ0F3Ut0dCdMWw35N2lT0FeFX5IRwc/WnEqVbvvh98=
