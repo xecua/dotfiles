@@ -9,7 +9,6 @@ require (
 	github.com/Shougo/goda-skk.vim v0.14.1
 	github.com/Shougo/goda.vim v0.14.0
 	github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0
-	golang.org/x/net v0.63.0
 )
 
 require golang.org/x/text v0.44.0 // indirect

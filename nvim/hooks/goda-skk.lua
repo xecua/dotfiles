@@ -65,5 +65,25 @@ vim.fn["goda_skk#state_popup#config"]({
     },
     opts = { relative = "cursor", col = 0, row = 1, anchor = "NW", style = "minimal" },
 })
-vim.fn["goda_skk#state_popup#enable"]()
+
+local source_augroup = vim.api.nvim_create_augroup("GodaSkkSource", { clear = true })
+local popup_timer = assert(vim.uv.new_timer())
+local function popup_disable()
+    popup_timer:stop()
+    vim.fn["goda_skk#state_popup#disable"]()
+end
+vim.api.nvim_create_autocmd("User", {
+    pattern = { "goda-skk-mode-changed", "goda-skk-enable-post" },
+    group = source_augroup,
+    callback = function()
+        vim.fn["goda_skk#state_popup#enable"]()
+        popup_timer:stop()
+        popup_timer:start(1000, 0, vim.schedule_wrap(popup_disable))
+    end,
+})
+vim.api.nvim_create_autocmd("ModeChanged", {
+    pattern = "i*:n*",
+    group = source_augroup,
+    callback = popup_disable,
+})
 -- }}}

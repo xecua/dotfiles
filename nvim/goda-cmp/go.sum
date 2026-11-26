@@ -12,7 +12,5 @@ github.com/Shougo/goda.vim v0.14.0 h1:BlOlzBRf7nLLT2YhIXE3X/yy8ngUSB9aDqaBYe4tzZ
 github.com/Shougo/goda.vim v0.14.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0 h1:Bsj3IOFuBuKAghAr0sAmBDkSVQs2QpblmhYQDtfrTrs=
 github.com/delphinus/goda-cmp-ext-fuzzy.vim v0.1.0/go.mod h1:zLJ0F3Ut0dCdMWw35N2lT0FeFX5IRwc/WnEqVbvvh98=
-golang.org/x/net v0.63.0 h1:HCoTmNh9EpD1PpK8gBNFY4gcTY4N+KQEO8ylfIKqFJ0=
-golang.org/x/net v0.63.0/go.mod h1:15JLg3IX1bLjHK264EZQEbIpTiR/KVLuo9CTRWd0pig=
 golang.org/x/text v0.44.0 h1:YItdp/mQNGnsmrgpcdA5yQ3bnRxCfo/Tj/iByGW9GGo=
 golang.org/x/text v0.44.0/go.mod h1:S4FR1waQ9LbjQTls97SyRjDaUUVkaM+cXwwuG/G+MwY=

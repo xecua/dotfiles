@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"slices"
 
 	"github.com/Shougo/goda-cmp-ext/ext/filter/converterremoveoverlap"
@@ -18,7 +19,6 @@ import (
 	"github.com/Shougo/goda-cmp-ui-pum.vim/ext/ui/pum"
 	"github.com/Shougo/goda-cmp.vim/cmp"
 	"github.com/Shougo/goda.vim/sdk"
-	"golang.org/x/net/context"
 
 	"github.com/Shougo/goda-skk.vim/cmp/source/skk"
 	"github.com/Shougo/goda-skk.vim/cmp/source/skkokuri"
