@@ -283,7 +283,7 @@ vim.keymap.set("n", "<BS>", item_action("narrow", { path = ".." }), opts)
 
 -- 隠しファイルの表示切り替え
 vim.keymap.set("n", "!", function()
-    local current = vim.fn["goda_fi#custom#get_current"]()
+    local current = vim.fn["goda_fi#get_current"]()
     local matchers = vim.deepcopy(((current.sourceOptions or {}).file or {}).matchers or {})
     if vim.list_contains(matchers, "matcherhidden") then
         matchers = vim.tbl_filter(function(matcher)

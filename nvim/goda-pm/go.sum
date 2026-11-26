@@ -4,8 +4,6 @@ github.com/Shougo/goda-pm-ext-lazy.vim v0.1.0 h1:AKQDE+I1ts11R/4JkfkeGHleSGxQRXg
 github.com/Shougo/goda-pm-ext-lazy.vim v0.1.0/go.mod h1:ce7edk50p37YnjzjsagNUi3wlOcVQ02IEdaD0WIGg7s=
 github.com/Shougo/goda-pm.vim v0.4.3 h1:LWs7Yvt3r7j4zINA9COCXhZU0WqpQAGzkU+aR9zhJVg=
 github.com/Shougo/goda-pm.vim v0.4.3/go.mod h1:QQyeGa0IV08dBt9BJcT1LEFTQEvWorMdafRKTp2ELW0=
-github.com/Shougo/goda.vim v0.13.0 h1:F0eYXrXpM1VS7dU2hDC5uYh0L4NwCV3ddoyTdtTBHuI=
-github.com/Shougo/goda.vim v0.13.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/Shougo/goda.vim v0.14.0 h1:BlOlzBRf7nLLT2YhIXE3X/yy8ngUSB9aDqaBYe4tzZw=
 github.com/Shougo/goda.vim v0.14.0/go.mod h1:ohGPksso9XrqpdVRLS3TzoUtz2x3yMT8x+x+MnMpbM8=
 github.com/pelletier/go-toml/v2 v2.4.3 h1:GTRvJQutkOSftxIFD5xw9aepkYNuPWmVJpffdDPYVpY=

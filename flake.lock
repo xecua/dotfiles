@@ -126,11 +126,11 @@
     "gh": {
       "flake": false,
       "locked": {
-        "lastModified": 1795562589,
-        "narHash": "sha256-qJ7QKIP/FYN3TJezSx69Dpdfd+Ki4bA2lTnvDyqcP8o=",
+        "lastModified": 1795697219,
+        "narHash": "sha256-0FNv3Wv+aWbKgn3fit/IjsfkCRDkhTAdjwg0O0N/7Ac=",
         "owner": "cli",
         "repo": "cli",
-        "rev": "b546819fd547ef8c97da470bb00f2aaad4165c84",
+        "rev": "b620bf7e75cbd57c071da9db303b71e6396604a1",
         "type": "github"
       },
       "original": {
