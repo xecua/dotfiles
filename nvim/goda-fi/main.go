@@ -85,6 +85,7 @@ func configure(b *fi.Builder) {
 			},
 		},
 		UIOptions: map[string]fi.UIOptions{
+			"_":     {FilterPrompt: new("Filter> ")},
 			"filer": {Persist: new(true)},
 		},
 		SourceOptions: map[string]fi.SourceOptions{

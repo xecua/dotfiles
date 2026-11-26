@@ -108,12 +108,15 @@ if [[ -z "$ZSHENV_LOADED" ]]; then
         "$FVM_CACHE_PATH/bin"(N-/) # fvm
         "$FVM_CACHE_PATH/default/bin"(N-/) # global flutter installed by fvm
         "$XDG_DATA_HOME/ghcup/bin"(N-/)
+        "$HOME/.local/lib/kache/shims"(N-/)
         $path
     )
 
     # set by command
     # Conditional variables
-    if (( $+commands[sccache] )); then
+    if (( $+commands[kache] )); then
+        export RUSTC_WRAPPER="kache"
+    elif (( $+commands[sccache] )); then
         export RUSTC_WRAPPER="sccache"
     fi
 
