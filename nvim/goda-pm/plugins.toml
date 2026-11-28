@@ -3,14 +3,6 @@
 repo = 'lambdalisue/vim-guise'
 lua_add = "vim.g['guise#disable_vim'] = 1"
 
-
-[[plugins]]
-repo = "3rd/image.nvim"
-on_if = "!exists('g:neovide') && !has('win32')"
-lua_source = """
-require('image').setup({})
-"""
-
 [[plugins]]
 repo = 'hakonharnes/img-clip.nvim'
 lua_source = """
