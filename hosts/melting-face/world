@@ -139,6 +139,7 @@ sys-apps/accountsservice
 sys-apps/bat
 sys-apps/bat-extras
 sys-apps/dbus-broker
+sys-apps/earlyoom
 sys-apps/etckeeper
 sys-apps/eza
 sys-apps/fd
