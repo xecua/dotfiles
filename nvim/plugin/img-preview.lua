@@ -1,8 +1,10 @@
 -- 画像ファイルを開いたときにvim.ui.imgで描画する(PNGのみ常に可。それ以外は、`magick` が使えるときだけPNGに変換してから)
 
-local M = {}
+if not vim.ui or not vim.ui.img then
+    return -- Neovim 0.13 未満
+end
 
-local defaults = {
+local cfg = {
   magick_formats = { 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'bmp', 'tif', 'tiff' },
   -- セル 1 つの縦横ピクセル比(高さ / 幅)。アスペクト比を保つ計算に使う。一般的な端末は 2 前後。
   cell_aspect = 2.0,
@@ -12,7 +14,6 @@ local PNG_SIGNATURE = '\137PNG\r\n\26\n'
 
 ---@type table<integer, { bytes: string, px_w?: integer, px_h?: integer, id?: integer }>
 local state = {}
-local cfg = vim.deepcopy(defaults)
 
 local function be32(s, i)
   local a, b, c, d = s:byte(i, i + 3)
@@ -128,6 +129,7 @@ local function schedule_refresh()
 end
 
 local function on_read(ev)
+    vim.print(ev.buf)
   local buf = ev.buf
   local path = vim.fn.fnamemodify(ev.file, ':p')
 
@@ -151,47 +153,37 @@ local function on_read(ev)
   schedule_refresh()
 end
 
-function M.setup(opts)
-  if not vim.ui or not vim.ui.img then
-    return -- Neovim 0.13 未満
-  end
-
-  cfg = vim.tbl_deep_extend('force', defaults, opts or {})
-
-  local exts = { 'png' }
-  if vim.fn.executable('magick') == 1 then
+local exts = { 'png' }
+if vim.fn.executable('magick') == 1 then
     vim.list_extend(exts, cfg.magick_formats)
-  end
+end
 
-  local patterns = {}
-  for _, ext in ipairs(exts) do
+local patterns = {}
+for _, ext in ipairs(exts) do
     table.insert(patterns, '*.' .. ext)
     table.insert(patterns, '*.' .. ext:upper())
-  end
+end
 
-  local group = vim.api.nvim_create_augroup('img_viewer', { clear = true })
+local group = vim.api.nvim_create_augroup('img_viewer', { clear = true })
 
-  vim.api.nvim_create_autocmd('BufReadCmd', {
+vim.api.nvim_create_autocmd('BufReadCmd', {
     group = group,
     pattern = patterns,
     callback = on_read,
-  })
+})
 
-  vim.api.nvim_create_autocmd(
+vim.api.nvim_create_autocmd(
     { 'BufWinEnter', 'BufWinLeave', 'WinEnter', 'WinClosed', 'WinResized', 'VimResized', 'TabEnter' },
     { group = group, callback = schedule_refresh }
-  )
+)
 
-  vim.api.nvim_create_autocmd('BufWipeout', {
+vim.api.nvim_create_autocmd('BufWipeout', {
     group = group,
     callback = function(ev)
-      local st = state[ev.buf]
-      if st then
-        hide(st)
-        state[ev.buf] = nil
-      end
+        local st = state[ev.buf]
+        if st then
+            hide(st)
+            state[ev.buf] = nil
+        end
     end,
-  })
-end
-
-return M
+})
